@@ -83,7 +83,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
-console.log(process.env)
-
+var User = require('./models').User
+User.findAll().then(function(result) {
+  console.log(result)
+})
 
 module.exports = app;
