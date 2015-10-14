@@ -1,4 +1,4 @@
 import Viewer from './viewer'
-import Theme from './theme'
+import { Theme, Themes } from './theme'
 
-export { Viewer, Theme }
+export { Viewer, Theme, Themes }

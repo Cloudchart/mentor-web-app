@@ -28,6 +28,7 @@ type PageInfo {
 type Query {
   viewer: User
   theme(id: ID!): Theme
+  themes(kind: ThemeKind!): [Theme]
 }
 
 type Theme {
@@ -38,6 +39,11 @@ type Theme {
   isSelectedByViewer: Boolean
   insights(before: String, after: String, first: Int, last: Int): ThemesInsightsConnection
   viewerInsights(before: String, after: String, first: Int, last: Int): ThemesInsightsConnection
+}
+
+enum ThemeKind {
+  SYSTEM
+  DEFAULT
 }
 
 type ThemesInsightsConnection {

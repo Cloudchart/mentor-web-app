@@ -4,7 +4,7 @@ import {
   GraphQLString
 } from 'graphql'
 
-import { Viewer, Theme } from './queries'
+import { Viewer, Theme, Themes } from './queries'
 import { ActivateViewer, ThemeToViewer, VoteForInsight } from './mutations'
 
 let queryType = new GraphQLObjectType({
@@ -13,7 +13,8 @@ let queryType = new GraphQLObjectType({
 
   fields: {
     viewer: Viewer,
-    theme:  Theme
+    theme:  Theme,
+    themes: Themes
   }
 
 })

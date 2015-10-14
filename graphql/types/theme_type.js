@@ -1,4 +1,5 @@
 import {
+  GraphQLEnumType,
   GraphQLObjectType,
   GraphQLID,
   GraphQLString,
@@ -10,6 +11,16 @@ import {
   connectionArgs,
   connectionFromArray
 } from 'graphql-relay'
+
+
+let ThemeKind = new GraphQLEnumType({
+  name: 'ThemeKind',
+
+  values: {
+    SYSTEM:   { value: 'is_system' },
+    DEFAULT:  { value: 'is_default'}
+  }
+})
 
 
 let ThemeType = new GraphQLObjectType({
@@ -52,6 +63,8 @@ let ThemeType = new GraphQLObjectType({
   })
 
 })
+
+ThemeType.ThemeKind = ThemeKind
 
 export default ThemeType
 
