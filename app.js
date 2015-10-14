@@ -1,3 +1,5 @@
+require('dotenv').load()
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -82,10 +84,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-var User = require('./models').User
-User.findAll().then(function(result) {
-  console.log(result)
-})
 
 module.exports = app;
