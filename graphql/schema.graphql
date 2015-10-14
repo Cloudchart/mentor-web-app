@@ -1,0 +1,108 @@
+input ActivateViewerInput {
+  clientMutationId: String!
+}
+
+type ActivateViewerPayload {
+  viewer: User
+  clientMutationId: String!
+}
+
+type Insight {
+  id: ID
+  content: String
+}
+
+type Mutation {
+  activateViewer(input: ActivateViewerInput!): ActivateViewerPayload
+  themeToViewer(input: ThemeToViewerInput!): ThemeToViewerPayload
+  voteForInsight(input: VoteForInsightInput!): VoteForInsightPayload
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  viewer: User
+  theme(id: ID!): Theme
+}
+
+type Theme {
+  id: ID
+  name: String
+  isSystem: Boolean
+  isDefault: Boolean
+  isSelectedByViewer: Boolean
+  insights(before: String, after: String, first: Int, last: Int): ThemesInsightsConnection
+  viewerInsights(before: String, after: String, first: Int, last: Int): ThemesInsightsConnection
+}
+
+type ThemesInsightsConnection {
+  pageInfo: PageInfo!
+  edges: [ThemesInsightsEdge]
+}
+
+type ThemesInsightsEdge {
+  node: Insight
+  cursor: String!
+}
+
+input ThemeToViewerInput {
+  themeId: ID!
+  action: String!
+  clientMutationId: String!
+}
+
+type ThemeToViewerPayload {
+  theme: Theme
+  clientMutationId: String!
+}
+
+type User {
+  id: ID
+  name: String
+  is_active: Boolean
+  themes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
+  insights(themeID: ID!): [Insight]
+  favoriteInsights(before: String, after: String, first: Int, last: Int): UserInsightsConnection
+  defaultThemes: [Theme]
+}
+
+type UserInsightsConnection {
+  pageInfo: PageInfo!
+  edges: [UserInsightsEdge]
+}
+
+type UserInsightsEdge {
+  node: Insight
+  cursor: String!
+  theme: Theme
+}
+
+type UsersThemesConnection {
+  pageInfo: PageInfo!
+  edges: [UsersThemesEdge]
+}
+
+type UsersThemesEdge {
+  node: Theme
+  cursor: String!
+}
+
+input VoteForInsightInput {
+  themeID: ID!
+  insightID: ID!
+  isPositive: Boolean!
+  clientMutationId: String!
+}
+
+type VoteForInsightPayload {
+  theme: Theme
+  viewer: User
+  insightID: ID
+  insightEdge: ThemesInsightsEdge
+  clientMutationId: String!
+}
