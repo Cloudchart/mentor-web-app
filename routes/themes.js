@@ -32,6 +32,8 @@ let fetchAlgoliaSearch = theme => {
         return theme.update({ last_fetched_at: now })
       })
     })
+  }).catch((error) => {
+    console.error("ALGOLIA ERROR", error)
   })
 }
 
