@@ -23,6 +23,8 @@ let fetchAlgoliaSearch = theme => {
     attributesToHighlight: 'none'
   }).then(({ hits }) => {
 
+    console.log(hits)
+
     let insights = hits.map(hit => findOrCreateInsight(hit))
 
     return Promise.all(insights).then(insights => {
