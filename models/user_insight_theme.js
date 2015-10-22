@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     user_id:          DataTypes.UUID,
     insight_id:       DataTypes.UUID,
     theme_id:         DataTypes.UUID,
-    is_positive:      DataTypes.BOOLEAN
+    rate:             DataTypes.INTEGER
 
   }, {
 

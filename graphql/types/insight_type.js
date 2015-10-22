@@ -1,8 +1,8 @@
 import {
-  GraphQLObjectType,
   GraphQLID,
   GraphQLString,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLObjectType,
 } from 'graphql'
 
 let InsightType = new GraphQLObjectType({
@@ -14,6 +14,7 @@ let InsightType = new GraphQLObjectType({
     id: {
       type: GraphQLID
     },
+
     content: {
       type: GraphQLString
     }

@@ -44,7 +44,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         User.hasMany(models.AuthToken)
-        User.belongsToMany(models.Theme, { through: 'users_themes' })
+        User.belongsToMany(models.Theme, { through: models.UserTheme })
         User.hasMany(models.UserInsightTheme)
         User.belongsToMany(models.Insight, { through: 'users_insights_themes' })
       }

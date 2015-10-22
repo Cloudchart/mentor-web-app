@@ -1,26 +1,11 @@
 import {
-  GraphQLEnumType,
-  GraphQLObjectType,
   GraphQLID,
   GraphQLString,
   GraphQLBoolean,
-  GraphQLList
+  GraphQLList,
+  GraphQLEnumType,
+  GraphQLObjectType,
 } from 'graphql'
-
-import {
-  connectionArgs,
-  connectionFromArray
-} from 'graphql-relay'
-
-
-let ThemeKind = new GraphQLEnumType({
-  name: 'ThemeKind',
-
-  values: {
-    SYSTEM:   { value: 'is_system' },
-    DEFAULT:  { value: 'is_default'}
-  }
-})
 
 
 let ThemeType = new GraphQLObjectType({
@@ -31,43 +16,28 @@ let ThemeType = new GraphQLObjectType({
     id: {
       type: GraphQLID
     },
+
     name: {
       type: GraphQLString
     },
+
+    url: {
+      type: GraphQLString,
+      resolve: theme => `/themes/${theme.id}`
+    },
+
     isSystem: {
-      type: GraphQLBoolean
-    },
-    isDefault: {
-      type: GraphQLBoolean
-    },
-
-    isSelectedByViewer: {
       type: GraphQLBoolean,
-      resolve: async (theme, _, { rootValue: { viewer } }) =>
-        (await theme.countUsers({ where: { id: viewer.id }})) == 1
+      resolve: theme => theme.is_system
     },
 
-    insights: {
-      type: InsightsConnection,
-      args: connectionArgs,
-      resolve: async (theme, args) =>
-        connectionFromArray(await theme.getInsights(), args)
+    isDefault: {
+      type: GraphQLBoolean,
+      resolve: theme => theme.is_default
     },
 
-    viewerInsights: {
-      type: InsightsConnection,
-      args: connectionArgs,
-      resolve: async (theme, args, { rootValue: { viewer } }) =>
-        connectionFromArray(await viewer.insightsByTheme(theme.id), args)
-    }
   })
 
 })
 
-ThemeType.ThemeKind = ThemeKind
-
 export default ThemeType
-
-import { Insight } from '../../models'
-import InsightType from './insight_type'
-import { connectionType as InsightsConnection } from '../connections/themes_insights_connection'

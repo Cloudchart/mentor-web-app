@@ -3,7 +3,29 @@ input ActivateViewerInput {
 }
 
 type ActivateViewerPayload {
-  viewer: User
+  viewer: User!
+  clientMutationId: String!
+}
+
+input ActualizeUserThemeInsightsMutationInput {
+  userID: ID!
+  themeID: ID!
+  clientMutationId: String!
+}
+
+type ActualizeUserThemeInsightsMutationPayload {
+  newInsightsCount: Int!
+  timeTaken: Int!
+  clientMutationId: String!
+}
+
+input CreateThemeMutationInput {
+  name: String!
+  clientMutationId: String!
+}
+
+type CreateThemeMutationPayload {
+  theme: Theme!
   clientMutationId: String!
 }
 
@@ -12,10 +34,26 @@ type Insight {
   content: String
 }
 
+input LikeInsightMutationInput {
+  id: ID!
+  rate: Int!
+  clientMutationId: String!
+}
+
+type LikeInsightMutationPayload {
+  updatedInsight: UserThemeInsight!
+  clientMutationId: String!
+}
+
 type Mutation {
   activateViewer(input: ActivateViewerInput!): ActivateViewerPayload
   themeToViewer(input: ThemeToViewerInput!): ThemeToViewerPayload
   voteForInsight(input: VoteForInsightInput!): VoteForInsightPayload
+  createTheme(input: CreateThemeMutationInput!): CreateThemeMutationPayload
+  updateThemeStatus(input: ThemeStatusMutationInput!): ThemeStatusMutationPayload
+  updateUserTheme(input: UserThemeMutationInput!): UserThemeMutationPayload
+  actualizeUserThemeInsights(input: ActualizeUserThemeInsightsMutationInput!): ActualizeUserThemeInsightsMutationPayload
+  likeInsight(input: LikeInsightMutationInput!): LikeInsightMutationPayload
 }
 
 type PageInfo {
@@ -26,34 +64,34 @@ type PageInfo {
 }
 
 type Query {
-  viewer: User
-  theme(id: ID!): Theme
-  themes(kind: ThemeKind!): [Theme]
+  viewer(id: ID): User
+  node(id: ID): User
 }
 
 type Theme {
   id: ID
   name: String
+  url: String
   isSystem: Boolean
   isDefault: Boolean
-  isSelectedByViewer: Boolean
-  insights(before: String, after: String, first: Int, last: Int): ThemesInsightsConnection
-  viewerInsights(before: String, after: String, first: Int, last: Int): ThemesInsightsConnection
-}
-
-enum ThemeKind {
-  SYSTEM
-  DEFAULT
-}
-
-type ThemesInsightsConnection {
-  pageInfo: PageInfo!
-  edges: [ThemesInsightsEdge]
 }
 
 type ThemesInsightsEdge {
   node: Insight
   cursor: String!
+}
+
+input ThemeStatusMutationInput {
+  themeID: ID!
+  status: String!
+  clientMutationId: String!
+}
+
+type ThemeStatusMutationPayload {
+  viewer: User!
+  theme: Theme!
+  themeID: ID!
+  clientMutationId: String!
 }
 
 input ThemeToViewerInput {
@@ -70,22 +108,11 @@ type ThemeToViewerPayload {
 type User {
   id: ID
   name: String
-  is_active: Boolean
+  isActive: Boolean
   themes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
-  insights(themeID: ID!): [Insight]
-  favoriteInsights(before: String, after: String, first: Int, last: Int): UserInsightsConnection
-  defaultThemes: [Theme]
-}
-
-type UserInsightsConnection {
-  pageInfo: PageInfo!
-  edges: [UserInsightsEdge]
-}
-
-type UserInsightsEdge {
-  node: Insight
-  cursor: String!
-  theme: Theme
+  theme(themeID: ID!): UserTheme
+  subscribedThemes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
+  defaultThemes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
 }
 
 type UsersThemesConnection {
@@ -94,8 +121,42 @@ type UsersThemesConnection {
 }
 
 type UsersThemesEdge {
-  node: Theme
+  node: UserTheme
   cursor: String!
+}
+
+type UserTheme {
+  id: ID!
+  status: String
+  theme: Theme
+  insights(before: String, after: String, first: Int, last: Int): UserThemeInsightsConnection
+}
+
+type UserThemeInsight {
+  id: ID!
+  rate: Int
+  insight: Insight!
+}
+
+type UserThemeInsightsConnection {
+  pageInfo: PageInfo!
+  edges: [UserThemeInsightsEdge]
+}
+
+type UserThemeInsightsEdge {
+  node: UserThemeInsight
+  cursor: String!
+}
+
+input UserThemeMutationInput {
+  id: ID!
+  status: String!
+  clientMutationId: String!
+}
+
+type UserThemeMutationPayload {
+  userTheme: UserTheme!
+  clientMutationId: String!
 }
 
 input VoteForInsightInput {

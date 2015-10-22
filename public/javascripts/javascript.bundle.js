@@ -77,7 +77,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(384)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(396)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(398)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -41437,18 +41437,22 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./chooser-app": 385,
-		"./chooser-app.js": 385,
-		"./favorites-app": 388,
-		"./favorites-app.js": 388,
-		"./landing-app": 391,
-		"./landing-app.js": 391,
-		"./login-app": 392,
-		"./login-app.js": 392,
-		"./theme-app": 393,
-		"./theme-app.js": 393,
-		"./today-app": 395,
-		"./today-app.js": 395
+		"./ChooserApp": 385,
+		"./ChooserApp.js": 385,
+		"./LandingApp": 388,
+		"./LandingApp.js": 388,
+		"./ThemeApp": 390,
+		"./ThemeApp.js": 390,
+		"./TodayApp": 392,
+		"./TodayApp.js": 392,
+		"./favorites-app": 393,
+		"./favorites-app.js": 393,
+		"./login-app": 395,
+		"./login-app.js": 395,
+		"./themes-creator-app": 396,
+		"./themes-creator-app.js": 396,
+		"./themes-explorer-app": 397,
+		"./themes-explorer-app.js": 397
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -41474,6 +41478,8 @@
 	  value: true
 	});
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -41490,53 +41496,15 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _mutationsActivate_viewer_mutation = __webpack_require__(386);
+	var _mutationsUpdateUserThemeStatusMutation = __webpack_require__(386);
 
-	var _mutationsActivate_viewer_mutation2 = _interopRequireDefault(_mutationsActivate_viewer_mutation);
+	var _mutationsUpdateUserThemeStatusMutation2 = _interopRequireDefault(_mutationsUpdateUserThemeStatusMutation);
 
-	var _mutationsTheme_to_viewer_mutation = __webpack_require__(387);
+	var _mutationsActivateViewerMutation = __webpack_require__(387);
 
-	var _mutationsTheme_to_viewer_mutation2 = _interopRequireDefault(_mutationsTheme_to_viewer_mutation);
+	var _mutationsActivateViewerMutation2 = _interopRequireDefault(_mutationsActivateViewerMutation);
 
-	var Theme = function Theme(_ref) {
-	  var themes = _ref.themes;
-	  var theme = _ref.theme;
-	  var onClick = _ref.onClick;
-
-	  var handleClick = function handleClick(event) {
-	    event.preventDefault();
-	    if (onClick) onClick(theme);
-	  };
-
-	  var check = theme.isSelectedByViewer ? _react2['default'].createElement(
-	    'i',
-	    null,
-	    '+'
-	  ) : null;
-
-	  return _react2['default'].createElement(
-	    'a',
-	    { href: '#', onClick: handleClick },
-	    check,
-	    theme.name
-	  );
-	};
-
-	var ContinueButton = function ContinueButton(_ref2) {
-	  var themes = _ref2.themes;
-	  var isInSync = _ref2.isInSync;
-	  var onClick = _ref2.onClick;
-
-	  if (themes.length < 3) {
-	    return _react2['default'].createElement('noscript', null);
-	  }
-
-	  return _react2['default'].createElement(
-	    'button',
-	    { onClick: onClick, disabled: isInSync },
-	    'Continue'
-	  );
-	};
+	var RequiredThemesCount = 3;
 
 	var ChooserApp = (function (_React$Component) {
 	  _inherits(ChooserApp, _React$Component);
@@ -41550,110 +41518,244 @@
 
 	    this.state = {
 	      isInSync: false,
+	      subscribedThemesCount: 0,
 	      error: null
 	    };
 
-	    this._enterSyncState = function () {
-	      return _this.setState({ isInSync: true });
+	    this._updateSubscribedThemesCount = function (props) {
+	      _this.setState({
+	        subscribedThemesCount: props.viewer.defaultThemes.edges.filter(function (edge) {
+	          return edge.node.status == 'subscribed';
+	        }).length
+	      });
 	    };
 
-	    this._leaveSyncState = function () {
+	    this._handleSyncComplete = function () {
 	      return _this.setState({ isInSync: false });
 	    };
 
-	    this._reloadPage = function () {
-	      return location.reload();
-	    };
+	    this._handleContinueButtonClick = function (event) {
+	      event.preventDefault();
 
-	    this._leaveSyncStateWithError = function (transaction) {
-	      _this._leaveSyncState();
-	    };
+	      if (_this.state.isInSync === true) return;
+	      if (_this.state.subscribedThemesCount < RequiredThemesCount) return;
 
-	    this._themesSelectedByViewer = function () {
-	      return _this.props.viewer.defaultThemes.filter(function (theme) {
-	        return theme.isSelectedByViewer;
+	      _this.setState({ isInSync: true, error: null });
+
+	      var mutation = new _mutationsActivateViewerMutation2['default']({ viewer: _this.props.viewer });
+
+	      _reactRelay2['default'].Store.update(mutation, {
+	        onSuccess: _this._handleActivationSuccess,
+	        onFailure: _this._handleActivationFailure
 	      });
 	    };
 
-	    this.handleThemeClick = function (theme) {
-	      if (_this.state.isInSync) {
-	        return;
-	      }
-	      if (_this._themesSelectedByViewer().length == 3 && !theme.isSelectedByViewer) {
-	        return;
-	      }
-	      _this._enterSyncState();
-	      _reactRelay2['default'].Store.update(new _mutationsTheme_to_viewer_mutation2['default']({ theme: theme }), {
-	        onSuccess: _this._leaveSyncState,
-	        onFailure: _this._leaveSyncStateWithError
+	    this._handleActivationSuccess = function (response) {
+	      location.reload();
+	    };
+
+	    this._handleActivationFailure = function (transaction) {
+	      _this.setState({
+	        isInSync: false,
+	        error: transaction.getError().source.errors[0].message
 	      });
 	    };
 
-	    this.handleContinueClick = function () {
-	      if (_this.state.isInSync) {
-	        return;
-	      }
-	      _this._enterSyncState();
-	      _reactRelay2['default'].Store.update(new _mutationsActivate_viewer_mutation2['default']({ viewer: _this.props.viewer }), {
-	        onSuccess: _this._reloadPage,
-	        onFailure: _this._leaveSyncStateWithError
-	      });
-	    };
-
-	    this.render = function () {
-	      return _react2['default'].createElement(
-	        'div',
-	        null,
-	        _this.renderThemes(),
-	        _react2['default'].createElement(ContinueButton, { themes: _this._themesSelectedByViewer(), isInSync: _this.state.isInSync, onClick: _this.handleContinueClick })
-	      );
-	    };
-
-	    this.renderThemes = function () {
-	      return _react2['default'].createElement(
-	        'ul',
-	        null,
-	        _this.props.viewer.defaultThemes.map(_this.renderTheme)
-	      );
-	    };
-
-	    this.renderTheme = function (theme) {
+	    this.renderTheme = function (userTheme) {
 	      return _react2['default'].createElement(
 	        'li',
-	        { key: theme.id },
-	        _react2['default'].createElement(Theme, { themes: _this._themesSelectedByViewer(), theme: theme, onClick: _this.handleThemeClick })
+	        { key: userTheme.node.id, style: Styles.theme },
+	        _this.renderThemeControls(userTheme),
+	        userTheme.node.theme.name
+	      );
+	    };
+
+	    this.renderThemeControls = function (userTheme) {
+	      var action = userTheme.node.status == 'subscribed' ? '-' : '+';
+	      return _react2['default'].createElement(
+	        'a',
+	        { href: '#', style: Styles.themeControl, onClick: _this._handleThemeEdgeControlClick.bind(_this, userTheme) },
+	        '[',
+	        action,
+	        ']'
 	      );
 	    };
 	  }
 
+	  _createClass(ChooserApp, [{
+	    key: '_handleThemeEdgeControlClick',
+	    value: function _handleThemeEdgeControlClick(userTheme, event) {
+	      event.preventDefault();
+
+	      if (this.state.isInSync === true) return;
+	      if (this.state.subscribedThemesCount >= RequiredThemesCount && userTheme.node.status !== 'subscribed') return;
+
+	      this.setState({ isInSync: true, error: null });
+
+	      var mutation = new _mutationsUpdateUserThemeStatusMutation2['default']({
+	        userTheme: userTheme.node,
+	        status: userTheme.node.status === 'subscribed' ? 'visible' : 'subscribed'
+	      });
+
+	      _reactRelay2['default'].Store.update(mutation, {
+	        onSuccess: this._handleSyncComplete,
+	        onFailure: this._handleSyncComplete
+	      });
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this._updateSubscribedThemesCount(this.props);
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this._updateSubscribedThemesCount(nextProps);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'h2',
+	          null,
+	          'Chooser'
+	        ),
+	        _react2['default'].createElement(
+	          'h3',
+	          null,
+	          'Choose ',
+	          RequiredThemesCount,
+	          ' themes'
+	        ),
+	        this.renderError(),
+	        this.renderThemes(),
+	        this.renderContinueButton(),
+	        this.renderPendingStatus()
+	      );
+	    }
+	  }, {
+	    key: 'renderError',
+	    value: function renderError() {
+	      if (this.state.error === null) return;
+	      return _react2['default'].createElement(
+	        'p',
+	        { style: Styles.error },
+	        this.state.error
+	      );
+	    }
+	  }, {
+	    key: 'renderThemes',
+	    value: function renderThemes() {
+	      return _react2['default'].createElement(
+	        'ul',
+	        null,
+	        this.props.viewer.defaultThemes.edges.map(this.renderTheme)
+	      );
+	    }
+	  }, {
+	    key: 'renderContinueButton',
+	    value: function renderContinueButton() {
+	      if (this.state.isInSync === true) return;
+	      if (this.state.subscribedThemesCount < RequiredThemesCount) return;
+
+	      return _react2['default'].createElement(
+	        'button',
+	        { onClick: this._handleContinueButtonClick },
+	        'Continue'
+	      );
+	    }
+	  }, {
+	    key: 'renderPendingStatus',
+	    value: function renderPendingStatus() {
+	      if (this.state.isInSync !== true) return;
+
+	      return _react2['default'].createElement(
+	        'p',
+	        { style: Styles.pendingStatus },
+	        'Pending...'
+	      );
+	    }
+	  }]);
+
 	  return ChooserApp;
 	})(_react2['default'].Component);
+
+	var Styles = {
+	  error: {
+	    color: 'red'
+	  },
+	  theme: {
+	    textTransform: 'capitalize'
+	  },
+	  themeControl: {
+	    marginRight: '1ex'
+	  },
+	  pendingStatus: {
+	    color: 'grey'
+	  }
+	};
 
 	exports['default'] = _reactRelay2['default'].createContainer(ChooserApp, {
 
 	  fragments: {
+
 	    viewer: function viewer() {
 	      return (function (sub_0, sub_1) {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.QueryFragment('Chooser', 'User', [new GraphQL.Field('name', null, null, null, null, null, {
+	        return new GraphQL.QueryFragment('ChooserApp', 'User', [new GraphQL.Field('__typename', null, null, null, null, null, {
 	          parentType: 'User'
-	        }), new GraphQL.Field('defaultThemes', [new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Theme',
+	        }), new GraphQL.Field('isActive', null, null, null, null, null, {
+	          parentType: 'User'
+	        }), new GraphQL.Field('defaultThemes', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserTheme',
 	          requisite: true
-	        }), new GraphQL.Field('name', null, null, null, null, null, {
+	        }), new GraphQL.Field('status', null, null, null, null, null, {
+	          parentType: 'UserTheme'
+	        }), new GraphQL.Field('theme', [new GraphQL.Field('name', null, null, null, null, null, {
 	          parentType: 'Theme'
-	        }), new GraphQL.Field('isSelectedByViewer', null, null, null, null, null, {
-	          parentType: 'Theme'
-	        })], [_reactRelay2['default'].QL.__frag(sub_0)], null, null, null, {
-	          parentType: 'User',
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'Theme',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserTheme'
+	        })], [_reactRelay2['default'].QL.__frag(sub_1)], null, null, null, {
+	          parentType: 'UsersThemesEdge',
+	          requisite: true
+	        }), new GraphQL.Field('cursor', null, null, null, null, null, {
+	          parentType: 'UsersThemesEdge',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UsersThemesConnection',
 	          plural: true
+	        }), new GraphQL.Field('pageInfo', [new GraphQL.Field('hasNextPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        }), new GraphQL.Field('hasPreviousPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UsersThemesConnection',
+	          generated: true,
+	          requisite: true
+	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(1000))], null, null, {
+	          parentType: 'User',
+	          connection: true,
+	          nonFindable: true
 	        }), new GraphQL.Field('id', null, null, null, null, null, {
 	          parentType: 'User',
 	          generated: true,
 	          requisite: true
-	        })], [_reactRelay2['default'].QL.__frag(sub_1)]);
-	      })(_mutationsTheme_to_viewer_mutation2['default'].getFragment('theme'), _mutationsActivate_viewer_mutation2['default'].getFragment('viewer'));
+	        })], [_reactRelay2['default'].QL.__frag(sub_0)]);
+	      })(_mutationsActivateViewerMutation2['default'].getFragment('viewer'), _mutationsUpdateUserThemeStatusMutation2['default'].getFragment('userTheme'));
 	    }
+
 	  }
 
 	});
@@ -41687,63 +41789,67 @@
 	  _inherits(_default, _Relay$Mutation);
 
 	  function _default() {
-	    var _this = this;
-
 	    _classCallCheck(this, _default);
 
 	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+	  }
 
-	    this.getMutation = function () {
+	  _createClass(_default, [{
+	    key: 'getMutation',
+	    value: function getMutation() {
 	      return (function () {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.Mutation('Activate_viewer_mutation', 'ActivateViewerPayload', new GraphQL.Callv('activateViewer', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
-	          parentType: 'ActivateViewerPayload',
+	        return new GraphQL.Mutation('UpdateUserThemeStatusMutation', 'UserThemeMutationPayload', new GraphQL.Callv('updateUserTheme', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	          parentType: 'UserThemeMutationPayload',
 	          generated: true,
 	          requisite: true
 	        })], null, {
-	          inputType: 'ActivateViewerInput!'
+	          inputType: 'UserThemeMutationInput!'
 	        });
 	      })();
-	    };
-
-	    this.getVariables = function () {};
-
-	    this.getFatQuery = function () {
+	    }
+	  }, {
+	    key: 'getFatQuery',
+	    value: function getFatQuery() {
 	      return (function () {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.QueryFragment('Activate_viewer_mutation', 'ActivateViewerPayload', [new GraphQL.Field('viewer', [new GraphQL.Field('is_active', null, null, null, null, null, {
-	          parentType: 'User'
-	        }), new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'User',
-	          generated: true,
+	        return new GraphQL.QueryFragment('UpdateUserThemeStatusMutation', 'UserThemeMutationPayload', [new GraphQL.Field('userTheme', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserTheme',
 	          requisite: true
+	        }), new GraphQL.Field('status', null, null, null, null, null, {
+	          parentType: 'UserTheme'
 	        })], null, null, null, null, {
-	          parentType: 'ActivateViewerPayload'
+	          parentType: 'UserThemeMutationPayload'
 	        })]);
 	      })();
-	    };
-
-	    this.getConfigs = function () {
+	    }
+	  }, {
+	    key: 'getVariables',
+	    value: function getVariables() {
+	      return {
+	        id: this.props.userTheme.id,
+	        status: this.props.status
+	      };
+	    }
+	  }, {
+	    key: 'getConfigs',
+	    value: function getConfigs() {
 	      return [{
 	        type: 'FIELDS_CHANGE',
 	        fieldIDs: {
-	          viewer: _this.props.viewer.id
+	          userTheme: this.props.userTheme.id
 	        }
 	      }];
-	    };
-	  }
-
-	  _createClass(_default, null, [{
+	    }
+	  }], [{
 	    key: 'fragments',
 	    value: {
-	      viewer: function viewer() {
+	      userTheme: function userTheme() {
 	        return (function () {
 	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	          return new GraphQL.QueryFragment('Activate_viewer_mutation', 'User', [new GraphQL.Field('id', null, null, null, null, null, {
-	            parentType: 'User',
+	          return new GraphQL.QueryFragment('UpdateUserThemeStatusMutation', 'UserTheme', [new GraphQL.Field('id', null, null, null, null, null, {
+	            parentType: 'UserTheme',
 	            requisite: true
-	          }), new GraphQL.Field('is_active', null, null, null, null, null, {
-	            parentType: 'User'
 	          })]);
 	        })();
 	      }
@@ -41795,38 +41901,35 @@
 	    value: function getMutation() {
 	      return (function () {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.Mutation('Theme_to_viewer_mutation', 'ThemeToViewerPayload', new GraphQL.Callv('themeToViewer', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
-	          parentType: 'ThemeToViewerPayload',
+	        return new GraphQL.Mutation('ActivateViewerMutation', 'ActivateViewerPayload', new GraphQL.Callv('activateViewer', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	          parentType: 'ActivateViewerPayload',
 	          generated: true,
 	          requisite: true
 	        })], null, {
-	          inputType: 'ThemeToViewerInput!'
+	          inputType: 'ActivateViewerInput!'
 	        });
 	      })();
-	    }
-	  }, {
-	    key: 'getVariables',
-	    value: function getVariables() {
-	      return {
-	        themeId: this.props.theme.id,
-	        action: this.props.theme.isSelectedByViewer ? 'remove' : 'add'
-	      };
 	    }
 	  }, {
 	    key: 'getFatQuery',
 	    value: function getFatQuery() {
 	      return (function () {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.QueryFragment('Theme_to_viewer_mutation', 'ThemeToViewerPayload', [new GraphQL.Field('theme', [new GraphQL.Field('isSelectedByViewer', null, null, null, null, null, {
-	          parentType: 'Theme'
+	        return new GraphQL.QueryFragment('ActivateViewerMutation', 'ActivateViewerPayload', [new GraphQL.Field('viewer', [new GraphQL.Field('isActive', null, null, null, null, null, {
+	          parentType: 'User'
 	        }), new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Theme',
+	          parentType: 'User',
 	          generated: true,
 	          requisite: true
 	        })], null, null, null, null, {
-	          parentType: 'ThemeToViewerPayload'
+	          parentType: 'ActivateViewerPayload'
 	        })]);
 	      })();
+	    }
+	  }, {
+	    key: 'getVariables',
+	    value: function getVariables() {
+	      return {};
 	    }
 	  }, {
 	    key: 'getConfigs',
@@ -41834,21 +41937,19 @@
 	      return [{
 	        type: 'FIELDS_CHANGE',
 	        fieldIDs: {
-	          theme: this.props.theme.id
+	          viewer: this.props.viewer.id
 	        }
 	      }];
 	    }
 	  }], [{
 	    key: 'fragments',
 	    value: {
-	      theme: function theme() {
+	      viewer: function viewer() {
 	        return (function () {
 	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	          return new GraphQL.QueryFragment('Theme_to_viewer_mutation', 'Theme', [new GraphQL.Field('id', null, null, null, null, null, {
-	            parentType: 'Theme',
+	          return new GraphQL.QueryFragment('ActivateViewerMutation', 'User', [new GraphQL.Field('id', null, null, null, null, null, {
+	            parentType: 'User',
 	            requisite: true
-	          }), new GraphQL.Field('isSelectedByViewer', null, null, null, null, null, {
-	            parentType: 'Theme'
 	          })]);
 	        })();
 	      }
@@ -41872,8 +41973,6 @@
 	  value: true
 	});
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -41890,381 +41989,9 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _mutations = __webpack_require__(389);
+	var _immutable = __webpack_require__(389);
 
-	var FavoritesApp = (function (_React$Component) {
-	  _inherits(FavoritesApp, _React$Component);
-
-	  function FavoritesApp() {
-	    var _this = this;
-
-	    _classCallCheck(this, FavoritesApp);
-
-	    _get(Object.getPrototypeOf(FavoritesApp.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.state = {
-	      isInSync: false
-	    };
-
-	    this._handleLikeClick = function (insightEdge, event) {
-	      event.preventDefault();
-	      if (_this.state.isInSync) return;
-	      _this.setState({ isInSync: true });
-
-	      var mutation = new _mutations.VoteForInsightMutation({
-	        mode: 'favorite',
-	        viewer: _this.props.viewer,
-	        theme: insightEdge.theme,
-	        insight: insightEdge.node,
-	        isPositive: true
-	      });
-
-	      _reactRelay2['default'].Store.update(mutation);
-	    };
-
-	    this._handleDontLikeClick = function (insightEdge, event) {
-	      event.preventDefault();
-	      if (_this.state.isInSync) return;
-	      _this.setState({ isInSync: true });
-
-	      var mutation = new _mutations.VoteForInsightMutation({
-	        viewer: _this.props.viewer,
-	        theme: insightEdge.theme,
-	        insight: insightEdge.node,
-	        isPositive: false
-	      });
-
-	      _reactRelay2['default'].Store.update(mutation);
-	    };
-	  }
-
-	  _createClass(FavoritesApp, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2['default'].createElement(
-	        'ul',
-	        { style: { listStyle: 'none' } },
-	        this.renderInsights()
-	      );
-	    }
-	  }, {
-	    key: 'renderInsights',
-	    value: function renderInsights() {
-	      return this.props.viewer.favoriteInsights.edges.map(this.renderInsight.bind(this));
-	    }
-	  }, {
-	    key: 'renderInsight',
-	    value: function renderInsight(edge) {
-	      var insight = edge.node;
-	      return _react2['default'].createElement(
-	        'li',
-	        { key: insight.id },
-	        _react2['default'].createElement(
-	          'p',
-	          { style: { border: '1px solid #eee', padding: '20px', width: '25%' } },
-	          insight.content
-	        ),
-	        this.renderControls(edge)
-	      );
-	    }
-	  }, {
-	    key: 'renderControls',
-	    value: function renderControls(edge) {
-	      return _react2['default'].createElement(
-	        'div',
-	        null,
-	        _react2['default'].createElement(
-	          'a',
-	          { href: '#', style: { color: 'green' }, onClick: this._handleLikeClick.bind(this, edge) },
-	          'Like'
-	        ),
-	        ' ',
-	        _react2['default'].createElement(
-	          'a',
-	          { href: '#', style: { color: 'red' }, onClick: this._handleDontLikeClick.bind(this, edge) },
-	          'Don\'t like'
-	        )
-	      );
-	    }
-	  }]);
-
-	  return FavoritesApp;
-	})(_react2['default'].Component);
-
-	exports['default'] = _reactRelay2['default'].createContainer(FavoritesApp, {
-
-	  fragments: {
-	    viewer: function viewer() {
-	      return (function (sub_0, sub_1) {
-	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.QueryFragment('Favorites', 'User', [new GraphQL.Field('favoriteInsights', [new GraphQL.Field('edges', [new GraphQL.Field('theme', [new GraphQL.Field('name', null, null, null, null, null, {
-	          parentType: 'Theme'
-	        }), new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Theme',
-	          generated: true,
-	          requisite: true
-	        })], [_reactRelay2['default'].QL.__frag(sub_1)], null, null, null, {
-	          parentType: 'UserInsightsEdge'
-	        }), new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Insight',
-	          requisite: true
-	        }), new GraphQL.Field('content', null, null, null, null, null, {
-	          parentType: 'Insight'
-	        })], null, null, null, null, {
-	          parentType: 'UserInsightsEdge',
-	          requisite: true
-	        }), new GraphQL.Field('cursor', null, null, null, null, null, {
-	          parentType: 'UserInsightsEdge',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'UserInsightsConnection',
-	          plural: true
-	        }), new GraphQL.Field('pageInfo', [new GraphQL.Field('hasNextPage', null, null, null, null, null, {
-	          parentType: 'PageInfo',
-	          generated: true,
-	          requisite: true
-	        }), new GraphQL.Field('hasPreviousPage', null, null, null, null, null, {
-	          parentType: 'PageInfo',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'UserInsightsConnection',
-	          generated: true,
-	          requisite: true
-	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(1000))], null, null, {
-	          parentType: 'User',
-	          connection: true,
-	          nonFindable: true
-	        }), new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'User',
-	          generated: true,
-	          requisite: true
-	        })], [_reactRelay2['default'].QL.__frag(sub_0)]);
-	      })(_mutations.VoteForInsightMutation.getFragment('viewer'), _mutations.VoteForInsightMutation.getFragment('theme'));
-	    }
-	  }
-
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 389 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = {
-	  VoteForInsightMutation: __webpack_require__(390)
-	};
-	module.exports = exports['default'];
-
-/***/ },
-/* 390 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _reactRelay = __webpack_require__(159);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _default = (function (_Relay$Mutation) {
-	  _inherits(_default, _Relay$Mutation);
-
-	  function _default() {
-	    _classCallCheck(this, _default);
-
-	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(_default, [{
-	    key: 'getMutation',
-	    value: function getMutation() {
-	      return (function () {
-	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.Mutation('Vote_for_insight_mutation', 'VoteForInsightPayload', new GraphQL.Callv('voteForInsight', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
-	          parentType: 'VoteForInsightPayload',
-	          generated: true,
-	          requisite: true
-	        })], null, {
-	          inputType: 'VoteForInsightInput!'
-	        });
-	      })();
-	    }
-	  }, {
-	    key: 'getVariables',
-	    value: function getVariables() {
-	      return {
-	        themeID: this.props.theme.id,
-	        insightID: this.props.insight.id,
-	        isPositive: this.props.isPositive
-	      };
-	    }
-	  }, {
-	    key: 'getFatQuery',
-	    value: function getFatQuery() {
-	      return (function () {
-	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.QueryFragment('Vote_for_insight_mutation', 'VoteForInsightPayload', [new GraphQL.Field('insightID', null, null, null, null, null, {
-	          parentType: 'VoteForInsightPayload'
-	        }), new GraphQL.Field('insightEdge', [new GraphQL.Field('cursor', null, null, null, null, null, {
-	          parentType: 'ThemesInsightsEdge',
-	          generated: true,
-	          requisite: true
-	        }), new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Insight',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'ThemesInsightsEdge',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'VoteForInsightPayload'
-	        }), new GraphQL.Field('theme', [new GraphQL.Field('viewerInsights', null, null, null, null, null, {
-	          parentType: 'Theme',
-	          connection: true,
-	          nonFindable: true
-	        }), new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Theme',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'VoteForInsightPayload'
-	        }), new GraphQL.Field('viewer', [new GraphQL.Field('favoriteInsights', null, null, null, null, null, {
-	          parentType: 'User',
-	          connection: true,
-	          nonFindable: true
-	        }), new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'User',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'VoteForInsightPayload'
-	        })]);
-	      })();
-	    }
-	  }, {
-	    key: 'getConfigs',
-	    value: function getConfigs() {
-	      var configs = [{
-	        type: 'RANGE_ADD',
-	        parentName: 'theme',
-	        parentID: this.props.theme.id,
-	        connectionName: 'viewerInsights',
-	        edgeName: 'insightEdge',
-	        rangeBehaviors: {
-	          '': 'append'
-	        }
-	      }];
-
-	      if (this.props.isPositive) {
-	        configs = configs.concat(this.getPositiveConfigs());
-	      } else {
-	        configs = configs.concat(this.getNegativeConfigs());
-	      }
-
-	      return configs;
-	    }
-	  }, {
-	    key: 'getNegativeConfigs',
-	    value: function getNegativeConfigs() {
-	      return [{
-	        type: 'NODE_DELETE',
-	        parentName: 'viewer',
-	        parentID: this.props.viewer.id,
-	        connectionName: 'favoriteInsights',
-	        deletedIDFieldName: 'insightID'
-	      }];
-	    }
-	  }, {
-	    key: 'getPositiveConfigs',
-	    value: function getPositiveConfigs() {
-	      return [];
-	    }
-	  }], [{
-	    key: 'fragments',
-	    value: {
-	      theme: function theme() {
-	        return (function () {
-	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	          return new GraphQL.QueryFragment('Vote_for_insight_mutation', 'Theme', [new GraphQL.Field('id', null, null, null, null, null, {
-	            parentType: 'Theme',
-	            requisite: true
-	          })]);
-	        })();
-	      },
-
-	      viewer: function viewer() {
-	        return (function () {
-	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	          return new GraphQL.QueryFragment('Vote_for_insight_mutation', 'User', [new GraphQL.Field('id', null, null, null, null, null, {
-	            parentType: 'User',
-	            requisite: true
-	          })]);
-	        })();
-	      }
-	    },
-	    enumerable: true
-	  }]);
-
-	  return _default;
-	})(_reactRelay2['default'].Mutation);
-
-	exports['default'] = _default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 391 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRelay = __webpack_require__(159);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var themeSorter = function themeSorter(a, b) {
-	  a = a.node.name;
-	  b = b.node.name;
-	  return a < b ? -1 : a > b ? 1 : 0;
-	};
+	var _immutable2 = _interopRequireDefault(_immutable);
 
 	var LandingApp = (function (_React$Component) {
 	  _inherits(LandingApp, _React$Component);
@@ -42276,74 +42003,88 @@
 
 	    _get(Object.getPrototypeOf(LandingApp.prototype), 'constructor', this).apply(this, arguments);
 
-	    this.renderThemes = function () {
-	      return _react2['default'].createElement(
-	        'ul',
-	        null,
-	        _this.props.viewer.themes.edges.sort(themeSorter).map(_this.renderTheme)
-	      );
-	    };
-
-	    this.renderTheme = function (themeEdge) {
-	      return _react2['default'].createElement(
-	        'li',
-	        { key: themeEdge.node.id },
-	        '#',
-	        themeEdge.node.name
-	      );
-	    };
-	  }
-
-	  _createClass(LandingApp, [{
-	    key: 'render',
-	    value: function render() {
+	    this.render = function () {
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
+	        _react2['default'].createElement(
+	          'h2',
+	          null,
+	          'Mentor'
+	        ),
 	        _react2['default'].createElement(
 	          'ul',
 	          null,
 	          _react2['default'].createElement(
 	            'li',
 	            null,
-	            _react2['default'].createElement(
-	              'a',
-	              { href: '/favorites' },
-	              'Your favourites'
-	            )
+	            _this.renderFavorites()
 	          ),
 	          _react2['default'].createElement(
 	            'li',
 	            null,
-	            _react2['default'].createElement(
-	              'a',
-	              { href: '/today' },
-	              'Today for you:'
-	            ),
-	            this.renderThemes()
+	            _this.renderToday()
 	          ),
 	          _react2['default'].createElement(
 	            'li',
 	            null,
-	            _react2['default'].createElement(
-	              'a',
-	              { href: '/explore' },
-	              'Explore topics'
-	            )
+	            _this.renderExplore()
 	          ),
 	          _react2['default'].createElement(
 	            'li',
 	            null,
-	            _react2['default'].createElement(
-	              'a',
-	              { href: '/history' },
-	              'History'
-	            )
+	            _this.renderHistory()
 	          )
 	        )
 	      );
-	    }
-	  }]);
+	    };
+
+	    this.renderFavorites = function () {
+	      return _react2['default'].createElement(
+	        'a',
+	        { href: '/favorites' },
+	        'Your favourites'
+	      );
+	    };
+
+	    this.renderToday = function () {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'a',
+	          { href: '/today' },
+	          'Today for you:'
+	        ),
+	        _react2['default'].createElement('br', null),
+	        _this.renderThemes(3)
+	      );
+	    };
+
+	    this.renderThemes = function (count) {
+	      return _immutable2['default'].Seq(_this.props.viewer.themes.edges).sortBy(function (themeEdge) {
+	        return themeEdge.node.theme.name;
+	      }).map(function (themeEdge) {
+	        return '#' + themeEdge.node.theme.name;
+	      }).join(' ');
+	    };
+
+	    this.renderExplore = function () {
+	      return _react2['default'].createElement(
+	        'a',
+	        { href: '/explore' },
+	        'Explore topics'
+	      );
+	    };
+
+	    this.renderHistory = function () {
+	      return _react2['default'].createElement(
+	        'a',
+	        { href: '/history' },
+	        'History'
+	      );
+	    };
+	  }
 
 	  return LandingApp;
 	})(_react2['default'].Component);
@@ -42355,16 +42096,26 @@
 	    viewer: function viewer() {
 	      return (function () {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.QueryFragment('Landing', 'User', [new GraphQL.Field('id', null, null, null, null, null, {
+	        return new GraphQL.QueryFragment('LandingApp', 'User', [new GraphQL.Field('__typename', null, null, null, null, null, {
+	          parentType: 'User'
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
 	          parentType: 'User',
 	          requisite: true
 	        }), new GraphQL.Field('name', null, null, null, null, null, {
 	          parentType: 'User'
-	        }), new GraphQL.Field('themes', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Theme',
+	        }), new GraphQL.Field('subscribedThemes', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserTheme',
 	          requisite: true
-	        }), new GraphQL.Field('name', null, null, null, null, null, {
+	        }), new GraphQL.Field('status', null, null, null, null, null, {
+	          parentType: 'UserTheme'
+	        }), new GraphQL.Field('theme', [new GraphQL.Field('name', null, null, null, null, null, {
 	          parentType: 'Theme'
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'Theme',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserTheme'
 	        })], null, null, null, null, {
 	          parentType: 'UsersThemesEdge',
 	          requisite: true
@@ -42387,7 +42138,7 @@
 	          parentType: 'UsersThemesConnection',
 	          generated: true,
 	          requisite: true
-	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(10))], null, null, {
+	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(3))], 'themes', null, {
 	          parentType: 'User',
 	          connection: true,
 	          nonFindable: true
@@ -42401,328 +42152,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 392 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _default = (function (_React$Component) {
-	  _inherits(_default, _React$Component);
-
-	  function _default() {
-	    var _this = this;
-
-	    _classCallCheck(this, _default);
-
-	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.handleLoginButtonClick = function (provider, event) {
-	      location = '/auth/' + provider;
-	    };
-
-	    this.render = function () {
-	      return _react2['default'].createElement(
-	        'ul',
-	        null,
-	        _react2['default'].createElement(
-	          'li',
-	          null,
-	          _react2['default'].createElement(
-	            'button',
-	            { onClick: _this.handleLoginButtonClick.bind(null, 'facebook') },
-	            'Login with Facebook'
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          'li',
-	          null,
-	          _react2['default'].createElement(
-	            'button',
-	            { onClick: _this.handleLoginButtonClick.bind(null, 'twitter') },
-	            'Login with Twitter'
-	          )
-	        )
-	      );
-	    };
-	  }
-
-	  return _default;
-	})(_react2['default'].Component);
-
-	exports['default'] = _default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 393 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRelay = __webpack_require__(159);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _immutable = __webpack_require__(394);
-
-	var _immutable2 = _interopRequireDefault(_immutable);
-
-	var _mutationsVote_for_insight_mutation = __webpack_require__(390);
-
-	var _mutationsVote_for_insight_mutation2 = _interopRequireDefault(_mutationsVote_for_insight_mutation);
-
-	var diffInsights = function diffInsights(themeInsights, userInsights) {
-	  var ids = _immutable2['default'].Seq(userInsights.map(function (edge) {
-	    return edge.node.id;
-	  }));
-	  return _immutable2['default'].Seq(themeInsights).filterNot(function (edge) {
-	    return ids.contains(edge.node.id);
-	  }).toArray();
-	};
-
-	var ThemeApp = (function (_React$Component) {
-	  _inherits(ThemeApp, _React$Component);
-
-	  function ThemeApp() {
-	    var _this = this;
-
-	    _classCallCheck(this, ThemeApp);
-
-	    _get(Object.getPrototypeOf(ThemeApp.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.state = {
-	      isInSync: false
-	    };
-
-	    this._onSuccess = function () {
-	      _this.setState({
-	        isInSync: false
-	      });
-	    };
-
-	    this._onFailure = function () {
-	      _this.setState({
-	        isInSync: false
-	      });
-	    };
-
-	    this.handleLikeClick = function (event) {
-	      event.preventDefault();
-	      if (_this.state.isInSync) return;
-	      _this.setState({ isInSync: true });
-	      var mutation = new _mutationsVote_for_insight_mutation2['default']({
-	        mode: 'theme',
-	        theme: _this.props.theme,
-	        insight: _this.state.currentInsight.node,
-	        isPositive: true
-	      });
-	      _reactRelay2['default'].Store.update(mutation, {
-	        onSuccess: _this._onSuccess,
-	        onFailure: _this._onFailure
-	      });
-	    };
-
-	    this.handleDontLikeClick = function (event) {
-	      event.preventDefault();
-	      if (_this.state.isInSync) return;
-	      _this.setState({ isInSync: true });
-	      var mutation = new _mutationsVote_for_insight_mutation2['default']({
-	        mode: 'theme',
-	        theme: _this.props.theme,
-	        insight: _this.state.currentInsight.node,
-	        isPositive: false
-	      });
-	      _reactRelay2['default'].Store.update(mutation, {
-	        onSuccess: _this._onSuccess,
-	        onFailure: _this._onFailure
-	      });
-	    };
-	  }
-
-	  _createClass(ThemeApp, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      this.setState({
-	        currentInsight: diffInsights(nextProps.theme.insights.edges, nextProps.theme.viewerInsights.edges)[0]
-	      });
-	    }
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.setState({
-	        currentInsight: diffInsights(this.props.theme.insights.edges, this.props.theme.viewerInsights.edges)[0]
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2['default'].createElement(
-	        'div',
-	        null,
-	        this.renderComplete(),
-	        this.renderInsight(),
-	        this.renderControls()
-	      );
-	    }
-	  }, {
-	    key: 'renderComplete',
-	    value: function renderComplete() {
-	      if (this.state.currentInsight) return null;
-	      return _react2['default'].createElement(
-	        'p',
-	        null,
-	        'No more insights to vote!'
-	      );
-	    }
-	  }, {
-	    key: 'renderInsight',
-	    value: function renderInsight() {
-	      if (!this.state.currentInsight) return null;
-	      return _react2['default'].createElement(
-	        'p',
-	        { style: { border: '1px solid #eee', padding: '20px', width: '25%' } },
-	        this.state.currentInsight.node.content
-	      );
-	    }
-	  }, {
-	    key: 'renderControls',
-	    value: function renderControls() {
-	      if (!this.state.currentInsight) return null;
-	      return _react2['default'].createElement(
-	        'div',
-	        null,
-	        _react2['default'].createElement(
-	          'a',
-	          { href: '#', style: { color: 'green' }, onClick: this.handleLikeClick },
-	          'Like'
-	        ),
-	        ' ',
-	        _react2['default'].createElement(
-	          'a',
-	          { href: '#', style: { color: 'red' }, onClick: this.handleDontLikeClick },
-	          'Don\'t like'
-	        )
-	      );
-	    }
-	  }]);
-
-	  return ThemeApp;
-	})(_react2['default'].Component);
-
-	exports['default'] = _reactRelay2['default'].createContainer(ThemeApp, {
-
-	  fragments: {
-	    theme: function theme() {
-	      return (function (sub_0) {
-	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.QueryFragment('Theme', 'Theme', [new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Theme',
-	          requisite: true
-	        }), new GraphQL.Field('name', null, null, null, null, null, {
-	          parentType: 'Theme'
-	        }), new GraphQL.Field('insights', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Insight',
-	          requisite: true
-	        }), new GraphQL.Field('content', null, null, null, null, null, {
-	          parentType: 'Insight'
-	        })], null, null, null, null, {
-	          parentType: 'ThemesInsightsEdge',
-	          requisite: true
-	        }), new GraphQL.Field('cursor', null, null, null, null, null, {
-	          parentType: 'ThemesInsightsEdge',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'ThemesInsightsConnection',
-	          plural: true
-	        }), new GraphQL.Field('pageInfo', [new GraphQL.Field('hasNextPage', null, null, null, null, null, {
-	          parentType: 'PageInfo',
-	          generated: true,
-	          requisite: true
-	        }), new GraphQL.Field('hasPreviousPage', null, null, null, null, null, {
-	          parentType: 'PageInfo',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'ThemesInsightsConnection',
-	          generated: true,
-	          requisite: true
-	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(1000))], null, null, {
-	          parentType: 'Theme',
-	          connection: true,
-	          nonFindable: true
-	        }), new GraphQL.Field('viewerInsights', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Insight',
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'ThemesInsightsEdge',
-	          requisite: true
-	        }), new GraphQL.Field('cursor', null, null, null, null, null, {
-	          parentType: 'ThemesInsightsEdge',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'ThemesInsightsConnection',
-	          plural: true
-	        }), new GraphQL.Field('pageInfo', [new GraphQL.Field('hasNextPage', null, null, null, null, null, {
-	          parentType: 'PageInfo',
-	          generated: true,
-	          requisite: true
-	        }), new GraphQL.Field('hasPreviousPage', null, null, null, null, null, {
-	          parentType: 'PageInfo',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'ThemesInsightsConnection',
-	          generated: true,
-	          requisite: true
-	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(1000))], null, null, {
-	          parentType: 'Theme',
-	          connection: true,
-	          nonFindable: true
-	        })], [_reactRelay2['default'].QL.__frag(sub_0)]);
-	      })(_mutationsVote_for_insight_mutation2['default'].getFragment('theme'));
-	    }
-	  }
-
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 394 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -47687,7 +47117,7 @@
 	}));
 
 /***/ },
-/* 395 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47714,11 +47144,376 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var themeSorter = function themeSorter(a, b) {
-	  a = a.node.name;
-	  b = b.node.name;
-	  return a < b ? -1 : a > b ? 1 : 0;
-	};
+	var _immutable = __webpack_require__(389);
+
+	var _immutable2 = _interopRequireDefault(_immutable);
+
+	var _mutationsLikeInsightMutation = __webpack_require__(391);
+
+	var _mutationsLikeInsightMutation2 = _interopRequireDefault(_mutationsLikeInsightMutation);
+
+	var ThemeApp = (function (_React$Component) {
+	  _inherits(ThemeApp, _React$Component);
+
+	  function ThemeApp() {
+	    var _this = this;
+
+	    _classCallCheck(this, ThemeApp);
+
+	    _get(Object.getPrototypeOf(ThemeApp.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.state = {
+	      isInSync: false,
+	      error: null
+	    };
+
+	    this._handleLikeClick = function (rate, event) {
+	      event.preventDefault();
+
+	      if (_this.state.isInSync) return;
+
+	      _this.setState({ isInSync: true, error: null });
+
+	      var mutation = new _mutationsLikeInsightMutation2['default']({ userThemeInsight: _this.state.unratedInsight, rate: rate });
+
+	      _reactRelay2['default'].Store.update(mutation, {
+	        onSuccess: _this._handleLikeSuccess,
+	        onFailure: _this._handleLikeFailure
+	      });
+	    };
+
+	    this._handleLikeSuccess = function (response) {
+	      _this.setState({ isInSync: false });
+	    };
+
+	    this._handleLikeFailure = function (transaction) {
+	      var error = transaction.getError().source.errors[0].message;
+	      _this.setState({ isInSync: false, error: error });
+	    };
+	  }
+
+	  _createClass(ThemeApp, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this._getUnratedInsight(this.props);
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this._getUnratedInsight(nextProps);
+	    }
+	  }, {
+	    key: '_getUnratedInsight',
+	    value: function _getUnratedInsight(props) {
+	      var unratedInsight = _immutable2['default'].Seq(props.viewer.theme.insights.edges).filter(function (insight) {
+	        return !insight.node.rate;
+	      }).first();
+
+	      var hasNextPage = this.props.viewer.theme.insights.pageInfo.hasNextPage;
+
+	      this.setState({
+	        unratedInsight: unratedInsight ? unratedInsight.node : null,
+	        hasNextPage: hasNextPage
+	      });
+
+	      if (!unratedInsight && hasNextPage) this.props.relay.setVariables({
+	        insightsCount: this.props.relay.variables.insightsCount + 10
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'h2',
+	          null,
+	          '#',
+	          this.props.viewer.theme.theme.name
+	        ),
+	        this.renderError(),
+	        this.renderInsight(),
+	        this.renderInsightControls(),
+	        this.renderPendingStatus(),
+	        this.renderPlaceholder()
+	      );
+	    }
+	  }, {
+	    key: 'renderError',
+	    value: function renderError() {
+	      if (!this.state.error) return;
+	      return _react2['default'].createElement(
+	        'p',
+	        { style: { color: 'red' } },
+	        this.state.error
+	      );
+	    }
+	  }, {
+	    key: 'renderInsight',
+	    value: function renderInsight() {
+	      if (!this.state.unratedInsight) return;
+	      return _react2['default'].createElement(
+	        'p',
+	        { style: { width: 400 } },
+	        this.state.unratedInsight.insight.content
+	      );
+	    }
+	  }, {
+	    key: 'renderInsightControls',
+	    value: function renderInsightControls() {
+	      if (this.state.isInSync) return;
+	      if (!this.state.unratedInsight) return;
+	      return [_react2['default'].createElement(
+	        'a',
+	        { href: '#', key: 'like', onClick: this._handleLikeClick.bind(this, 1) },
+	        'Like'
+	      ), _react2['default'].createElement(
+	        'span',
+	        { key: 'spacer' },
+	        ' | '
+	      ), _react2['default'].createElement(
+	        'a',
+	        { href: '#', key: 'skip', onClick: this._handleLikeClick.bind(this, -1), style: { color: 'red' } },
+	        'Skip'
+	      )];
+	    }
+	  }, {
+	    key: 'renderPendingStatus',
+	    value: function renderPendingStatus() {
+	      if (!this.state.isInSync) return;
+	      return _react2['default'].createElement(
+	        'span',
+	        { style: { color: 'grey' } },
+	        'Pending...'
+	      );
+	    }
+	  }, {
+	    key: 'renderPlaceholder',
+	    value: function renderPlaceholder() {
+	      if (this.state.unratedInsight || this.state.hasNextPage) return;
+	      return _react2['default'].createElement(
+	        'p',
+	        { style: { color: 'blue' } },
+	        'No more insights for you.',
+	        _react2['default'].createElement('br', null),
+	        'Check back later.'
+	      );
+	    }
+	  }]);
+
+	  return ThemeApp;
+	})(_react2['default'].Component);
+
+	exports['default'] = _reactRelay2['default'].createContainer(ThemeApp, {
+
+	  initialVariables: {
+	    themeID: null,
+	    insightsCount: 10
+	  },
+
+	  fragments: {
+	    viewer: function viewer() {
+	      return (function (sub_0) {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.QueryFragment('ThemeApp', 'User', [new GraphQL.Field('__typename', null, null, null, null, null, {
+	          parentType: 'User'
+	        }), new GraphQL.Field('theme', [new GraphQL.Field('theme', [new GraphQL.Field('name', null, null, null, null, null, {
+	          parentType: 'Theme'
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'Theme',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserTheme'
+	        }), new GraphQL.Field('insights', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserThemeInsight',
+	          requisite: true
+	        }), new GraphQL.Field('rate', null, null, null, null, null, {
+	          parentType: 'UserThemeInsight'
+	        }), new GraphQL.Field('insight', [new GraphQL.Field('content', null, null, null, null, null, {
+	          parentType: 'Insight'
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'Insight',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserThemeInsight'
+	        })], [_reactRelay2['default'].QL.__frag(sub_0)], null, null, null, {
+	          parentType: 'UserThemeInsightsEdge',
+	          requisite: true
+	        }), new GraphQL.Field('cursor', null, null, null, null, null, {
+	          parentType: 'UserThemeInsightsEdge',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserThemeInsightsConnection',
+	          plural: true
+	        }), new GraphQL.Field('pageInfo', [new GraphQL.Field('hasNextPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          requisite: true
+	        }), new GraphQL.Field('hasPreviousPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserThemeInsightsConnection',
+	          requisite: true
+	        })], null, [new GraphQL.Callv('first', new GraphQL.CallVariable('insightsCount'))], null, null, {
+	          parentType: 'UserTheme',
+	          connection: true,
+	          nonFindable: true
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserTheme',
+	          generated: true,
+	          requisite: true
+	        })], null, [new GraphQL.Callv('themeID', new GraphQL.CallVariable('themeID'))], null, null, {
+	          parentType: 'User'
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'User',
+	          generated: true,
+	          requisite: true
+	        })]);
+	      })(_mutationsLikeInsightMutation2['default'].getFragment('userThemeInsight'));
+	    }
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 391 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(159);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(_default, [{
+	    key: 'getMutation',
+	    value: function getMutation() {
+	      return (function () {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.Mutation('LikeInsightMutation', 'LikeInsightMutationPayload', new GraphQL.Callv('likeInsight', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	          parentType: 'LikeInsightMutationPayload',
+	          generated: true,
+	          requisite: true
+	        })], null, {
+	          inputType: 'LikeInsightMutationInput!'
+	        });
+	      })();
+	    }
+	  }, {
+	    key: 'getFatQuery',
+	    value: function getFatQuery() {
+	      return (function () {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.QueryFragment('LikeInsightMutation', 'LikeInsightMutationPayload', [new GraphQL.Field('updatedInsight', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserThemeInsight',
+	          requisite: true
+	        }), new GraphQL.Field('rate', null, null, null, null, null, {
+	          parentType: 'UserThemeInsight'
+	        })], null, null, null, null, {
+	          parentType: 'LikeInsightMutationPayload'
+	        })]);
+	      })();
+	    }
+	  }, {
+	    key: 'getVariables',
+	    value: function getVariables() {
+	      return {
+	        id: this.props.userThemeInsight.id,
+	        rate: this.props.rate
+	      };
+	    }
+	  }, {
+	    key: 'getConfigs',
+	    value: function getConfigs() {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: {
+	          updatedInsight: this.props.userThemeInsight.id
+	        }
+	      }];
+	    }
+	  }], [{
+	    key: 'fragments',
+	    value: {
+	      userThemeInsight: function userThemeInsight() {
+	        return (function () {
+	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	          return new GraphQL.QueryFragment('LikeInsightMutation', 'UserThemeInsight', [new GraphQL.Field('id', null, null, null, null, null, {
+	            parentType: 'UserThemeInsight',
+	            requisite: true
+	          })]);
+	        })();
+	      }
+	    },
+	    enumerable: true
+	  }]);
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 392 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(159);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _immutable = __webpack_require__(389);
+
+	var _immutable2 = _interopRequireDefault(_immutable);
 
 	var TodayApp = (function (_React$Component) {
 	  _inherits(TodayApp, _React$Component);
@@ -47734,7 +47529,9 @@
 	      return _react2['default'].createElement(
 	        'ul',
 	        null,
-	        _this.props.viewer.themes.edges.sort(themeSorter).map(_this.renderTheme)
+	        _immutable2['default'].Seq(_this.props.viewer.themes.edges).sortBy(function (themeEdge) {
+	          return themeEdge.node.theme.name;
+	        }).map(_this.renderTheme).toJS()
 	      );
 	    };
 
@@ -47744,9 +47541,8 @@
 	        { key: themeEdge.node.id },
 	        _react2['default'].createElement(
 	          'a',
-	          { href: '/themes/' + themeEdge.node.id },
-	          '#',
-	          themeEdge.node.name
+	          { href: themeEdge.node.theme.url },
+	          themeEdge.node.theme.name
 	        )
 	      );
 	    };
@@ -47759,10 +47555,16 @@
 	        'div',
 	        null,
 	        _react2['default'].createElement(
-	          'ul',
+	          'a',
+	          { href: '/' },
+	          'Back'
+	        ),
+	        _react2['default'].createElement(
+	          'h2',
 	          null,
-	          this.renderThemes()
-	        )
+	          'Today for you'
+	        ),
+	        this.renderThemes()
 	      );
 	    }
 	  }]);
@@ -47777,16 +47579,21 @@
 	    viewer: function viewer() {
 	      return (function () {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.QueryFragment('Today', 'User', [new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'User',
-	          requisite: true
-	        }), new GraphQL.Field('name', null, null, null, null, null, {
+	        return new GraphQL.QueryFragment('TodayApp', 'User', [new GraphQL.Field('__typename', null, null, null, null, null, {
 	          parentType: 'User'
-	        }), new GraphQL.Field('themes', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Theme',
+	        }), new GraphQL.Field('subscribedThemes', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserTheme',
 	          requisite: true
+	        }), new GraphQL.Field('theme', [new GraphQL.Field('url', null, null, null, null, null, {
+	          parentType: 'Theme'
 	        }), new GraphQL.Field('name', null, null, null, null, null, {
 	          parentType: 'Theme'
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'Theme',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserTheme'
 	        })], null, null, null, null, {
 	          parentType: 'UsersThemesEdge',
 	          requisite: true
@@ -47809,10 +47616,14 @@
 	          parentType: 'UsersThemesConnection',
 	          generated: true,
 	          requisite: true
-	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(10))], null, null, {
+	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(3))], 'themes', null, {
 	          parentType: 'User',
 	          connection: true,
 	          nonFindable: true
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'User',
+	          generated: true,
+	          requisite: true
 	        })]);
 	      })();
 	    }
@@ -47823,14 +47634,530 @@
 	module.exports = exports['default'];
 
 /***/ },
+/* 393 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(159);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _mutations = __webpack_require__(394);
+
+	var FavoritesApp = (function (_React$Component) {
+	  _inherits(FavoritesApp, _React$Component);
+
+	  function FavoritesApp() {
+	    var _this = this;
+
+	    _classCallCheck(this, FavoritesApp);
+
+	    _get(Object.getPrototypeOf(FavoritesApp.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.state = {
+	      isInSync: false
+	    };
+
+	    this._handleLikeClick = function (insightEdge, event) {
+	      event.preventDefault();
+	      if (_this.state.isInSync) return;
+	      _this.setState({ isInSync: true });
+
+	      var mutation = new _mutations.VoteForInsightMutation({
+	        mode: 'favorite',
+	        viewer: _this.props.viewer,
+	        theme: insightEdge.theme,
+	        insight: insightEdge.node,
+	        isPositive: true
+	      });
+
+	      _reactRelay2['default'].Store.update(mutation);
+	    };
+
+	    this._handleDontLikeClick = function (insightEdge, event) {
+	      event.preventDefault();
+	      if (_this.state.isInSync) return;
+	      _this.setState({ isInSync: true });
+
+	      var mutation = new _mutations.VoteForInsightMutation({
+	        viewer: _this.props.viewer,
+	        theme: insightEdge.theme,
+	        insight: insightEdge.node,
+	        isPositive: false
+	      });
+
+	      _reactRelay2['default'].Store.update(mutation);
+	    };
+	  }
+
+	  _createClass(FavoritesApp, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'ul',
+	        { style: { listStyle: 'none' } },
+	        this.renderInsights()
+	      );
+	    }
+	  }, {
+	    key: 'renderInsights',
+	    value: function renderInsights() {
+	      return this.props.viewer.favoriteInsights.edges.map(this.renderInsight.bind(this));
+	    }
+	  }, {
+	    key: 'renderInsight',
+	    value: function renderInsight(edge) {
+	      var insight = edge.node;
+	      return _react2['default'].createElement(
+	        'li',
+	        { key: insight.id },
+	        _react2['default'].createElement(
+	          'p',
+	          { style: { border: '1px solid #eee', padding: '20px', width: '25%' } },
+	          insight.content
+	        ),
+	        this.renderControls(edge)
+	      );
+	    }
+	  }, {
+	    key: 'renderControls',
+	    value: function renderControls(edge) {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'a',
+	          { href: '#', style: { color: 'green' }, onClick: this._handleLikeClick.bind(this, edge) },
+	          'Like'
+	        ),
+	        ' ',
+	        _react2['default'].createElement(
+	          'a',
+	          { href: '#', style: { color: 'red' }, onClick: this._handleDontLikeClick.bind(this, edge) },
+	          'Don\'t like'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return FavoritesApp;
+	})(_react2['default'].Component);
+
+	exports['default'] = _reactRelay2['default'].createContainer(FavoritesApp, {
+
+	  fragments: {
+	    viewer: function viewer() {
+	      return (function () {
+	        throw new Error('GraphQL validation/transform error ``Cannot query field "favoriteInsights" on "User".`` in file `/Users/seanchas/Sandbox/mentor-web-app/frontend/javascripts/components/favorites-app.js`.');
+	      })();
+	    }
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 394 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+/***/ },
+/* 395 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _default = (function (_React$Component) {
+	  _inherits(_default, _React$Component);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.handleLoginButtonClick = function (provider, event) {
+	      location = '/auth/' + provider;
+	    };
+
+	    this.render = function () {
+	      return _react2['default'].createElement(
+	        'ul',
+	        null,
+	        _react2['default'].createElement(
+	          'li',
+	          null,
+	          _react2['default'].createElement(
+	            'button',
+	            { onClick: _this.handleLoginButtonClick.bind(null, 'facebook') },
+	            'Login with Facebook'
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          'li',
+	          null,
+	          _react2['default'].createElement(
+	            'button',
+	            { onClick: _this.handleLoginButtonClick.bind(null, 'twitter') },
+	            'Login with Twitter'
+	          )
+	        )
+	      );
+	    };
+	  }
+
+	  return _default;
+	})(_react2['default'].Component);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
 /* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(159);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var ThemesCreator = (function (_React$Component) {
+	  _inherits(ThemesCreator, _React$Component);
+
+	  function ThemesCreator() {
+	    var _this = this;
+
+	    _classCallCheck(this, ThemesCreator);
+
+	    _get(Object.getPrototypeOf(ThemesCreator.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.state = {
+	      query: ''
+	    };
+
+	    this._handleQueryChange = function (event) {
+	      _this.setState({ query: event.target.value });
+	    };
+
+	    this._filteredThemes = function () {
+	      return _this.props.viewer.themes.edges.filter(function (themeEdge) {
+	        return themeEdge.node.name.indexOf(_this.state.query) > -1;
+	      }).sort(function (a, b) {
+	        return a.node.name < b.node.name ? -1 : a.node.name > b.node.name ? 1 : 0;
+	      });
+	    };
+
+	    this.renderSystemTheme = function (themeEdge) {
+	      return _react2['default'].createElement(
+	        'li',
+	        { key: themeEdge.node.id },
+	        themeEdge.node.name
+	      );
+	    };
+	  }
+
+	  _createClass(ThemesCreator, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'h2',
+	          null,
+	          'Themes creator app'
+	        ),
+	        this.renderQuery(),
+	        this.renderSystemThemes(),
+	        this.renderCreateControl()
+	      );
+	    }
+	  }, {
+	    key: 'renderQuery',
+	    value: function renderQuery() {
+	      return _react2['default'].createElement('input', { type: 'search', onChange: this._handleQueryChange, value: this.state.query });
+	    }
+	  }, {
+	    key: 'renderSystemThemes',
+	    value: function renderSystemThemes() {
+	      return _react2['default'].createElement(
+	        'ul',
+	        null,
+	        this._filteredThemes().map(this.renderSystemTheme)
+	      );
+	    }
+	  }, {
+	    key: 'renderCreateControl',
+	    value: function renderCreateControl() {
+	      var value = this.state.query.toLowerCase();
+	      if (value.length < 2) return null;
+
+	      var values = this.props.viewer.themes.edges.map(function (edge) {
+	        return edge.node.name;
+	      });
+	      if (values.indexOf(value) > -1) return null;
+
+	      var link = '/themes/create?name=' + value;
+
+	      return _react2['default'].createElement(
+	        'p',
+	        null,
+	        _react2['default'].createElement(
+	          'a',
+	          { href: link },
+	          'Create theme ',
+	          _react2['default'].createElement(
+	            'strong',
+	            null,
+	            this.state.query.toLowerCase()
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ThemesCreator;
+	})(_react2['default'].Component);
+
+	exports['default'] = _reactRelay2['default'].createContainer(ThemesCreator, {
+
+	  fragments: {
+	    viewer: function viewer() {
+	      return (function () {
+	        throw new Error('GraphQL validation/transform error ``Cannot query field "name" on "UserTheme".`` in file `/Users/seanchas/Sandbox/mentor-web-app/frontend/javascripts/components/themes-creator-app.js`.');
+	      })();
+	    }
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 397 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(159);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _mutations = __webpack_require__(394);
+
+	var ThemesExplorer = (function (_React$Component) {
+	  _inherits(ThemesExplorer, _React$Component);
+
+	  function ThemesExplorer() {
+	    _classCallCheck(this, ThemesExplorer);
+
+	    _get(Object.getPrototypeOf(ThemesExplorer.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(ThemesExplorer, [{
+	    key: '_rejectTheme',
+	    value: function _rejectTheme(theme) {
+	      var mutation = new _mutations.RejectThemeMutation({
+	        viewer: this.props.viewer,
+	        theme: theme
+	      });
+
+	      _reactRelay2['default'].Store.update(mutation);
+	    }
+	  }, {
+	    key: '_subscribeOnTheme',
+	    value: function _subscribeOnTheme(theme) {
+	      var mutation = new _mutations.SubscriptionThemeMutation({
+	        status: theme.isSubscribed ? 'visible' : 'subscribed',
+	        viewer: this.props.viewer,
+	        theme: theme
+	      });
+
+	      _reactRelay2['default'].Store.update(mutation);
+	    }
+	  }, {
+	    key: 'handleRejectClick',
+	    value: function handleRejectClick(theme, event) {
+	      event.preventDefault();
+	      if (!confirm('Reject theme "' + theme.name + '"?')) return;
+
+	      this._rejectTheme(theme);
+	    }
+	  }, {
+	    key: 'handleSubscribeClick',
+	    value: function handleSubscribeClick(theme, event) {
+	      event.preventDefault();
+
+	      this._subscribeOnTheme(theme);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        'Themes Explorer',
+	        this.renderThemes()
+	      );
+	    }
+	  }, {
+	    key: 'renderThemes',
+	    value: function renderThemes() {
+	      return _react2['default'].createElement(
+	        'ul',
+	        null,
+	        this.props.viewer.themes.edges.map(this.renderTheme.bind(this))
+	      );
+	    }
+	  }, {
+	    key: 'renderTheme',
+	    value: function renderTheme(themeEdge) {
+	      return _react2['default'].createElement(
+	        'li',
+	        { key: themeEdge.node.id },
+	        this.renderThemeControls(themeEdge.node),
+	        _react2['default'].createElement(
+	          'a',
+	          { href: themeEdge.node.url },
+	          themeEdge.node.name
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'renderThemeControls',
+	    value: function renderThemeControls(theme) {
+	      return _react2['default'].createElement(
+	        'span',
+	        null,
+	        this.renderRejectionControl(theme),
+	        this.renderSubscriptionControl(theme)
+	      );
+	    }
+	  }, {
+	    key: 'renderSubscriptionControl',
+	    value: function renderSubscriptionControl(theme) {
+	      var icon = theme.isSubscribed ? '-' : '+';
+	      return _react2['default'].createElement(
+	        'a',
+	        { href: '#', style: { color: 'green', marginRight: '1ex' }, onClick: this.handleSubscribeClick.bind(this, theme) },
+	        '[',
+	        icon,
+	        ']'
+	      );
+	    }
+	  }, {
+	    key: 'renderRejectionControl',
+	    value: function renderRejectionControl(theme) {
+	      return _react2['default'].createElement(
+	        'a',
+	        { href: '#', style: { color: 'red', marginRight: '1ex' }, onClick: this.handleRejectClick.bind(this, theme) },
+	        '[x]'
+	      );
+	    }
+	  }]);
+
+	  return ThemesExplorer;
+	})(_react2['default'].Component);
+
+	exports['default'] = _reactRelay2['default'].createContainer(ThemesExplorer, {
+
+	  initialVariables: {
+	    size: 10
+	  },
+
+	  fragments: {
+	    viewer: function viewer() {
+	      return (function () {
+	        throw new Error('GraphQL validation/transform error ``Cannot query field "name" on "UserTheme". Cannot query field "url" on "UserTheme". Cannot query field "isSubscribed" on "UserTheme".`` in file `/Users/seanchas/Sandbox/mentor-web-app/frontend/javascripts/components/themes-explorer-app.js`.');
+	      })();
+	    }
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 398 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var map = {
-		"./theme-app-route": 397,
-		"./theme-app-route.js": 397,
-		"./viewer-route": 398,
-		"./viewer-route.js": 398
+		"./ThemeAppRoute": 399,
+		"./ThemeAppRoute.js": 399,
+		"./ViewerRoute": 400,
+		"./ViewerRoute.js": 400
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -47843,11 +48170,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 396;
+	webpackContext.id = 398;
 
 
 /***/ },
-/* 397 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47883,12 +48210,10 @@
 	    key: 'queries',
 	    value: {
 
-	      theme: function theme() {
+	      viewer: function viewer() {
 	        return (function () {
 	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	          return new GraphQL.Query('theme', new GraphQL.CallVariable('themeID'), null, null, {
-	            identifyingArgName: 'id'
-	          }, 'Theme');
+	          return new GraphQL.Query('viewer', null, null, null, null, 'ThemeAppRoute');
 	        })();
 	      }
 
@@ -47913,7 +48238,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 398 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47951,7 +48276,7 @@
 	      viewer: function viewer() {
 	        return (function () {
 	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	          return new GraphQL.Query('viewer', null, null, null, null, 'Viewer');
+	          return new GraphQL.Query('viewer', null, null, null, null, 'ViewerRoute');
 	        })();
 	      }
 	    },

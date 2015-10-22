@@ -1,53 +1,39 @@
 import { Router } from 'express'
+import {
+  ThemesStorage,
+  UserThemeStorage
+} from '../storage'
 
-import { Theme, Insight } from '../models'
-import algolia from '../algolia'
+import ActualizeUserThemeInsights from '../workers/jobs/ActualizeUserThemeInsights'
 
 let router = Router()
 
-const timeout = 24 * 60 * 60 * 1000
+router.get('/', (req, res, next) => {
+  if (!req.user) return res.redirect('/login')
+  if (!req.user.is_active) return res.redirect('/')
+  res.render('themes/index', { title: 'Explore' })
+})
 
 
-let findOrCreateInsight = (data) => {
-  return Insight.findById(data.objectID).then(insight => {
-    return insight ? insight : Insight.create({ id: data.objectID, content: data.content })
+router.get('/:id', async (req, res, next) => {
+  if (!req.user) return res.redirect('/login')
+  if (!req.user.is_active) return res.redirect('/')
+
+  await ActualizeUserThemeInsights.performAsync({
+    userID:   req.user.id,
+    themeID:  req.params.id
   })
-}
 
-let fetchAlgoliaSearch = theme => {
-  let now = + new Date
-  if ((now - theme.last_fetched_at) < timeout) return
-  return algolia.search(theme.name, {
-    hitsPerPage: 200,
-    attributesToRetrieve: 'objectID,content',
-    attributesToHighlight: 'none'
-  }).then(({ hits }) => {
-
-    console.log(hits)
-
-    let insights = hits.map(hit => findOrCreateInsight(hit))
-
-    return Promise.all(insights).then(insights => {
-      return theme.setInsights(insights).then(() => {
-        return theme.update({ last_fetched_at: now })
-      })
+  UserThemeStorage.load(req.user.id, req.params.id).then((userTheme) => {
+    ThemesStorage.load(userTheme.theme_id).then((theme) => {
+      res.render('themes/show', { title: `#${theme.name}`, themeID: theme.id })
     })
-  }).catch((error) => {
-    console.error("ALGOLIA ERROR", error)
   })
-}
+})
 
-router.get('/:id', (req, res, next) => {
-  Theme.findById(req.params.id)
-    .then(theme => {
-      Promise.resolve(fetchAlgoliaSearch(theme)).then(() => {
-        res.render('themes/show', { title: theme.name, theme: theme })
-      })
-    })
-    .catch(error => {
-      res.status(404)
-      next()
-    })
+
+router.get('/new', (req, res, next) => {
+  res.render('themes/new', { title: 'Find' })
 })
 
 export default router

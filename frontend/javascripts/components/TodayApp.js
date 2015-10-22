@@ -1,12 +1,6 @@
 import React from 'react'
 import Relay from 'react-relay'
-
-
-let themeSorter = (a, b) => {
-  a = a.node.name
-  b = b.node.name
-  return a < b ? -1 : a > b ? 1 : 0
-}
+import Immutable from 'immutable'
 
 
 class TodayApp extends React.Component {
@@ -15,9 +9,9 @@ class TodayApp extends React.Component {
   render() {
     return (
       <div>
-        <ul>
-          { this.renderThemes() }
-        </ul>
+        <a href="/">Back</a>
+        <h2>Today for you</h2>
+        { this.renderThemes() }
       </div>
     )
   }
@@ -26,17 +20,18 @@ class TodayApp extends React.Component {
   renderThemes = () =>
     <ul>
       {
-        this.props.viewer.themes.edges
-          .sort(themeSorter)
+        Immutable.Seq(this.props.viewer.themes.edges)
+          .sortBy(themeEdge => themeEdge.node.theme.name)
           .map(this.renderTheme)
+          .toJS()
       }
     </ul>
 
 
   renderTheme = (themeEdge) =>
     <li key={ themeEdge.node.id }>
-      <a href={ '/themes/' + themeEdge.node.id }>
-        #{ themeEdge.node.name }
+      <a href={ themeEdge.node.theme.url }>
+        { themeEdge.node.theme.name }
       </a>
     </li>
 
@@ -49,13 +44,15 @@ export default Relay.createContainer(TodayApp, {
 
     viewer: () => Relay.QL`
       fragment on User {
-        id
-        name
-        themes(first: 10) {
+      __typename
+        themes: subscribedThemes(first: 3) {
           edges {
             node {
               id
-              name
+              theme {
+                url
+                name
+              }
             }
           }
         }

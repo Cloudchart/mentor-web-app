@@ -1,10 +1,10 @@
 import {
-  GraphQLObjectType,
   GraphQLID,
   GraphQLString,
   GraphQLBoolean,
+  GraphQLNonNull,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLObjectType,
 } from 'graphql'
 
 import {
@@ -12,60 +12,79 @@ import {
   connectionFromArray
 } from 'graphql-relay'
 
+import {
+  ThemesStorage,
+  UserThemeStorage
+} from '../../storage'
+
 
 let UserType = new GraphQLObjectType({
 
   name: 'User',
 
   fields: () => ({
+
     id: {
       type: GraphQLID
     },
+
     name: {
       type: GraphQLString
     },
-    is_active: {
-      type: GraphQLBoolean
+
+    isActive: {
+      type:     GraphQLBoolean,
+      resolve:  user => user.is_active
     },
 
     themes: {
-      type: ThemesConnection,
+      type: UserThemesConnection.connectionType,
       args: connectionArgs,
-      resolve: async (user, args) =>
-        connectionFromArray(await user.getThemes({ order: 'name' }), args)
+      resolve: async (user, args) => {
+        let ids         = await UserThemeStorage.themeIDsForUser(user.id)
+        let userThemes  = await UserThemeStorage.loadManyForUser(user.id, ids)
+        return connectionFromArray(userThemes, args)
+      }
     },
 
-    insights: {
-      type: new GraphQLList(InsightType),
+    theme: {
+      type: UserThemeType,
       args: {
         themeID: {
           type: new GraphQLNonNull(GraphQLID)
         }
       },
-      resolve: (user, { themeID }) => user.insightsForTheme(themeID)
+      resolve: (user, { themeID }) => UserThemeStorage.load(user.id, themeID)
     },
 
-    favoriteInsights: {
-      type: InsightsConnection,
+    subscribedThemes: {
+      type: UserThemesConnection.connectionType,
       args: connectionArgs,
       resolve: async (user, args) => {
-        let insights = await user.favoriteInsights()
-        return connectionFromArray(insights, args)
+        let ids         = await UserThemeStorage.subscribedThemeIDsForUser(user.id)
+        let userThemes  = await UserThemeStorage.loadManyForUser(user.id, ids)
+        return connectionFromArray(userThemes, args)
       }
     },
 
     defaultThemes: {
-      type: new GraphQLList(ThemeType),
-      resolve: () => Theme.findAll({ where: { is_default: true }})
-    }
+      type: UserThemesConnection.connectionType,
+      args: connectionArgs,
+      resolve: async (user, args) => {
+        let ids     = await ThemesStorage.defaultIDs()
+        let themes  = await UserThemeStorage.loadManyForUser(user.id, ids)
+
+        themes = themes.map((theme, index) => theme ? theme : { user_id: user.id, theme_id: ids[index] })
+
+        return connectionFromArray(themes, args)
+      }
+    },
+
   })
 
 })
 
 export default UserType
 
-import { Theme, Insight } from '../../models'
-import ThemeType from './theme_type'
-import InsightType from './insight_type'
-import { connectionType as ThemesConnection } from '../connections/users_themes_connection'
-import { connectionType as InsightsConnection } from '../connections/user_insights_connection'
+import UserThemeType from './UserThemeType'
+import UserThemesConnection from '../connections/user_themes_connection'

@@ -1,26 +1,22 @@
+import { GraphQLNonNull } from 'graphql'
 import { mutationWithClientMutationId } from 'graphql-relay'
-
-import { User } from '../../models'
 import { UserType } from '../types'
+import { UserStorage } from '../../storage'
 
 export default mutationWithClientMutationId({
 
   name: 'ActivateViewer',
 
-  inputFields: {
-
-  },
-
   outputFields: {
     viewer: {
-      type: UserType
+      type: new GraphQLNonNull(UserType)
     }
   },
 
-  mutateAndGetPayload: (_, { rootValue: { viewer } }) => {
-    return viewer.update({ is_active: true }).then(() => ({
-      viewer: viewer
-    }))
+  mutateAndGetPayload: async (_, { rootValue: { viewer } }) => {
+    await UserStorage.update(viewer.id, { is_active: true })
+    viewer = UserStorage.load(viewer.id)
+    return { viewer }
   }
 
 })

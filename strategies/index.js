@@ -5,7 +5,7 @@ import passport from 'passport'
 import './facebook'
 import './twitter'
 
-import { User } from '../models'
+import { UserStorage } from '../storage'
 
 passport.serializeUser((user, done) => done(null, user.id))
-passport.deserializeUser((id, done) => User.findById(id).then(user => done(null, user)))
+passport.deserializeUser((id, done) => UserStorage.loader.load(id).then(user => done(null, user)))

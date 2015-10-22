@@ -1,11 +1,8 @@
 extends ../layout
 
 block content
-  h1= title
   div&attributes({
-    'data-relay-class': 'theme-app',
-    'data-relay-route': 'theme-app-route',
-    'data-route-props': {
-      themeID: theme.id
-    }
+    'data-relay-class': 'ThemeApp',
+    'data-relay-route': 'ThemeAppRoute',
+    'data-route-props': { themeID }
   })
