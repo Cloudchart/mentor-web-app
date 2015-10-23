@@ -1,6 +1,6 @@
 let Storage = {
   UserStorage:            require('./user_storage'),
-  ThemeStorage:           require('./theme_storage'),
+  ThemeStorage:           require('./themes_storage'),
   ThemesStorage:          require('./themes_storage'),
   InsightStorage:         require('./insight_storage'),
   UserThemeStorage:       require('./user_theme_storage'),

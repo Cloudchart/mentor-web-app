@@ -76,7 +76,7 @@ export default {
   update: function(themeID, attributes) {
     return models.Theme
       .update(attributes, { where: { id: themeID }})
-      .then(() => recordLoader.clear(themeID).load(themeID))
+      .then(() => recordLoader.clear(themeID))
   }
 
 }

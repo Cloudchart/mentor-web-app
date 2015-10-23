@@ -26,7 +26,7 @@ export default {
   createMany: (records) => {
     return models.Insight
       .bulkCreate(records, { ignoreDuplicates: true })
-      .then(() => loader.loadMany(records.map(record => record.id)))
+      .then(() => loader.clearAll().loadMany(records.map(record => record.id)))
   }
 
   ,

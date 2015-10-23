@@ -4,21 +4,22 @@ import {
   UserThemeStorage
 } from '../storage'
 
+import {
+  authenticationCheck,
+  activityCheck
+} from './checkers'
+
 import ActualizeUserThemeInsights from '../workers/jobs/ActualizeUserThemeInsights'
 
 let router = Router()
 
-router.get('/', (req, res, next) => {
-  if (!req.user) return res.redirect('/login')
-  if (!req.user.is_active) return res.redirect('/')
+
+router.get('/', authenticationCheck, activityCheck, (req, res, next) => {
   res.render('themes/index', { title: 'Explore' })
 })
 
 
-router.get('/:id', async (req, res, next) => {
-  if (!req.user) return res.redirect('/login')
-  if (!req.user.is_active) return res.redirect('/')
-
+router.get('/:id', authenticationCheck, activityCheck, async (req, res, next) => {
   await ActualizeUserThemeInsights.performAsync({
     userID:   req.user.id,
     themeID:  req.params.id
