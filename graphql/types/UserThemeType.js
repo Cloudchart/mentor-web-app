@@ -32,10 +32,34 @@ let UserThemeType = new GraphQLObjectType({
       type: GraphQLString
     },
 
+    name: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: ({ theme_id }) =>
+        ThemesStorage.load(theme_id).then(({ name }) => name)
+    },
+
+    url: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: ({ theme_id }) => `/themes/${theme_id}`
+    },
+
+    isSystem: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      resolve: ({ theme_id }) =>
+        ThemesStorage.load(theme_id).then(({ is_system }) => !!is_system)
+    },
+
+    isDefault: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      resolve: ({ theme_id }) =>
+        ThemesStorage.load(theme_id).then(({ is_default }) => !!is_default)
+    },
+
     theme: {
       type: ThemeType,
-      resolve: ({ theme_id, user_id }, _, { rootValue: { viewer }}) =>
-        viewer.id === user_id ? ThemesStorage.load(theme_id) : new Error('Not authorized')
+      deprecationReason: 'Simplifying UserTheme type',
+      resolve: ({ theme_id, user_id }) =>
+        ThemesStorage.load(theme_id)
     },
 
     insights: {

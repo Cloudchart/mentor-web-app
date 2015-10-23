@@ -70,7 +70,7 @@ class ThemeApp extends React.Component {
   render() {
     return (
       <div>
-        <h2>#{ this.props.viewer.theme.theme.name }</h2>
+        <h2>#{ this.props.viewer.theme.name }</h2>
         { this.renderError() }
         { this.renderInsight() }
         { this.renderInsightControls() }
@@ -143,9 +143,7 @@ export default Relay.createContainer(ThemeApp, {
       fragment on User {
       __typename
         theme(themeID: $themeID) {
-          theme {
-            name
-          }
+          name
           insights(first: $insightsCount) {
             edges {
               node {

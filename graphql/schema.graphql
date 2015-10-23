@@ -7,6 +7,16 @@ type ActivateViewerPayload {
   clientMutationId: String!
 }
 
+input ActualizeThemeInsightsMutationInput {
+  themeID: ID!
+  clientMutationId: String!
+}
+
+type ActualizeThemeInsightsMutationPayload {
+  timeTaken: Int!
+  clientMutationId: String!
+}
+
 input ActualizeUserThemeInsightsMutationInput {
   userID: ID!
   themeID: ID!
@@ -53,6 +63,7 @@ type Mutation {
   updateThemeStatus(input: ThemeStatusMutationInput!): ThemeStatusMutationPayload
   updateUserTheme(input: UserThemeMutationInput!): UserThemeMutationPayload
   actualizeUserThemeInsights(input: ActualizeUserThemeInsightsMutationInput!): ActualizeUserThemeInsightsMutationPayload
+  actualizeThemeInsights(input: ActualizeThemeInsightsMutationInput!): ActualizeThemeInsightsMutationPayload
   likeInsight(input: LikeInsightMutationInput!): LikeInsightMutationPayload
 }
 
@@ -128,8 +139,12 @@ type UsersThemesEdge {
 type UserTheme {
   id: ID!
   status: String
+  name: String!
+  url: String!
+  isSystem: Boolean!
+  isDefault: Boolean!
   theme: Theme
-  insights(before: String, after: String, first: Int, last: Int): UserThemeInsightsConnection
+  insights(includeRated: Boolean = false, before: String, after: String, first: Int, last: Int): UserThemeInsightsConnection
 }
 
 type UserThemeInsight {
