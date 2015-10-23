@@ -41524,7 +41524,7 @@
 
 	    this._updateSubscribedThemesCount = function (props) {
 	      _this.setState({
-	        subscribedThemesCount: props.viewer.defaultThemes.edges.filter(function (edge) {
+	        subscribedThemesCount: props.viewer.themes.edges.filter(function (edge) {
 	          return edge.node.status == 'subscribed';
 	        }).length
 	      });
@@ -41566,7 +41566,7 @@
 	        'li',
 	        { key: userTheme.node.id, style: Styles.theme },
 	        _this.renderThemeControls(userTheme),
-	        userTheme.node.theme.name
+	        userTheme.node.name
 	      );
 	    };
 
@@ -41652,7 +41652,7 @@
 	      return _react2['default'].createElement(
 	        'ul',
 	        null,
-	        this.props.viewer.defaultThemes.edges.map(this.renderTheme)
+	        this.props.viewer.themes.edges.map(this.renderTheme)
 	      );
 	    }
 	  }, {
@@ -41703,9 +41703,51 @@
 	  fragments: {
 
 	    viewer: function viewer() {
-	      return (function () {
-	        throw new Error('GraphQL validation/transform error ``Cannot query field "theme" on "UserTheme".`` in file `/Users/seanchas/Sandbox/mentor-web-app/frontend/javascripts/components/ChooserApp.js`.');
-	      })();
+	      return (function (sub_0, sub_1) {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.QueryFragment('ChooserApp', 'User', [new GraphQL.Field('__typename', null, null, null, null, null, {
+	          parentType: 'User'
+	        }), new GraphQL.Field('isActive', null, null, null, null, null, {
+	          parentType: 'User'
+	        }), new GraphQL.Field('themes', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserTheme',
+	          requisite: true
+	        }), new GraphQL.Field('name', null, null, null, null, null, {
+	          parentType: 'UserTheme'
+	        }), new GraphQL.Field('status', null, null, null, null, null, {
+	          parentType: 'UserTheme'
+	        })], [_reactRelay2['default'].QL.__frag(sub_1)], null, null, null, {
+	          parentType: 'UsersThemesEdge',
+	          requisite: true
+	        }), new GraphQL.Field('cursor', null, null, null, null, null, {
+	          parentType: 'UsersThemesEdge',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UsersThemesConnection',
+	          plural: true
+	        }), new GraphQL.Field('pageInfo', [new GraphQL.Field('hasNextPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        }), new GraphQL.Field('hasPreviousPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UsersThemesConnection',
+	          generated: true,
+	          requisite: true
+	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(100)), new GraphQL.Callv('onlyDefault', new GraphQL.CallValue(true))], null, null, {
+	          parentType: 'User',
+	          connection: true,
+	          nonFindable: true
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'User',
+	          generated: true,
+	          requisite: true
+	        })], [_reactRelay2['default'].QL.__frag(sub_0)]);
+	      })(_mutationsActivateViewerMutation2['default'].getFragment('viewer'), _mutationsUpdateUserThemeStatusMutation2['default'].getFragment('userTheme'));
 	    }
 
 	  }
@@ -42015,9 +42057,9 @@
 
 	    this.renderThemes = function (count) {
 	      return _immutable2['default'].Seq(_this.props.viewer.themes.edges).sortBy(function (themeEdge) {
-	        return themeEdge.node.theme.name;
+	        return themeEdge.node.name;
 	      }).map(function (themeEdge) {
-	        return '#' + themeEdge.node.theme.name;
+	        return '#' + themeEdge.node.name;
 	      }).join(' ');
 	    };
 
@@ -42047,7 +42089,48 @@
 
 	    viewer: function viewer() {
 	      return (function () {
-	        throw new Error('GraphQL validation/transform error ``Cannot query field "theme" on "UserTheme".`` in file `/Users/seanchas/Sandbox/mentor-web-app/frontend/javascripts/components/LandingApp.js`.');
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.QueryFragment('LandingApp', 'User', [new GraphQL.Field('__typename', null, null, null, null, null, {
+	          parentType: 'User'
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'User',
+	          requisite: true
+	        }), new GraphQL.Field('name', null, null, null, null, null, {
+	          parentType: 'User'
+	        }), new GraphQL.Field('subscribedThemes', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserTheme',
+	          requisite: true
+	        }), new GraphQL.Field('status', null, null, null, null, null, {
+	          parentType: 'UserTheme'
+	        }), new GraphQL.Field('name', null, null, null, null, null, {
+	          parentType: 'UserTheme'
+	        })], null, null, null, null, {
+	          parentType: 'UsersThemesEdge',
+	          requisite: true
+	        }), new GraphQL.Field('cursor', null, null, null, null, null, {
+	          parentType: 'UsersThemesEdge',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UsersThemesConnection',
+	          plural: true
+	        }), new GraphQL.Field('pageInfo', [new GraphQL.Field('hasNextPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        }), new GraphQL.Field('hasPreviousPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UsersThemesConnection',
+	          generated: true,
+	          requisite: true
+	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(3))], 'themes', null, {
+	          parentType: 'User',
+	          connection: true,
+	          nonFindable: true
+	        })]);
 	      })();
 	    }
 
@@ -47423,7 +47506,7 @@
 	        'ul',
 	        null,
 	        _immutable2['default'].Seq(_this.props.viewer.themes.edges).sortBy(function (themeEdge) {
-	          return themeEdge.node.theme.name;
+	          return themeEdge.node.name;
 	        }).map(_this.renderTheme).toJS()
 	      );
 	    };
@@ -47434,8 +47517,8 @@
 	        { key: themeEdge.node.id },
 	        _react2['default'].createElement(
 	          'a',
-	          { href: themeEdge.node.theme.url },
-	          themeEdge.node.theme.name
+	          { href: themeEdge.node.url },
+	          themeEdge.node.name
 	        )
 	      );
 	    };
@@ -47471,7 +47554,47 @@
 
 	    viewer: function viewer() {
 	      return (function () {
-	        throw new Error('GraphQL validation/transform error ``Cannot query field "theme" on "UserTheme".`` in file `/Users/seanchas/Sandbox/mentor-web-app/frontend/javascripts/components/TodayApp.js`.');
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.QueryFragment('TodayApp', 'User', [new GraphQL.Field('__typename', null, null, null, null, null, {
+	          parentType: 'User'
+	        }), new GraphQL.Field('subscribedThemes', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserTheme',
+	          requisite: true
+	        }), new GraphQL.Field('url', null, null, null, null, null, {
+	          parentType: 'UserTheme'
+	        }), new GraphQL.Field('name', null, null, null, null, null, {
+	          parentType: 'UserTheme'
+	        })], null, null, null, null, {
+	          parentType: 'UsersThemesEdge',
+	          requisite: true
+	        }), new GraphQL.Field('cursor', null, null, null, null, null, {
+	          parentType: 'UsersThemesEdge',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UsersThemesConnection',
+	          plural: true
+	        }), new GraphQL.Field('pageInfo', [new GraphQL.Field('hasNextPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        }), new GraphQL.Field('hasPreviousPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UsersThemesConnection',
+	          generated: true,
+	          requisite: true
+	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(3))], 'themes', null, {
+	          parentType: 'User',
+	          connection: true,
+	          nonFindable: true
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'User',
+	          generated: true,
+	          requisite: true
+	        })]);
 	      })();
 	    }
 

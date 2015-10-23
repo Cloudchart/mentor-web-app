@@ -16,7 +16,7 @@ class ChooserApp extends React.Component {
 
   _updateSubscribedThemesCount = (props) => {
     this.setState({
-      subscribedThemesCount: props.viewer.defaultThemes.edges.filter(edge => edge.node.status == 'subscribed').length
+      subscribedThemesCount: props.viewer.themes.edges.filter(edge => edge.node.status == 'subscribed').length
     })
   }
 
@@ -109,7 +109,7 @@ class ChooserApp extends React.Component {
   renderThemes() {
     return (
       <ul>
-        { this.props.viewer.defaultThemes.edges.map(this.renderTheme) }
+        { this.props.viewer.themes.edges.map(this.renderTheme) }
       </ul>
     )
   }
@@ -118,7 +118,7 @@ class ChooserApp extends React.Component {
   renderTheme = (userTheme) =>
     <li key={ userTheme.node.id } style={ Styles.theme }>
       { this.renderThemeControls(userTheme) }
-      { userTheme.node.theme.name }
+      { userTheme.node.name }
     </li>
 
 
@@ -174,15 +174,13 @@ export default Relay.createContainer(ChooserApp, {
       __typename
         ${ActivateViewer.getFragment('viewer')}
         isActive
-        defaultThemes(first: 1000) {
+        themes(first: 100, onlyDefault: true) {
           edges {
             node {
               ${UpdateUserThemeStatus.getFragment('userTheme')}
               id
+              name
               status
-              theme {
-                name
-              }
             }
           }
         }

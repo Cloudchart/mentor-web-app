@@ -21,7 +21,7 @@ class TodayApp extends React.Component {
     <ul>
       {
         Immutable.Seq(this.props.viewer.themes.edges)
-          .sortBy(themeEdge => themeEdge.node.theme.name)
+          .sortBy(themeEdge => themeEdge.node.name)
           .map(this.renderTheme)
           .toJS()
       }
@@ -30,8 +30,8 @@ class TodayApp extends React.Component {
 
   renderTheme = (themeEdge) =>
     <li key={ themeEdge.node.id }>
-      <a href={ themeEdge.node.theme.url }>
-        { themeEdge.node.theme.name }
+      <a href={ themeEdge.node.url }>
+        { themeEdge.node.name }
       </a>
     </li>
 
@@ -49,10 +49,8 @@ export default Relay.createContainer(TodayApp, {
           edges {
             node {
               id
-              theme {
-                url
-                name
-              }
+              url
+              name
             }
           }
         }

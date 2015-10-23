@@ -42,8 +42,8 @@ class LandingApp extends React.Component {
 
   renderThemes = (count) =>
     Immutable.Seq(this.props.viewer.themes.edges)
-      .sortBy(themeEdge => themeEdge.node.theme.name)
-      .map(themeEdge => `#${themeEdge.node.theme.name}`)
+      .sortBy(themeEdge => themeEdge.node.name)
+      .map(themeEdge => `#${themeEdge.node.name}`)
       .join(' ')
 
   renderExplore = () =>
@@ -74,9 +74,7 @@ export default Relay.createContainer(LandingApp, {
             node {
               id
               status
-              theme {
-                name
-              }
+              name
             }
           }
         }
