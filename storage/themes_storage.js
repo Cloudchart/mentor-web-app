@@ -3,6 +3,8 @@ import models from '../models'
 import moment from 'moment'
 import { mapReduce } from './utils'
 
+import PubSub from '../workers/PubSub'
+
 let findRecords = (ids) => {
   return models.Theme.findAll({
     where: { id: { $in: ids } }
@@ -10,6 +12,12 @@ let findRecords = (ids) => {
 }
 
 let recordLoader = new DataLoader(findRecords, { cache: false })
+
+
+PubSub.subscribe('model:Theme:cache-clear', (_, message) => {
+  console.log('Clearing cache for theme "' + message + '"')
+  recordLoader.clear(message)
+})
 
 
 let idsForQuery = (query = {}) =>
@@ -47,6 +55,13 @@ export default {
 
   load: function(id) {
     return recordLoader.load(id)
+  },
+
+  loadAll: function() {
+    return models.Theme
+      .findAll()
+      .then(records => records.map(record => record.id))
+      .then(ids => recordLoader.loadMany(ids))
   },
 
   loadByName: function(name) {

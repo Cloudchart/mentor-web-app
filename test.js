@@ -1,12 +1,5 @@
-import DeviceStorage from './storage/DeviceStorage'
+import PubSub from './workers/PubSub'
 
-DeviceStorage.create({ device_id: 'abcdefg' }).then(record => {
-  console.log(record)
-  DeviceStorage.update(record.id, { user_id: 'ajhskahsdkajhdkj' }).then(record => {
-    console.log(record)
-    DeviceStorage.destroy(record.id).then(() => {
-      console.log('done')
-      process.exit(0)
-    })
-  })
-})
+let ps = PubSub
+
+ps.publish('model:User:cache-clear', '62906a29-719e-46f6-8bdd-1836a3811e12')

@@ -8,6 +8,8 @@ import {
   ThemeInsightStorage
 } from '../../storage'
 
+import PubSub from '../PubSub'
+
 
 const UpdateRate = 24 * 60 * 60 * 1000
 
@@ -29,6 +31,10 @@ let perform = async ({ themeID }, done) => {
   await ThemeInsightStorage.deleteAll(themeID)
   await ThemeInsightStorage.createMany(themeID, insights.map(insight => insight.id ))
   await ThemeStorage.update(themeID, { last_fetched_at: new Date })
+
+  PubSub.publish('model:Insight:cache-clear', 'all')
+  PubSub.publish('model:ThemeInsight:theme-cache-clear', themeID)
+  PubSub.publish('model:Theme:cache-clear', themeID)
 
   return done(null, new Date - now)
 }
