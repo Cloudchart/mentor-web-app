@@ -32,6 +32,11 @@ let UserThemeInsightType = new GraphQLObjectType({
       resolve: ({ insight_id }) => InsightStorage.load(insight_id).then(insight => insight.content)
     },
 
+    ratedAt: {
+      type: GraphQLString,
+      resolve: ({ updated_at }) => updated_at
+    },
+
     insight: {
       type: new GraphQLNonNull(InsightType),
       deprecationReason: 'Simplifying UserThemeInsight type',
