@@ -8,6 +8,7 @@ import {
 
 
 import {
+  ThemeStorage,
   InsightStorage
 } from '../../storage'
 
@@ -37,6 +38,11 @@ let UserThemeInsightType = new GraphQLObjectType({
       resolve: ({ updated_at }) => updated_at
     },
 
+    theme: {
+      type: ThemeType,
+      resolve: ({ theme_id }) => ThemeStorage.load(theme_id)
+    },
+
     insight: {
       type: new GraphQLNonNull(InsightType),
       deprecationReason: 'Simplifying UserThemeInsight type',
@@ -49,4 +55,5 @@ let UserThemeInsightType = new GraphQLObjectType({
 
 export default UserThemeInsightType
 
+import ThemeType from '../types/theme_type'
 import InsightType from '../types/insight_type'
