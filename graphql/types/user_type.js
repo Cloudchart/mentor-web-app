@@ -14,7 +14,8 @@ import {
 
 import {
   ThemeStorage,
-  UserThemeStorage
+  UserThemeStorage,
+  UserThemeInsightStorage
 } from '../../storage'
 
 
@@ -92,6 +93,22 @@ let UserType = new GraphQLObjectType({
       resolve: (user, { themeID }) => UserThemeStorage.load(user.id, themeID)
     },
 
+    insights: {
+      type: UserInsightsConnection.connectionType,
+      args: {
+        ...connectionArgs
+      },
+      resolve: async (user, args) => {
+        let insights = await UserThemeInsightStorage.loadAllForUser(user.id)
+
+        insights = insights
+          .filter(insight => !!insight.rate)
+          .sort((a, b) => a.updated_at < b.updated_at ? -1 : a.updated_at > b.updated_at ? 1 : 0)
+
+        return connectionFromArray(insights, args)
+      }
+    },
+
     subscribedThemes: {
       type: UserThemesConnection.connectionType,
       args: connectionArgs,
@@ -123,3 +140,4 @@ export default UserType
 
 import UserThemeType from './UserThemeType'
 import UserThemesConnection from '../connections/user_themes_connection'
+import UserInsightsConnection from '../connections/UserInsightsConnection'

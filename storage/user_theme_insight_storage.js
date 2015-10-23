@@ -40,6 +40,12 @@ export default {
 
   idsForUserTheme: idsForUserTheme,
 
+  loadAllForUser: (userID) => {
+    return models.UserInsightTheme.findAll({
+      where: { user_id: userID }
+    }).then(records => records.map(record => record.get({ plain: true })))
+  },
+
   allForUserTheme: (userID, themeID) =>
     idsForUserTheme(userID, themeID)
       .then(insightIDs => loadMany(userID, themeID, insightIDs))
