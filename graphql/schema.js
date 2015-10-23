@@ -13,6 +13,7 @@ import {
   UpdateThemeStatus,
   UpdateUserTheme,
   ActualizeUserThemeInsights,
+  ActualizeThemeInsights,
   LikeInsight,
 } from './mutations'
 
@@ -40,6 +41,7 @@ let mutationType = new GraphQLObjectType({
     updateThemeStatus:          UpdateThemeStatus,
     updateUserTheme:            UpdateUserTheme,
     actualizeUserThemeInsights: ActualizeUserThemeInsights,
+    actualizeThemeInsights:     ActualizeThemeInsights,
     likeInsight:                LikeInsight
   }
 
