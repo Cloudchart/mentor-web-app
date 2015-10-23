@@ -1,6 +1,12 @@
-import Job from './workers/jobs/ActualizeThemeInsights'
+import DeviceStorage from './storage/DeviceStorage'
 
-Job.performAsync({ themeID: 'd0fef4fc-ca94-4073-9736-d718dea72096' })
-  .then((result) => console.log(result))
-  .catch((error) => console.log(error))
-  .then(() => { console.log('done') ; process.exit(0) })
+DeviceStorage.create({ device_id: 'abcdefg' }).then(record => {
+  console.log(record)
+  DeviceStorage.update(record.id, { user_id: 'ajhskahsdkajhdkj' }).then(record => {
+    console.log(record)
+    DeviceStorage.destroy(record.id).then(() => {
+      console.log('done')
+      process.exit(0)
+    })
+  })
+})

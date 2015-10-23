@@ -9,13 +9,12 @@ var bodyParser = require('body-parser');
 var session = require('express-session')
 var RedisStore = require('connect-redis')(session)
 var passport = require('passport')
-var graphqlHTTP = require('express-graphql')
-var GraphQLSchema = require('./graphql/schema')
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var themes = require('./routes/themes');
+var graphql = require('./routes/graphql');
 
 var app = express();
 
@@ -45,14 +44,9 @@ app.use('/users', users);
 app.use('/auth', auth)
 app.use('/themes', themes)
 
+
 // GraphQL
-app.use('/graphql', graphqlHTTP(req => ({
-  schema: GraphQLSchema,
-  rootValue: {
-    viewer: req.user
-  },
-  graphiql: true
-})))
+app.use('/graphql', graphql)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

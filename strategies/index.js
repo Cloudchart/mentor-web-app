@@ -8,4 +8,4 @@ import './twitter'
 import { UserStorage } from '../storage'
 
 passport.serializeUser((user, done) => done(null, user.id))
-passport.deserializeUser((id, done) => UserStorage.loader.load(id).then(user => done(null, user)))
+passport.deserializeUser((id, done) => UserStorage.load(id).then(user => done(null, user)))
