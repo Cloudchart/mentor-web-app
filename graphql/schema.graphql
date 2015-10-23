@@ -152,6 +152,7 @@ type UserThemeInsight {
   rate: Int
   content: String!
   ratedAt: String
+  theme: Theme
   insight: Insight!
 }
 
