@@ -120,7 +120,7 @@ type User {
   id: ID
   name: String
   isActive: Boolean
-  themes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
+  themes(includeRejected: Boolean = false, onlyDefault: Boolean = false, before: String, after: String, first: Int, last: Int): UsersThemesConnection
   theme(themeID: ID!): UserTheme
   subscribedThemes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
   defaultThemes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
@@ -150,6 +150,7 @@ type UserTheme {
 type UserThemeInsight {
   id: ID!
   rate: Int
+  content: String!
   insight: Insight!
 }
 

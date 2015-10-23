@@ -122,6 +122,26 @@
               "description": null,
               "args": [
                 {
+                  "name": "includeRejected",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                },
+                {
+                  "name": "onlyDefault",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                },
+                {
                   "name": "before",
                   "description": null,
                   "type": {
@@ -841,15 +861,15 @@
               "deprecationReason": null
             },
             {
-              "name": "insight",
+              "name": "content",
               "description": null,
               "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Insight",
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 }
               },

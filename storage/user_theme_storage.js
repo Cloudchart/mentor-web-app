@@ -56,6 +56,14 @@ export default {
     return userLoader(userID).load(themeID)
   },
 
+  loadAll: async function(userID) {
+    let ids = await models.UserTheme
+      .findAll({ attributes: ['theme_id'], where: { user_id: userID } })
+      .then(records => records.map(record => record.theme_id))
+
+    return userLoader(userID).loadMany(ids)
+  },
+
   loadManyForUser: function(userID, themeIDs) {
     return userLoader(userID).loadMany(themeIDs)
   },

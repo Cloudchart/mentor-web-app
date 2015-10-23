@@ -63,6 +63,14 @@ export default {
     return recordLoader.loadMany(ids)
   },
 
+  loadAllSystem: async function() {
+    let ids = await models.Theme.findAll({
+      attributes: ['id'],
+      where: { is_system: true }
+    }).then(records => records.map(record => record.id))
+    return recordLoader.loadMany(ids)
+  },
+
   defaultIDs: function() {
     return idsForQuery({ where: { is_default: true } })
   },

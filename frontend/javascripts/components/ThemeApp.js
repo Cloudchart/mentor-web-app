@@ -93,7 +93,7 @@ class ThemeApp extends React.Component {
     if (!this.state.unratedInsight) return
     return (
       <p style={{ width: 400 }}>
-        { this.state.unratedInsight.insight.content }
+        { this.state.unratedInsight.content }
       </p>
     )
   }
@@ -149,9 +149,7 @@ export default Relay.createContainer(ThemeApp, {
               node {
                 id
                 rate
-                insight {
-                  content
-                }
+                content
                 ${LikeUserThemeInsightMutation.getFragment('userThemeInsight')}
               }
             }

@@ -47161,7 +47161,7 @@
 	      return _react2['default'].createElement(
 	        'p',
 	        { style: { width: 400 } },
-	        this.state.unratedInsight.insight.content
+	        this.state.unratedInsight.content
 	      );
 	    }
 	  }, {
@@ -47230,13 +47230,7 @@
 	          requisite: true
 	        }), new GraphQL.Field('rate', null, null, null, null, null, {
 	          parentType: 'UserThemeInsight'
-	        }), new GraphQL.Field('insight', [new GraphQL.Field('content', null, null, null, null, null, {
-	          parentType: 'Insight'
-	        }), new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Insight',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
+	        }), new GraphQL.Field('content', null, null, null, null, null, {
 	          parentType: 'UserThemeInsight'
 	        })], [_reactRelay2['default'].QL.__frag(sub_0)], null, null, null, {
 	          parentType: 'UserThemeInsightsEdge',

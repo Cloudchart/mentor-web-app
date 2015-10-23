@@ -27,8 +27,14 @@ let UserThemeInsightType = new GraphQLObjectType({
       type: GraphQLInt
     },
 
+    content: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: ({ insight_id }) => InsightStorage.load(insight_id).then(insight => insight.content)
+    },
+
     insight: {
       type: new GraphQLNonNull(InsightType),
+      deprecationReason: 'Simplifying UserThemeInsight type',
       resolve: ({ insight_id }) => InsightStorage.load(insight_id)
     }
 

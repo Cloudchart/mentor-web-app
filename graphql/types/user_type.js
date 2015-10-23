@@ -13,7 +13,7 @@ import {
 } from 'graphql-relay'
 
 import {
-  ThemesStorage,
+  ThemeStorage,
   UserThemeStorage
 } from '../../storage'
 
@@ -39,10 +39,45 @@ let UserType = new GraphQLObjectType({
 
     themes: {
       type: UserThemesConnection.connectionType,
-      args: connectionArgs,
+      args: {
+        includeRejected: {
+          type: GraphQLBoolean,
+          defaultValue: false
+        },
+        onlyDefault: {
+          type: GraphQLBoolean,
+          defaultValue: false
+        },
+        ...connectionArgs
+      },
       resolve: async (user, args) => {
-        let ids         = await UserThemeStorage.themeIDsForUser(user.id)
-        let userThemes  = await UserThemeStorage.loadManyForUser(user.id, ids)
+        let userThemes    = await UserThemeStorage.loadAll(user.id)
+        let systemThemes  = await ThemeStorage.loadAllSystem()
+
+        let defaultThemesIDs  = systemThemes
+          .filter(theme => theme.is_default)
+          .map(theme => theme.id)
+
+        let rejectedUserThemesIDs = userThemes
+          .filter(userTheme => userTheme.status === 'rejected')
+          .map(userTheme => userTheme.theme_id)
+
+        let userThemesIDs = userThemes.map(userTheme => userTheme.theme_id)
+
+        let unrelatedSystemThemes = systemThemes
+          .filter(theme => userThemesIDs.indexOf(theme.id) < 0)
+          .map(theme => ({ user_id: user.id, theme_id: theme.id }))
+
+        userThemes = userThemes.concat(unrelatedSystemThemes)
+
+        if (args.onlyDefault)
+          userThemes = userThemes
+            .filter(userTheme => defaultThemesIDs.indexOf(userTheme.theme_id) > -1)
+
+        if (!args.includeRejected)
+          userThemes = userThemes
+            .filter(userTheme => userTheme.status !== 'rejected')
+
         return connectionFromArray(userThemes, args)
       }
     },
