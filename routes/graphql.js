@@ -26,6 +26,7 @@ let deviceAuthorizer = async (req, res, next) => {
     .catch(async error => {
       let user    = await UserStorage.create()
       let device  = await DeviceStorage.create({ id: deviceID, user_id: user.id })
+      req.user = user
       next()
     })
 }
