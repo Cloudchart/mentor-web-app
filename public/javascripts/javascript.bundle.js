@@ -77,7 +77,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(384)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(399)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(400)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -41445,16 +41445,16 @@
 		"./ThemeApp.js": 390,
 		"./ThemesExplorerApp": 392,
 		"./ThemesExplorerApp.js": 392,
-		"./TodayApp": 393,
-		"./TodayApp.js": 393,
-		"./favorites-app": 394,
-		"./favorites-app.js": 394,
-		"./login-app": 396,
-		"./login-app.js": 396,
-		"./themes-creator-app": 397,
-		"./themes-creator-app.js": 397,
-		"./themes-explorer-app": 398,
-		"./themes-explorer-app.js": 398
+		"./TodayApp": 394,
+		"./TodayApp.js": 394,
+		"./favorites-app": 395,
+		"./favorites-app.js": 395,
+		"./login-app": 397,
+		"./login-app.js": 397,
+		"./themes-creator-app": 398,
+		"./themes-creator-app.js": 398,
+		"./themes-explorer-app": 399,
+		"./themes-explorer-app.js": 399
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -47493,7 +47493,7 @@
 
 	var _immutable2 = _interopRequireDefault(_immutable);
 
-	var _mutationsCreateThemeMutation = __webpack_require__(402);
+	var _mutationsCreateThemeMutation = __webpack_require__(393);
 
 	var _mutationsCreateThemeMutation2 = _interopRequireDefault(_mutationsCreateThemeMutation);
 
@@ -47705,6 +47705,108 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var _reactRelay = __webpack_require__(159);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.Mutation('CreateThemeMutation', 'CreateThemeMutationPayload', new GraphQL.Callv('createTheme', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	          parentType: 'CreateThemeMutationPayload',
+	          generated: true,
+	          requisite: true
+	        })], null, {
+	          inputType: 'CreateThemeMutationInput!'
+	        });
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.QueryFragment('CreateThemeMutation', 'CreateThemeMutationPayload', [new GraphQL.Field('viewer', [new GraphQL.Field('themes', null, null, null, null, null, {
+	          parentType: 'User',
+	          connection: true,
+	          nonFindable: true
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'User',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'CreateThemeMutationPayload'
+	        })]);
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        name: _this.props.name
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: {
+	          viewer: _this.props.viewer.id
+	        }
+	      }];
+	    };
+	  }
+
+	  _createClass(_default, null, [{
+	    key: 'fragments',
+	    value: {
+	      viewer: function viewer() {
+	        return (function () {
+	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	          return new GraphQL.QueryFragment('CreateThemeMutation', 'User', [new GraphQL.Field('id', null, null, null, null, null, {
+	            parentType: 'User',
+	            requisite: true
+	          })]);
+	        })();
+	      }
+	    },
+	    enumerable: true
+	  }]);
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 394 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -47830,7 +47932,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 394 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47857,7 +47959,7 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _mutations = __webpack_require__(395);
+	var _mutations = __webpack_require__(396);
 
 	var FavoritesApp = (function (_React$Component) {
 	  _inherits(FavoritesApp, _React$Component);
@@ -47972,13 +48074,13 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 395 */
+/* 396 */
 /***/ function(module, exports) {
 
 	"use strict";
 
 /***/ },
-/* 396 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48046,7 +48148,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 397 */
+/* 398 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48221,7 +48323,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 398 */
+/* 399 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48248,7 +48350,7 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _mutations = __webpack_require__(395);
+	var _mutations = __webpack_require__(396);
 
 	var ThemesExplorer = (function (_React$Component) {
 	  _inherits(ThemesExplorer, _React$Component);
@@ -48382,14 +48484,14 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 399 */
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./ThemeAppRoute": 400,
-		"./ThemeAppRoute.js": 400,
-		"./ViewerRoute": 401,
-		"./ViewerRoute.js": 401
+		"./ThemeAppRoute": 401,
+		"./ThemeAppRoute.js": 401,
+		"./ViewerRoute": 402,
+		"./ViewerRoute.js": 402
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -48402,11 +48504,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 399;
+	webpackContext.id = 400;
 
 
 /***/ },
-/* 400 */
+/* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48470,7 +48572,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 401 */
+/* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48521,108 +48623,6 @@
 
 	  return _default;
 	})(_reactRelay2['default'].Route);
-
-	exports['default'] = _default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 402 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _reactRelay = __webpack_require__(159);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _default = (function (_Relay$Mutation) {
-	  _inherits(_default, _Relay$Mutation);
-
-	  function _default() {
-	    var _this = this;
-
-	    _classCallCheck(this, _default);
-
-	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.getMutation = function () {
-	      return (function () {
-	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.Mutation('CreateThemeMutation', 'CreateThemeMutationPayload', new GraphQL.Callv('createTheme', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
-	          parentType: 'CreateThemeMutationPayload',
-	          generated: true,
-	          requisite: true
-	        })], null, {
-	          inputType: 'CreateThemeMutationInput!'
-	        });
-	      })();
-	    };
-
-	    this.getFatQuery = function () {
-	      return (function () {
-	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.QueryFragment('CreateThemeMutation', 'CreateThemeMutationPayload', [new GraphQL.Field('viewer', [new GraphQL.Field('themes', null, null, null, null, null, {
-	          parentType: 'User',
-	          connection: true,
-	          nonFindable: true
-	        }), new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'User',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'CreateThemeMutationPayload'
-	        })]);
-	      })();
-	    };
-
-	    this.getVariables = function () {
-	      return {
-	        name: _this.props.name
-	      };
-	    };
-
-	    this.getConfigs = function () {
-	      return [{
-	        type: 'FIELDS_CHANGE',
-	        fieldIDs: {
-	          viewer: _this.props.viewer.id
-	        }
-	      }];
-	    };
-	  }
-
-	  _createClass(_default, null, [{
-	    key: 'fragments',
-	    value: {
-	      viewer: function viewer() {
-	        return (function () {
-	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	          return new GraphQL.QueryFragment('CreateThemeMutation', 'User', [new GraphQL.Field('id', null, null, null, null, null, {
-	            parentType: 'User',
-	            requisite: true
-	          })]);
-	        })();
-	      }
-	    },
-	    enumerable: true
-	  }]);
-
-	  return _default;
-	})(_reactRelay2['default'].Mutation);
 
 	exports['default'] = _default;
 	module.exports = exports['default'];

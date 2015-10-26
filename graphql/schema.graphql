@@ -146,6 +146,7 @@ type UsersThemesConnection {
 type UsersThemesEdge {
   node: UserTheme
   cursor: String!
+  status: String
 }
 
 type UserTheme {
