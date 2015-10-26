@@ -25,14 +25,10 @@ export default connectionDefinitions({
   edgeFields: {
     status: {
       type: GraphQLString,
-      resolve: async ({ node }, _, { rootValue: { viewer } }) => {
-        try {
-          let userTheme = await UserThemeStorage.load(viewer.id, node.theme_id)
-          return userTheme.status
-        } catch(e) {
-          return null
-        }
-      }
+      resolve: ({ node }, _, { rootValue: { viewer } }) =>
+        UserThemeStorage.load(viewer.id, node.theme_id)
+          .then(record => record.status)
+          .catch(error => null)
     }
   }
 
