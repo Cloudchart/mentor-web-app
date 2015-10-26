@@ -8,8 +8,6 @@ import {
   ThemeInsightStorage
 } from '../../storage'
 
-import PubSub from '../PubSub'
-
 
 const UpdateRate = 24 * 60 * 60 * 1000
 

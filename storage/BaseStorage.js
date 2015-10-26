@@ -1,6 +1,5 @@
 import DataLoader from 'dataloader'
 import models from '../models'
-import PubSub from '../workers/PubSub'
 
 import {
   mapReduce
@@ -12,16 +11,6 @@ let createStorage = (modelName, modelMethods = {}) => {
     models[modelName]
       .findAll({where:{id:{$in:ids}}})
       .then(records => mapReduce(ids, records, 'id'))
-
-  PubSub.subscribe(`model:${modelName}:cache-clear`, (_, message) => {
-    if (message === 'all') {
-      console.log('Clearing cache for all instances of model ' + modelName)
-      loader.clearAll()
-    } else {
-      console.log('Clearing cache for ' + message + ' instance of model ' + modelName)
-      loader.clear(message)
-    }
-  })
 
   let loader = new DataLoader(finder)
 

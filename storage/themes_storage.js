@@ -3,8 +3,6 @@ import models from '../models'
 import moment from 'moment'
 import { mapReduce } from './utils'
 
-import PubSub from '../workers/PubSub'
-
 let findRecords = (ids) => {
   return models.Theme.findAll({
     where: { id: { $in: ids } }
@@ -14,16 +12,20 @@ let findRecords = (ids) => {
 let recordLoader = new DataLoader(findRecords, { cache: false })
 
 
-PubSub.subscribe('model:Theme:cache-clear', (_, message) => {
-  console.log('Clearing cache for theme "' + message + '"')
-  recordLoader.clear(message)
-})
-
-
 let idsForQuery = (query = {}) =>
   models.Theme
     .findAll(Object.assign(query, { attributes: ['id'] }))
     .then(records => records.map(record => record.id))
+
+
+let idForName = (name) =>
+  models.Theme
+    .findOne({attributes:['id'],where:{name: name}})
+    .then(record => record ? record.id : null)
+
+
+let create = (attributes = {}) =>
+  models.Theme.create(attributes).then(newRecord => recordLoader.load(newRecord.id))
 
 
 const PopulateTimeout = 3 * 24 * 60 * 60 * 1000
@@ -64,14 +66,16 @@ export default {
       .then(ids => recordLoader.loadMany(ids))
   },
 
-  loadByName: function(name) {
-    return models.Theme.find({
-      attributes: ['id'],
-      where:      { name: name }
-    }).then(record => {
-      if (!record) return null
-      return recordLoader.load(record.id)
-    })
+  loadByName: async function(name) {
+    let id = await idForName(name)
+    return id ? recordLoader.load(id) : null
+  },
+
+  loadOrCreateByName: async function(name) {
+    let id = await idForName(name)
+    return id
+      ? recordLoader.load(id)
+      : create({ name: name })
   },
 
   loadMany: function(ids) {

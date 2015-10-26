@@ -35,7 +35,8 @@ input CreateThemeMutationInput {
 }
 
 type CreateThemeMutationPayload {
-  theme: Theme!
+  theme: UserTheme!
+  viewer: User!
   clientMutationId: String!
 }
 
@@ -122,8 +123,19 @@ type User {
   isActive: Boolean
   themes(includeRejected: Boolean = false, onlyDefault: Boolean = false, before: String, after: String, first: Int, last: Int): UsersThemesConnection
   theme(themeID: ID!): UserTheme
+  insights(before: String, after: String, first: Int, last: Int): UserInsightsConnection
   subscribedThemes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
   defaultThemes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
+}
+
+type UserInsightsConnection {
+  pageInfo: PageInfo!
+  edges: [UserInsightsEdge]
+}
+
+type UserInsightsEdge {
+  node: UserThemeInsight
+  cursor: String!
 }
 
 type UsersThemesConnection {

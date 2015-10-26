@@ -25,7 +25,7 @@ let finderForUser = (userID, ids) => {
     }
   }).then(records => {
     records = records.reduce(reducers.theme, {})
-    return ids.map(id => records[id])
+    return ids.map(id => records[id] ? records[id] : new Error(id))
   })
 }
 
@@ -48,6 +48,13 @@ let userLoader = (userID) => {
 
 let themeLoader = (themeID) => {
   return loaders[themeID] || (loaders[themeID] = new DataLoader(finderForTheme.bind(null, themeID), { cache: false }))
+}
+
+
+let create = (userID, themeID, attributes = {}) => {
+  return models.UserTheme
+    .create(Object.assign(attributes, { user_id: userID, theme_id: themeID }))
+    .then(() => userLoader(userID).clear(themeID).load(themeID))
 }
 
 
@@ -91,9 +98,13 @@ export default {
       }).then(records => records.map(record => record.theme_id))
   },
 
-  create: (userID, themeID, attributes = {}) => {
-    return models.UserTheme.create(Object.assign(attributes, { user_id: userID, theme_id: themeID }))
-  },
+  create: create,
+
+  loadOrCreate: (userID, themeID) =>
+    userLoader(userID).load(themeID)
+      .then(record => record)
+      .catch(error => create(userID, themeID))
+  ,
 
   update: (userID, themeID, attributes = {}) => {
     return models.UserTheme.update(attributes, { where: { user_id: userID, theme_id: themeID } })
