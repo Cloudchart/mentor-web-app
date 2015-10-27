@@ -3,6 +3,35 @@ import models from '../models'
 import { mapReduce } from './utils'
 
 
+let rowsQuery = (rated = true) =>
+  `
+    select
+      id,
+      @row := @row + 1 AS row
+    FROM
+      ${models.UserInsightTheme.tableName},
+      (select @row := 0) AS row_counter
+    WHERE
+      user_id = :userID AND
+      theme_id = :themeID AND
+      rate IS ${ rated ? 'NOT NULL' : 'NULL' }
+    ORDER BY
+      created_at
+  `.replace(/\s+/g, ' ').trim()
+
+
+let rowQuery = (from) =>
+  `SELECT row FROM (${from}) AS rows WHERE id = :id`
+
+
+let idsQuery = (from) =>
+  `SELECT id FROM (${from}) AS ids LIMIT :offset, :limit`
+
+
+const RatedRowsQuery    = rowsQuery()
+const UnratedRowsQuery  = rowsQuery(false)
+
+
 let loaders = {}
 
 let loader = (userID, themeID) =>
@@ -44,6 +73,14 @@ export default {
     return models.UserInsightTheme.findAll({
       where: { user_id: userID }
     }).then(records => records.map(record => record.get({ plain: true })))
+  },
+
+  loadManyAfter: async (userID, themeID, insightID, count = 10) => {
+    return null
+  },
+
+  loadManyBefore: async (userID, themeID, insightID, count = 10) => {
+    return null
   },
 
   allForUserTheme: (userID, themeID) =>
