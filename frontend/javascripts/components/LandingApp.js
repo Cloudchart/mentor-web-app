@@ -47,7 +47,7 @@ class LandingApp extends React.Component {
       .join(' ')
 
   renderExplore = () =>
-    <a href="/explore">
+    <a href="/themes/explore">
       Explore topics
     </a>
 

@@ -3,6 +3,7 @@ import {
   GraphQLString,
   GraphQLBoolean,
   GraphQLNonNull,
+  GraphQLEnumType,
   GraphQLList,
   GraphQLObjectType,
 } from 'graphql'
@@ -21,8 +22,21 @@ import {
   UserThemeStorage,
 } from '../../storage'
 
+import NewThemeStorage from '../../storage/NewThemeStorage'
+
 
 import UserThemeInsightStorage from '../../storage/NewUserThemeInsightStorage'
+
+
+let themeFilterEnum = new GraphQLEnumType({
+  name: 'ThemeFilter',
+  values: {
+    DEFAULT:    { value: 'default'    },
+    RELATED:    { value: 'related'    },
+    UNRELATED:  { value: 'unrelated'  },
+    SUBSCRIBED: { value: 'subscribed' }
+  }
+})
 
 
 let UserType = new GraphQLObjectType({
@@ -89,6 +103,29 @@ let UserType = new GraphQLObjectType({
       }
     },
 
+    nthemes: {
+      type: ThemeConnection.connectionType,
+      args: {
+        filter: {
+          type:         themeFilterEnum,
+          defaultValue: 'available'
+        },
+        ...connectionArgs
+      },
+      resolve: async (user, args, { rootValue: { viewer }}) => {
+        if (user.id !== viewer.id) return new Error('Not authorized')
+
+        let themes = await NewThemeStorage.loadAll(args.filter, { userID: user.id })
+
+        if (themes instanceof Error) return themes
+
+        let connection = connectionFromRecordsSlice(themes, args, { sliceStart: 0, recordsLength: themes.length })
+        connection.count = themes.length
+
+        return connection
+      }
+    },
+
     theme: {
       type: UserThemeType,
       args: {
@@ -140,5 +177,6 @@ let UserType = new GraphQLObjectType({
 export default UserType
 
 import UserThemeType from './UserThemeType'
+import ThemeConnection from '../connections/ThemeConnection'
 import UserThemesConnection from '../connections/user_themes_connection'
 import UserInsightsConnection from '../connections/UserInsightsConnection'

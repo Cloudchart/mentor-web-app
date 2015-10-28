@@ -2,135 +2,130 @@ import React from 'react'
 import Relay from 'react-relay'
 import Immutable from 'immutable'
 
-import CreateThemeMutation from '../mutations/CreateThemeMutation'
 
+const Increment = 5
+const ThemesFilters         = ['RELATED', 'UNRELATED']
 
-const MaxSubscribedThemesCount = 3
+const InitialCount          = 10
+const InitialThemesFilter   = ThemesFilters[0]
 
 
 class ThemesExplorer extends React.Component {
 
-
   state = {
-    query:                  '',
-    themes:                 Immutable.Seq(),
-    isInSync:               false,
-    subscribedThemesCount:  0
+    isInSync: false
   }
 
-
-  componentWillMount() {
-    this._populateState(this.props)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this._populateState(nextProps)
-  }
-
-  _populateState(props) {
-    let themes = Immutable.Seq(props.viewer.themes.edges)
-    this.setState({
-      themes:                 themes,
-      subscribedThemesCount:  themes.filter(theme => theme.node.status === 'subscribed').count()
-    })
-  }
-
-
-  _handleQueryChange = (event) => {
+  _handleThemeFilterSwitchClick = (event) => {
     event.preventDefault()
     if (this.state.isInSync) return
-
-    this.setState({ query: event.target.value })
-  }
-
-  _handleCreateThemeClick = (event) => {
-    event.preventDefault()
-    if (this.state.isInSync) return
-
     this.setState({ isInSync: true })
 
-    let mutation = new CreateThemeMutation({ viewer: this.props.viewer, name: this.state.query })
+    let current = ThemesFilters.indexOf(this.props.relay.variables.filter)
+    let next    = current === 1 ? 0 : 1
 
-    Relay.Store.update(mutation, {
-      onSuccess:  this._handleCreateThemeSuccess,
-      onFailure:  this._handleCreateThemeFailure
-    })
+    this.props.relay.setVariables({
+      count:  InitialCount,
+      filter: ThemesFilters[next]
+    }, readyState => readyState.done ? this.setState({ isInSync: false }) : null)
   }
 
-  _handleCreateThemeSuccess = () => {
-    this.setState({
-      query:    '',
-      isInSync: false
-    })
+  _handleMoreThemesButtonClick = (event) => {
+    event.preventDefault()
+    if (this.state.isInSync) return
+    this.setState({ isInSync: true })
+
+    this.props.relay.setVariables({
+      count: this.props.relay.variables.count + Increment
+    }, readyState => readyState.done ? this.setState({ isInSync: false }) : null)
   }
 
-  _handleCreateThemeFailure = () => {
-    this.setState({
-      isInSync: false
-    })
+  _handleRejectThemeControlClick = (theme, event) => {
+    event.preventDefault()
+    if (this.state.isInSync) return
+    this.setState({ isInSync: theme.id })
   }
 
-
-  render = () =>
-    <div>
-      <h2>Themes explorer</h2>
-      { this.renderSearch() }
-      { this.renderCreateThemeControl() }
-      { this.renderThemes() }
-    </div>
-
-
-  renderSearch = () =>
-    <div>
-      <input type="search" autoFocus={ true } value={ this.state.query} onChange={ this._handleQueryChange } />
-    </div>
-
-
-  renderCreateThemeControl = () => {
-    if (this.state.query.trim().length < 2) return
+  render() {
     return (
-      <a href="#" onClick={ this._handleCreateThemeClick }>
-        Create theme {this.state.query}
+      <div>
+        <h2>Explore topics</h2>
+        { this.renderThemesFilterSwitch() }
+        { this.renderThemes() }
+        { this.renderMoreThemesButton() }
+      </div>
+    )
+  }
+
+  renderThemesFilterSwitch() {
+    return (
+      <button onClick={ this._handleThemeFilterSwitchClick } style={{ margin: 0, marginBottom: 10, padding: 10 }}>
+        { this.props.relay.variables.filter }
+      </button>
+    )
+  }
+
+  renderThemes() {
+    return (
+      <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+        { this.props.viewer.themes.edges.map(this.renderTheme) }
+      </ul>
+    )
+  }
+
+  renderTheme = (themeEdge) => {
+    let theme = themeEdge.node
+    return (
+      <li key={ theme.id } style={{ margin: '0 0 1em' }}>
+        <a href={ theme.url }>
+          { theme.name }
+        </a>
+        { this.renderRejectThemeControl(theme) }
+      </li>
+    )
+  }
+
+  renderRejectThemeControl = (theme) => {
+    if (this.props.relay.variables.filter != 'RELATED') return
+    if (this.state.isInSync === theme.id) return
+    return (
+      <a href="#" onClick={ this._handleRejectThemeControlClick.bind(this, theme) } style={{ color: 'red', marginLeft: '1ex', whiteSpace: 'nowrap' }}>
+        Fuck it!
       </a>
     )
   }
 
+  renderMoreThemesButton() {
+    if (this.state.isInSync) return
+    if (!this.props.viewer.themes.pageInfo.hasNextPage) return
 
-  renderThemes = () =>
-    <ul>
-      {
-        this.state.themes
-          .filterNot(themeEdge => themeEdge.node.status === 'rejected')
-          .filter(themeEdge => themeEdge.node.name.indexOf(this.state.query) !== -1)
-          .sortBy(themeEdge => themeEdge.node.name)
-          .map(this.renderTheme)
-          .toArray()
-      }
-    </ul>
-
-
-  renderTheme = (themeEdge) =>
-    <li key={ themeEdge.node.id }>
-      { themeEdge.node.name }
-    </li>
-
-
+    return (
+      <button onClick={ this._handleMoreThemesButtonClick } style={{ margin: 0, padding: 10 }}>
+        Load more...
+      </button>
+    )
+  }
 }
 
 
 export default Relay.createContainer(ThemesExplorer, {
 
+  initialVariables: {
+    count:  InitialCount,
+    filter: InitialThemesFilter
+  },
+
   fragments: {
     viewer: () => Relay.QL`
       fragment on User {
       __typename
-        ${CreateThemeMutation.getFragment('viewer')}
-        themes(first: 1000) {
+        themes: nthemes(first: $count, filter: $filter) {
+          pageInfo { hasNextPage }
           edges {
             node {
               id
               name
-              status
+              url
             }
           }
         }

@@ -24,7 +24,7 @@ class FavoritesApp extends React.Component {
   _handleUnlikeInsightControlClick = (insight, event) => {
     event.preventDefault()
     if (this.state.isInSync) return
-    this.setState({ isInSync: true })
+    this.setState({ isInSync: insight.id })
 
     let mutation = new UpdateInsightMutation({
       viewer:   this.props.viewer,
@@ -78,6 +78,7 @@ class FavoritesApp extends React.Component {
   }
 
   renderInsightUnlikeControl(insight) {
+    if (this.state.isInSync === insight.id) return
     return (
       <a href="#" onClick={ this._handleUnlikeInsightControlClick.bind(this, insight) } style={{ color: 'red', marginLeft: '1ex', whiteSpace: 'nowrap' }}>
         Fuck it!

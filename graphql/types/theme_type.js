@@ -8,6 +8,9 @@ import {
 } from 'graphql'
 
 
+import UserThemeStorage from '../../storage/user_theme_storage'
+
+
 let loadUserTheme = (userID, themeID) =>
   UserThemeStorage
     .load(userID, themeID)

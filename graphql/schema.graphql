@@ -91,6 +91,24 @@ type Theme {
   isRejectedByViewer: Boolean
 }
 
+type ThemeConnection {
+  pageInfo: PageInfo!
+  edges: [ThemeEdge]
+  count: Int!
+}
+
+type ThemeEdge {
+  node: Theme
+  cursor: String!
+}
+
+enum ThemeFilter {
+  DEFAULT
+  RELATED
+  UNRELATED
+  SUBSCRIBED
+}
+
 type ThemesInsightsEdge {
   node: Insight
   cursor: String!
@@ -138,6 +156,7 @@ type User {
   name: String
   isActive: Boolean
   themes(includeRejected: Boolean = false, onlyDefault: Boolean = false, before: String, after: String, first: Int, last: Int): UsersThemesConnection
+  nthemes(filter: ThemeFilter = available, before: String, after: String, first: Int, last: Int): ThemeConnection
   theme(themeID: ID!): UserTheme
   insights(before: String, after: String, first: Int, last: Int): UserInsightsConnection
   subscribedThemes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
