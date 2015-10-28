@@ -6,11 +6,13 @@ import {
 } from './utils'
 
 
-let createStorage = (modelName, modelMethods = {}) => {
+let createStorage = (modelName) => {
+  let model = models[modelName]
+
   let finder = (ids) =>
-    models[modelName]
+    model
       .findAll({where:{id:{$in:ids}}})
-      .then(records => mapReduce(ids, records, 'id'))
+      .then(records => mapReduce(ids, records, 'id', modelName))
 
   let loader = new DataLoader(finder)
 
@@ -24,21 +26,21 @@ let createStorage = (modelName, modelMethods = {}) => {
 
 
   let create = (attributes) =>
-    models[modelName].create(attributes)
+    model.create(attributes)
 
   let update = (id, attributes) =>
-    models[modelName].update(attributes, {where:{id:id}})
+    model.update(attributes, {where:{id:id}})
 
   let destroy = (id) =>
-    models[modelName].destroy({where:{id:id}})
+    model.destroy({where:{id:id}})
 
   return {
 
     ...loaderMethods,
 
-    ...modelMethods,
+    loader,
 
-    loader: loader,
+    model,
 
     create: (attributes = {}) =>
       create(attributes)

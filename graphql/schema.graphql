@@ -66,6 +66,7 @@ type Mutation {
   actualizeUserThemeInsights(input: ActualizeUserThemeInsightsMutationInput!): ActualizeUserThemeInsightsMutationPayload
   actualizeThemeInsights(input: ActualizeThemeInsightsMutationInput!): ActualizeThemeInsightsMutationPayload
   likeInsight(input: LikeInsightMutationInput!): LikeInsightMutationPayload
+  updateUserThemeInsight(input: UpdateUserThemeInsightMutationInput!): UpdateUserThemeInsightMutationPayload
 }
 
 type PageInfo {
@@ -86,6 +87,8 @@ type Theme {
   url: String
   isSystem: Boolean
   isDefault: Boolean
+  isSubscribedByViewer: Boolean
+  isRejectedByViewer: Boolean
 }
 
 type ThemesInsightsEdge {
@@ -114,6 +117,19 @@ input ThemeToViewerInput {
 
 type ThemeToViewerPayload {
   theme: Theme
+  clientMutationId: String!
+}
+
+input UpdateUserThemeInsightMutationInput {
+  id: ID!
+  rate: Int!
+  clientMutationId: String!
+}
+
+type UpdateUserThemeInsightMutationPayload {
+  insightID: ID!
+  insight: UserThemeInsight!
+  viewer: User!
   clientMutationId: String!
 }
 

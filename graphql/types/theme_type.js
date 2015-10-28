@@ -8,6 +8,13 @@ import {
 } from 'graphql'
 
 
+let loadUserTheme = (userID, themeID) =>
+  UserThemeStorage
+    .load(userID, themeID)
+    .then(record => record)
+    .catch(error => null)
+
+
 let ThemeType = new GraphQLObjectType({
 
   name: 'Theme',
@@ -35,6 +42,20 @@ let ThemeType = new GraphQLObjectType({
       type: GraphQLBoolean,
       resolve: theme => theme.is_default
     },
+
+    isSubscribedByViewer: {
+      type: GraphQLBoolean,
+      resolve: (theme, _, { rootValue: { viewer } }) =>
+        loadUserTheme(viewer.id, theme.id)
+          .then(record => record ? record.status === 'subscribed' : false)
+    },
+
+    isRejectedByViewer: {
+      type: GraphQLBoolean,
+      resolve: (theme, _, { rootValue: { viewer } }) =>
+        loadUserTheme(viewer.id, theme.id)
+          .then(record => record ? record.status === 'rejected' : false)
+    }
 
   })
 

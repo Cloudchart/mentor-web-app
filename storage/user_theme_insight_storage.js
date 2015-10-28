@@ -3,33 +3,19 @@ import models from '../models'
 import { mapReduce } from './utils'
 
 
-let rowsQuery = (rated = true) =>
-  `
-    select
-      id,
-      @row := @row + 1 AS row
-    FROM
-      ${models.UserInsightTheme.tableName},
-      (select @row := 0) AS row_counter
-    WHERE
-      user_id = :userID AND
-      theme_id = :themeID AND
-      rate IS ${ rated ? 'NOT NULL' : 'NULL' }
-    ORDER BY
-      created_at
-  `.replace(/\s+/g, ' ').trim()
+const UsersThemesInsightsTableName = models.UserInsightTheme.tableName
 
 
-let rowQuery = (from) =>
-  `SELECT row FROM (${from}) AS rows WHERE id = :id`
-
-
-let idsQuery = (from) =>
-  `SELECT id FROM (${from}) AS ids LIMIT :offset, :limit`
-
-
-const RatedRowsQuery    = rowsQuery()
-const UnratedRowsQuery  = rowsQuery(false)
+const PositiveRatedInsightsIDsForUser = `
+  select
+    id
+  from
+    ${UsersThemesInsightsTableName}
+  where
+    user_id = :userID and rate > 0
+  order by
+    updated_at desc
+`.trim().replace(/\s+/g, ' ')
 
 
 let loaders = {}
@@ -74,6 +60,12 @@ export default {
       where: { user_id: userID }
     }).then(records => records.map(record => record.get({ plain: true })))
   },
+
+  loadAllPositiveRatedForUser: (userID) =>
+    models.sequelize
+      .query(PositiveRatedInsightsIDsForUser, { replacements: { userID }})
+      .then(([records]) => records.map(record => record.id))
+  ,
 
   loadManyAfter: async (userID, themeID, insightID, count = 10) => {
     return null

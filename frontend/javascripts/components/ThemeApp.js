@@ -35,9 +35,7 @@ class ThemeApp extends React.Component {
     })
 
     if (!unratedInsight && hasNextPage)
-      this.props.relay.setVariables({
-        insightsCount: this.props.relay.variables.insightsCount + 10
-      })
+      this.props.relay.forceFetch()
   }
 
 
@@ -135,7 +133,7 @@ export default Relay.createContainer(ThemeApp, {
 
   initialVariables: {
     themeID:        null,
-    insightsCount:  10
+    insightsCount:  3
   },
 
   fragments: {

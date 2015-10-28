@@ -20,8 +20,7 @@ let UserThemeInsightType = new GraphQLObjectType({
   fields: () => ({
 
     id: {
-      type: new GraphQLNonNull(GraphQLID),
-      resolve: ({ user_id, theme_id, insight_id}) => `${user_id}:${theme_id}:${insight_id}`
+      type: new GraphQLNonNull(GraphQLID)
     },
 
     rate: {

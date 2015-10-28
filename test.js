@@ -1,5 +1,5 @@
-import PubSub from './workers/PubSub'
+import ThemeStorage from './storage/NewThemeStorage'
 
-let ps = PubSub
-
-ps.publish('model:User:cache-clear', '62906a29-719e-46f6-8bdd-1836a3811e12')
+ThemeStorage.loadAvailableThemesForUser('62906a29-719e-46f6-8bdd-1836a3811e12')
+  .then(console.log)
+  .catch(console.error)

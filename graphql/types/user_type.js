@@ -13,10 +13,16 @@ import {
 } from 'graphql-relay'
 
 import {
+  connectionFromRecordsSlice
+} from '../connections/recordsconnection'
+
+import {
   ThemeStorage,
   UserThemeStorage,
-  UserThemeInsightStorage
 } from '../../storage'
+
+
+import UserThemeInsightStorage from '../../storage/NewUserThemeInsightStorage'
 
 
 let UserType = new GraphQLObjectType({
@@ -99,13 +105,8 @@ let UserType = new GraphQLObjectType({
         ...connectionArgs
       },
       resolve: async (user, args) => {
-        let insights = await UserThemeInsightStorage.loadAllForUser(user.id)
-
-        insights = insights
-          .filter(insight => !!insight.rate)
-          .sort((a, b) => a.updated_at < b.updated_at ? -1 : a.updated_at > b.updated_at ? 1 : 0)
-
-        return connectionFromArray(insights, args)
+        let records = await UserThemeInsightStorage.loadAllPositiveRatedForUser(user.id)
+        return connectionFromRecordsSlice(records, args, { sliceStart: 0, recordsLength: records.length })
       }
     },
 

@@ -7,5 +7,6 @@ export default {
   UpdateUserTheme:              require('./update_user_theme_mutation'),
   ActualizeUserThemeInsights:   require('./ActualizeUserThemeInsightsMutation'),
   ActualizeThemeInsights:       require('./ActualizeThemeInsightsMutation'),
-  LikeInsight:                  require('./LikeInsightMutation')
+  LikeInsight:                  require('./LikeInsightMutation'),
+  UpdateUserThemeInsight:       require('./UpdateUserThemeInsightMutation')
 }
