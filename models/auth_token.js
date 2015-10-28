@@ -15,6 +15,13 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'auth_tokens',
     underscored: true,
 
+    indexes: [{
+      fields: ['provider_id', 'provider_name'],
+      unique: true
+    }, {
+      fields: ['user_id']
+    }],
+
     classMethods: {
       associate: function(models) {
         AuthToken.belongsTo(models.User)
