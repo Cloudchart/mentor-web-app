@@ -6,7 +6,7 @@ import {
 } from './utils'
 
 
-let createStorage = (modelName) => {
+let createStorage = (modelName, options = {}) => {
   let model = models[modelName]
 
   let finder = (ids) =>
@@ -25,6 +25,22 @@ let createStorage = (modelName) => {
     )
 
 
+  let loadAllIDs = (key, replacements = {}) =>
+    options.idsQueries && options.idsQueries[key]
+      ? models.sequelize
+        .query(options.idsQueries[key], { replacements: replacements })
+        .then(([records]) => records.map(record => record.id))
+      : new Error(`Query "${key}" is not supported`)
+
+
+  let loadAll = (key, replacements = {}) =>
+    loadAllIDs(key, replacements)
+      .then(ids =>
+        ids instanceof Error
+          ? ids
+          : loader.loadMany(ids)
+      )
+
   let create = (attributes) =>
     model.create(attributes)
 
@@ -41,6 +57,10 @@ let createStorage = (modelName) => {
     loader,
 
     model,
+
+    loadAllIDs,
+
+    loadAll,
 
     create: (attributes = {}) =>
       create(attributes)

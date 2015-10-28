@@ -41989,6 +41989,9 @@
 
 	var _mutationsUpdateInsightMutation2 = _interopRequireDefault(_mutationsUpdateInsightMutation);
 
+	var InitialCount = 20;
+	var Increment = 50;
+
 	var FavoritesApp = (function (_React$Component) {
 	  _inherits(FavoritesApp, _React$Component);
 
@@ -42009,7 +42012,7 @@
 	      _this.setState({ isInSync: true });
 
 	      _this.props.relay.setVariables({
-	        count: _this.props.relay.variables.count + 5
+	        count: _this.props.relay.variables.count + Increment
 	      }, function (readyState) {
 	        return readyState.done ? _this.setState({ isInSync: false }) : null;
 	      });
@@ -42116,7 +42119,7 @@
 
 	  initialVariables: {
 	    cursor: null,
-	    count: 5
+	    count: InitialCount
 	  },
 
 	  fragments: {

@@ -5,6 +5,10 @@ import Relay from 'react-relay'
 import UpdateInsightMutation from '../mutations/UpdateInsightMutation'
 
 
+const InitialCount  = 20
+const Increment     = 50
+
+
 class FavoritesApp extends React.Component {
 
   state = {
@@ -17,7 +21,7 @@ class FavoritesApp extends React.Component {
     this.setState({ isInSync: true })
 
     this.props.relay.setVariables({
-      count: this.props.relay.variables.count + 5
+      count: this.props.relay.variables.count + Increment
     }, readyState => readyState.done ? this.setState({ isInSync: false }) : null)
   }
 
@@ -105,7 +109,7 @@ export default Relay.createContainer(FavoritesApp, {
 
   initialVariables: {
     cursor: null,
-    count:  5
+    count:  InitialCount
   },
 
 

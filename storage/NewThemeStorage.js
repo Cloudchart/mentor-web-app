@@ -1,16 +1,16 @@
 import BaseStorage from './BaseStorage'
 import models from '../models'
 
-let storage = BaseStorage('Theme')
-
 const themesTableName       = models.Theme.tableName
 const usersThemesTableName  = models.UserTheme.tableName
 
 const DefaultThemesIDsQuery = `
   select
-    t.id
+    t.id,
+    @row := @row + 1 as row
   from
-    ${themesTableName} as t
+    (select @row := 0) rt,
+    ${themesTableName} t
   where
     t.is_default = 1
   order by
@@ -19,11 +19,13 @@ const DefaultThemesIDsQuery = `
 
 const RelatedThemesIDsQuery = `
   select
-    t.id
+    t.id,
+    @row := @row + 1 as row
   from
-    ${themesTableName} as t
-  left outer join
-    ${usersThemesTableName} as ut
+    (select @row := 0) rt,
+    ${themesTableName} t
+  left join
+    ${usersThemesTableName} ut
   on
     t.id = ut.theme_id
   where
@@ -36,11 +38,13 @@ const RelatedThemesIDsQuery = `
 
 const UnrelatedThemesIDsQuery = `
   select
-    t.id
+    t.id,
+    @row := @row + 1 as row
   from
-    ${themesTableName} as t
-  left outer join
-    ${usersThemesTableName} as ut
+    (select @row := 0) rt,
+    ${themesTableName} t
+  left join
+    ${usersThemesTableName} ut
   on
     t.id = ut.theme_id
   where
@@ -53,11 +57,13 @@ const UnrelatedThemesIDsQuery = `
 
 const SubscribedThemesIDsQuery = `
   select
-    t.id
+    t.id,
+    @row := @row + 1 as row
   from
-    ${themesTableName} as t
-  left outer join
-    ${usersThemesTableName} as ut
+    (select @row := 0) rt,
+    ${themesTableName} t
+  left join
+    ${usersThemesTableName} ut
   on
     t.id = ut.theme_id
   where
@@ -67,32 +73,11 @@ const SubscribedThemesIDsQuery = `
 `.trim().replace(/\s+/g, ' ')
 
 
-let idsQueries = {
-  'default':    DefaultThemesIDsQuery,
-  'related':    RelatedThemesIDsQuery,
-  'unrelated':  UnrelatedThemesIDsQuery,
-  'subscribed': SubscribedThemesIDsQuery
-}
-
-
-let loadAllIDs = (key, replacements = {}) =>
-  idsQueries[key]
-    ? models.sequelize
-      .query(idsQueries[key], { replacements: replacements })
-      .then(([records]) => records.map(record => record.id))
-    : new Error(`Query "${key}" is not supported`)
-
-
-let loadAll = (key, replacements = {}) =>
-  loadAllIDs(key, replacements)
-    .then(ids =>
-      ids instanceof Error
-        ? ids
-        : storage.loadMany(ids)
-    )
-
-
-export default Object.assign(storage, {
-  loadAllIDs: loadAllIDs,
-  loadAll:    loadAll
+export default BaseStorage('Theme', {
+  idsQueries: {
+    'default':    DefaultThemesIDsQuery,
+    'related':    RelatedThemesIDsQuery,
+    'unrelated':  UnrelatedThemesIDsQuery,
+    'subscribed': SubscribedThemesIDsQuery
+  }
 })
