@@ -1,10 +1,6 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "mentor",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
+    "use_env_variable": "MYSQL_URL",
     "pool": {
       "max":  20,
       "min":  0,
