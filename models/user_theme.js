@@ -12,11 +12,17 @@ export default (db, Sequelize) => {
         type:           Sequelize.ENUM,
         values:         ['visible', 'subscribed', 'rejected']
       }
-    },
-    {
+    }, {
 
       tableName:    'users_themes',
       underscored:  true,
+
+      indexes: [{
+        fields: ['user_id', 'theme_id'],
+        unique: true
+      }, {
+        fields: ['status']
+      }],
 
       classMethods: {
 

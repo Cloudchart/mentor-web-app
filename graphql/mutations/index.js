@@ -4,9 +4,9 @@ export default {
   VoteForInsight:               require('./vote_for_insight_mutation'),
   CreateThemeMutation:          require('./CreateThemeMutation'),
   UpdateThemeStatus:            require('./update_theme_status_mutation'),
-  UpdateUserTheme:              require('./update_user_theme_mutation'),
   ActualizeUserThemeInsights:   require('./ActualizeUserThemeInsightsMutation'),
   ActualizeThemeInsights:       require('./ActualizeThemeInsightsMutation'),
   LikeInsight:                  require('./LikeInsightMutation'),
-  UpdateUserThemeInsight:       require('./UpdateUserThemeInsightMutation')
+  UpdateUserTheme:              require('./UpdateUserThemeMutation'),
+  UpdateUserThemeInsight:       require('./UpdateUserThemeInsightMutation'),
 }
