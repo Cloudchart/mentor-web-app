@@ -1,26 +1,53 @@
 import React from 'react'
 import Relay from 'react-relay'
 
+import UpdateUserThemeMutation from '../mutations/UpdateUserThemeMutation'
+
 
 const MaxSubscriptionsCount = 3
+
+import { pluralize } from '../utils'
 
 
 class ChooserApp extends React.Component {
 
+  state = {
+    subscriptionsCount: 0
+  }
+
+  componentWillMount() {
+    this._updateSubscriptionsCount(this.props.viewer.themes.edges)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this._updateSubscriptionsCount(nextProps.viewer.themes.edges)
+  }
 
   handleSubscribe(theme, event) {
     event.preventDefault()
+    if (this.state.subscriptionsCount == 0) return alert('No more')
+
+    let mutation = new UpdateUserThemeMutation({ theme: theme, status: 'SUBSCRIBED' })
+    Relay.Store.update(mutation)
   }
 
   handleUnsubscribe(theme, event) {
     event.preventDefault()
+
+    let mutation = new UpdateUserThemeMutation({ theme: theme, status: 'VISIBLE' })
+    Relay.Store.update(mutation)
   }
 
+  _updateSubscriptionsCount(themes) {
+    this.setState({
+      subscriptionsCount: MaxSubscriptionsCount - themes.filter(theme => theme.node.isSubscribed).length
+    })
+  }
 
   render() {
     return (
       <div>
-        <h2>Choose {MaxSubscriptionsCount} topics to continue</h2>
+        <h2>Choose {pluralize(this.state.subscriptionsCount, 'more topic', 'more topics')} to continue</h2>
         <ul style={{ listStyle: 'none', margin: '0', padding: '0' }}>
           { this.props.viewer.themes.edges.map(this.renderTheme) }
         </ul>
@@ -42,9 +69,10 @@ class ChooserApp extends React.Component {
   }
 
   renderSubscribeOnThemeControl(theme) {
+    let color = this.state.subscriptionsCount == 0 ? 'grey' : 'blue'
     return theme.isSubscribed
       ? null
-      : <a href="#" onClick={ this.handleSubscribe.bind(this, theme) } style={{ color: 'blue' }}>Subscribe</a>
+      : <a href="#" onClick={ this.handleSubscribe.bind(this, theme) } style={{ color: color }}>Subscribe</a>
   }
 
   renderUnsubscribeFromThemeControl(theme) {
@@ -73,6 +101,7 @@ export default Relay.createContainer(ChooserApp, {
               id
               name
               isSubscribed
+              ${UpdateUserThemeMutation.getFragment('theme')}
             }
           }
         }

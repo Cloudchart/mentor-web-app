@@ -20,11 +20,15 @@ let queryType = new GraphQLObjectType({
 })
 
 
+import UpdateUserThemeMutation from './mutations/UpdateUserThemeMutation'
+
+
 let mutationType = new GraphQLObjectType({
 
   name: 'Mutation',
 
   fields: {
+    updateUserTheme: UpdateUserThemeMutation
   }
 
 })
@@ -33,7 +37,7 @@ let mutationType = new GraphQLObjectType({
 let Schema = new GraphQLSchema({
 
   query:      queryType,
-  // mutation:   mutationType
+  mutation:   mutationType
 
 })
 

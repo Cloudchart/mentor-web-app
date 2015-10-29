@@ -1,3 +1,7 @@
+type Mutation {
+  updateUserTheme(input: UpdateUserThemeInput!): UpdateUserThemePayload
+}
+
 interface Node {
   id: ID!
 }
@@ -41,9 +45,27 @@ type ThemesEdge {
   cursor: String!
 }
 
+input UpdateUserThemeInput {
+  id: ID!
+  status: UserThemeStatusEnum!
+  clientMutationId: String!
+}
+
+type UpdateUserThemePayload {
+  theme: Theme!
+  viewer: User!
+  clientMutationId: String!
+}
+
 type User implements Node {
   id: ID!
   name: String
   isActive: Boolean
   themes(before: String, after: String, first: Int, last: Int, filter: ThemeFilterEnum = related): ThemesConnection
+}
+
+enum UserThemeStatusEnum {
+  SUBSCRIBED
+  VISIBLE
+  REJECTED
 }

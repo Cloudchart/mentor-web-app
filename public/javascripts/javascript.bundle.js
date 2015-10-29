@@ -77,7 +77,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(385)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(387)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(388)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -41511,6 +41511,12 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
+	var _mutationsUpdateUserThemeMutation = __webpack_require__(387);
+
+	var _mutationsUpdateUserThemeMutation2 = _interopRequireDefault(_mutationsUpdateUserThemeMutation);
+
+	var _utils = __webpack_require__(392);
+
 	var MaxSubscriptionsCount = 3;
 
 	var ChooserApp = (function (_React$Component) {
@@ -41522,6 +41528,10 @@
 	    _classCallCheck(this, ChooserApp);
 
 	    _get(Object.getPrototypeOf(ChooserApp.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.state = {
+	      subscriptionsCount: 0
+	    };
 
 	    this.renderTheme = function (themeEdge) {
 	      var theme = themeEdge.node;
@@ -41541,14 +41551,40 @@
 	  }
 
 	  _createClass(ChooserApp, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this._updateSubscriptionsCount(this.props.viewer.themes.edges);
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this._updateSubscriptionsCount(nextProps.viewer.themes.edges);
+	    }
+	  }, {
 	    key: 'handleSubscribe',
 	    value: function handleSubscribe(theme, event) {
 	      event.preventDefault();
+	      if (this.state.subscriptionsCount == 0) return alert('No more');
+
+	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ theme: theme, status: 'SUBSCRIBED' });
+	      _reactRelay2['default'].Store.update(mutation);
 	    }
 	  }, {
 	    key: 'handleUnsubscribe',
 	    value: function handleUnsubscribe(theme, event) {
 	      event.preventDefault();
+
+	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ theme: theme, status: 'VISIBLE' });
+	      _reactRelay2['default'].Store.update(mutation);
+	    }
+	  }, {
+	    key: '_updateSubscriptionsCount',
+	    value: function _updateSubscriptionsCount(themes) {
+	      this.setState({
+	        subscriptionsCount: MaxSubscriptionsCount - themes.filter(function (theme) {
+	          return theme.node.isSubscribed;
+	        }).length
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -41560,8 +41596,8 @@
 	          'h2',
 	          null,
 	          'Choose ',
-	          MaxSubscriptionsCount,
-	          ' topics to continue'
+	          (0, _utils.pluralize)(this.state.subscriptionsCount, 'more topic', 'more topics'),
+	          ' to continue'
 	        ),
 	        _react2['default'].createElement(
 	          'ul',
@@ -41573,9 +41609,10 @@
 	  }, {
 	    key: 'renderSubscribeOnThemeControl',
 	    value: function renderSubscribeOnThemeControl(theme) {
+	      var color = this.state.subscriptionsCount == 0 ? 'grey' : 'blue';
 	      return theme.isSubscribed ? null : _react2['default'].createElement(
 	        'a',
-	        { href: '#', onClick: this.handleSubscribe.bind(this, theme), style: { color: 'blue' } },
+	        { href: '#', onClick: this.handleSubscribe.bind(this, theme), style: { color: color } },
 	        'Subscribe'
 	      );
 	    }
@@ -41602,7 +41639,7 @@
 
 	  fragments: {
 	    viewer: function viewer() {
-	      return (function () {
+	      return (function (sub_0) {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
 	        return new GraphQL.QueryFragment('ChooserApp', 'User', [new GraphQL.Field('themes', [new GraphQL.Field('count', null, null, null, null, null, {
 	          parentType: 'ThemesConnection'
@@ -41613,7 +41650,7 @@
 	          parentType: 'Theme'
 	        }), new GraphQL.Field('isSubscribed', null, null, null, null, null, {
 	          parentType: 'Theme'
-	        })], null, null, null, null, {
+	        })], [_reactRelay2['default'].QL.__frag(sub_0)], null, null, null, {
 	          parentType: 'ThemesEdge',
 	          rootCall: 'node',
 	          pk: 'id',
@@ -41648,7 +41685,7 @@
 	          generated: true,
 	          requisite: true
 	        })]);
-	      })();
+	      })(_mutationsUpdateUserThemeMutation2['default'].getFragment('theme'));
 	    }
 	  }
 
@@ -41659,13 +41696,114 @@
 /* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.Mutation('UpdateUserThemeMutation', 'UpdateUserThemePayload', new GraphQL.Callv('updateUserTheme', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	          parentType: 'UpdateUserThemePayload',
+	          generated: true,
+	          requisite: true
+	        })], null, {
+	          inputType: 'UpdateUserThemeInput!'
+	        });
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.QueryFragment('UpdateUserThemeMutation', 'UpdateUserThemePayload', [new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'Theme',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UpdateUserThemePayload',
+	          rootCall: 'node',
+	          pk: 'id'
+	        })]);
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        id: _this.props.theme.id,
+	        status: _this.props.status
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: {
+	          theme: _this.props.theme.id
+	        }
+	      }];
+	    };
+	  }
+
+	  _createClass(_default, null, [{
+	    key: 'fragments',
+	    value: {
+	      theme: function theme() {
+	        return (function () {
+	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	          return new GraphQL.QueryFragment('UpdateUserThemeMutation', 'Theme', [new GraphQL.Field('id', null, null, null, null, null, {
+	            parentType: 'Theme',
+	            requisite: true
+	          })]);
+	        })();
+	      }
+	    },
+	    enumerable: true
+	  }]);
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 388 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var map = {
-		"./ThemeAppRoute": 388,
-		"./ThemeAppRoute.js": 388,
-		"./ThemesRoute": 389,
-		"./ThemesRoute.js": 389,
-		"./ViewerRoute": 390,
-		"./ViewerRoute.js": 390
+		"./ThemeAppRoute": 389,
+		"./ThemeAppRoute.js": 389,
+		"./ThemesRoute": 390,
+		"./ThemesRoute.js": 390,
+		"./ViewerRoute": 391,
+		"./ViewerRoute.js": 391
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -41678,11 +41816,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 387;
+	webpackContext.id = 388;
 
 
 /***/ },
-/* 388 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41750,7 +41888,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 389 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41816,7 +41954,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 390 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41874,6 +42012,21 @@
 
 	exports['default'] = _default;
 	module.exports = exports['default'];
+
+/***/ },
+/* 392 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.pluralize = pluralize;
+
+	function pluralize(count, singular, plural) {
+	  return count == 1 ? count + " " + singular : count + " " + plural;
+	}
 
 /***/ }
 /******/ ]);

@@ -19,4 +19,4 @@ let forUser = (userID) =>
     storagesForUsers[userID] = BaseStorage('UserTheme', { finder: finderForUser(userID) })
   )
 
-export default { forUser }
+export default Object.assign(BaseStorage('UserTheme'), { forUser })
