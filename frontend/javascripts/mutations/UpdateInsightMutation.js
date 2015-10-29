@@ -29,6 +29,7 @@ export default class extends Relay.Mutation {
         insightID
         insight
         viewer
+        theme
       }
     `
 
@@ -47,6 +48,9 @@ export default class extends Relay.Mutation {
 
     if (this.props.viewer)
       configs.push(rangeDeleteConfig('viewer', this.props.viewer.id))
+
+    if (this.props.theme)
+      configs.push(rangeDeleteConfig('theme', this.props.theme.id))
 
     return configs
   }

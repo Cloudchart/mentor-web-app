@@ -148,6 +148,7 @@ type UpdateUserThemeInsightMutationPayload {
   insightID: ID!
   insight: UserThemeInsight!
   viewer: User!
+  theme: Theme!
   clientMutationId: String!
 }
 

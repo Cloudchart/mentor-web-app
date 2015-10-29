@@ -9,8 +9,10 @@ import {
 } from 'graphql-relay'
 
 import UserType from '../types/user_type'
+import ThemeType from '../types/theme_type'
 import UserThemeInsightType from '../types/UserThemeInsightType'
 
+import ThemeStorage from '../../storage/NewThemeStorage'
 import UserThemeInsightStorage from '../../storage/NewUserThemeInsightStorage'
 
 export default mutationWithClientMutationId({
@@ -36,17 +38,16 @@ export default mutationWithClientMutationId({
     },
     viewer: {
       type: new GraphQLNonNull(UserType)
+    },
+    theme: {
+      type: new GraphQLNonNull(ThemeType),
+      resolve: ({ insight: { theme_id } }) => ThemeStorage.load(theme_id)
     }
   },
 
   mutateAndGetPayload: async ({ id, rate }, { rootValue: { viewer }}) => {
-    try {
-      let insight = await UserThemeInsightStorage.update(id, { rate })
-      return { insight, viewer }
-    } catch(e) {
-      if (e.message === id) return new Error('Record not found')
-      return e
-    }
+    let insight = await UserThemeInsightStorage.update(id, { rate })
+    return { insight, viewer }
   }
 
 })

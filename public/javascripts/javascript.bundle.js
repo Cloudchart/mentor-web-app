@@ -42165,10 +42165,10 @@
 	          generated: true,
 	          requisite: true
 	        })], null, null, null, null, {
-	          parentType: 'UserInsightsConnection',
+	          parentType: 'UserInsightConnection',
 	          requisite: true
 	        }), new GraphQL.Field('edges', [new GraphQL.Field('cursor', null, null, null, null, null, {
-	          parentType: 'UserInsightsEdge',
+	          parentType: 'UserInsightEdge',
 	          requisite: true
 	        }), new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
 	          parentType: 'UserThemeInsight',
@@ -42184,10 +42184,10 @@
 	        })], null, null, null, null, {
 	          parentType: 'UserThemeInsight'
 	        })], [_reactRelay2['default'].QL.__frag(sub_0)], null, null, null, {
-	          parentType: 'UserInsightsEdge',
+	          parentType: 'UserInsightEdge',
 	          requisite: true
 	        })], null, null, null, null, {
-	          parentType: 'UserInsightsConnection',
+	          parentType: 'UserInsightConnection',
 	          plural: true
 	        })], null, [new GraphQL.Callv('first', new GraphQL.CallVariable('count')), new GraphQL.Callv('after', new GraphQL.CallVariable('cursor'))], null, null, {
 	          parentType: 'User',
@@ -42280,6 +42280,12 @@
 	          requisite: true
 	        })], null, null, null, null, {
 	          parentType: 'UpdateUserThemeInsightMutationPayload'
+	        }), new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'Theme',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UpdateUserThemeInsightMutationPayload'
 	        })]);
 	      })();
 	    };
@@ -42303,6 +42309,8 @@
 	      });
 
 	      if (this.props.viewer) configs.push(rangeDeleteConfig('viewer', this.props.viewer.id));
+
+	      if (this.props.theme) configs.push(rangeDeleteConfig('theme', this.props.theme.id));
 
 	      return configs;
 	    }
