@@ -41511,16 +41511,46 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
+	var MaxSubscriptionsCount = 3;
+
 	var ChooserApp = (function (_React$Component) {
 	  _inherits(ChooserApp, _React$Component);
 
 	  function ChooserApp() {
+	    var _this = this;
+
 	    _classCallCheck(this, ChooserApp);
 
 	    _get(Object.getPrototypeOf(ChooserApp.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.renderTheme = function (themeEdge) {
+	      var theme = themeEdge.node;
+	      return _react2['default'].createElement(
+	        'li',
+	        { key: theme.id, style: { margin: '10px 0' } },
+	        '#',
+	        theme.name,
+	        _react2['default'].createElement(
+	          'div',
+	          null,
+	          _this.renderSubscribeOnThemeControl(theme),
+	          _this.renderUnsubscribeFromThemeControl(theme)
+	        )
+	      );
+	    };
 	  }
 
 	  _createClass(ChooserApp, [{
+	    key: 'handleSubscribe',
+	    value: function handleSubscribe(theme, event) {
+	      event.preventDefault();
+	    }
+	  }, {
+	    key: 'handleUnsubscribe',
+	    value: function handleUnsubscribe(theme, event) {
+	      event.preventDefault();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
@@ -41529,9 +41559,34 @@
 	        _react2['default'].createElement(
 	          'h2',
 	          null,
-	          'Chooser'
+	          'Choose ',
+	          MaxSubscriptionsCount,
+	          ' topics to continue'
+	        ),
+	        _react2['default'].createElement(
+	          'ul',
+	          { style: { listStyle: 'none', margin: '0', padding: '0' } },
+	          this.props.viewer.themes.edges.map(this.renderTheme)
 	        )
 	      );
+	    }
+	  }, {
+	    key: 'renderSubscribeOnThemeControl',
+	    value: function renderSubscribeOnThemeControl(theme) {
+	      return theme.isSubscribed ? null : _react2['default'].createElement(
+	        'a',
+	        { href: '#', onClick: this.handleSubscribe.bind(this, theme), style: { color: 'blue' } },
+	        'Subscribe'
+	      );
+	    }
+	  }, {
+	    key: 'renderUnsubscribeFromThemeControl',
+	    value: function renderUnsubscribeFromThemeControl(theme) {
+	      return theme.isSubscribed ? _react2['default'].createElement(
+	        'a',
+	        { href: '#', onClick: this.handleUnsubscribe.bind(this, theme), style: { color: 'red' } },
+	        'Unsubscribe'
+	      ) : null;
 	    }
 	  }]);
 
@@ -41551,12 +41606,13 @@
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
 	        return new GraphQL.QueryFragment('ChooserApp', 'User', [new GraphQL.Field('themes', [new GraphQL.Field('count', null, null, null, null, null, {
 	          parentType: 'ThemesConnection'
-	        }), new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('name', null, null, null, null, null, {
-	          parentType: 'Theme'
-	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	        }), new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
 	          parentType: 'Theme',
-	          generated: true,
 	          requisite: true
+	        }), new GraphQL.Field('name', null, null, null, null, null, {
+	          parentType: 'Theme'
+	        }), new GraphQL.Field('isSubscribed', null, null, null, null, null, {
+	          parentType: 'Theme'
 	        })], null, null, null, null, {
 	          parentType: 'ThemesEdge',
 	          rootCall: 'node',
