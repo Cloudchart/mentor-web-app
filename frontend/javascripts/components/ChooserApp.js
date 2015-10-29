@@ -1,6 +1,7 @@
 import React from 'react'
 import Relay from 'react-relay'
 
+import ActivateUserMutation from '../mutations/ActivateUserMutation'
 import UpdateUserThemeMutation from '../mutations/UpdateUserThemeMutation'
 
 
@@ -38,6 +39,14 @@ class ChooserApp extends React.Component {
     Relay.Store.update(mutation)
   }
 
+  handleContinue = (event) => {
+    event.preventDefault()
+
+    let mutation = new ActivateUserMutation({ user: this.props.viewer })
+    Relay.Store.update(mutation)
+  }
+
+
   _updateSubscriptionsCount(themes) {
     this.setState({
       subscriptionsCount: MaxSubscriptionsCount - themes.filter(theme => theme.node.isSubscribed).length
@@ -48,9 +57,10 @@ class ChooserApp extends React.Component {
     return (
       <div>
         <h2>Choose {pluralize(this.state.subscriptionsCount, 'more topic', 'more topics')} to continue</h2>
-        <ul style={{ listStyle: 'none', margin: '0', padding: '0' }}>
+        <ul style={{ listStyle: 'none', margin: '30px 0', padding: '0' }}>
           { this.props.viewer.themes.edges.map(this.renderTheme) }
         </ul>
+        { this.renderContinueControl() }
       </div>
     )
   }
@@ -81,6 +91,16 @@ class ChooserApp extends React.Component {
       : null
   }
 
+  renderContinueControl() {
+    return this.state.subscriptionsCount == 0
+      ? (
+          <button style={{ margin: 0, padding: 10 }} onClick={ this.handleContinue }>
+            Continue
+          </button>
+        )
+      : null
+  }
+
 }
 
 
@@ -105,6 +125,7 @@ export default Relay.createContainer(ChooserApp, {
             }
           }
         }
+        ${ActivateUserMutation.getFragment('user')}
       }
     `
   }

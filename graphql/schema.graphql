@@ -1,4 +1,15 @@
+input ActivateUserInput {
+  userId: ID
+  clientMutationId: String!
+}
+
+type ActivateUserPayload {
+  user: User!
+  clientMutationId: String!
+}
+
 type Mutation {
+  activateUser(input: ActivateUserInput!): ActivateUserPayload
   updateUserTheme(input: UpdateUserThemeInput!): UpdateUserThemePayload
 }
 

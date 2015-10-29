@@ -41500,6 +41500,10 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
+	var _mutationsActivateUserMutation = __webpack_require__(392);
+
+	var _mutationsActivateUserMutation2 = _interopRequireDefault(_mutationsActivateUserMutation);
+
 	var _mutationsUpdateUserThemeMutation = __webpack_require__(386);
 
 	var _mutationsUpdateUserThemeMutation2 = _interopRequireDefault(_mutationsUpdateUserThemeMutation);
@@ -41520,6 +41524,13 @@
 
 	    this.state = {
 	      subscriptionsCount: 0
+	    };
+
+	    this.handleContinue = function (event) {
+	      event.preventDefault();
+
+	      var mutation = new _mutationsActivateUserMutation2['default']({ user: _this.props.viewer });
+	      _reactRelay2['default'].Store.update(mutation);
 	    };
 
 	    this.renderTheme = function (themeEdge) {
@@ -41590,9 +41601,10 @@
 	        ),
 	        _react2['default'].createElement(
 	          'ul',
-	          { style: { listStyle: 'none', margin: '0', padding: '0' } },
+	          { style: { listStyle: 'none', margin: '30px 0', padding: '0' } },
 	          this.props.viewer.themes.edges.map(this.renderTheme)
-	        )
+	        ),
+	        this.renderContinueControl()
 	      );
 	    }
 	  }, {
@@ -41614,6 +41626,15 @@
 	        'Unsubscribe'
 	      ) : null;
 	    }
+	  }, {
+	    key: 'renderContinueControl',
+	    value: function renderContinueControl() {
+	      return this.state.subscriptionsCount == 0 ? _react2['default'].createElement(
+	        'button',
+	        { style: { margin: 0, padding: 10 }, onClick: this.handleContinue },
+	        'Continue'
+	      ) : null;
+	    }
 	  }]);
 
 	  return ChooserApp;
@@ -41628,7 +41649,7 @@
 
 	  fragments: {
 	    viewer: function viewer() {
-	      return (function (sub_0) {
+	      return (function (sub_0, sub_1) {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
 	        return new GraphQL.QueryFragment('ChooserApp', 'User', [new GraphQL.Field('themes', [new GraphQL.Field('count', null, null, null, null, null, {
 	          parentType: 'ThemesConnection'
@@ -41673,8 +41694,8 @@
 	          parentType: 'User',
 	          generated: true,
 	          requisite: true
-	        })]);
-	      })(_mutationsUpdateUserThemeMutation2['default'].getFragment('theme'));
+	        })], [_reactRelay2['default'].QL.__frag(sub_1)]);
+	      })(_mutationsUpdateUserThemeMutation2['default'].getFragment('theme'), _mutationsActivateUserMutation2['default'].getFragment('user'));
 	    }
 	  }
 
@@ -42013,6 +42034,106 @@
 
 	  return _default;
 	})(_reactRelay2['default'].Route);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 392 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.Mutation('ActivateUserMutation', 'ActivateUserPayload', new GraphQL.Callv('activateUser', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	          parentType: 'ActivateUserPayload',
+	          generated: true,
+	          requisite: true
+	        })], null, {
+	          inputType: 'ActivateUserInput!'
+	        });
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.QueryFragment('ActivateUserMutation', 'ActivateUserPayload', [new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'User',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'ActivateUserPayload',
+	          rootCall: 'node',
+	          pk: 'id'
+	        })]);
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        userId: _this.props.user.id
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: {
+	          user: _this.props.user.id
+	        }
+	      }];
+	    };
+	  }
+
+	  _createClass(_default, null, [{
+	    key: 'fragments',
+	    value: {
+	      user: function user() {
+	        return (function () {
+	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	          return new GraphQL.QueryFragment('ActivateUserMutation', 'User', [new GraphQL.Field('id', null, null, null, null, null, {
+	            parentType: 'User',
+	            requisite: true
+	          })]);
+	        })();
+	      }
+	    },
+	    enumerable: true
+	  }]);
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
 
 	exports['default'] = _default;
 	module.exports = exports['default'];
