@@ -21,6 +21,7 @@ type Theme implements Node {
   isSystem: Boolean!
   isDefault: Boolean!
   isSubscribed: Boolean!
+  isRejected: Boolean!
 }
 
 enum ThemeFilterEnum {

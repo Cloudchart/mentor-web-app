@@ -20,5 +20,4 @@ let forUser = (userID) =>
   )
 
 
-export default BaseStorage('UserTheme')
-export { forUser }
+export default Object.assign(BaseStorage('UserTheme'), { forUser })

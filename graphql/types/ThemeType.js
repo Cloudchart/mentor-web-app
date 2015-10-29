@@ -12,7 +12,7 @@ import {
 } from 'graphql-relay'
 
 import { nodeInterface } from './Node'
-import UserThemeStorage, { forUser as UserThemeStorageForUser } from '../../storage/UserThemeStorage'
+import UserThemeStorage from '../../storage/UserThemeStorage'
 
 let ThemeFilterEnum = new GraphQLEnumType({
   name: 'ThemeFilterEnum',
@@ -24,6 +24,15 @@ let ThemeFilterEnum = new GraphQLEnumType({
     SUBSCRIBED: { value: 'subscribed' },
   }
 })
+
+
+let resolveThemeStatus = (theme, {}, { rootValue: { viewer }}) =>
+  UserThemeStorage
+    .forUser(viewer.id)
+    .load(theme.id)
+    .then(record => record.status)
+    .catch(error => null)
+
 
 export default new GraphQLObjectType({
 
@@ -51,11 +60,16 @@ export default new GraphQLObjectType({
 
     isSubscribed: {
       type: new GraphQLNonNull(GraphQLBoolean),
-      resolve: (theme, {}, { rootValue: { viewer } }) =>
-        UserThemeStorageForUser(viewer.id)
-          .load(theme.id)
-          .then(record => record.status === 'subscribed')
-          .catch(error => false )
+      resolve: (...args) =>
+        resolveThemeStatus(...args)
+          .then(status => status === 'subscribed')
+    },
+
+    isRejected: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      resolve: (...args) =>
+        resolveThemeStatus(...args)
+          .then(status => status === 'rejected')
     }
 
   })

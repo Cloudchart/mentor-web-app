@@ -4,6 +4,10 @@ import {
 } from 'graphql-relay'
 
 
+import UserStorage from '../../storage/UserStorage'
+import ThemeStorage from '../../storage/ThemeStorage'
+
+
 export default nodeDefinitions(
 
   (globalId) => {
@@ -17,15 +21,13 @@ export default nodeDefinitions(
   },
 
   (object) => {
+    console.log("THERE:", object)
     switch(object.__type) {
       case 'User':
-        return require('./UserType')
+        return require('./UserType').default
       case 'Theme':
-        return require('./ThemeType')
+        return require('./ThemeType').default
     }
   }
 
 )
-
-import UserStorage from '../../storage/UserStorage'
-import ThemeStorage from '../../storage/ThemeStorage'
