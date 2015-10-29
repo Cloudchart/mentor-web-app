@@ -4,18 +4,29 @@ import {
   GraphQLList
 } from 'graphql'
 
-import ThemeType from '../types/UserType'
+
+import {
+  connectionArgs,
+  connectionFromArray
+} from 'graphql-relay'
+
+
+import { ThemeFilterEnum } from '../types/ThemeType'
+import { connectionType } from '../connections/ThemesConnection'
 import ThemeStorage from '../../storage/ThemeStorage'
 
 export default {
-  type: new GraphQLList(ThemeType),
+  type: connectionType,
   args: {
+    ...connectionArgs,
     filter: {
-      type: GraphQLString,
+      type: ThemeFilterEnum,
       defaultValue: 'related'
     }
   },
-  resolve: (root, { filter }, { rootValue: { viewer }}) =>
-    ThemeStorage.loadAll(filter, { userID: viewer.id })
+  resolve: (root, args, { rootValue: { viewer }}) =>
+    ThemeStorage
+      .loadAll(args.filter, { userID: viewer.id })
+      .then(records => connectionFromArray(records, args))
 
 }

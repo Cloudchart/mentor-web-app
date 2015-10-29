@@ -2,10 +2,42 @@ interface Node {
   id: ID!
 }
 
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
 type Query {
   viewer: User
-  themes(filter: String = "related"): [User]
+  themes(before: String, after: String, first: Int, last: Int, filter: ThemeFilterEnum = related): ThemesConnection
   node(id: ID!): Node
+}
+
+type Theme implements Node {
+  id: ID!
+  name: String
+  isSystem: Boolean!
+  isDefault: Boolean!
+  isSubscribed: Boolean!
+}
+
+enum ThemeFilterEnum {
+  DEFAULT
+  RELATED
+  UNRELATED
+  SUBSCRIBED
+}
+
+type ThemesConnection {
+  pageInfo: PageInfo!
+  edges: [ThemesEdge]
+}
+
+type ThemesEdge {
+  node: Theme
+  cursor: String!
 }
 
 type User implements Node {

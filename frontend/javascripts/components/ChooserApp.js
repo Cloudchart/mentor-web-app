@@ -4,6 +4,12 @@ import Relay from 'react-relay'
 
 class ChooserApp extends React.Component {
 
+
+  componentDidMount() {
+    console.log(this.props.relay.variables)
+  }
+
+
   render() {
     return (
       <div>
@@ -18,9 +24,13 @@ class ChooserApp extends React.Component {
 export default Relay.createContainer(ChooserApp, {
 
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on User {
-        name
+    themes: () => Relay.QL`
+      fragment on ThemesConnection {
+        edges {
+          node {
+            name
+          }
+        }
       }
     `
   }

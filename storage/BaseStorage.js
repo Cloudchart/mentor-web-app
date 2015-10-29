@@ -6,13 +6,16 @@ import {
 } from './utils'
 
 
+let basicFinder = (modelName, ids) =>
+  (ids) =>
+    models[modelName]
+      .findAll({where:{id:{$in:ids}}})
+      .then(records => mapReduce(ids, records, 'id', modelName))
+
 let createStorage = (modelName, options = {}) => {
   let model = models[modelName]
 
-  let finder = (ids) =>
-    model
-      .findAll({where:{id:{$in:ids}}})
-      .then(records => mapReduce(ids, records, 'id', modelName))
+  let finder = options.finder || basicFinder(modelName)
 
   let loader = new DataLoader(finder)
 
