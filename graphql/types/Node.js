@@ -21,12 +21,11 @@ export default nodeDefinitions(
   },
 
   (object) => {
-    console.log("THERE:", object)
     switch(object.__type) {
       case 'User':
-        return require('./UserType').default
+        return require('./UserType')
       case 'Theme':
-        return require('./ThemeType').default
+        return require('./ThemeType')
     }
   }
 

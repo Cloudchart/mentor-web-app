@@ -1,9 +1,7 @@
 import {
-  GraphQLID,
   GraphQLString,
   GraphQLBoolean,
   GraphQLNonNull,
-  GraphQLEnumType,
   GraphQLObjectType,
 } from 'graphql'
 
@@ -13,17 +11,6 @@ import {
 
 import { nodeInterface } from './Node'
 import UserThemeStorage from '../../storage/UserThemeStorage'
-
-let ThemeFilterEnum = new GraphQLEnumType({
-  name: 'ThemeFilterEnum',
-
-  values: {
-    DEFAULT:    { value: 'default'    },
-    RELATED:    { value: 'related'    },
-    UNRELATED:  { value: 'unrelated'  },
-    SUBSCRIBED: { value: 'subscribed' },
-  }
-})
 
 
 let resolveThemeStatus = (theme, {}, { rootValue: { viewer }}) =>
@@ -75,5 +62,3 @@ export default new GraphQLObjectType({
   })
 
 })
-
-export { ThemeFilterEnum }

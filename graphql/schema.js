@@ -5,7 +5,6 @@ import {
 
 
 import ViewerQuery from './queries/Viewer'
-import ThemesQuery from './queries/Themes'
 import NodeQuery from './queries/Node'
 
 
@@ -15,7 +14,6 @@ let queryType = new GraphQLObjectType({
 
   fields: () => ({
     viewer: ViewerQuery,
-    themes: ThemesQuery,
     node:   NodeQuery
   })
 

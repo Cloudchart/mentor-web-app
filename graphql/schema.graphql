@@ -11,7 +11,6 @@ type PageInfo {
 
 type Query {
   viewer: User
-  themes(before: String, after: String, first: Int, last: Int, filter: ThemeFilterEnum = related): ThemesConnection
   node(id: ID!): Node
 }
 
@@ -34,6 +33,7 @@ enum ThemeFilterEnum {
 type ThemesConnection {
   pageInfo: PageInfo!
   edges: [ThemesEdge]
+  count: Int!
 }
 
 type ThemesEdge {
@@ -45,4 +45,5 @@ type User implements Node {
   id: ID!
   name: String
   isActive: Boolean
+  themes(before: String, after: String, first: Int, last: Int, filter: ThemeFilterEnum = related): ThemesConnection
 }

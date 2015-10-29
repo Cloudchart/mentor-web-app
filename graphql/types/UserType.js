@@ -12,7 +12,7 @@ import {
 
 
 import { nodeInterface } from './Node'
-
+import { field as ThemesConnectionField } from '../connections/ThemesConnection'
 
 export default new GraphQLObjectType({
 
@@ -32,6 +32,8 @@ export default new GraphQLObjectType({
       type:     GraphQLBoolean,
       resolve:  user => user.is_active
     },
+
+    themes: ThemesConnectionField
 
   })
 

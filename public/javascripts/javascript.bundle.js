@@ -41521,11 +41521,6 @@
 	  }
 
 	  _createClass(ChooserApp, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      console.log(this.props.relay.variables);
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
@@ -41545,11 +41540,18 @@
 
 	exports['default'] = _reactRelay2['default'].createContainer(ChooserApp, {
 
+	  initialVariables: {
+	    count: 50,
+	    filter: null
+	  },
+
 	  fragments: {
-	    themes: function themes() {
+	    viewer: function viewer() {
 	      return (function () {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.QueryFragment('ChooserApp', 'ThemesConnection', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('name', null, null, null, null, null, {
+	        return new GraphQL.QueryFragment('ChooserApp', 'User', [new GraphQL.Field('themes', [new GraphQL.Field('count', null, null, null, null, null, {
+	          parentType: 'ThemesConnection'
+	        }), new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('name', null, null, null, null, null, {
 	          parentType: 'Theme'
 	        }), new GraphQL.Field('id', null, null, null, null, null, {
 	          parentType: 'Theme',
@@ -41577,6 +41579,16 @@
 	          requisite: true
 	        })], null, null, null, null, {
 	          parentType: 'ThemesConnection',
+	          generated: true,
+	          requisite: true
+	        })], null, [new GraphQL.Callv('first', new GraphQL.CallVariable('count')), new GraphQL.Callv('filter', new GraphQL.CallVariable('filter'), {
+	          type: 'ThemeFilterEnum'
+	        })], null, null, {
+	          parentType: 'User',
+	          connection: true,
+	          nonFindable: true
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'User',
 	          generated: true,
 	          requisite: true
 	        })]);
@@ -41717,10 +41729,14 @@
 	  _createClass(_default, null, [{
 	    key: 'queries',
 	    value: {
-	      themes: function themes() {
+	      viewer: function viewer() {
 	        return (function () {
 	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	          return new GraphQL.Query('themes', null, null, null, null, 'ThemesRoute');
+	          return new GraphQL.Query('viewer', null, [new GraphQL.Field('id', null, null, null, null, null, {
+	            parentType: 'User',
+	            generated: true,
+	            requisite: true
+	          })], null, null, 'ThemesRoute');
 	        })();
 	      }
 	    },

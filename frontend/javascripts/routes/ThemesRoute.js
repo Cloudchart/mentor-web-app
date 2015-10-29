@@ -3,8 +3,8 @@ import Relay from 'react-relay'
 export default class extends Relay.Route {
 
   static queries = {
-    themes: () => Relay.QL`
-      query { themes }
+    viewer: () => Relay.QL`
+      query { viewer }
     `
   }
 
