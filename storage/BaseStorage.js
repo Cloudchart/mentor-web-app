@@ -41,6 +41,14 @@ let createStorage = (modelName, options = {}) => {
           : loader.loadMany(ids)
       )
 
+  let loadOne = (key, replacements = {}) =>
+    loadAll(key, replacements)
+      .then(records =>
+        records instanceof Error
+          ? records
+          : records[0]
+      )
+
   let create = (attributes) =>
     model.create(attributes)
 
@@ -61,6 +69,8 @@ let createStorage = (modelName, options = {}) => {
     loadAllIDs,
 
     loadAll,
+
+    loadOne,
 
     create: (attributes = {}) =>
       create(attributes)
