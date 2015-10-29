@@ -9,9 +9,8 @@ import {
   cursorForObjectInConnection
 } from 'graphql-relay'
 
-import {
-  UserThemeStorage
-} from '../../storage'
+import NewThemeStorage from '../../storage/NewThemeStorage'
+import NewUserThemeStorage from '../../storage/NewUserThemeStorage'
 
 export default mutationWithClientMutationId({
 
@@ -33,19 +32,15 @@ export default mutationWithClientMutationId({
   },
 
   mutateAndGetPayload: async ({ id, status }, { rootValue: { viewer } }) => {
-    let [userID, themeID] = id.split(':')
+    let theme     = await NewThemeStorage.load(id)
 
-    if (userID !== viewer.id)
-      return new Error('Not authorized')
+    let userTheme = await NewUserThemeStorage
+      .loadOne('userAndTheme', { userID: viewer.id, themeID: theme.id })
+      .catch(error => null )
 
-    let userTheme = await UserThemeStorage.load(userID, themeID)
-
-    if (userTheme)
-      await UserThemeStorage.update(userID, themeID, { status: status })
-    else
-      await UserThemeStorage.create(userID, themeID, { status: status })
-
-    userTheme = await UserThemeStorage.load(userID, themeID)
+    userTheme = userTheme
+      ? await NewUserThemeStorage.update(userTheme.id, { status })
+      : await NewUserThemeStorage.create({ status, user_id: viewer.id, theme_id: theme.id })
 
     return { userTheme }
   }
