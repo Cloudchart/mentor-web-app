@@ -1,31 +1,23 @@
 import {
   GraphQLSchema,
   GraphQLObjectType,
-  GraphQLString
 } from 'graphql'
 
-import { Viewer } from './queries'
-import {
-  ActivateViewer,
-  ThemeToViewer,
-  VoteForInsight,
-  CreateThemeMutation,
-  UpdateThemeStatus,
-  UpdateUserTheme,
-  ActualizeUserThemeInsights,
-  ActualizeThemeInsights,
-  LikeInsight,
-  UpdateUserThemeInsight
-} from './mutations'
+
+import ViewerQuery from './queries/Viewer'
+import ThemesQuery from './queries/Themes'
+import NodeQuery from './queries/Node'
+
 
 let queryType = new GraphQLObjectType({
 
   name: 'Query',
 
-  fields: {
-    viewer: Viewer,
-    node:   Viewer
-  }
+  fields: () => ({
+    viewer: ViewerQuery,
+    themes: ThemesQuery,
+    node:   NodeQuery
+  })
 
 })
 
@@ -35,16 +27,6 @@ let mutationType = new GraphQLObjectType({
   name: 'Mutation',
 
   fields: {
-    activateViewer:             ActivateViewer,
-    themeToViewer:              ThemeToViewer,
-    voteForInsight:             VoteForInsight,
-    createTheme:                CreateThemeMutation,
-    updateThemeStatus:          UpdateThemeStatus,
-    updateUserTheme:            UpdateUserTheme,
-    actualizeUserThemeInsights: ActualizeUserThemeInsights,
-    actualizeThemeInsights:     ActualizeThemeInsights,
-    likeInsight:                LikeInsight,
-    updateUserThemeInsight:     UpdateUserThemeInsight
   }
 
 })
@@ -53,7 +35,7 @@ let mutationType = new GraphQLObjectType({
 let Schema = new GraphQLSchema({
 
   query:      queryType,
-  mutation:   mutationType
+  // mutation:   mutationType
 
 })
 

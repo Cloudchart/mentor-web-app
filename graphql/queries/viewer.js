@@ -2,14 +2,9 @@ import {
   GraphQLID
 } from 'graphql'
 
-import { UserType } from '../types'
+import UserType from '../types/UserType'
 
 export default {
   type: UserType,
-  args: {
-    id: {
-      type: GraphQLID
-    }
-  },
   resolve: (root, _, { rootValue: { viewer }}) => viewer
 }

@@ -49,7 +49,8 @@ let connectionFromRecordsSlice = (records, { after, before, first, last }, { sli
       endCursor:        lastEdge  ? lastEdge.cursor   : null,
       hasPreviousPage:  last  == null ? false : startOffset > lowerBound,
       hasNextPage:      first == null ? false : endOffset   < upperBound
-    }
+    },
+    count: recordsLength
   }
 
 }

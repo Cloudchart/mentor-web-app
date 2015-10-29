@@ -30,7 +30,7 @@ let createStorage = (modelName, options = {}) => {
       ? models.sequelize
         .query(options.idsQueries[key].trim().replace(/\s+/g, ' '), { replacements: replacements })
         .then(([records]) => records.map(record => record.id))
-      : new Error(`Query "${key}" is not supported`)
+      : Promise.resolve(new Error(`Query "${key}" is not supported`))
 
 
   let loadAll = (key, replacements = {}) =>
