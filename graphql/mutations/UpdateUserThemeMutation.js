@@ -58,7 +58,7 @@ export default mutationWithClientMutationId({
 
     let user = viewer
 
-    let theme     = await ThemeStorage.load(fromGlobalId(themeId).id)
+    let theme     = await ThemeStorage.load(themeId)
     let userTheme = await UserThemeStorage.forUser(user.id).load(theme.id).catch(error => null)
 
     userTheme
