@@ -12,12 +12,13 @@ let basicFinder = (modelName, ids) =>
       .findAll({where:{id:{$in:ids}}})
       .then(records => mapReduce(ids, records, 'id', modelName))
 
+
 let createStorage = (modelName, options = {}) => {
   let model = models[modelName]
 
   let finder = options.finder || basicFinder(modelName)
 
-  let loader = new DataLoader(finder)
+  let loader = new DataLoader(finder, { cache: options.cache !== false })
 
   let loaderMethods = ['load', 'loadMany', 'clear', 'clearAll']
     .reduce(

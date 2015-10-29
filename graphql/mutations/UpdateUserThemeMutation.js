@@ -10,6 +10,7 @@ import {
 } from 'graphql-relay'
 
 
+import UserStorage from '../../storage/UserStorage'
 import ThemeStorage from '../../storage/ThemeStorage'
 import UserThemeStorage from '../../storage/UserThemeStorage'
 
@@ -56,16 +57,13 @@ export default mutationWithClientMutationId({
 
     if (userId !== viewer.id) return new Error('Not authorized')
 
-    let user = viewer
-
+    let user      = await UserStorage.load(userId)
     let theme     = await ThemeStorage.load(themeId)
     let userTheme = await UserThemeStorage.forUser(user.id).load(theme.id).catch(error => null)
 
     userTheme
       ? await UserThemeStorage.update(userTheme.id, { status })
       : await UserThemeStorage.create({ user_id: user.id, theme_id: theme.id, status })
-
-    await UserThemeStorage.forUser(user.id).clear(theme.id)
 
     return { theme, user }
   }
