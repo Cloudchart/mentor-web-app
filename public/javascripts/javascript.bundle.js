@@ -77,7 +77,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(385)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(388)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(389)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -41515,7 +41515,7 @@
 
 	var _mutationsUpdateUserThemeMutation2 = _interopRequireDefault(_mutationsUpdateUserThemeMutation);
 
-	var _utils = __webpack_require__(392);
+	var _utils = __webpack_require__(388);
 
 	var MaxSubscriptionsCount = 3;
 
@@ -41634,7 +41634,7 @@
 
 	  initialVariables: {
 	    count: 50,
-	    filter: null
+	    filter: 'DEFAULT'
 	  },
 
 	  fragments: {
@@ -41756,7 +41756,7 @@
 
 	    this.getVariables = function () {
 	      return {
-	        id: _this.props.theme.id,
+	        themeId: _this.props.theme.id,
 	        status: _this.props.status
 	      };
 	    };
@@ -41795,15 +41795,30 @@
 
 /***/ },
 /* 388 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.pluralize = pluralize;
+
+	function pluralize(count, singular, plural) {
+	  return count == 1 ? count + " " + singular : count + " " + plural;
+	}
+
+/***/ },
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./ThemeAppRoute": 389,
-		"./ThemeAppRoute.js": 389,
-		"./ThemesRoute": 390,
-		"./ThemesRoute.js": 390,
-		"./ViewerRoute": 391,
-		"./ViewerRoute.js": 391
+		"./ThemeAppRoute": 390,
+		"./ThemeAppRoute.js": 390,
+		"./ThemesRoute": 391,
+		"./ThemesRoute.js": 391,
+		"./ViewerRoute": 392,
+		"./ViewerRoute.js": 392
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -41816,11 +41831,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 388;
+	webpackContext.id = 389;
 
 
 /***/ },
-/* 389 */
+/* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41888,7 +41903,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 390 */
+/* 391 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41954,7 +41969,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 391 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42012,21 +42027,6 @@
 
 	exports['default'] = _default;
 	module.exports = exports['default'];
-
-/***/ },
-/* 392 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.pluralize = pluralize;
-
-	function pluralize(count, singular, plural) {
-	  return count == 1 ? count + " " + singular : count + " " + plural;
-	}
 
 /***/ }
 /******/ ]);

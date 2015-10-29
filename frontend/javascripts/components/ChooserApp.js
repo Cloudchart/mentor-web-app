@@ -88,7 +88,7 @@ export default Relay.createContainer(ChooserApp, {
 
   initialVariables: {
     count:  50,
-    filter: null
+    filter: 'DEFAULT'
   },
 
   fragments: {

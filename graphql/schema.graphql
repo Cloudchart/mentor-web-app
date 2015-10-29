@@ -46,14 +46,15 @@ type ThemesEdge {
 }
 
 input UpdateUserThemeInput {
-  id: ID!
+  themeId: ID!
+  userId: ID
   status: UserThemeStatusEnum!
   clientMutationId: String!
 }
 
 type UpdateUserThemePayload {
   theme: Theme!
-  viewer: User!
+  user: User!
   clientMutationId: String!
 }
 

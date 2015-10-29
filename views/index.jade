@@ -2,10 +2,12 @@ extends layout
 
 block content
   if user.is_active
-    div&attributes({ 'data-relay-class': 'LandingApp', 'data-relay-route': 'ViewerRoute' })
+    div&attributes({
+      'data-relay-class': 'LandingApp', 
+      'data-relay-route': 'ViewerRoute' 
+    })
   else
     div&attributes({
       'data-relay-class': 'ChooserApp',
       'data-relay-route': 'ViewerRoute',
-      'data-route-props': { filter: 'DEFAULT' }
     })

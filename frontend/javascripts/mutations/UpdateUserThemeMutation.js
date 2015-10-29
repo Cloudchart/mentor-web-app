@@ -20,8 +20,8 @@ export default class extends Relay.Mutation {
     `
 
   getVariables = () => ({
-    id:     this.props.theme.id,
-    status: this.props.status
+    themeId:  this.props.theme.id,
+    status:   this.props.status
   })
 
   getConfigs = () => [{

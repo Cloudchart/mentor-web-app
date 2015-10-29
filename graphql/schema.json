@@ -611,7 +611,7 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "id",
+              "name": "themeId",
               "description": null,
               "type": {
                 "kind": "NON_NULL",
@@ -621,6 +621,16 @@
                   "name": "ID",
                   "ofType": null
                 }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "userId",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
               },
               "defaultValue": null
             },
@@ -708,7 +718,7 @@
               "deprecationReason": null
             },
             {
-              "name": "viewer",
+              "name": "user",
               "description": null,
               "args": [],
               "type": {
