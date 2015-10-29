@@ -28,7 +28,7 @@ let createStorage = (modelName, options = {}) => {
   let loadAllIDs = (key, replacements = {}) =>
     options.idsQueries && options.idsQueries[key]
       ? models.sequelize
-        .query(options.idsQueries[key], { replacements: replacements })
+        .query(options.idsQueries[key].trim().replace(/\s+/g, ' '), { replacements: replacements })
         .then(([records]) => records.map(record => record.id))
       : new Error(`Query "${key}" is not supported`)
 

@@ -158,19 +158,25 @@ type User {
   themes(includeRejected: Boolean = false, onlyDefault: Boolean = false, before: String, after: String, first: Int, last: Int): UsersThemesConnection
   nthemes(filter: ThemeFilter = available, before: String, after: String, first: Int, last: Int): ThemeConnection
   theme(themeID: ID!): UserTheme
-  insights(before: String, after: String, first: Int, last: Int): UserInsightsConnection
+  insights(filter: UserInsightFilterEnum = positive, before: String, after: String, first: Int, last: Int): UserInsightConnection
   subscribedThemes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
   defaultThemes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
 }
 
-type UserInsightsConnection {
+type UserInsightConnection {
   pageInfo: PageInfo!
-  edges: [UserInsightsEdge]
+  edges: [UserInsightEdge]
 }
 
-type UserInsightsEdge {
+type UserInsightEdge {
   node: UserThemeInsight
   cursor: String!
+}
+
+enum UserInsightFilterEnum {
+  POSITIVE
+  NEGATIVE
+  UNRATED
 }
 
 type UsersThemesConnection {

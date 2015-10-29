@@ -137,12 +137,16 @@ let UserType = new GraphQLObjectType({
     },
 
     insights: {
-      type: UserInsightsConnection.connectionType,
+      type: UserInsightConnection.connectionType,
       args: {
+        filter: {
+          type: UserInsightFilterEnum,
+          defaultValue: 'positive'
+        },
         ...connectionArgs
       },
       resolve: async (user, args) => {
-        let records = await UserThemeInsightStorage.loadAllPositiveRatedForUser(user.id)
+        let records = await UserThemeInsightStorage.loadAll(args.filter, { userID: user.id })
         return connectionFromRecordsSlice(records, args, { sliceStart: 0, recordsLength: records.length })
       }
     },
@@ -179,4 +183,4 @@ export default UserType
 import UserThemeType from './UserThemeType'
 import ThemeConnection from '../connections/ThemeConnection'
 import UserThemesConnection from '../connections/user_themes_connection'
-import UserInsightsConnection from '../connections/UserInsightsConnection'
+import UserInsightConnection, { UserInsightFilterEnum } from '../connections/UserInsightConnection'
