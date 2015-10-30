@@ -17,7 +17,7 @@ export const UserThemesConnectionFilterEnum = new GraphQLEnumType({
   values: {
     DEFAULT:    { value: 'default'    },
     AVAILABLE:  { value: 'available'  },
-    VISIBLE:    { value: 'vsible'     },
+    VISIBLE:    { value: 'visible'    },
     SUBSCRIBED: { value: 'subscribed' },
     REJECTED:   { value: 'rejected'   },
     RELATED:    { value: 'related'    },
@@ -42,7 +42,7 @@ export const userThemesConnectionArgs = {
   ...connectionArgs,
   filter: {
     type: UserThemesConnectionFilterEnum,
-    defaultValue: 'all'
+    defaultValue: 'default'
   }
 }
 
@@ -52,7 +52,7 @@ export async function userThemesConnectionResolve(user, args) {
   await SynchronizeUserThemeJobs.perform({ userID: user.id })
 
   // Load User Themes
-  let userThemes = await UserThemeStorage.loadAll('default', { userID: user.id })
+  let userThemes = await UserThemeStorage.loadAll(args.filter, { userID: user.id })
 
   return Object.assign(connectionFromArray(userThemes, args), { count: userThemes.length })
 }

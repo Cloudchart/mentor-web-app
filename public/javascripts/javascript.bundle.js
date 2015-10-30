@@ -41543,7 +41543,11 @@
 	      event.preventDefault();
 
 	      var mutation = new _mutationsActivateUserMutation2['default']({ user: _this.props.viewer });
-	      _reactRelay2['default'].Store.update(mutation);
+	      _reactRelay2['default'].Store.update(mutation, {
+	        onSuccess: function onSuccess() {
+	          return location.reload();
+	        }
+	      });
 	    };
 
 	    this.renderTheme = function (themeEdge) {

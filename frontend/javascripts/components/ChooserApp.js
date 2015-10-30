@@ -43,7 +43,9 @@ class ChooserApp extends React.Component {
     event.preventDefault()
 
     let mutation = new ActivateUserMutation({ user: this.props.viewer })
-    Relay.Store.update(mutation)
+    Relay.Store.update(mutation, {
+      onSuccess: () => location.reload()
+    })
   }
 
 

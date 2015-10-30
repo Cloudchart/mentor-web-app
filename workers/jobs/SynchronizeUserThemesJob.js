@@ -22,7 +22,7 @@ let performAsync = Bluebird.promisify(perform)
 
 export default {
   perform: (payload, callback) =>
-    typeof(callback) === 'function'
+    callback instanceof Function
       ? perform(payload, callback)
       : performAsync(payload)
 }
