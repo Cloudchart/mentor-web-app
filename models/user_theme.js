@@ -10,7 +10,7 @@ export default (db, Sequelize) => {
       theme_id:         Sequelize.UUID,
       status: {
         type:           Sequelize.ENUM,
-        values:         ['visible', 'subscribed', 'rejected']
+        values:         ['available', 'visible', 'subscribed', 'rejected']
       }
     }, {
 
