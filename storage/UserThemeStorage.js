@@ -29,6 +29,7 @@ let idsQuery = (where) =>
       t.name
   `
 
+const UniqueQuery         = `select id from ${tableName} where user_id = :userID and theme_id = :themeID`
 const DefaultIDsQuery     = idsQuery(`t.is_default is true`)
 const AvailableIDsQuery   = idsQuery(`ut.status = 'available'`)
 const VisibleIDsQuery     = idsQuery(`ut.status = 'visible'`)
@@ -40,6 +41,7 @@ const UnrelatedIDsQuery   = idsQuery(`ut.status in ('available', 'rejected')`)
 
 export default BaseStorage('UserTheme', {
   idsQueries: {
+    'unique':       UniqueQuery,
     'default':      DefaultIDsQuery,
     'available':    AvailableIDsQuery,
     'visible':      VisibleIDsQuery,
