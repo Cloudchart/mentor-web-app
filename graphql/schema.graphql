@@ -46,12 +46,13 @@ type User implements Node {
   id: ID!
   name: String
   isActive: Boolean
-  themes(before: String, after: String, first: Int, last: Int, filter: UserThemeFilterEnum = all): UserThemesConnection
+  themes(before: String, after: String, first: Int, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection
 }
 
 type UserTheme implements Node {
   id: ID!
   name: String!
+  url: String!
   isSubscribed: Boolean!
   isRejected: Boolean!
 }

@@ -77,7 +77,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(385)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(391)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(392)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -41468,8 +41468,10 @@
 	var map = {
 		"./ChooserApp": 386,
 		"./ChooserApp.js": 386,
-		"./LoginApp": 390,
-		"./LoginApp.js": 390
+		"./LandingApp": 390,
+		"./LandingApp.js": 390,
+		"./LoginApp": 391,
+		"./LoginApp.js": 391
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -41967,6 +41969,185 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var LandingApp = (function (_React$Component) {
+	  _inherits(LandingApp, _React$Component);
+
+	  function LandingApp() {
+	    _classCallCheck(this, LandingApp);
+
+	    _get(Object.getPrototypeOf(LandingApp.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.renderTheme = function (themeEdge) {
+	      var theme = themeEdge.node;
+	      return _react2['default'].createElement(
+	        'li',
+	        { key: theme.id, style: { margin: '5px 0' } },
+	        _react2['default'].createElement(
+	          'a',
+	          { href: theme.url },
+	          '#',
+	          theme.name
+	        )
+	      );
+	    };
+	  }
+
+	  _createClass(LandingApp, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'h2',
+	          null,
+	          'Mentor'
+	        ),
+	        this.renderFavorites(),
+	        this.renderTodayForYou(),
+	        this.renderExplore()
+	      );
+	    }
+	  }, {
+	    key: 'renderFavorites',
+	    value: function renderFavorites() {
+	      return _react2['default'].createElement(
+	        'div',
+	        { style: { margin: 20 } },
+	        _react2['default'].createElement(
+	          'h3',
+	          { style: { margin: 0 } },
+	          _react2['default'].createElement(
+	            'a',
+	            { href: '/favorites' },
+	            'Favorites'
+	          )
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'renderTodayForYou',
+	    value: function renderTodayForYou() {
+	      return _react2['default'].createElement(
+	        'div',
+	        { style: { margin: 20 } },
+	        _react2['default'].createElement(
+	          'h3',
+	          { style: { margin: 0, marginBottom: 5 } },
+	          'Today for you'
+	        ),
+	        _react2['default'].createElement(
+	          'ul',
+	          { style: { listStyleType: 'none', margin: 0, padding: 0 } },
+	          this.props.viewer.themes.edges.map(this.renderTheme)
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'renderExplore',
+	    value: function renderExplore() {
+	      return _react2['default'].createElement(
+	        'div',
+	        { style: { margin: 20 } },
+	        _react2['default'].createElement(
+	          'h3',
+	          { style: { margin: 0 } },
+	          _react2['default'].createElement(
+	            'a',
+	            { href: '/themes/explore' },
+	            'Explore'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return LandingApp;
+	})(_react2['default'].Component);
+
+	exports['default'] = _reactRelay2['default'].createContainer(LandingApp, {
+
+	  fragments: {
+	    viewer: function viewer() {
+	      return (function () {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.QueryFragment('LandingApp', 'User', [new GraphQL.Field('themes', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserTheme',
+	          requisite: true
+	        }), new GraphQL.Field('name', null, null, null, null, null, {
+	          parentType: 'UserTheme'
+	        }), new GraphQL.Field('url', null, null, null, null, null, {
+	          parentType: 'UserTheme'
+	        })], null, null, null, null, {
+	          parentType: 'UserThemesEdge',
+	          rootCall: 'node',
+	          pk: 'id',
+	          requisite: true
+	        }), new GraphQL.Field('cursor', null, null, null, null, null, {
+	          parentType: 'UserThemesEdge',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserThemesConnection',
+	          plural: true
+	        }), new GraphQL.Field('pageInfo', [new GraphQL.Field('hasNextPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        }), new GraphQL.Field('hasPreviousPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserThemesConnection',
+	          generated: true,
+	          requisite: true
+	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(3)), new GraphQL.Callv('filter', new GraphQL.CallValue('SUBSCRIBED'), {
+	          type: 'UserThemeFilterEnum'
+	        })], null, null, {
+	          parentType: 'User',
+	          connection: true,
+	          nonFindable: true
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'User',
+	          generated: true,
+	          requisite: true
+	        })]);
+	      })();
+	    }
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 391 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	var _default = (function (_React$Component) {
 	  _inherits(_default, _React$Component);
 
@@ -42014,16 +42195,16 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 391 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./ThemeAppRoute": 392,
-		"./ThemeAppRoute.js": 392,
-		"./ThemesRoute": 393,
-		"./ThemesRoute.js": 393,
-		"./ViewerRoute": 394,
-		"./ViewerRoute.js": 394
+		"./ThemeAppRoute": 393,
+		"./ThemeAppRoute.js": 393,
+		"./ThemesRoute": 394,
+		"./ThemesRoute.js": 394,
+		"./ViewerRoute": 395,
+		"./ViewerRoute.js": 395
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -42036,11 +42217,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 391;
+	webpackContext.id = 392;
 
 
 /***/ },
-/* 392 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42108,7 +42289,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 393 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42174,7 +42355,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 394 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

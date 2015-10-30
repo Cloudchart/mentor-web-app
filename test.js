@@ -1,6 +1,3 @@
-import UserThemeStorage from './storage/UserThemeStorage'
+import SynchronizeUserThemeInsightsJob from './workers/jobs/SynchronizeUserThemeInsightsJob'
 
-
-UserThemeStorage
-  .loadAll('all', { userID: '62906a29-719e-46f6-8bdd-1836a3811e12' })
-  .then(console.log)
+SynchronizeUserThemeInsightsJob.perform({ id: '9c32ad28-9e08-4307-9b85-dbe22fe71d5e' })

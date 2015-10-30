@@ -1,8 +1,7 @@
 import { Router } from 'express'
-import {
-  ThemesStorage,
-  UserThemeStorage
-} from '../storage'
+
+import ThemeStorage from '../storage/ThemeStorage'
+import UserThemeStorage from '../storage/UserThemeStorage'
 
 import {
   authenticationCheck,
@@ -25,20 +24,19 @@ router.get('/explore', authenticationCheck, activityCheck, (req, res, next) => {
 
 
 router.get('/:id', authenticationCheck, activityCheck, async (req, res, next) => {
-  UserThemeStorage.load(req.user.id, req.params.id).then(async (userTheme) => {
+  try {
+    // Load User Theme
+    let userTheme = await UserThemeStorage.load(req.params.id)
 
-    await ActualizeUserThemeInsights.performAsync({
-      userID:   req.user.id,
-      themeID:  req.params.id
-    })
+    // Load Theme
+    let theme     = await ThemeStorage.load(userTheme.theme_id)
 
-    ThemesStorage.load(userTheme.theme_id).then((theme) => {
-      res.render('themes/show', { title: `#${theme.name}`, themeID: theme.id })
-    })
-  }).catch(error => {
+    // Render Page
+    res.render('themes/show', { title: `#${theme.name}`, themeId: userTheme.id })
+  } catch(e) {
+    // Return Not Found Error
     res.status(404)
-    next()
-  })
+  }
 })
 
 router.get('/new', (req, res, next) => {

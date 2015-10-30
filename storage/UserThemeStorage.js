@@ -12,7 +12,7 @@ const themesTableName = models.Theme.tableName
 let idsQuery = (where) =>
   `
     select
-      ut.id,
+      ut.id as id,
       @row := @row + 1 as row
     from
       (select @row := 0) rt,

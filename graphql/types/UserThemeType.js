@@ -28,6 +28,11 @@ export default new GraphQLObjectType({
       resolve: ({ theme_id }) => ThemeStorage.load(theme_id).then(theme => theme.name)
     },
 
+    url: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: ({ id }) => `/themes/${id}`
+    },
+
     isSubscribed: {
       type: new GraphQLNonNull(GraphQLBoolean),
       resolve: ({ status }) => status === 'subscribed'
