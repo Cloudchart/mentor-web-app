@@ -6,21 +6,30 @@ import {
 } from './utils'
 
 
-let storage = BaseStorage('UserTheme')
-let storagesForUsers = {}
+const tableName = models.UserTheme.tableName
+const themesTableName = models.Theme.tableName
 
+const DefaultIDsQuery = `
+  select
+    ut.id,
+    @row := @row + 1 as row
+  from
+    (select @row := 0) rt,
+    ${tableName} ut
+  inner join
+    ${themesTableName} t
+  on
+    t.id = ut.theme_id
+  where
+    t.is_default is true
+    and
+    ut.user_id = :userID
+  order by
+    t.name
+`
 
-let finderForUser = (userID) =>
-  (ids) =>
-    models.UserTheme
-      .findAll({where:{user_id:userID,theme_id:{$in:ids}}})
-      .then(records => mapReduce(ids, records, 'theme_id', 'UserTheme'))
-
-
-let forUser = (userID) =>
-  storagesForUsers[userID] || (
-    storagesForUsers[userID] = BaseStorage('UserTheme', { finder: finderForUser(userID), cache: false })
-  )
-
-
-export default Object.assign(storage, { forUser })
+export default BaseStorage('UserTheme', {
+  idsQueries: {
+    'default': DefaultIDsQuery
+  }
+})

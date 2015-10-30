@@ -3,8 +3,8 @@ import Relay from 'react-relay'
 export default class extends Relay.Mutation {
 
   static fragments = {
-    theme: () => Relay.QL`
-      fragment on Theme { id }
+    userTheme: () => Relay.QL`
+      fragment on UserTheme { id }
     `
   }
 
@@ -15,19 +15,20 @@ export default class extends Relay.Mutation {
   getFatQuery = () =>
     Relay.QL`
       fragment on UpdateUserThemePayload {
-        theme
+        userTheme
+        user
       }
     `
 
   getVariables = () => ({
-    themeId:  this.props.theme.id,
+    id:       this.props.userTheme.id,
     status:   this.props.status
   })
 
   getConfigs = () => [{
     type: 'FIELDS_CHANGE',
     fieldIDs: {
-      theme: this.props.theme.id
+      userTheme: this.props.userTheme.id
     }
   }]
 

@@ -29,42 +29,15 @@ type Query {
   node(id: ID!): Node
 }
 
-type Theme implements Node {
-  id: ID!
-  name: String
-  isSystem: Boolean!
-  isDefault: Boolean!
-  isSubscribed: Boolean!
-  isRejected: Boolean!
-}
-
-enum ThemeFilterEnum {
-  DEFAULT
-  RELATED
-  UNRELATED
-  SUBSCRIBED
-}
-
-type ThemesConnection {
-  pageInfo: PageInfo!
-  edges: [ThemesEdge]
-  count: Int!
-}
-
-type ThemesEdge {
-  node: Theme
-  cursor: String!
-}
-
 input UpdateUserThemeInput {
-  themeId: ID!
-  userId: ID
+  id: ID!
   status: UserThemeStatusEnum!
+  userId: ID
   clientMutationId: String!
 }
 
 type UpdateUserThemePayload {
-  theme: Theme!
+  userTheme: UserTheme!
   user: User!
   clientMutationId: String!
 }
@@ -73,11 +46,40 @@ type User implements Node {
   id: ID!
   name: String
   isActive: Boolean
-  themes(before: String, after: String, first: Int, last: Int, filter: ThemeFilterEnum = related): ThemesConnection
+  themes(before: String, after: String, first: Int, last: Int, filter: UserThemeFilterEnum = all): UserThemesConnection
+}
+
+type UserTheme implements Node {
+  id: ID!
+  name: String!
+  isSubscribed: Boolean!
+  isRejected: Boolean!
+}
+
+enum UserThemeFilterEnum {
+  DEFAULT
+  AVAILABLE
+  VISIBLE
+  SUBSCRIBED
+  REJECTED
+  RELATED
+  UNRELATED
+}
+
+type UserThemesConnection {
+  pageInfo: PageInfo!
+  edges: [UserThemesEdge]
+  count: Int!
+}
+
+type UserThemesEdge {
+  node: UserTheme
+  cursor: String!
 }
 
 enum UserThemeStatusEnum {
-  SUBSCRIBED
+  AVAILABLE
   VISIBLE
   REJECTED
+  SUBSCRIBED
 }

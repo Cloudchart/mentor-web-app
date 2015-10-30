@@ -1,0 +1,70 @@
+import {
+  GraphQLInt,
+  GraphQLNonNull,
+  GraphQLEnumType
+} from 'graphql'
+
+import {
+  connectionArgs,
+  connectionFromArray,
+  connectionDefinitions
+} from 'graphql-relay'
+
+
+export const UserThemesConnectionFilterEnum = new GraphQLEnumType({
+  name: 'UserThemeFilterEnum',
+
+  values: {
+    DEFAULT:    { value: 'default'    },
+    AVAILABLE:  { value: 'available'  },
+    VISIBLE:    { value: 'vsible'     },
+    SUBSCRIBED: { value: 'subscribed' },
+    REJECTED:   { value: 'rejected'   },
+    RELATED:    { value: 'related'    },
+    UNRELATED:  { value: 'unrelated'  },
+  }
+})
+
+
+export const userThemesConnection = connectionDefinitions({
+  name: 'UserThemes',
+  nodeType: UserThemeType,
+
+  connectionFields: {
+    count: {
+      type: new GraphQLNonNull(GraphQLInt)
+    }
+  }
+})
+
+
+export const userThemesConnectionArgs = {
+  ...connectionArgs,
+  filter: {
+    type: UserThemesConnectionFilterEnum,
+    defaultValue: 'all'
+  }
+}
+
+
+export async function userThemesConnectionResolve(user, args) {
+  // Synchronize User Themes
+  await SynchronizeUserThemeJobs.perform({ userID: user.id })
+
+  // Load User Themes
+  let userThemes = await UserThemeStorage.loadAll('default', { userID: user.id })
+
+  return Object.assign(connectionFromArray(userThemes, args), { count: userThemes.length })
+}
+
+
+export const field = {
+  type:     userThemesConnection.connectionType,
+  args:     userThemesConnectionArgs,
+  resolve:  userThemesConnectionResolve
+}
+
+
+import UserThemeType from '../types/UserThemeType'
+import UserThemeStorage from '../../storage/UserThemeStorage'
+import SynchronizeUserThemeJobs from '../../workers/jobs/SynchronizeUserThemesJob'

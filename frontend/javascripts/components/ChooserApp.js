@@ -28,14 +28,14 @@ class ChooserApp extends React.Component {
     event.preventDefault()
     if (this.state.subscriptionsCount == 0) return alert('No more')
 
-    let mutation = new UpdateUserThemeMutation({ theme: theme, status: 'SUBSCRIBED' })
+    let mutation = new UpdateUserThemeMutation({ userTheme: theme, status: 'SUBSCRIBED' })
     Relay.Store.update(mutation)
   }
 
   handleUnsubscribe(theme, event) {
     event.preventDefault()
 
-    let mutation = new UpdateUserThemeMutation({ theme: theme, status: 'VISIBLE' })
+    let mutation = new UpdateUserThemeMutation({ userTheme: theme, status: 'VISIBLE' })
     Relay.Store.update(mutation)
   }
 
@@ -121,7 +121,7 @@ export default Relay.createContainer(ChooserApp, {
               id
               name
               isSubscribed
-              ${UpdateUserThemeMutation.getFragment('theme')}
+              ${UpdateUserThemeMutation.getFragment('userTheme')}
             }
           }
         }

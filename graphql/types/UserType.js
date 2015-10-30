@@ -12,7 +12,7 @@ import {
 
 
 import { nodeInterface } from './Node'
-import { field as ThemesConnectionField } from '../connections/ThemesConnection'
+import { field as UserThemesConnectionField } from '../connections/UserThemesConnection'
 
 export default new GraphQLObjectType({
 
@@ -33,7 +33,7 @@ export default new GraphQLObjectType({
       resolve:  user => user.is_active
     },
 
-    themes: ThemesConnectionField
+    themes: UserThemesConnectionField
 
   })
 

@@ -77,7 +77,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(385)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(390)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(391)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -41468,8 +41468,8 @@
 	var map = {
 		"./ChooserApp": 386,
 		"./ChooserApp.js": 386,
-		"./LoginApp": 394,
-		"./LoginApp.js": 394
+		"./LoginApp": 390,
+		"./LoginApp.js": 390
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -41579,7 +41579,7 @@
 	      event.preventDefault();
 	      if (this.state.subscriptionsCount == 0) return alert('No more');
 
-	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ theme: theme, status: 'SUBSCRIBED' });
+	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ userTheme: theme, status: 'SUBSCRIBED' });
 	      _reactRelay2['default'].Store.update(mutation);
 	    }
 	  }, {
@@ -41587,7 +41587,7 @@
 	    value: function handleUnsubscribe(theme, event) {
 	      event.preventDefault();
 
-	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ theme: theme, status: 'VISIBLE' });
+	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ userTheme: theme, status: 'VISIBLE' });
 	      _reactRelay2['default'].Store.update(mutation);
 	    }
 	  }, {
@@ -41665,25 +41665,25 @@
 	      return (function (sub_0, sub_1) {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
 	        return new GraphQL.QueryFragment('ChooserApp', 'User', [new GraphQL.Field('themes', [new GraphQL.Field('count', null, null, null, null, null, {
-	          parentType: 'ThemesConnection'
+	          parentType: 'UserThemesConnection'
 	        }), new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Theme',
+	          parentType: 'UserTheme',
 	          requisite: true
 	        }), new GraphQL.Field('name', null, null, null, null, null, {
-	          parentType: 'Theme'
+	          parentType: 'UserTheme'
 	        }), new GraphQL.Field('isSubscribed', null, null, null, null, null, {
-	          parentType: 'Theme'
+	          parentType: 'UserTheme'
 	        })], [_reactRelay2['default'].QL.__frag(sub_0)], null, null, null, {
-	          parentType: 'ThemesEdge',
+	          parentType: 'UserThemesEdge',
 	          rootCall: 'node',
 	          pk: 'id',
 	          requisite: true
 	        }), new GraphQL.Field('cursor', null, null, null, null, null, {
-	          parentType: 'ThemesEdge',
+	          parentType: 'UserThemesEdge',
 	          generated: true,
 	          requisite: true
 	        })], null, null, null, null, {
-	          parentType: 'ThemesConnection',
+	          parentType: 'UserThemesConnection',
 	          plural: true
 	        }), new GraphQL.Field('pageInfo', [new GraphQL.Field('hasNextPage', null, null, null, null, null, {
 	          parentType: 'PageInfo',
@@ -41694,11 +41694,11 @@
 	          generated: true,
 	          requisite: true
 	        })], null, null, null, null, {
-	          parentType: 'ThemesConnection',
+	          parentType: 'UserThemesConnection',
 	          generated: true,
 	          requisite: true
 	        })], null, [new GraphQL.Callv('first', new GraphQL.CallVariable('count')), new GraphQL.Callv('filter', new GraphQL.CallVariable('filter'), {
-	          type: 'ThemeFilterEnum'
+	          type: 'UserThemeFilterEnum'
 	        })], null, null, {
 	          parentType: 'User',
 	          connection: true,
@@ -41708,7 +41708,7 @@
 	          generated: true,
 	          requisite: true
 	        })], [_reactRelay2['default'].QL.__frag(sub_1)]);
-	      })(_mutationsUpdateUserThemeMutation2['default'].getFragment('theme'), _mutationsActivateUserMutation2['default'].getFragment('user'));
+	      })(_mutationsUpdateUserThemeMutation2['default'].getFragment('userTheme'), _mutationsActivateUserMutation2['default'].getFragment('user'));
 	    }
 	  }
 
@@ -41865,8 +41865,16 @@
 	    this.getFatQuery = function () {
 	      return (function () {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.QueryFragment('UpdateUserThemeMutation', 'UpdateUserThemePayload', [new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'Theme',
+	        return new GraphQL.QueryFragment('UpdateUserThemeMutation', 'UpdateUserThemePayload', [new GraphQL.Field('userTheme', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserTheme',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UpdateUserThemePayload',
+	          rootCall: 'node',
+	          pk: 'id'
+	        }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'User',
 	          generated: true,
 	          requisite: true
 	        })], null, null, null, null, {
@@ -41879,7 +41887,7 @@
 
 	    this.getVariables = function () {
 	      return {
-	        themeId: _this.props.theme.id,
+	        id: _this.props.userTheme.id,
 	        status: _this.props.status
 	      };
 	    };
@@ -41888,7 +41896,7 @@
 	      return [{
 	        type: 'FIELDS_CHANGE',
 	        fieldIDs: {
-	          theme: _this.props.theme.id
+	          userTheme: _this.props.userTheme.id
 	        }
 	      }];
 	    };
@@ -41897,11 +41905,11 @@
 	  _createClass(_default, null, [{
 	    key: 'fragments',
 	    value: {
-	      theme: function theme() {
+	      userTheme: function userTheme() {
 	        return (function () {
 	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	          return new GraphQL.QueryFragment('UpdateUserThemeMutation', 'Theme', [new GraphQL.Field('id', null, null, null, null, null, {
-	            parentType: 'Theme',
+	          return new GraphQL.QueryFragment('UpdateUserThemeMutation', 'UserTheme', [new GraphQL.Field('id', null, null, null, null, null, {
+	            parentType: 'UserTheme',
 	            requisite: true
 	          })]);
 	        })();
@@ -41935,13 +41943,83 @@
 /* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _default = (function (_React$Component) {
+	  _inherits(_default, _React$Component);
+
+	  function _default() {
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(_default, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'h2',
+	          null,
+	          'Login'
+	        ),
+	        this.renderLoginControl('Facebook'),
+	        this.renderLoginControl('Twitter')
+	      );
+	    }
+	  }, {
+	    key: 'renderLoginControl',
+	    value: function renderLoginControl(provider) {
+	      return _react2['default'].createElement(
+	        'div',
+	        { style: { margin: '10px 0' } },
+	        'Login with ',
+	        _react2['default'].createElement(
+	          'a',
+	          { href: '/auth/' + provider.toLowerCase() },
+	          provider
+	        )
+	      );
+	    }
+	  }]);
+
+	  return _default;
+	})(_react2['default'].Component);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 391 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var map = {
-		"./ThemeAppRoute": 391,
-		"./ThemeAppRoute.js": 391,
-		"./ThemesRoute": 392,
-		"./ThemesRoute.js": 392,
-		"./ViewerRoute": 393,
-		"./ViewerRoute.js": 393
+		"./ThemeAppRoute": 392,
+		"./ThemeAppRoute.js": 392,
+		"./ThemesRoute": 393,
+		"./ThemesRoute.js": 393,
+		"./ViewerRoute": 394,
+		"./ViewerRoute.js": 394
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -41954,11 +42032,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 390;
+	webpackContext.id = 391;
 
 
 /***/ },
-/* 391 */
+/* 392 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42026,7 +42104,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 392 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42092,7 +42170,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 393 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42147,76 +42225,6 @@
 
 	  return _default;
 	})(_reactRelay2['default'].Route);
-
-	exports['default'] = _default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 394 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _default = (function (_React$Component) {
-	  _inherits(_default, _React$Component);
-
-	  function _default() {
-	    _classCallCheck(this, _default);
-
-	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(_default, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2['default'].createElement(
-	        'div',
-	        null,
-	        _react2['default'].createElement(
-	          'h2',
-	          null,
-	          'Login'
-	        ),
-	        this.renderLoginControl('Facebook'),
-	        this.renderLoginControl('Twitter')
-	      );
-	    }
-	  }, {
-	    key: 'renderLoginControl',
-	    value: function renderLoginControl(provider) {
-	      return _react2['default'].createElement(
-	        'div',
-	        { style: { margin: '10px 0' } },
-	        'Login with ',
-	        _react2['default'].createElement(
-	          'a',
-	          { href: '/auth/' + provider.toLowerCase() },
-	          provider
-	        )
-	      );
-	    }
-	  }]);
-
-	  return _default;
-	})(_react2['default'].Component);
 
 	exports['default'] = _default;
 	module.exports = exports['default'];

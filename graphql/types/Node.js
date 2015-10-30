@@ -6,6 +6,7 @@ import {
 
 import UserStorage from '../../storage/UserStorage'
 import ThemeStorage from '../../storage/ThemeStorage'
+import UserThemeStorage from '../../storage/UserThemeStorage'
 
 
 export default nodeDefinitions(
@@ -17,6 +18,8 @@ export default nodeDefinitions(
         return UserStorage.load(id)
       case 'Theme':
         return ThemeStorage.load(id)
+      case 'UserTheme':
+        return UserThemeStorage.load(id)
     }
   },
 
@@ -26,6 +29,8 @@ export default nodeDefinitions(
         return require('./UserType')
       case 'Theme':
         return require('./ThemeType')
+      case 'UserTheme':
+        return require('./UserThemeType')
     }
   }
 

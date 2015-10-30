@@ -56,6 +56,9 @@ let createStorage = (modelName, options = {}) => {
   let create = (attributes) =>
     model.create(attributes)
 
+  let createMany = (attributesArray) =>
+    model.bulkCreate(attributesArray)
+
   let update = (id, attributes) =>
     model.update(attributes, {where:{id:id}})
 
@@ -79,6 +82,12 @@ let createStorage = (modelName, options = {}) => {
     create: (attributes = {}) =>
       create(attributes)
         .then(record => loader.clear(record.id).load(record.id))
+    ,
+
+    createMany: (attributesArray = []) =>
+      createMany(attributesArray)
+        .then(result => null)
+
     ,
 
     update: (id, attributes = {}) =>

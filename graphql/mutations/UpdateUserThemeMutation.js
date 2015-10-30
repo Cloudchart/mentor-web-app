@@ -11,7 +11,6 @@ import {
 
 
 import UserStorage from '../../storage/UserStorage'
-import ThemeStorage from '../../storage/ThemeStorage'
 import UserThemeStorage from '../../storage/UserThemeStorage'
 
 
@@ -19,9 +18,10 @@ export const GraphQLUserThemeStatusEnum = new GraphQLEnumType({
   name: 'UserThemeStatusEnum',
 
   values: {
-    SUBSCRIBED: { value: 'subscribed' },
+    AVAILABLE:  { value: 'available'  },
     VISIBLE:    { value: 'visible'    },
-    REJECTED:   { value: 'rejected'   }
+    REJECTED:   { value: 'rejected'   },
+    SUBSCRIBED: { value: 'subscribed' },
   }
 })
 
@@ -31,45 +31,44 @@ export default mutationWithClientMutationId({
   name: 'UpdateUserTheme',
 
   inputFields: {
-    themeId: {
+    id: {
       type: new GraphQLNonNull(GraphQLID)
+    },
+    status: {
+      type: new GraphQLNonNull(GraphQLUserThemeStatusEnum)
     },
     userId: {
       type: GraphQLID
     },
-    status: {
-      type: new GraphQLNonNull(GraphQLUserThemeStatusEnum)
-    }
   },
 
   outputFields: {
-    theme: {
-      type: new GraphQLNonNull(ThemeType)
+    userTheme: {
+      type: new GraphQLNonNull(UserThemeType)
     },
     user: {
       type: new GraphQLNonNull(UserType)
     }
   },
 
-  mutateAndGetPayload: async ({ themeId, userId, status }, { rootValue: { viewer } }) => {
-    themeId = fromGlobalId(themeId).id
-    userId  = userId ? fromGlobalId(userId).id : viewer.id
+  mutateAndGetPayload: async ({ id, userId, status }, { rootValue: { viewer } }) => {
+    id      = fromGlobalId(id).id
+    userId  = userId ? fromGlobalId(userId) : viewer.id
 
-    if (userId !== viewer.id) return new Error('Not authorized')
+    let userTheme = await UserThemeStorage.load(id)
 
-    let user      = await UserStorage.load(userId)
-    let theme     = await ThemeStorage.load(themeId)
-    let userTheme = await UserThemeStorage.forUser(user.id).load(theme.id).catch(error => null)
+    if (userTheme.user_id !== userId)
+      return new Error('Not authorized')
 
-    userTheme
-      ? await UserThemeStorage.update(userTheme.id, { status })
-      : await UserThemeStorage.create({ user_id: user.id, theme_id: theme.id, status })
+    let user = UserStorage.load(userId)
 
-    return { theme, user }
+    userTheme = await UserThemeStorage.update(userTheme.id, { status: status })
+
+    return { userTheme, user }
   }
 
 
 })
 
 import UserType from '../types/UserType'
-import ThemeType from '../types/ThemeType'
+import UserThemeType from '../types/UserThemeType'

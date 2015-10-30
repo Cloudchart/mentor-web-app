@@ -10,15 +10,6 @@ import {
 } from 'graphql-relay'
 
 import { nodeInterface } from './Node'
-import UserThemeStorage from '../../storage/UserThemeStorage'
-
-
-let resolveThemeStatus = (theme, {}, { rootValue: { viewer }}) =>
-  UserThemeStorage
-    .forUser(viewer.id)
-    .load(theme.id)
-    .then(record => record.status)
-    .catch(error => null)
 
 
 export default new GraphQLObjectType({
@@ -44,20 +35,6 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLBoolean),
       resolve: ({ is_default }) => !!is_default
     },
-
-    isSubscribed: {
-      type: new GraphQLNonNull(GraphQLBoolean),
-      resolve: (...args) =>
-        resolveThemeStatus(...args)
-          .then(status => status === 'subscribed')
-    },
-
-    isRejected: {
-      type: new GraphQLNonNull(GraphQLBoolean),
-      resolve: (...args) =>
-        resolveThemeStatus(...args)
-          .then(status => status === 'rejected')
-    }
 
   })
 

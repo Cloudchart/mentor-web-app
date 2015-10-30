@@ -43,14 +43,15 @@ const UnrelatedThemesIDsQuery = `
   from
     (select @row := 0) rt,
     ${themesTableName} t
-  left join
-    ${usersThemesTableName} ut
-  on
-    t.id = ut.theme_id
   where
-    (ut.status is null and t.is_default = 0)
-    or
-    (ut.status = 'rejected' and ut.user_id = :userID)
+    t.id not in (
+      select
+        ut.theme_id
+      from
+        ${usersThemesTableName} ut
+      where
+        ut.user_id = :userID
+    )
   order by
     t.name
 `.trim().replace(/\s+/g, ' ')
