@@ -32,7 +32,7 @@ let createStorage = (modelName, options = {}) => {
   let loadAllIDs = (key, replacements = {}) =>
     options.idsQueries && options.idsQueries[key]
       ? models.sequelize
-          .query(options.idsQueries[key].trim().replace(/\s+/g, ' '), { replacements: replacements })
+          .query(options.idsQueries[key].trim().replace(/\s+/g, ' '), { replacements })
           .then(([records]) => records.map(record => record.id))
       : Promise.resolve(new Error(`Query "${key}" is not supported`))
 
@@ -44,6 +44,13 @@ let createStorage = (modelName, options = {}) => {
           ? ids
           : loader.loadMany(ids)
       )
+
+  let count = (key, replacements = {}) =>
+    options.idsQueries && options.idsQueries[key]
+      ? models.sequelize
+          .query(`select count(*) as count from (${options.idsQueries[key]}) c`.trim().replace(/\s+/g, ' '), { replacements })
+          .then(([[{count}]]) => count)
+      : Promise.resolve(new Error(`Query "${key}" is not supported`))
 
   let loadOne = (key, replacements = {}) =>
     loadAll(key, replacements)
@@ -76,6 +83,8 @@ let createStorage = (modelName, options = {}) => {
     loadAllIDs,
 
     loadAll,
+
+    count,
 
     loadOne,
 
