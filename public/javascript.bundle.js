@@ -41563,12 +41563,12 @@
 	  _createClass(ChooserApp, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this._updateSubscriptionsCount(this.props.viewer.themes.edges);
+	      this._updateSubscriptionsCount(this.props);
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      this._updateSubscriptionsCount(nextProps.viewer.themes.edges);
+	      this._updateSubscriptionsCount(nextProps);
 	    }
 	  }, {
 	    key: 'handleSubscribe',
@@ -41576,7 +41576,7 @@
 	      event.preventDefault();
 	      if (this.state.subscriptionsCount == 0) return alert('No more');
 
-	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ userTheme: theme, status: 'SUBSCRIBED' });
+	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ userTheme: theme, user: this.props.viewer, status: 'SUBSCRIBED' });
 	      _reactRelay2['default'].Store.update(mutation);
 	    }
 	  }, {
@@ -41584,16 +41584,14 @@
 	    value: function handleUnsubscribe(theme, event) {
 	      event.preventDefault();
 
-	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ userTheme: theme, status: 'VISIBLE' });
+	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ userTheme: theme, user: this.props.viewer, status: 'VISIBLE' });
 	      _reactRelay2['default'].Store.update(mutation);
 	    }
 	  }, {
 	    key: '_updateSubscriptionsCount',
-	    value: function _updateSubscriptionsCount(themes) {
+	    value: function _updateSubscriptionsCount(props) {
 	      this.setState({
-	        subscriptionsCount: MaxSubscriptionsCount - themes.filter(function (theme) {
-	          return theme.node.isSubscribed;
-	        }).length
+	        subscriptionsCount: MaxSubscriptionsCount - props.viewer.themes.subscribedCount
 	      });
 	    }
 	  }, {
@@ -41659,9 +41657,9 @@
 
 	  fragments: {
 	    viewer: function viewer() {
-	      return (function (sub_0, sub_1) {
+	      return (function (sub_0, sub_1, sub_2) {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.QueryFragment('ChooserApp', 'User', [new GraphQL.Field('themes', [new GraphQL.Field('count', null, null, null, null, null, {
+	        return new GraphQL.QueryFragment('ChooserApp', 'User', [new GraphQL.Field('themes', [new GraphQL.Field('subscribedCount', null, null, null, null, null, {
 	          parentType: 'UserThemesConnection'
 	        }), new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
 	          parentType: 'UserTheme',
@@ -41704,8 +41702,8 @@
 	          parentType: 'User',
 	          generated: true,
 	          requisite: true
-	        })], [_reactRelay2['default'].QL.__frag(sub_1)]);
-	      })(_mutationsUpdateUserThemeMutation2['default'].getFragment('userTheme'), _mutationsActivateUserMutation2['default'].getFragment('user'));
+	        })], [_reactRelay2['default'].QL.__frag(sub_1), _reactRelay2['default'].QL.__frag(sub_2)]);
+	      })(_mutationsUpdateUserThemeMutation2['default'].getFragment('userTheme'), _mutationsUpdateUserThemeMutation2['default'].getFragment('user'), _mutationsActivateUserMutation2['default'].getFragment('user'));
 	    }
 	  }
 
@@ -41870,7 +41868,15 @@
 	          parentType: 'UpdateUserThemePayload',
 	          rootCall: 'node',
 	          pk: 'id'
-	        }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
+	        }), new GraphQL.Field('user', [new GraphQL.Field('themes', [new GraphQL.Field('count', null, null, null, null, null, {
+	          parentType: 'UserThemesConnection'
+	        }), new GraphQL.Field('subscribedCount', null, null, null, null, null, {
+	          parentType: 'UserThemesConnection'
+	        })], null, null, null, null, {
+	          parentType: 'User',
+	          connection: true,
+	          nonFindable: true
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
 	          parentType: 'User',
 	          generated: true,
 	          requisite: true
@@ -41895,6 +41901,11 @@
 	        fieldIDs: {
 	          userTheme: _this.props.userTheme.id
 	        }
+	      }, {
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: {
+	          user: _this.props.user.id
+	        }
 	      }];
 	    };
 	  }
@@ -41902,6 +41913,16 @@
 	  _createClass(_default, null, [{
 	    key: 'fragments',
 	    value: {
+	      user: function user() {
+	        return (function () {
+	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	          return new GraphQL.QueryFragment('UpdateUserThemeMutation', 'User', [new GraphQL.Field('id', null, null, null, null, null, {
+	            parentType: 'User',
+	            requisite: true
+	          })]);
+	        })();
+	      },
+
 	      userTheme: function userTheme() {
 	        return (function () {
 	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;

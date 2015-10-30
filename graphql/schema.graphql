@@ -71,6 +71,7 @@ type UserThemesConnection {
   pageInfo: PageInfo!
   edges: [UserThemesEdge]
   count: Int!
+  subscribedCount: Int!
 }
 
 type UserThemesEdge {

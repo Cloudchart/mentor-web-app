@@ -17,25 +17,25 @@ class ChooserApp extends React.Component {
   }
 
   componentWillMount() {
-    this._updateSubscriptionsCount(this.props.viewer.themes.edges)
+    this._updateSubscriptionsCount(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
-    this._updateSubscriptionsCount(nextProps.viewer.themes.edges)
+    this._updateSubscriptionsCount(nextProps)
   }
 
   handleSubscribe(theme, event) {
     event.preventDefault()
     if (this.state.subscriptionsCount == 0) return alert('No more')
 
-    let mutation = new UpdateUserThemeMutation({ userTheme: theme, status: 'SUBSCRIBED' })
+    let mutation = new UpdateUserThemeMutation({ userTheme: theme, user: this.props.viewer, status: 'SUBSCRIBED' })
     Relay.Store.update(mutation)
   }
 
   handleUnsubscribe(theme, event) {
     event.preventDefault()
 
-    let mutation = new UpdateUserThemeMutation({ userTheme: theme, status: 'VISIBLE' })
+    let mutation = new UpdateUserThemeMutation({ userTheme: theme, user: this.props.viewer, status: 'VISIBLE' })
     Relay.Store.update(mutation)
   }
 
@@ -49,9 +49,9 @@ class ChooserApp extends React.Component {
   }
 
 
-  _updateSubscriptionsCount(themes) {
+  _updateSubscriptionsCount(props) {
     this.setState({
-      subscriptionsCount: MaxSubscriptionsCount - themes.filter(theme => theme.node.isSubscribed).length
+      subscriptionsCount: MaxSubscriptionsCount - props.viewer.themes.subscribedCount
     })
   }
 
@@ -117,7 +117,7 @@ export default Relay.createContainer(ChooserApp, {
     viewer: () => Relay.QL`
       fragment on User {
         themes(first: $count, filter: $filter) {
-          count
+          subscribedCount
           edges {
             node {
               id
@@ -127,6 +127,7 @@ export default Relay.createContainer(ChooserApp, {
             }
           }
         }
+        ${UpdateUserThemeMutation.getFragment('user')}
         ${ActivateUserMutation.getFragment('user')}
       }
     `

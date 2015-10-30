@@ -33,6 +33,11 @@ export const userThemesConnection = connectionDefinitions({
   connectionFields: {
     count: {
       type: new GraphQLNonNull(GraphQLInt)
+    },
+
+    subscribedCount: {
+      type: new GraphQLNonNull(GraphQLInt),
+      resolve: ({ userID }) => UserThemeStorage.count('subscribed', { userID })
     }
   }
 })
@@ -54,7 +59,7 @@ export async function userThemesConnectionResolve(user, args) {
   // Load User Themes
   let userThemes = await UserThemeStorage.loadAll(args.filter, { userID: user.id })
 
-  return Object.assign(connectionFromArray(userThemes, args), { count: userThemes.length })
+  return Object.assign(connectionFromArray(userThemes, args), { count: userThemes.length, userID: user.id })
 }
 
 
