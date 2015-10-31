@@ -4,9 +4,13 @@ import {
 } from 'graphql-relay'
 
 
-import UserStorage from '../../storage/UserStorage'
-import ThemeStorage from '../../storage/ThemeStorage'
-import UserThemeStorage from '../../storage/UserThemeStorage'
+import {
+  UserStorage,
+  ThemeStorage,
+  InsightStorage,
+  UserThemeStorage,
+  UserThemeInsightStorage
+} from '../../storage'
 
 
 export default nodeDefinitions(
@@ -18,8 +22,12 @@ export default nodeDefinitions(
         return UserStorage.load(id)
       case 'Theme':
         return ThemeStorage.load(id)
+      case 'Insight':
+        return InsightStorage.load(id)
       case 'UserTheme':
         return UserThemeStorage.load(id)
+      case 'UserThemeInsight':
+        return UserThemeInsightStorage.load(id)
     }
   },
 
@@ -29,8 +37,12 @@ export default nodeDefinitions(
         return require('./UserType')
       case 'Theme':
         return require('./ThemeType')
+      case 'Insight':
+        return require('./InsightType')
       case 'UserTheme':
         return require('./UserThemeType')
+      case 'UserThemeInsight':
+        return require('./UserThemeInsightType')
     }
   }
 

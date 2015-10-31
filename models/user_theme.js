@@ -25,12 +25,8 @@ export default (db, Sequelize) => {
       }],
 
       classMethods: {
-
-        associate: (models) => {
-          UserTheme.belongsTo(models.Theme)
-          UserTheme.belongsTo(models.User)
+        associate: function (models) {
         }
-
       }
 
     }

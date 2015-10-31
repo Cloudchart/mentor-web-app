@@ -1,7 +1,7 @@
 import BaseStorage from './BaseStorage'
 import models from '../models'
 
-const UserThemeInsightTableName = models.UserInsightTheme.tableName
+const UserThemeInsightTableName = models.UserThemeInsight.tableName
 
 let idsQuery = (where, includeTheme = false) =>
   `

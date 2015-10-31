@@ -9,9 +9,10 @@ import {
   mutationWithClientMutationId
 } from 'graphql-relay'
 
-
-import UserStorage from '../../storage/UserStorage'
-import UserThemeStorage from '../../storage/UserThemeStorage'
+import {
+  UserStorage,
+  UserThemeStorage
+} from '../../storage'
 
 
 export const GraphQLUserThemeStatusEnum = new GraphQLEnumType({

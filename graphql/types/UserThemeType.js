@@ -12,6 +12,8 @@ import {
 
 import { nodeInterface } from './Node'
 
+import { ThemeStorage } from '../../storage'
+
 
 export default new GraphQLObjectType({
 
@@ -46,5 +48,3 @@ export default new GraphQLObjectType({
   })
 
 })
-
-import ThemeStorage from '../../storage/ThemeStorage'

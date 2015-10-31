@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  var UserInsightTheme = sequelize.define('UserInsightTheme', {
+  var UserThemeInsight = sequelize.define('UserThemeInsight', {
     id: {
       type:           DataTypes.UUID,
       primaryKey:     true,
@@ -14,15 +14,14 @@ module.exports = function(sequelize, DataTypes) {
 
   }, {
 
-    tableName: 'users_insights_themes',
+    tableName: 'users_themes_insights',
     underscored: true,
 
     classMethods: {
       associate: function(models) {
-        UserInsightTheme.belongsTo(models.Insight)
       }
     }
   });
 
-  return UserInsightTheme;
+  return UserThemeInsight;
 };

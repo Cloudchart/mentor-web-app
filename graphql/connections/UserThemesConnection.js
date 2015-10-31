@@ -10,6 +10,12 @@ import {
   connectionDefinitions
 } from 'graphql-relay'
 
+import {
+  UserThemeStorage
+} from '../../storage'
+
+import SynchronizeUserThemeJobs from '../../workers/jobs/SynchronizeUserThemesJob'
+
 
 export const UserThemesConnectionFilterEnum = new GraphQLEnumType({
   name: 'UserThemeFilterEnum',
@@ -38,7 +44,12 @@ export const userThemesConnection = connectionDefinitions({
     subscribedCount: {
       type: new GraphQLNonNull(GraphQLInt),
       resolve: ({ userID }) => UserThemeStorage.count('subscribed', { userID })
-    }
+    },
+
+    rejectedCount: {
+      type: new GraphQLNonNull(GraphQLInt),
+      resolve: ({ userID }) => UserThemeStorage.count('rejected', { userID })
+    },
   }
 })
 
@@ -71,5 +82,3 @@ export const field = {
 
 
 import UserThemeType from '../types/UserThemeType'
-import UserThemeStorage from '../../storage/UserThemeStorage'
-import SynchronizeUserThemeJobs from '../../workers/jobs/SynchronizeUserThemesJob'

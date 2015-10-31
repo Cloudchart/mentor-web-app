@@ -10,7 +10,9 @@ import {
 } from 'graphql-relay'
 
 
-import UserStorage from '../../storage/UserStorage'
+import {
+  UserStorage
+} from '../../storage'
 
 
 export default mutationWithClientMutationId({

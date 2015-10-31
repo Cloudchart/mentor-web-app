@@ -16,7 +16,6 @@ module.exports = function(sequelize, DataTypes) {
 
     classMethods: {
       associate: function(models) {
-        Insight.belongsToMany(models.User, { through: 'users_insights_themes' })
       }
     }
   });
