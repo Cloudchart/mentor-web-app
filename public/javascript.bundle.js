@@ -70,6 +70,10 @@
 
 	var forEach = Array.prototype.forEach;
 
+	_reactRelay2['default'].injectNetworkLayer(new _reactRelay2['default'].DefaultNetworkLayer('/graphql', {
+	  credentials: 'same-origin'
+	}));
+
 	forEach.call(document.querySelectorAll('[data-react-class]'), function (node) {
 	  var Component = __webpack_require__(384)("./" + node.dataset.reactClass);
 	  _reactDom2['default'].render(_react2['default'].createElement(Component, null), node);
