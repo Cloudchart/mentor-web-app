@@ -7,9 +7,13 @@ import {
 } from 'graphql'
 
 import {
+  fromGlobalId,
   globalIdField
 } from 'graphql-relay'
 
+import {
+  UserThemeStorage
+} from '../../storage'
 
 import { nodeInterface } from './Node'
 import { field as UserThemesConnectionField } from '../connections/UserThemesConnection'
@@ -33,8 +37,30 @@ export default new GraphQLObjectType({
       resolve:  user => user.is_active
     },
 
-    themes: UserThemesConnectionField
+    themes: UserThemesConnectionField,
+
+    theme: {
+      type: new GraphQLNonNull(UserThemeType),
+      args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLID)
+        }
+      },
+      resolve: async (user, { id }) => {
+        id = fromGlobalId(id).id
+
+        let userTheme = await UserThemeStorage.load(id)
+
+        // Set theme visibility status
+        if (userTheme.status === 'available' || userTheme.status === 'rejected')
+          userTheme = await UserThemeStorage.update(id, { status: 'visible' })
+
+        return userTheme
+      }
+    }
 
   })
 
 })
+
+import UserThemeType from './UserThemeType'
