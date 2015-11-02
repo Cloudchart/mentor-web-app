@@ -56,7 +56,7 @@ type User implements Node {
   isActive: Boolean
   themes(before: String, after: String, first: Int, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection
   theme(id: ID!): UserTheme!
-  insights(before: String, after: String, first: Int, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum = unrated): UserThemeInsightsConnection
+  insights(before: String, after: String, first: Int, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
 }
 
 type UserTheme implements Node {
@@ -65,6 +65,7 @@ type UserTheme implements Node {
   url: String!
   isSubscribed: Boolean!
   isRejected: Boolean!
+  insights(before: String, after: String, first: Int, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
 }
 
 enum UserThemeFilterEnum {

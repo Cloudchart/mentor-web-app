@@ -46,7 +46,7 @@ export const UserThemeInsightsConnectionArgs = {
 
 
 export async function UserThemeInsightsConnectionResolve(root, args, { rootValue: { viewer } }) {
-  let themeID = args.themeId ? fromGlobalId(args.themeId).id : root.__type === 'Theme' ? root.id : null
+  let themeID = args.themeId ? fromGlobalId(args.themeId).id : root.__type === 'UserTheme' ? root.theme_id : null
   let userID = args.userId ? fromGlobalId(args.userId).id : root.__type === 'User' ? root.id : viewer.id
   let filter = args.filter ? args.filter : root.__type === 'User' ? 'positive' : 'unrated'
 

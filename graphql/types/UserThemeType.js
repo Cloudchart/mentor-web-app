@@ -14,6 +14,8 @@ import { nodeInterface } from './Node'
 
 import { ThemeStorage } from '../../storage'
 
+import { Field as UserThemeInsightsConnectionField } from '../connections/UserThemeInsightsConnection'
+
 
 export default new GraphQLObjectType({
 
@@ -43,7 +45,9 @@ export default new GraphQLObjectType({
     isRejected: {
       type: new GraphQLNonNull(GraphQLBoolean),
       resolve: ({ status }) => status === 'rejected'
-    }
+    },
+
+    insights: UserThemeInsightsConnectionField
 
   })
 

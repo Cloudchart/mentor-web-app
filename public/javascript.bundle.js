@@ -42270,6 +42270,37 @@
 	          requisite: true
 	        }), new GraphQL.Field('name', null, null, null, null, null, {
 	          parentType: 'UserTheme'
+	        }), new GraphQL.Field('insights', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserThemeInsight',
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserThemeInsightsEdge',
+	          rootCall: 'node',
+	          pk: 'id',
+	          requisite: true
+	        }), new GraphQL.Field('cursor', null, null, null, null, null, {
+	          parentType: 'UserThemeInsightsEdge',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserThemeInsightsConnection',
+	          plural: true
+	        }), new GraphQL.Field('pageInfo', [new GraphQL.Field('hasNextPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        }), new GraphQL.Field('hasPreviousPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserThemeInsightsConnection',
+	          generated: true,
+	          requisite: true
+	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(10))], null, null, {
+	          parentType: 'UserTheme',
+	          connection: true,
+	          nonFindable: true
 	        })], null, [new GraphQL.Callv('id', new GraphQL.CallVariable('themeID'))], null, null, {
 	          parentType: 'User',
 	          rootCall: 'node',

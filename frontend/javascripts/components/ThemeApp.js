@@ -30,6 +30,13 @@ export default Relay.createContainer(ThemeApp, {
         theme(id: $themeID) {
           id
           name
+          insights(first: 10) {
+            edges {
+              node {
+                id
+              }
+            }
+          }
         }
       }
     `
