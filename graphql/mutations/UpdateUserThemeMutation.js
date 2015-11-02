@@ -14,6 +14,7 @@ import {
   UserThemeStorage
 } from '../../storage'
 
+import { nodeToEdge } from '../connections/recordsconnection'
 
 const MaxSubscribedThemesCount = 3
 
@@ -28,8 +29,6 @@ export const GraphQLUserThemeStatusEnum = new GraphQLEnumType({
     SUBSCRIBED: { value: 'subscribed' },
   }
 })
-
-let i = 0
 
 
 export default mutationWithClientMutationId({
@@ -54,7 +53,7 @@ export default mutationWithClientMutationId({
     },
     userThemeEdge: {
       type: new GraphQLNonNull(userThemesConnection.edgeType),
-      resolve: ({ userTheme }) => ({ node: userTheme, cursor: 'abc' + i++ })
+      resolve: ({ userTheme }) => nodeToEdge(userTheme)
     },
     user: {
       type: new GraphQLNonNull(UserType)

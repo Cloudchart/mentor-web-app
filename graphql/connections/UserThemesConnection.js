@@ -15,6 +15,7 @@ import {
 } from '../../storage'
 
 import SynchronizeUserThemeJobs from '../../workers/jobs/SynchronizeUserThemesJob'
+import { connectionFromRecordsSlice } from './recordsconnection'
 
 
 export const UserThemesConnectionFilterEnum = new GraphQLEnumType({
@@ -70,7 +71,7 @@ export async function userThemesConnectionResolve(user, args) {
   // Load User Themes
   let userThemes = await UserThemeStorage.loadAll(args.filter, { userID: user.id })
 
-  return Object.assign(connectionFromArray(userThemes, args), { count: userThemes.length, userID: user.id })
+  return Object.assign(connectionFromRecordsSlice(userThemes, args, { sliceStart: 0, recordsLength: userThemes.length }), { userID: user.id })
 }
 
 

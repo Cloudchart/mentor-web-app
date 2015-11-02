@@ -66,11 +66,7 @@ class ThemesExplorerApp extends React.Component {
   renderThemes() {
     return (
       <ul style={{ listStyle: 'none', margin: '20px 0', padding: '0' }}>
-        {
-          this.props.viewer.themes.edges
-            .sort((a, b) => a.node.name < b.node.name ? -1 : a.node.name > b.node.name ? 1 : 0)
-            .map(this.renderTheme)
-        }
+        { this.props.viewer.themes.edges.map(this.renderTheme) }
       </ul>
     )
   }
