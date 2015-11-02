@@ -25,8 +25,8 @@ let storage = BaseStorage('ThemeInsight', {
 
 
 let destroyAllForTheme = (themeID) =>
-  models.ThemeInsight
-    .destroy({ where: { theme_id: themeID }})
+  models.sequelize
+    .query(`delete from ${TableName} where theme_id = :themeID`, { replacements: { themeID }})
     .then(() => storage.clearAll())
     .then(() => null)
 
