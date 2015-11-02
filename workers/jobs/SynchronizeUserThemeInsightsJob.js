@@ -1,17 +1,34 @@
 import Bluebird from 'bluebird'
 
+const InitialInsightsCount = 10
+const MaxSubscribedInsightsCount = 24
+const InsightsRate = 1 / (60 * 60 * 1000)
 
-import UserThemeStorage from '../../storage/UserThemeStorage'
-import UserThemeInsightStorage from '../../storage/UserThemeInsightStorage'
+
+import {
+  UserThemeStorage,
+  ThemeInsightStorage,
+  UserThemeInsightStorage
+} from '../../storage'
 
 
-let perform = async ({ id }, callback) => {
-  let userTheme       = await UserThemeStorage.load(id)
-  let ratedInsights   = await UserThemeInsightStorage.loadAll('ratedForTheme', { userID: userTheme.user_id, themeID: userTheme.theme_id })
-  let unratedInsights = await UserThemeInsightStorage.loadAll('unratedForTheme', { userID: userTheme.user_id, themeID: userTheme.theme_id })
+let perform = async ({ userID, themeID }, callback) => {
+  let count           = InitialInsightsCount
+  let userTheme       = await UserThemeStorage.loadOne('unique', { userID, themeID })
+  let ratedInsights   = await UserThemeInsightStorage.loadAll('ratedForTheme', { userID, themeID })
+  let unratedInsights = await UserThemeInsightStorage.loadAll('unratedForTheme', { userID, themeID })
 
+  console.log(userTheme.status)
   console.log(ratedInsights.length)
   console.log(unratedInsights.length)
+
+  if ((ratedInsights.length + unratedInsights.length) > 0) {
+    throw new Error('Not implemented')
+  }
+
+  if (count > 0) {
+    let newInsightsIDs = ThemeInsightStorage.loadAllIDs('new', { userID, themeID })
+  }
 
   callback()
 }

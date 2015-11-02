@@ -38,21 +38,21 @@ export const UserThemeInsightsConnectionArgs = {
     type: GraphQLID
   },
   filter: {
-    type: UserThemeInsightsConnectionFilterEnum,
-    defaultValue: 'unrated'
+    type: UserThemeInsightsConnectionFilterEnum
   }
 }
 
 
 export async function UserThemeInsightsConnectionResolve(root, args, { rootValue: { viewer } }) {
-  let themeId = args.themeId ? fromGlobalId(args.themeId).id : root.__type == 'Theme' ? root.id : null
-  let userId = args.userId ? fromGlobalId(args.userId).id : root.__type == 'User' ? root.id : viewer.id
+  let themeID = args.themeId ? fromGlobalId(args.themeId).id : root.__type === 'Theme' ? root.id : null
+  let userID = args.userId ? fromGlobalId(args.userId).id : root.__type === 'User' ? root.id : viewer.id
+  let filter = args.filter ? args.filter : root.__type === 'User' ? 'positive' : 'unrated'
 
-  if (userId !== viewer.id)
+  if (userID !== viewer.id)
     return new Error('Not authorized')
 
-  let query = args.filter + (themeId ? 'forTheme' : '')
-  let insights = await UserThemeInsightStorage.loadAll(query, { userID: userId, themeID: themeId })
+  let query = filter + (themeID ? 'ForTheme' : '')
+  let insights = await UserThemeInsightStorage.loadAll(query, { userID, themeID })
 
   return connectionFromArray(insights, args)
 }

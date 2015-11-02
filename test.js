@@ -1,18 +1,6 @@
-import Immutable from 'immutable'
+import SynchronizeThemeInsightsJob from './workers/jobs/SynchronizeThemeInsightsJob'
 
-let ids = Immutable.Seq([
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7'
-])
-
-let cursor = '3'
-let count = 5
-
-ids = ids.reverse()
-
-console.log(ids.skip(ids.indexOf(cursor) + 1).take(count).reverse())
+SynchronizeThemeInsightsJob.perform({
+  userID:   '08d44dcb-e19c-407c-a45f-4e8203edb773',
+  themeID:  'c444d98a-2877-4d0a-b286-890ab96dceff'
+})

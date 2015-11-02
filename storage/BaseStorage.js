@@ -29,7 +29,7 @@ let createStorage = (modelName, options = {}) => {
     )
 
 
-  let loadAllIDs = (key, replacements = {}) =>
+  let loadAllIDs = (key, replacements) =>
     options.idsQueries && options.idsQueries[key]
       ? models.sequelize
           .query(options.idsQueries[key].trim().replace(/\s+/g, ' '), { replacements })
@@ -37,7 +37,7 @@ let createStorage = (modelName, options = {}) => {
       : Promise.resolve(new Error(`Query "${key}" is not supported`))
 
 
-  let loadAll = (key, replacements = {}) =>
+  let loadAll = (key, replacements) =>
     loadAllIDs(key, replacements)
       .then(ids =>
         ids instanceof Error
@@ -45,7 +45,7 @@ let createStorage = (modelName, options = {}) => {
           : loader.loadMany(ids)
       )
 
-  let count = (key, replacements = {}) =>
+  let count = (key, replacements) =>
     options.idsQueries && options.idsQueries[key]
       ? models.sequelize
           .query(`select count(*) as count from (${options.idsQueries[key]}) c`.trim().replace(/\s+/g, ' '), { replacements })
@@ -64,7 +64,7 @@ let createStorage = (modelName, options = {}) => {
     model.create(attributes)
 
   let createMany = (attributesArray) =>
-    model.bulkCreate(attributesArray)
+    model.bulkCreate(attributesArray, { ignoreDuplicates: true })
 
   let update = (id, attributes) =>
     model.update(attributes, {where:{id:id}})
@@ -108,6 +108,7 @@ let createStorage = (modelName, options = {}) => {
       destroy(id)
         .then(() => loader.clear(id))
         .then(() => null)
+
   }
 }
 
