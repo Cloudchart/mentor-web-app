@@ -32,7 +32,7 @@ export default new GraphQLObjectType({
 
     url: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve: ({ id }) => `/themes/${id}`
+      resolve: ({ theme_id }) => `/themes/${theme_id}`
     },
 
     isSubscribed: {

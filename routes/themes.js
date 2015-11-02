@@ -27,14 +27,14 @@ router.get('/explore', authenticationCheck, activityCheck, (req, res, next) => {
 
 router.get('/:id', authenticationCheck, activityCheck, async (req, res, next) => {
   try {
-    // Load User Theme
-    let userTheme = await UserThemeStorage.load(req.params.id)
-
     // Load Theme
-    let theme     = await ThemeStorage.load(userTheme.theme_id)
+    let theme     = await ThemeStorage.load(req.params.id)
+
+    // Load User Theme
+    let userTheme = await UserThemeStorage.loadOne('unique', { themeID: theme.id, userID: req.user.id })
 
     // Render Page
-    res.render('themes/show', { title: `#${theme.name}`, themeID: idToCursor(userTheme.id) })
+    res.render('themes/show', { title: `#${theme.name}`, themeID: idToCursor(theme.id) })
   } catch(e) {
     // Return Not Found Error
     res.status(404)

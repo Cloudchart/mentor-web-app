@@ -12,6 +12,7 @@ import {
 } from 'graphql-relay'
 
 import {
+  ThemeStorage,
   UserThemeStorage
 } from '../../storage'
 
@@ -51,7 +52,8 @@ export default new GraphQLObjectType({
       resolve: async (user, { id }) => {
         id = fromGlobalId(id).id
 
-        let userTheme = await UserThemeStorage.load(id)
+        let theme = await ThemeStorage.load(id)
+        let userTheme = await UserThemeStorage.loadOne('unique', { userID: user.id, themeID: theme.id })
 
         // Set theme visibility status
         if (userTheme.status === 'available' || userTheme.status === 'rejected')
