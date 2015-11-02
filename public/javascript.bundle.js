@@ -41899,11 +41899,7 @@
 	      return [{
 	        type: 'FIELDS_CHANGE',
 	        fieldIDs: {
-	          userTheme: _this.props.userTheme.id
-	        }
-	      }, {
-	        type: 'FIELDS_CHANGE',
-	        fieldIDs: {
+	          userTheme: _this.props.userTheme.id,
 	          user: _this.props.user.id
 	        }
 	      }];

@@ -37,12 +37,8 @@ export default class extends Relay.Mutation {
   getConfigs = () => [{
     type: 'FIELDS_CHANGE',
     fieldIDs: {
-      userTheme: this.props.userTheme.id
-    }
-  }, {
-    type: 'FIELDS_CHANGE',
-    fieldIDs: {
-      user: this.props.user.id
+      userTheme:  this.props.userTheme.id,
+      user:       this.props.user.id
     }
   }]
 
