@@ -81,7 +81,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(384)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(392)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(393)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -41465,8 +41465,10 @@
 		"./LandingApp.js": 389,
 		"./LoginApp": 390,
 		"./LoginApp.js": 390,
-		"./ThemesExplorerApp": 391,
-		"./ThemesExplorerApp.js": 391
+		"./ThemeApp": 391,
+		"./ThemeApp.js": 391,
+		"./ThemesExplorerApp": 392,
+		"./ThemesExplorerApp.js": 392
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -42226,6 +42228,92 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
+	var ThemeApp = (function (_React$Component) {
+	  _inherits(ThemeApp, _React$Component);
+
+	  function ThemeApp() {
+	    _classCallCheck(this, ThemeApp);
+
+	    _get(Object.getPrototypeOf(ThemeApp.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(ThemeApp, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'h2',
+	          null,
+	          '#' + this.props.viewer.theme.name
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ThemeApp;
+	})(_react2['default'].Component);
+
+	exports['default'] = _reactRelay2['default'].createContainer(ThemeApp, {
+
+	  initialVariables: {
+	    themeID: null
+	  },
+
+	  fragments: {
+	    viewer: function viewer() {
+	      return (function () {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.QueryFragment('ThemeApp', 'User', [new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserTheme',
+	          requisite: true
+	        }), new GraphQL.Field('name', null, null, null, null, null, {
+	          parentType: 'UserTheme'
+	        })], null, [new GraphQL.Callv('id', new GraphQL.CallVariable('themeID'))], null, null, {
+	          parentType: 'User',
+	          rootCall: 'node',
+	          pk: 'id'
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'User',
+	          generated: true,
+	          requisite: true
+	        })]);
+	      })();
+	    }
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 392 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
 	var _mutationsUpdateUserThemeMutation = __webpack_require__(387);
 
 	var _mutationsUpdateUserThemeMutation2 = _interopRequireDefault(_mutationsUpdateUserThemeMutation);
@@ -42452,16 +42540,16 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 392 */
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./ThemeAppRoute": 393,
-		"./ThemeAppRoute.js": 393,
-		"./ThemesRoute": 394,
-		"./ThemesRoute.js": 394,
-		"./ViewerRoute": 395,
-		"./ViewerRoute.js": 395
+		"./ThemeAppRoute": 394,
+		"./ThemeAppRoute.js": 394,
+		"./ThemesRoute": 395,
+		"./ThemesRoute.js": 395,
+		"./ViewerRoute": 396,
+		"./ViewerRoute.js": 396
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -42474,11 +42562,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 392;
+	webpackContext.id = 393;
 
 
 /***/ },
-/* 393 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42546,7 +42634,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 394 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42612,7 +42700,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 395 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

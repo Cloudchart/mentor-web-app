@@ -14,7 +14,7 @@ import {
   UserThemeStorage
 } from '../../storage'
 
-import SynchronizeUserThemeJobs from '../../workers/jobs/SynchronizeUserThemesJob'
+import SynchronizeUserThemesJob from '../../workers/jobs/SynchronizeUserThemesJob'
 import { connectionFromRecordsSlice } from './recordsconnection'
 
 
@@ -66,7 +66,7 @@ export const userThemesConnectionArgs = {
 
 export async function userThemesConnectionResolve(user, args) {
   // Synchronize User Themes
-  await SynchronizeUserThemeJobs.perform({ userID: user.id })
+  await SynchronizeUserThemesJob.perform({ userID: user.id })
 
   // Load User Themes
   let userThemes = await UserThemeStorage.loadAll(args.filter, { userID: user.id })

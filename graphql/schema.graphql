@@ -29,6 +29,13 @@ type Query {
   node(id: ID!): Node
 }
 
+type Theme implements Node {
+  id: ID!
+  name: String
+  isSystem: Boolean!
+  isDefault: Boolean!
+}
+
 input UpdateUserThemeInput {
   id: ID!
   status: UserThemeStatusEnum!
@@ -48,6 +55,8 @@ type User implements Node {
   name: String
   isActive: Boolean
   themes(before: String, after: String, first: Int, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection
+  theme(id: ID!): UserTheme!
+  insights(before: String, after: String, first: Int, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum = unrated): UserThemeInsightsConnection
 }
 
 type UserTheme implements Node {
@@ -66,6 +75,33 @@ enum UserThemeFilterEnum {
   REJECTED
   RELATED
   UNRELATED
+}
+
+type UserThemeInsight implements Node {
+  id: ID!
+  content: String!
+  theme: Theme!
+  rate: Int
+  ratedAt: String
+}
+
+type UserThemeInsightsConnection {
+  pageInfo: PageInfo!
+  edges: [UserThemeInsightsEdge]
+  ratedCount: Int!
+  unratedCount: Int!
+}
+
+type UserThemeInsightsEdge {
+  node: UserThemeInsight
+  cursor: String!
+}
+
+enum UserThemeInsightsFilterEnum {
+  RATED
+  UNRATED
+  POSITIVE
+  NEGATIVE
 }
 
 type UserThemesConnection {

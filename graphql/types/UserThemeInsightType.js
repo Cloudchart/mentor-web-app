@@ -1,4 +1,5 @@
 import {
+  GraphQLInt,
   GraphQLString,
   GraphQLBoolean,
   GraphQLNonNull,
@@ -58,8 +59,8 @@ export default new GraphQLObjectType({
     ratedAt: {
       type: GraphQLString,
       resolve: ({ rate, updated_at }) =>
-        rate ?
-          : updated_at
+        rate
+          ? updated_at
           : null
     }
 
