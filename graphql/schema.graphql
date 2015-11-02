@@ -38,6 +38,7 @@ input UpdateUserThemeInput {
 
 type UpdateUserThemePayload {
   userTheme: UserTheme!
+  userThemeEdge: UserThemesEdge!
   user: User!
   clientMutationId: String!
 }

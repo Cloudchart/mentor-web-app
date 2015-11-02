@@ -15,6 +15,9 @@ import {
 } from '../../storage'
 
 
+const MaxSubscribedThemesCount = 3
+
+
 export const GraphQLUserThemeStatusEnum = new GraphQLEnumType({
   name: 'UserThemeStatusEnum',
 
@@ -25,6 +28,8 @@ export const GraphQLUserThemeStatusEnum = new GraphQLEnumType({
     SUBSCRIBED: { value: 'subscribed' },
   }
 })
+
+let i = 0
 
 
 export default mutationWithClientMutationId({
@@ -47,6 +52,10 @@ export default mutationWithClientMutationId({
     userTheme: {
       type: new GraphQLNonNull(UserThemeType)
     },
+    userThemeEdge: {
+      type: new GraphQLNonNull(userThemesConnection.edgeType),
+      resolve: ({ userTheme }) => ({ node: userTheme, cursor: 'abc' + i++ })
+    },
     user: {
       type: new GraphQLNonNull(UserType)
     }
@@ -61,7 +70,14 @@ export default mutationWithClientMutationId({
     if (userTheme.user_id !== userId)
       return new Error('Not authorized')
 
-    let user = UserStorage.load(userId)
+    let user = await UserStorage.load(userId)
+
+    // Check if can be subscribed
+    if (status === 'subscribed') {
+      let subscribedUserThemesCount = await UserThemeStorage.count('subscribed', { userID: user.id })
+      if (subscribedUserThemesCount >= MaxSubscribedThemesCount)
+        return new Error(`Maximum subscribed themes (${MaxSubscribedThemesCount}) count reached`)
+    }
 
     userTheme = await UserThemeStorage.update(userTheme.id, { status: status })
 
@@ -73,3 +89,4 @@ export default mutationWithClientMutationId({
 
 import UserType from '../types/UserType'
 import UserThemeType from '../types/UserThemeType'
+import { userThemesConnection } from '../connections/UserThemesConnection'

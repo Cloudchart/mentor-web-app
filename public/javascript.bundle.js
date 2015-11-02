@@ -41838,6 +41838,17 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
+	var baseRangeAddConfig = function baseRangeAddConfig(parentID, rangeBehaviors) {
+	  return {
+	    type: 'RANGE_ADD',
+	    parentName: 'user',
+	    parentID: parentID,
+	    connectionName: 'themes',
+	    edgeName: 'userThemeEdge',
+	    rangeBehaviors: rangeBehaviors
+	  };
+	};
+
 	var _default = (function (_Relay$Mutation) {
 	  _inherits(_default, _Relay$Mutation);
 
@@ -41872,9 +41883,23 @@
 	          parentType: 'UpdateUserThemePayload',
 	          rootCall: 'node',
 	          pk: 'id'
-	        }), new GraphQL.Field('user', [new GraphQL.Field('themes', [new GraphQL.Field('count', null, null, null, null, null, {
-	          parentType: 'UserThemesConnection'
-	        }), new GraphQL.Field('subscribedCount', null, null, null, null, null, {
+	        }), new GraphQL.Field('userThemeEdge', [new GraphQL.Field('cursor', null, null, null, null, null, {
+	          parentType: 'UserThemesEdge',
+	          generated: true,
+	          requisite: true
+	        }), new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserTheme',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserThemesEdge',
+	          rootCall: 'node',
+	          pk: 'id',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UpdateUserThemePayload'
+	        }), new GraphQL.Field('user', [new GraphQL.Field('themes', [new GraphQL.Field('subscribedCount', null, null, null, null, null, {
 	          parentType: 'UserThemesConnection'
 	        })], null, null, null, null, {
 	          parentType: 'User',
@@ -41900,13 +41925,34 @@
 	    };
 
 	    this.getConfigs = function () {
-	      return [{
+	      var configs = [{
 	        type: 'FIELDS_CHANGE',
 	        fieldIDs: {
-	          userTheme: _this.props.userTheme.id,
-	          user: _this.props.user.id
+	          userTheme: _this.props.userTheme.id
 	        }
 	      }];
+
+	      if (_this.props.status === 'SUBSCRIBED') {
+	        configs.push(Object.assign(baseRangeAddConfig(_this.props.user.id, {
+	          'filter(RELATED)': 'append',
+	          'filter(UNRELATED)': 'remove'
+	        })));
+	      }
+
+	      if (_this.props.status === 'REJECTED') {
+	        configs.push(Object.assign(baseRangeAddConfig(_this.props.user.id, {
+	          'filter(RELATED)': 'remove',
+	          'filter(UNRELATED)': 'append'
+	        })));
+	      }
+
+	      if (_this.props.status === 'VISIBLE') {
+	        configs.push(Object.assign(baseRangeAddConfig(_this.props.user.id, {
+	          'filter(RELATED)': 'append',
+	          'filter(UNRELATED)': 'remove'
+	        })));
+	      }
+	      return configs;
 	    };
 	  }
 
@@ -42234,6 +42280,10 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
+	var _mutationsUpdateUserThemeMutation = __webpack_require__(387);
+
+	var _mutationsUpdateUserThemeMutation2 = _interopRequireDefault(_mutationsUpdateUserThemeMutation);
+
 	var ThemesExplorerApp = (function (_React$Component) {
 	  _inherits(ThemesExplorerApp, _React$Component);
 
@@ -42253,6 +42303,14 @@
 	      _this.props.relay.setVariables({ filter: event.target.value });
 	    };
 
+	    this.handleThemeControlClick = function (themeEdge, status, event) {
+	      event.preventDefault();
+
+	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ userTheme: themeEdge.node, user: _this.props.viewer, status: status });
+
+	      _reactRelay2['default'].Store.update(mutation);
+	    };
+
 	    this.renderTheme = function (themeEdge) {
 	      var theme = themeEdge.node;
 	      return _react2['default'].createElement(
@@ -42261,8 +42319,12 @@
 	        _react2['default'].createElement(
 	          'a',
 	          { href: theme.url },
-	          '#',
-	          theme.name
+	          '#' + theme.name
+	        ),
+	        _react2['default'].createElement(
+	          'div',
+	          { style: { marginTop: 2, fontSize: '.75em' } },
+	          _this.renderThemeControls(themeEdge)
 	        )
 	      );
 	    };
@@ -42322,7 +42384,60 @@
 	      return _react2['default'].createElement(
 	        'ul',
 	        { style: { listStyle: 'none', margin: '20px 0', padding: '0' } },
-	        this.props.viewer.themes.edges.map(this.renderTheme)
+	        this.props.viewer.themes.edges.sort(function (a, b) {
+	          return a.node.name < b.node.name ? -1 : a.node.name > b.node.name ? 1 : 0;
+	        }).map(this.renderTheme)
+	      );
+	    }
+	  }, {
+	    key: 'renderThemeControls',
+	    value: function renderThemeControls(themeEdge) {
+	      switch (this.state.themesFilter) {
+	        case 'RELATED':
+	          // Subscribe, Unsubscribe, Reject
+	          return [this.renderSubscribeControl(themeEdge), this.renderUnsubscribeControl(themeEdge), this.renderRejectControl(themeEdge)];
+	        case 'UNRELATED':
+	          // Subscribe, Follow
+	          return [this.renderSubscribeControl(themeEdge), this.renderFollowControl(themeEdge)];
+	      }
+	    }
+	  }, {
+	    key: 'renderSubscribeControl',
+	    value: function renderSubscribeControl(themeEdge) {
+	      if (themeEdge.node.isSubscribed) return;
+	      return _react2['default'].createElement(
+	        'a',
+	        { href: '#', onClick: this.handleThemeControlClick.bind(this, themeEdge, 'SUBSCRIBED'), key: 'subscribe', style: { color: 'green' } },
+	        'Subscribe'
+	      );
+	    }
+	  }, {
+	    key: 'renderFollowControl',
+	    value: function renderFollowControl(themeEdge) {
+	      if (themeEdge.node.isSubscribed) return;
+	      return _react2['default'].createElement(
+	        'a',
+	        { href: '#', onClick: this.handleThemeControlClick.bind(this, themeEdge, 'VISIBLE'), key: 'follow', style: { marginLeft: '1ex' } },
+	        'Follow'
+	      );
+	    }
+	  }, {
+	    key: 'renderUnsubscribeControl',
+	    value: function renderUnsubscribeControl(themeEdge) {
+	      if (!themeEdge.node.isSubscribed) return;
+	      return _react2['default'].createElement(
+	        'a',
+	        { href: '#', onClick: this.handleThemeControlClick.bind(this, themeEdge, 'VISIBLE'), key: 'unsubscribe', style: { color: 'red' } },
+	        'Unsubscribe'
+	      );
+	    }
+	  }, {
+	    key: 'renderRejectControl',
+	    value: function renderRejectControl(themeEdge) {
+	      return _react2['default'].createElement(
+	        'a',
+	        { href: '#', onClick: this.handleThemeControlClick.bind(this, themeEdge, 'REJECTED'), key: 'reject', style: { color: 'red', marginLeft: '1ex' } },
+	        'Reject'
 	      );
 	    }
 	  }]);
@@ -42339,7 +42454,7 @@
 
 	  fragments: {
 	    viewer: function viewer() {
-	      return (function () {
+	      return (function (sub_0, sub_1) {
 	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
 	        return new GraphQL.QueryFragment('ThemesExplorerApp', 'User', [new GraphQL.Field('themes', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
 	          parentType: 'UserTheme',
@@ -42348,7 +42463,9 @@
 	          parentType: 'UserTheme'
 	        }), new GraphQL.Field('url', null, null, null, null, null, {
 	          parentType: 'UserTheme'
-	        })], null, null, null, null, {
+	        }), new GraphQL.Field('isSubscribed', null, null, null, null, null, {
+	          parentType: 'UserTheme'
+	        })], [_reactRelay2['default'].QL.__frag(sub_0)], null, null, null, {
 	          parentType: 'UserThemesEdge',
 	          rootCall: 'node',
 	          pk: 'id',
@@ -42382,8 +42499,8 @@
 	          parentType: 'User',
 	          generated: true,
 	          requisite: true
-	        })]);
-	      })();
+	        })], [_reactRelay2['default'].QL.__frag(sub_1)]);
+	      })(_mutationsUpdateUserThemeMutation2['default'].getFragment('userTheme'), _mutationsUpdateUserThemeMutation2['default'].getFragment('user'));
 	    }
 	  }
 
