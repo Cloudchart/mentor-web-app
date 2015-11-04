@@ -43,11 +43,13 @@ let updateUserThemeInsightMutation = (name, rate) => mutationWithClientMutationI
   },
 
   mutateAndGetPayload: async ({ id }) => {
-    let insight = await UserThemeInsightStorage.update(fromGlobalId(id).id, { rate: rate })
+    let insight = await UserThemeInsightStorage.load(fromGlobalId(id).id)
+    insight     = await UserThemeInsightStorage.update(insight.id, { rate: rate, updated_at: rate ? null : insight.created_at })
     return { insight }
   }
 
 })
 
-export const LikeInsightMutation      = updateUserThemeInsightMutation('likeInsight', 1)
+export const LikeInsightMutation      = updateUserThemeInsightMutation('likeInsight',     1)
 export const DislikeInsightMutation   = updateUserThemeInsightMutation('dislikeInsight', -1)
+export const ResetInsightMutation     = updateUserThemeInsightMutation('resetInsight',    null)

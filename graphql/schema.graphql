@@ -37,6 +37,7 @@ type Mutation {
   updateUserTheme(input: UpdateUserThemeInput!): UpdateUserThemePayload
   likeInsight(input: likeInsightInput!): likeInsightPayload
   dislikeInsight(input: dislikeInsightInput!): dislikeInsightPayload
+  resetInsight(input: resetInsightInput!): resetInsightPayload
 }
 
 interface Node {
@@ -53,6 +54,18 @@ type PageInfo {
 type Query {
   viewer: User
   node(id: ID!): Node
+}
+
+input resetInsightInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type resetInsightPayload {
+  user: User!
+  theme: UserTheme!
+  insight: UserThemeInsight!
+  clientMutationId: String!
 }
 
 type Theme implements Node {

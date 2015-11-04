@@ -81,7 +81,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(384)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(393)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(394)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -41504,8 +41504,8 @@
 		"./LoginApp.js": 390,
 		"./ThemeApp": 391,
 		"./ThemeApp.js": 391,
-		"./ThemesExplorerApp": 392,
-		"./ThemesExplorerApp.js": 392
+		"./ThemesExplorerApp": 393,
+		"./ThemesExplorerApp.js": 393
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -42265,7 +42265,7 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _mutationsUpdateUserThemeInsightMutation = __webpack_require__(397);
+	var _mutationsUpdateUserThemeInsightMutation = __webpack_require__(392);
 
 	var _mutationsUpdateUserThemeInsightMutation2 = _interopRequireDefault(_mutationsUpdateUserThemeInsightMutation);
 
@@ -42279,28 +42279,23 @@
 
 	    _get(Object.getPrototypeOf(ThemeApp.prototype), 'constructor', this).apply(this, arguments);
 
-	    this.handleLikeClick = function (insight, event) {
-	      event.preventDefault();
-
-	      var mutation = new _mutationsUpdateUserThemeInsightMutation2['default']({
-	        action: 'like',
-	        user: null,
-	        theme: _this.props.viewer.theme,
-	        insight: insight
-	      });
-	      _reactRelay2['default'].Store.update(mutation);
+	    this.state = {
+	      lastUpdatedInsight: null
 	    };
 
-	    this.handleDislikeClick = function (insight, event) {
+	    this.handleInsightAction = function (insight, action, event) {
 	      event.preventDefault();
 
 	      var mutation = new _mutationsUpdateUserThemeInsightMutation2['default']({
-	        action: 'dislike',
+	        action: action,
 	        user: null,
 	        theme: _this.props.viewer.theme,
 	        insight: insight
 	      });
+
 	      _reactRelay2['default'].Store.update(mutation);
+
+	      _this.setState({ lastUpdatedInsight: action === 'reset' ? null : insight });
 	    };
 	  }
 
@@ -42315,6 +42310,7 @@
 	          null,
 	          '#' + this.props.viewer.theme.name
 	        ),
+	        this.renderUndoControl(),
 	        this.renderInsight()
 	      );
 	    }
@@ -42338,13 +42334,27 @@
 	        null,
 	        _react2['default'].createElement(
 	          'a',
-	          { href: '#', onClick: this.handleLikeClick.bind(this, insight), style: { color: 'green' } },
+	          { href: '#', onClick: this.handleInsightAction.bind(this, insight, 'like'), style: { color: 'green' } },
 	          'Like'
 	        ),
 	        _react2['default'].createElement(
 	          'a',
-	          { href: '#', onClick: this.handleDislikeClick.bind(this, insight), style: { color: 'red', marginLeft: '1ex' } },
+	          { href: '#', onClick: this.handleInsightAction.bind(this, insight, 'dislike'), style: { color: 'red', marginLeft: '1ex' } },
 	          'Dislike'
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'renderUndoControl',
+	    value: function renderUndoControl() {
+	      if (!this.state.lastUpdatedInsight) return;
+	      return _react2['default'].createElement(
+	        'p',
+	        null,
+	        _react2['default'].createElement(
+	          'a',
+	          { href: '#', onClick: this.handleInsightAction.bind(this, this.state.lastUpdatedInsight, 'reset') },
+	          'Undo'
 	        )
 	      );
 	    }
@@ -42421,6 +42431,230 @@
 
 /***/ },
 /* 392 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      switch (_this.props.action) {
+	        case 'like':
+	          return (function () {
+	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	            return new GraphQL.Mutation('UpdateUserThemeInsightMutation', 'likeInsightPayload', new GraphQL.Callv('likeInsight', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	              parentType: 'likeInsightPayload',
+	              generated: true,
+	              requisite: true
+	            })], null, {
+	              inputType: 'likeInsightInput!'
+	            });
+	          })();
+	        case 'dislike':
+	          return (function () {
+	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	            return new GraphQL.Mutation('UpdateUserThemeInsightMutation', 'dislikeInsightPayload', new GraphQL.Callv('dislikeInsight', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	              parentType: 'dislikeInsightPayload',
+	              generated: true,
+	              requisite: true
+	            })], null, {
+	              inputType: 'dislikeInsightInput!'
+	            });
+	          })();
+	        case 'reset':
+	          return (function () {
+	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	            return new GraphQL.Mutation('UpdateUserThemeInsightMutation', 'resetInsightPayload', new GraphQL.Callv('resetInsight', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	              parentType: 'resetInsightPayload',
+	              generated: true,
+	              requisite: true
+	            })], null, {
+	              inputType: 'resetInsightInput!'
+	            });
+	          })();
+	      }
+	    };
+
+	    this.getFatQuery = function () {
+	      switch (_this.props.action) {
+	        case 'like':
+	          return (function () {
+	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	            return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'likeInsightPayload', [new GraphQL.Field('insight', [new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'UserThemeInsight',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'likeInsightPayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            }), new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'UserTheme',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'likeInsightPayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'User',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'likeInsightPayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            })]);
+	          })();
+	        case 'dislike':
+	          return (function () {
+	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	            return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'dislikeInsightPayload', [new GraphQL.Field('insight', [new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'UserThemeInsight',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'dislikeInsightPayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            }), new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'UserTheme',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'dislikeInsightPayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'User',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'dislikeInsightPayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            })]);
+	          })();
+	        case 'reset':
+	          return (function () {
+	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	            return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'resetInsightPayload', [new GraphQL.Field('insight', [new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'UserThemeInsight',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'resetInsightPayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            }), new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'UserTheme',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'resetInsightPayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'User',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'resetInsightPayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            })]);
+	          })();
+	      }
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        id: _this.props.insight.id
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: {
+	          user: _this.props.user ? _this.props.user.id : null,
+	          theme: _this.props.theme ? _this.props.theme.id : null,
+	          insight: _this.props.insight.id
+	        }
+	      }];
+	    };
+	  }
+
+	  _createClass(_default, null, [{
+	    key: 'fragments',
+	    value: {
+	      user: function user() {
+	        return (function () {
+	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	          return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'User', [new GraphQL.Field('id', null, null, null, null, null, {
+	            parentType: 'User',
+	            requisite: true
+	          })]);
+	        })();
+	      },
+
+	      theme: function theme() {
+	        return (function () {
+	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	          return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'UserTheme', [new GraphQL.Field('id', null, null, null, null, null, {
+	            parentType: 'UserTheme',
+	            requisite: true
+	          })]);
+	        })();
+	      },
+
+	      insight: function insight() {
+	        return (function () {
+	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	          return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'UserThemeInsight', [new GraphQL.Field('id', null, null, null, null, null, {
+	            parentType: 'UserThemeInsight',
+	            requisite: true
+	          })]);
+	        })();
+	      }
+	    },
+	    enumerable: true
+	  }]);
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42673,16 +42907,16 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 393 */
+/* 394 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./ThemeAppRoute": 394,
-		"./ThemeAppRoute.js": 394,
-		"./ThemesRoute": 395,
-		"./ThemesRoute.js": 395,
-		"./ViewerRoute": 396,
-		"./ViewerRoute.js": 396
+		"./ThemeAppRoute": 395,
+		"./ThemeAppRoute.js": 395,
+		"./ThemesRoute": 396,
+		"./ThemesRoute.js": 396,
+		"./ViewerRoute": 397,
+		"./ViewerRoute.js": 397
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -42695,11 +42929,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 393;
+	webpackContext.id = 394;
 
 
 /***/ },
-/* 394 */
+/* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42767,7 +43001,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 395 */
+/* 396 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42833,7 +43067,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 396 */
+/* 397 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42888,190 +43122,6 @@
 
 	  return _default;
 	})(_reactRelay2['default'].Route);
-
-	exports['default'] = _default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 397 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _reactRelay = __webpack_require__(160);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _default = (function (_Relay$Mutation) {
-	  _inherits(_default, _Relay$Mutation);
-
-	  function _default() {
-	    var _this = this;
-
-	    _classCallCheck(this, _default);
-
-	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.getMutation = function () {
-	      switch (_this.props.action) {
-	        case 'like':
-	          return (function () {
-	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	            return new GraphQL.Mutation('UpdateUserThemeInsightMutation', 'likeInsightPayload', new GraphQL.Callv('likeInsight', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
-	              parentType: 'likeInsightPayload',
-	              generated: true,
-	              requisite: true
-	            })], null, {
-	              inputType: 'likeInsightInput!'
-	            });
-	          })();
-	        case 'dislike':
-	          return (function () {
-	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	            return new GraphQL.Mutation('UpdateUserThemeInsightMutation', 'dislikeInsightPayload', new GraphQL.Callv('dislikeInsight', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
-	              parentType: 'dislikeInsightPayload',
-	              generated: true,
-	              requisite: true
-	            })], null, {
-	              inputType: 'dislikeInsightInput!'
-	            });
-	          })();
-	      }
-	    };
-
-	    this.getFatQuery = function () {
-	      switch (_this.props.action) {
-	        case 'like':
-	          return (function () {
-	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	            return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'likeInsightPayload', [new GraphQL.Field('insight', [new GraphQL.Field('id', null, null, null, null, null, {
-	              parentType: 'UserThemeInsight',
-	              generated: true,
-	              requisite: true
-	            })], null, null, null, null, {
-	              parentType: 'likeInsightPayload',
-	              rootCall: 'node',
-	              pk: 'id'
-	            }), new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
-	              parentType: 'UserTheme',
-	              generated: true,
-	              requisite: true
-	            })], null, null, null, null, {
-	              parentType: 'likeInsightPayload',
-	              rootCall: 'node',
-	              pk: 'id'
-	            }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
-	              parentType: 'User',
-	              generated: true,
-	              requisite: true
-	            })], null, null, null, null, {
-	              parentType: 'likeInsightPayload',
-	              rootCall: 'node',
-	              pk: 'id'
-	            })]);
-	          })();
-	        case 'dislike':
-	          return (function () {
-	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	            return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'dislikeInsightPayload', [new GraphQL.Field('insight', [new GraphQL.Field('id', null, null, null, null, null, {
-	              parentType: 'UserThemeInsight',
-	              generated: true,
-	              requisite: true
-	            })], null, null, null, null, {
-	              parentType: 'dislikeInsightPayload',
-	              rootCall: 'node',
-	              pk: 'id'
-	            }), new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
-	              parentType: 'UserTheme',
-	              generated: true,
-	              requisite: true
-	            })], null, null, null, null, {
-	              parentType: 'dislikeInsightPayload',
-	              rootCall: 'node',
-	              pk: 'id'
-	            }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
-	              parentType: 'User',
-	              generated: true,
-	              requisite: true
-	            })], null, null, null, null, {
-	              parentType: 'dislikeInsightPayload',
-	              rootCall: 'node',
-	              pk: 'id'
-	            })]);
-	          })();
-	      }
-	    };
-
-	    this.getVariables = function () {
-	      return {
-	        id: _this.props.insight.id
-	      };
-	    };
-
-	    this.getConfigs = function () {
-	      return [{
-	        type: 'FIELDS_CHANGE',
-	        fieldIDs: {
-	          user: _this.props.user ? _this.props.user.id : null,
-	          theme: _this.props.theme ? _this.props.theme.id : null,
-	          insight: _this.props.insight.id
-	        }
-	      }];
-	    };
-	  }
-
-	  _createClass(_default, null, [{
-	    key: 'fragments',
-	    value: {
-	      user: function user() {
-	        return (function () {
-	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	          return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'User', [new GraphQL.Field('id', null, null, null, null, null, {
-	            parentType: 'User',
-	            requisite: true
-	          })]);
-	        })();
-	      },
-
-	      theme: function theme() {
-	        return (function () {
-	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	          return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'UserTheme', [new GraphQL.Field('id', null, null, null, null, null, {
-	            parentType: 'UserTheme',
-	            requisite: true
-	          })]);
-	        })();
-	      },
-
-	      insight: function insight() {
-	        return (function () {
-	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	          return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'UserThemeInsight', [new GraphQL.Field('id', null, null, null, null, null, {
-	            parentType: 'UserThemeInsight',
-	            requisite: true
-	          })]);
-	        })();
-	      }
-	    },
-	    enumerable: true
-	  }]);
-
-	  return _default;
-	})(_reactRelay2['default'].Mutation);
 
 	exports['default'] = _default;
 	module.exports = exports['default'];

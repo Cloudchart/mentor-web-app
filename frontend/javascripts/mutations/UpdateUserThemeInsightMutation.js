@@ -23,6 +23,8 @@ export default class extends Relay.Mutation {
         return Relay.QL`mutation { likeInsight }`
       case 'dislike':
         return Relay.QL`mutation { dislikeInsight }`
+      case 'reset':
+        return Relay.QL`mutation { resetInsight }`
     }
   }
 
@@ -39,6 +41,14 @@ export default class extends Relay.Mutation {
       case 'dislike':
         return Relay.QL`
           fragment on dislikeInsightPayload {
+            insight
+            theme
+            user
+          }
+        `
+      case 'reset':
+        return Relay.QL`
+          fragment on resetInsightPayload {
             insight
             theme
             user

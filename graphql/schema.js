@@ -24,7 +24,8 @@ import ActivateUserMutation from './mutations/ActivateUserMutation'
 import UpdateUserThemeMutation from './mutations/UpdateUserThemeMutation'
 import {
   LikeInsightMutation,
-  DislikeInsightMutation
+  DislikeInsightMutation,
+  ResetInsightMutation,
 } from './mutations/UpdateUserThemeInsightMutation'
 
 
@@ -37,6 +38,7 @@ let mutationType = new GraphQLObjectType({
     updateUserTheme:  UpdateUserThemeMutation,
     likeInsight:      LikeInsightMutation,
     dislikeInsight:   DislikeInsightMutation,
+    resetInsight:     ResetInsightMutation
   }
 
 })

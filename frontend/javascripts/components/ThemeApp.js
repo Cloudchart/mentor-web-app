@@ -6,29 +6,23 @@ import UpdateUserThemeInsightMutation from '../mutations/UpdateUserThemeInsightM
 class ThemeApp extends React.Component {
 
 
-  handleLikeClick = (insight, event) => {
-    event.preventDefault()
-
-    let mutation = new UpdateUserThemeInsightMutation({
-      action:   'like',
-      user:     null,
-      theme:    this.props.viewer.theme,
-      insight:  insight
-    })
-    Relay.Store.update(mutation)
+  state = {
+    lastUpdatedInsight: null
   }
 
-
-  handleDislikeClick = (insight, event) => {
+  handleInsightAction = (insight, action, event) => {
     event.preventDefault()
 
     let mutation = new UpdateUserThemeInsightMutation({
-      action:   'dislike',
+      action:   action,
       user:     null,
       theme:    this.props.viewer.theme,
       insight:  insight
     })
+
     Relay.Store.update(mutation)
+
+    this.setState({ lastUpdatedInsight: action === 'reset' ? null : insight })
   }
 
 
@@ -38,6 +32,7 @@ class ThemeApp extends React.Component {
         <h2>
           { `#${this.props.viewer.theme.name}` }
         </h2>
+        { this.renderUndoControl() }
         { this.renderInsight() }
       </div>
     )
@@ -57,11 +52,22 @@ class ThemeApp extends React.Component {
   renderInsightControls(insight) {
     return (
       <p>
-        <a href="#" onClick={ this.handleLikeClick.bind(this, insight) } style={{ color: 'green' }}>
+        <a href="#" onClick={ this.handleInsightAction.bind(this, insight, 'like') } style={{ color: 'green' }}>
           Like
         </a>
-        <a href="#" onClick={ this.handleDislikeClick.bind(this, insight) } style={{ color: 'red', marginLeft: '1ex' }}>
+        <a href="#" onClick={ this.handleInsightAction.bind(this, insight, 'dislike') } style={{ color: 'red', marginLeft: '1ex' }}>
           Dislike
+        </a>
+      </p>
+    )
+  }
+
+  renderUndoControl() {
+    if (!this.state.lastUpdatedInsight) return
+    return (
+      <p>
+        <a href="#" onClick={ this.handleInsightAction.bind(this, this.state.lastUpdatedInsight, 'reset') }>
+          Undo
         </a>
       </p>
     )
