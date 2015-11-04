@@ -50,6 +50,6 @@ let updateUserThemeInsightMutation = (name, rate) => mutationWithClientMutationI
 
 })
 
-export const LikeInsightMutation      = updateUserThemeInsightMutation('likeInsight',     1)
-export const DislikeInsightMutation   = updateUserThemeInsightMutation('dislikeInsight', -1)
-export const ResetInsightMutation     = updateUserThemeInsightMutation('resetInsight',    null)
+export const LikeInsightMutation      = updateUserThemeInsightMutation('LikeInsight',     1)
+export const DislikeInsightMutation   = updateUserThemeInsightMutation('DislikeInsight', -1)
+export const ResetInsightMutation     = updateUserThemeInsightMutation('ResetInsight',    null)

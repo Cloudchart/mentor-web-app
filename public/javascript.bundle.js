@@ -42468,34 +42468,34 @@
 	        case 'like':
 	          return (function () {
 	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	            return new GraphQL.Mutation('UpdateUserThemeInsightMutation', 'likeInsightPayload', new GraphQL.Callv('likeInsight', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
-	              parentType: 'likeInsightPayload',
+	            return new GraphQL.Mutation('UpdateUserThemeInsightMutation', 'LikeInsightPayload', new GraphQL.Callv('likeInsight', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	              parentType: 'LikeInsightPayload',
 	              generated: true,
 	              requisite: true
 	            })], null, {
-	              inputType: 'likeInsightInput!'
+	              inputType: 'LikeInsightInput!'
 	            });
 	          })();
 	        case 'dislike':
 	          return (function () {
 	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	            return new GraphQL.Mutation('UpdateUserThemeInsightMutation', 'dislikeInsightPayload', new GraphQL.Callv('dislikeInsight', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
-	              parentType: 'dislikeInsightPayload',
+	            return new GraphQL.Mutation('UpdateUserThemeInsightMutation', 'DislikeInsightPayload', new GraphQL.Callv('dislikeInsight', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	              parentType: 'DislikeInsightPayload',
 	              generated: true,
 	              requisite: true
 	            })], null, {
-	              inputType: 'dislikeInsightInput!'
+	              inputType: 'DislikeInsightInput!'
 	            });
 	          })();
 	        case 'reset':
 	          return (function () {
 	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	            return new GraphQL.Mutation('UpdateUserThemeInsightMutation', 'resetInsightPayload', new GraphQL.Callv('resetInsight', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
-	              parentType: 'resetInsightPayload',
+	            return new GraphQL.Mutation('UpdateUserThemeInsightMutation', 'ResetInsightPayload', new GraphQL.Callv('resetInsight', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	              parentType: 'ResetInsightPayload',
 	              generated: true,
 	              requisite: true
 	            })], null, {
-	              inputType: 'resetInsightInput!'
+	              inputType: 'ResetInsightInput!'
 	            });
 	          })();
 	      }
@@ -42506,12 +42506,12 @@
 	        case 'like':
 	          return (function () {
 	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	            return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'likeInsightPayload', [new GraphQL.Field('insight', [new GraphQL.Field('id', null, null, null, null, null, {
+	            return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'LikeInsightPayload', [new GraphQL.Field('insight', [new GraphQL.Field('id', null, null, null, null, null, {
 	              parentType: 'UserThemeInsight',
 	              generated: true,
 	              requisite: true
 	            })], null, null, null, null, {
-	              parentType: 'likeInsightPayload',
+	              parentType: 'LikeInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
 	            }), new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
@@ -42519,7 +42519,7 @@
 	              generated: true,
 	              requisite: true
 	            })], null, null, null, null, {
-	              parentType: 'likeInsightPayload',
+	              parentType: 'LikeInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
 	            }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
@@ -42527,7 +42527,7 @@
 	              generated: true,
 	              requisite: true
 	            })], null, null, null, null, {
-	              parentType: 'likeInsightPayload',
+	              parentType: 'LikeInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
 	            })]);
@@ -42535,12 +42535,12 @@
 	        case 'dislike':
 	          return (function () {
 	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	            return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'dislikeInsightPayload', [new GraphQL.Field('insight', [new GraphQL.Field('id', null, null, null, null, null, {
+	            return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'DislikeInsightPayload', [new GraphQL.Field('insight', [new GraphQL.Field('id', null, null, null, null, null, {
 	              parentType: 'UserThemeInsight',
 	              generated: true,
 	              requisite: true
 	            })], null, null, null, null, {
-	              parentType: 'dislikeInsightPayload',
+	              parentType: 'DislikeInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
 	            }), new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
@@ -42548,7 +42548,7 @@
 	              generated: true,
 	              requisite: true
 	            })], null, null, null, null, {
-	              parentType: 'dislikeInsightPayload',
+	              parentType: 'DislikeInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
 	            }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
@@ -42556,7 +42556,7 @@
 	              generated: true,
 	              requisite: true
 	            })], null, null, null, null, {
-	              parentType: 'dislikeInsightPayload',
+	              parentType: 'DislikeInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
 	            })]);
@@ -42564,12 +42564,12 @@
 	        case 'reset':
 	          return (function () {
 	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	            return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'resetInsightPayload', [new GraphQL.Field('insight', [new GraphQL.Field('id', null, null, null, null, null, {
+	            return new GraphQL.QueryFragment('UpdateUserThemeInsightMutation', 'ResetInsightPayload', [new GraphQL.Field('insight', [new GraphQL.Field('id', null, null, null, null, null, {
 	              parentType: 'UserThemeInsight',
 	              generated: true,
 	              requisite: true
 	            })], null, null, null, null, {
-	              parentType: 'resetInsightPayload',
+	              parentType: 'ResetInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
 	            }), new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
@@ -42577,7 +42577,7 @@
 	              generated: true,
 	              requisite: true
 	            })], null, null, null, null, {
-	              parentType: 'resetInsightPayload',
+	              parentType: 'ResetInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
 	            }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
@@ -42585,7 +42585,7 @@
 	              generated: true,
 	              requisite: true
 	            })], null, null, null, null, {
-	              parentType: 'resetInsightPayload',
+	              parentType: 'ResetInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
 	            })]);

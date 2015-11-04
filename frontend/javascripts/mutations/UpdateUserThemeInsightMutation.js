@@ -32,7 +32,7 @@ export default class extends Relay.Mutation {
     switch (this.props.action) {
       case 'like':
         return Relay.QL`
-          fragment on likeInsightPayload {
+          fragment on LikeInsightPayload {
             insight
             theme
             user
@@ -40,7 +40,7 @@ export default class extends Relay.Mutation {
         `
       case 'dislike':
         return Relay.QL`
-          fragment on dislikeInsightPayload {
+          fragment on DislikeInsightPayload {
             insight
             theme
             user
@@ -48,7 +48,7 @@ export default class extends Relay.Mutation {
         `
       case 'reset':
         return Relay.QL`
-          fragment on resetInsightPayload {
+          fragment on ResetInsightPayload {
             insight
             theme
             user

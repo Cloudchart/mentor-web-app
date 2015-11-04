@@ -1213,7 +1213,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "likeInsightInput",
+                      "name": "LikeInsightInput",
                       "ofType": null
                     }
                   },
@@ -1222,7 +1222,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "likeInsightPayload",
+                "name": "LikeInsightPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1240,7 +1240,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "dislikeInsightInput",
+                      "name": "DislikeInsightInput",
                       "ofType": null
                     }
                   },
@@ -1249,7 +1249,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "dislikeInsightPayload",
+                "name": "DislikeInsightPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1267,7 +1267,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "resetInsightInput",
+                      "name": "ResetInsightInput",
                       "ofType": null
                     }
                   },
@@ -1276,7 +1276,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "resetInsightPayload",
+                "name": "ResetInsightPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1541,7 +1541,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "likeInsightInput",
+          "name": "LikeInsightInput",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -1580,7 +1580,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "likeInsightPayload",
+          "name": "LikeInsightPayload",
           "description": null,
           "fields": [
             {
@@ -1655,7 +1655,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "dislikeInsightInput",
+          "name": "DislikeInsightInput",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -1694,7 +1694,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "dislikeInsightPayload",
+          "name": "DislikeInsightPayload",
           "description": null,
           "fields": [
             {
@@ -1769,7 +1769,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "resetInsightInput",
+          "name": "ResetInsightInput",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -1808,7 +1808,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "resetInsightPayload",
+          "name": "ResetInsightPayload",
           "description": null,
           "fields": [
             {
