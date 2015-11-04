@@ -18,9 +18,9 @@ import UserType from '../types/UserType'
 import UserThemeType from '../types/UserThemeType'
 import UserThemeInsightType from '../types/UserThemeInsightType'
 
-export default mutationWithClientMutationId({
+let updateUserThemeInsightMutation = (name, rate) => mutationWithClientMutationId({
 
-  name: 'LikeInsight',
+  name: name,
 
   inputFields: {
     id: {
@@ -43,9 +43,11 @@ export default mutationWithClientMutationId({
   },
 
   mutateAndGetPayload: async ({ id }) => {
-    let insightId  = fromGlobalId(id).id
-    let insight    = await UserThemeInsightStorage.load(insightId)
+    let insight = await UserThemeInsightStorage.update(fromGlobalId(id).id, { rate: rate })
     return { insight }
   }
 
 })
+
+export const LikeInsightMutation      = updateUserThemeInsightMutation('likeInsight', 1)
+export const DislikeInsightMutation   = updateUserThemeInsightMutation('dislikeInsight', -1)

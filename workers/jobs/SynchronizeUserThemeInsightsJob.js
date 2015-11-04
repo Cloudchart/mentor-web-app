@@ -20,10 +20,11 @@ let perform = async ({ userID, themeID }, callback) => {
 
   if ((ratedInsights.length + unratedInsights.length) > 0) {
     count = 0
+    let lastUpdate = Math.max(userTheme.updated_at, ratedInsights[0] ? ratedInsights[0].updated_at : 0)
     if (userTheme.status === 'subscribed')
       count = Math.min(
         MaxSubscribedInsightsCount - unratedInsights.length,
-        Math.floor((new Date - userTheme.updated_at) * InsightsRate)
+        Math.floor((new Date - lastUpdate) * InsightsRate)
       )
   }
 

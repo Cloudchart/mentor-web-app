@@ -27,7 +27,7 @@ const NewForUserThemeQuery = `
   where
     ti.insight_id not in (
       select
-        id
+        insight_id
       from
         ${UserThemeInsightTableName}
       where

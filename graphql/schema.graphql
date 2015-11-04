@@ -8,12 +8,24 @@ type ActivateUserPayload {
   clientMutationId: String!
 }
 
-input LikeInsightInput {
+input dislikeInsightInput {
   id: ID!
   clientMutationId: String!
 }
 
-type LikeInsightPayload {
+type dislikeInsightPayload {
+  user: User!
+  theme: UserTheme!
+  insight: UserThemeInsight!
+  clientMutationId: String!
+}
+
+input likeInsightInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type likeInsightPayload {
   user: User!
   theme: UserTheme!
   insight: UserThemeInsight!
@@ -23,7 +35,8 @@ type LikeInsightPayload {
 type Mutation {
   activateUser(input: ActivateUserInput!): ActivateUserPayload
   updateUserTheme(input: UpdateUserThemeInput!): UpdateUserThemePayload
-  likeInsight(input: LikeInsightInput!): LikeInsightPayload
+  likeInsight(input: likeInsightInput!): likeInsightPayload
+  dislikeInsight(input: dislikeInsightInput!): dislikeInsightPayload
 }
 
 interface Node {

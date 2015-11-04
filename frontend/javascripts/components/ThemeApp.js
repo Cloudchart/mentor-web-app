@@ -1,19 +1,34 @@
 import React from 'react'
 import Relay from 'react-relay'
 
+import UpdateUserThemeInsightMutation from '../mutations/UpdateUserThemeInsightMutation'
 
 class ThemeApp extends React.Component {
 
 
-  handleLikeClick = (event) => {
+  handleLikeClick = (insight, event) => {
     event.preventDefault()
-    // Like Insight Mutation
+
+    let mutation = new UpdateUserThemeInsightMutation({
+      action:   'like',
+      user:     null,
+      theme:    this.props.viewer.theme,
+      insight:  insight
+    })
+    Relay.Store.update(mutation)
   }
 
 
-  handleDislikeClick = (event) => {
+  handleDislikeClick = (insight, event) => {
     event.preventDefault()
-    // Dislike Insight Mutation
+
+    let mutation = new UpdateUserThemeInsightMutation({
+      action:   'dislike',
+      user:     null,
+      theme:    this.props.viewer.theme,
+      insight:  insight
+    })
+    Relay.Store.update(mutation)
   }
 
 
@@ -34,18 +49,18 @@ class ThemeApp extends React.Component {
     return (
       <div style={{ width: 400 }}>
         { insightEdge.node.content }
-        { this.renderInsightControls() }
+        { this.renderInsightControls(insightEdge.node) }
       </div>
     )
   }
 
-  renderInsightControls() {
+  renderInsightControls(insight) {
     return (
       <p>
-        <a href="#" onClick={ this.handleLikeClick } style={{ color: 'green' }}>
+        <a href="#" onClick={ this.handleLikeClick.bind(this, insight) } style={{ color: 'green' }}>
           Like
         </a>
-        <a href="#" onClick={ this.handleDislikeClick } style={{ color: 'red', marginLeft: '1ex' }}>
+        <a href="#" onClick={ this.handleDislikeClick.bind(this, insight) } style={{ color: 'red', marginLeft: '1ex' }}>
           Dislike
         </a>
       </p>
@@ -65,11 +80,13 @@ export default Relay.createContainer(ThemeApp, {
     viewer: () => Relay.QL`
       fragment on User {
         theme(id: $themeID) {
+          ${UpdateUserThemeInsightMutation.getFragment('theme')}
           id
           name
           insights(first: 5, filter: UNRATED) {
             edges {
               node {
+                ${UpdateUserThemeInsightMutation.getFragment('insight')}
                 id
                 content
               }

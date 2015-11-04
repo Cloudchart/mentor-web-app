@@ -22,7 +22,10 @@ let queryType = new GraphQLObjectType({
 
 import ActivateUserMutation from './mutations/ActivateUserMutation'
 import UpdateUserThemeMutation from './mutations/UpdateUserThemeMutation'
-import LikeInsightMutation from './mutations/LikeInsightMutation'
+import {
+  LikeInsightMutation,
+  DislikeInsightMutation
+} from './mutations/UpdateUserThemeInsightMutation'
 
 
 let mutationType = new GraphQLObjectType({
@@ -33,6 +36,7 @@ let mutationType = new GraphQLObjectType({
     activateUser:     ActivateUserMutation,
     updateUserTheme:  UpdateUserThemeMutation,
     likeInsight:      LikeInsightMutation,
+    dislikeInsight:   DislikeInsightMutation,
   }
 
 })
