@@ -42408,8 +42408,9 @@
 	      var config = [{
 	        type: 'FIELDS_CHANGE',
 	        fieldIDs: {
-	          // user: this.props.user ? this.props.user.id : null,
-	          theme: _this.props.theme ? _this.props.theme.id : null
+	          user: _this.props.user ? _this.props.user.id : null, // NB: Fix an error WIP by Relay Team
+	          theme: _this.props.theme ? _this.props.theme.id : null,
+	          insight: _this.props.insight.id
 	        }
 	      }];
 

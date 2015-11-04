@@ -80,14 +80,14 @@ export default class extends Relay.Mutation {
     let config = [{
       type: 'FIELDS_CHANGE',
       fieldIDs: {
-        // user: this.props.user ? this.props.user.id : null,
-        theme: this.props.theme ? this.props.theme.id : null,
+        user:     this.props.user ? this.props.user.id : null, // NB: Fix an error WIP by Relay Team
+        theme:    this.props.theme ? this.props.theme.id : null,
+        insight:  this.props.insight.id
       }
     }]
 
     if (this.props.user && this.props.action !== 'reset')
       config.push(rangeDeleteConfig('user', this.props.user.id))
-
 
     if (this.props.theme && this.props.action !== 'reset')
       config.push(rangeDeleteConfig('theme', this.props.theme.id))
