@@ -8,9 +8,22 @@ type ActivateUserPayload {
   clientMutationId: String!
 }
 
+input LikeInsightInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type LikeInsightPayload {
+  user: User!
+  theme: UserTheme!
+  insight: UserThemeInsight!
+  clientMutationId: String!
+}
+
 type Mutation {
   activateUser(input: ActivateUserInput!): ActivateUserPayload
   updateUserTheme(input: UpdateUserThemeInput!): UpdateUserThemePayload
+  likeInsight(input: LikeInsightInput!): LikeInsightPayload
 }
 
 interface Node {
@@ -54,9 +67,9 @@ type User implements Node {
   id: ID!
   name: String
   isActive: Boolean
-  themes(before: String, after: String, first: Int, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection
+  themes(after: String, first: Int, before: String, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection
   theme(id: ID!): UserTheme!
-  insights(before: String, after: String, first: Int, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
+  insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
 }
 
 type UserTheme implements Node {
@@ -65,7 +78,7 @@ type UserTheme implements Node {
   url: String!
   isSubscribed: Boolean!
   isRejected: Boolean!
-  insights(before: String, after: String, first: Int, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
+  insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
 }
 
 enum UserThemeFilterEnum {
@@ -81,6 +94,7 @@ enum UserThemeFilterEnum {
 type UserThemeInsight implements Node {
   id: ID!
   content: String!
+  user: User!
   theme: Theme!
   rate: Int
   ratedAt: String
