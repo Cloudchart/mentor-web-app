@@ -57,7 +57,7 @@ export default new GraphQLObjectType({
 
         // Set theme visibility status
         if (userTheme.status === 'available' || userTheme.status === 'rejected')
-          userTheme = await UserThemeStorage.update(id, { status: 'visible' })
+          userTheme = await UserThemeStorage.update(userTheme.id, { status: 'visible' })
 
         return userTheme
       }
