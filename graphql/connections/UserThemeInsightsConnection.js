@@ -78,12 +78,12 @@ export const UserThemeInsightsConnection = connectionDefinitions({
   connectionFields: {
     ratedCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve: () => 0
+      resolve: () => new Error('Not implemented')
     },
 
     unratedCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve: () => 0
+      resolve: () => new Error('Not implemented')
     }
   }
 
