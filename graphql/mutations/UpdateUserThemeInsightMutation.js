@@ -42,9 +42,13 @@ let updateUserThemeInsightMutation = (name, rate) => mutationWithClientMutationI
     }
   },
 
-  mutateAndGetPayload: async ({ id }) => {
+  mutateAndGetPayload: async ({ id }, { rootValue: { viewer } }) => {
     let insight = await UserThemeInsightStorage.load(fromGlobalId(id).id)
-    insight     = await UserThemeInsightStorage.update(insight.id, { rate: rate, updated_at: rate ? null : insight.created_at })
+
+    if (insigt.user_id !== viewer.id)
+      return new Error('Not authorized')
+
+    insight = await UserThemeInsightStorage.update(insight.id, { rate: rate, updated_at: rate ? null : insight.created_at })
     return { insight }
   }
 

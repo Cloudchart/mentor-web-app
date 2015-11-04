@@ -41498,6 +41498,8 @@
 	var map = {
 		"./ChooserApp": 385,
 		"./ChooserApp.js": 385,
+		"./FavoritesApp": 398,
+		"./FavoritesApp.js": 398,
 		"./LandingApp": 389,
 		"./LandingApp.js": 389,
 		"./LoginApp": 390,
@@ -43124,6 +43126,209 @@
 	})(_reactRelay2['default'].Route);
 
 	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 398 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _mutationsUpdateUserThemeInsightMutation = __webpack_require__(392);
+
+	var _mutationsUpdateUserThemeInsightMutation2 = _interopRequireDefault(_mutationsUpdateUserThemeInsightMutation);
+
+	var Increment = 10;
+
+	var FavoritesApp = (function (_React$Component) {
+	  _inherits(FavoritesApp, _React$Component);
+
+	  function FavoritesApp() {
+	    var _this = this;
+
+	    _classCallCheck(this, FavoritesApp);
+
+	    _get(Object.getPrototypeOf(FavoritesApp.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.handleDislike = function (insight, event) {
+	      event.preventDefault();
+
+	      var mutation = new _mutationsUpdateUserThemeInsightMutation2['default']({
+	        action: 'dislike',
+	        user: _this.props.viewer,
+	        theme: null,
+	        insight: insight
+	      });
+
+	      _reactRelay2['default'].Store.update(mutation);
+	    };
+
+	    this.handleLoadMore = function () {
+	      _this.props.relay.setVariables({
+	        count: _this.props.relay.variables.count + Increment
+	      });
+	    };
+
+	    this.renderInsight = function (insightEdge) {
+	      var insight = insightEdge.node;
+	      return _react2['default'].createElement(
+	        'li',
+	        { key: insight.id, style: { width: 400, margin: '20px 0' } },
+	        insight.content,
+	        _react2['default'].createElement(
+	          'span',
+	          { style: { color: 'grey', marginLeft: '1ex' } },
+	          '#',
+	          insight.theme.name
+	        ),
+	        _this.renderInsightControls(insight)
+	      );
+	    };
+	  }
+
+	  _createClass(FavoritesApp, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          'h2',
+	          null,
+	          'Favorites'
+	        ),
+	        this.renderInsights(),
+	        this.renderLoadMoreControl()
+	      );
+	    }
+	  }, {
+	    key: 'renderInsights',
+	    value: function renderInsights() {
+	      return _react2['default'].createElement(
+	        'ul',
+	        { style: { listStyle: 'none', margin: 0, padding: 0 } },
+	        this.props.viewer.insights.edges.map(this.renderInsight)
+	      );
+	    }
+	  }, {
+	    key: 'renderInsightControls',
+	    value: function renderInsightControls(insight) {
+	      return _react2['default'].createElement(
+	        'div',
+	        { style: { margin: 0, marginTop: 5 } },
+	        _react2['default'].createElement(
+	          'a',
+	          { href: '#', onClick: this.handleDislike.bind(this, insight), style: { color: 'red' } },
+	          'Dislike'
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'renderLoadMoreControl',
+	    value: function renderLoadMoreControl() {
+	      if (!this.props.viewer.insights.pageInfo.hasNextPage) return;
+	      return _react2['default'].createElement(
+	        'p',
+	        null,
+	        _react2['default'].createElement(
+	          'button',
+	          { onClick: this.handleLoadMore },
+	          'Load more...'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return FavoritesApp;
+	})(_react2['default'].Component);
+
+	exports['default'] = _reactRelay2['default'].createContainer(FavoritesApp, {
+
+	  initialVariables: {
+	    count: Increment
+	  },
+
+	  fragments: {
+
+	    viewer: function viewer() {
+	      return (function (sub_0, sub_1) {
+	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	        return new GraphQL.QueryFragment('FavoritesApp', 'User', [new GraphQL.Field('insights', [new GraphQL.Field('pageInfo', [new GraphQL.Field('hasNextPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          requisite: true
+	        }), new GraphQL.Field('hasPreviousPage', null, null, null, null, null, {
+	          parentType: 'PageInfo',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserThemeInsightsConnection',
+	          requisite: true
+	        }), new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'UserThemeInsight',
+	          requisite: true
+	        }), new GraphQL.Field('content', null, null, null, null, null, {
+	          parentType: 'UserThemeInsight'
+	        }), new GraphQL.Field('theme', [new GraphQL.Field('name', null, null, null, null, null, {
+	          parentType: 'Theme'
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'Theme',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserThemeInsight',
+	          rootCall: 'node',
+	          pk: 'id'
+	        })], [_reactRelay2['default'].QL.__frag(sub_1)], null, null, null, {
+	          parentType: 'UserThemeInsightsEdge',
+	          rootCall: 'node',
+	          pk: 'id',
+	          requisite: true
+	        }), new GraphQL.Field('cursor', null, null, null, null, null, {
+	          parentType: 'UserThemeInsightsEdge',
+	          generated: true,
+	          requisite: true
+	        })], null, null, null, null, {
+	          parentType: 'UserThemeInsightsConnection',
+	          plural: true
+	        })], null, [new GraphQL.Callv('first', new GraphQL.CallVariable('count')), new GraphQL.Callv('filter', new GraphQL.CallValue('POSITIVE'), {
+	          type: 'UserThemeInsightsFilterEnum'
+	        })], null, null, {
+	          parentType: 'User',
+	          connection: true,
+	          nonFindable: true
+	        }), new GraphQL.Field('id', null, null, null, null, null, {
+	          parentType: 'User',
+	          generated: true,
+	          requisite: true
+	        })], [_reactRelay2['default'].QL.__frag(sub_0)]);
+	      })(_mutationsUpdateUserThemeInsightMutation2['default'].getFragment('user'), _mutationsUpdateUserThemeInsightMutation2['default'].getFragment('insight'));
+	    }
+
+	  }
+
+	});
 	module.exports = exports['default'];
 
 /***/ }
