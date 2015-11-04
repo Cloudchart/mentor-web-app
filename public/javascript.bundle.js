@@ -42217,6 +42217,17 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
+	function rangeDeleteConfig(name, parentID) {
+	  return {
+	    type: 'RANGE_DELETE',
+	    parentName: name,
+	    parentID: parentID,
+	    connectionName: 'insights',
+	    deletedIDFieldName: 'insightID',
+	    pathToConnection: [name, 'insights']
+	  };
+	}
+
 	var _default = (function (_Relay$Mutation) {
 	  _inherits(_default, _Relay$Mutation);
 
@@ -42278,7 +42289,13 @@
 	              parentType: 'LikeInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
-	            }), new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
+	            }), new GraphQL.Field('insightID', null, null, null, null, null, {
+	              parentType: 'LikeInsightPayload'
+	            }), new GraphQL.Field('theme', [new GraphQL.Field('insights', null, null, null, null, null, {
+	              parentType: 'UserTheme',
+	              connection: true,
+	              nonFindable: true
+	            }), new GraphQL.Field('id', null, null, null, null, null, {
 	              parentType: 'UserTheme',
 	              generated: true,
 	              requisite: true
@@ -42286,7 +42303,11 @@
 	              parentType: 'LikeInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
-	            }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
+	            }), new GraphQL.Field('user', [new GraphQL.Field('insights', null, null, null, null, null, {
+	              parentType: 'User',
+	              connection: true,
+	              nonFindable: true
+	            }), new GraphQL.Field('id', null, null, null, null, null, {
 	              parentType: 'User',
 	              generated: true,
 	              requisite: true
@@ -42307,7 +42328,13 @@
 	              parentType: 'DislikeInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
-	            }), new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
+	            }), new GraphQL.Field('insightID', null, null, null, null, null, {
+	              parentType: 'DislikeInsightPayload'
+	            }), new GraphQL.Field('theme', [new GraphQL.Field('insights', null, null, null, null, null, {
+	              parentType: 'UserTheme',
+	              connection: true,
+	              nonFindable: true
+	            }), new GraphQL.Field('id', null, null, null, null, null, {
 	              parentType: 'UserTheme',
 	              generated: true,
 	              requisite: true
@@ -42315,7 +42342,11 @@
 	              parentType: 'DislikeInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
-	            }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
+	            }), new GraphQL.Field('user', [new GraphQL.Field('insights', null, null, null, null, null, {
+	              parentType: 'User',
+	              connection: true,
+	              nonFindable: true
+	            }), new GraphQL.Field('id', null, null, null, null, null, {
 	              parentType: 'User',
 	              generated: true,
 	              requisite: true
@@ -42336,7 +42367,13 @@
 	              parentType: 'ResetInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
-	            }), new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
+	            }), new GraphQL.Field('insightID', null, null, null, null, null, {
+	              parentType: 'ResetInsightPayload'
+	            }), new GraphQL.Field('theme', [new GraphQL.Field('insights', null, null, null, null, null, {
+	              parentType: 'UserTheme',
+	              connection: true,
+	              nonFindable: true
+	            }), new GraphQL.Field('id', null, null, null, null, null, {
 	              parentType: 'UserTheme',
 	              generated: true,
 	              requisite: true
@@ -42344,7 +42381,11 @@
 	              parentType: 'ResetInsightPayload',
 	              rootCall: 'node',
 	              pk: 'id'
-	            }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
+	            }), new GraphQL.Field('user', [new GraphQL.Field('insights', null, null, null, null, null, {
+	              parentType: 'User',
+	              connection: true,
+	              nonFindable: true
+	            }), new GraphQL.Field('id', null, null, null, null, null, {
 	              parentType: 'User',
 	              generated: true,
 	              requisite: true
@@ -42364,14 +42405,19 @@
 	    };
 
 	    this.getConfigs = function () {
-	      return [{
+	      var config = [{
 	        type: 'FIELDS_CHANGE',
 	        fieldIDs: {
-	          user: _this.props.user ? _this.props.user.id : null,
-	          theme: _this.props.theme ? _this.props.theme.id : null,
-	          insight: _this.props.insight.id
+	          // user: this.props.user ? this.props.user.id : null,
+	          theme: _this.props.theme ? _this.props.theme.id : null
 	        }
 	      }];
+
+	      if (_this.props.user && _this.props.action !== 'reset') config.push(rangeDeleteConfig('user', _this.props.user.id));
+
+	      if (_this.props.theme && _this.props.action !== 'reset') config.push(rangeDeleteConfig('theme', _this.props.theme.id));
+
+	      return config;
 	    };
 	  }
 

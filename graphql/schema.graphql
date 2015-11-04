@@ -17,6 +17,7 @@ type DislikeInsightPayload {
   user: User!
   theme: UserTheme!
   insight: UserThemeInsight!
+  insightID: ID!
   clientMutationId: String!
 }
 
@@ -29,6 +30,7 @@ type LikeInsightPayload {
   user: User!
   theme: UserTheme!
   insight: UserThemeInsight!
+  insightID: ID!
   clientMutationId: String!
 }
 
@@ -65,6 +67,7 @@ type ResetInsightPayload {
   user: User!
   theme: UserTheme!
   insight: UserThemeInsight!
+  insightID: ID!
   clientMutationId: String!
 }
 

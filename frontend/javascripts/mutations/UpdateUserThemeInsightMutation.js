@@ -1,6 +1,18 @@
 import Relay from 'react-relay'
 
 
+function rangeDeleteConfig(name, parentID) {
+  return {
+    type:                 'RANGE_DELETE',
+    parentName:           name,
+    parentID:             parentID,
+    connectionName:       'insights',
+    deletedIDFieldName:   'insightID',
+    pathToConnection:     [name, 'insights']
+  }
+}
+
+
 export default class extends Relay.Mutation {
 
   static fragments = {
@@ -34,24 +46,27 @@ export default class extends Relay.Mutation {
         return Relay.QL`
           fragment on LikeInsightPayload {
             insight
-            theme
-            user
+            insightID
+            theme { insights }
+            user { insights }
           }
         `
       case 'dislike':
         return Relay.QL`
           fragment on DislikeInsightPayload {
             insight
-            theme
-            user
+            insightID
+            theme { insights }
+            user { insights }
           }
         `
       case 'reset':
         return Relay.QL`
           fragment on ResetInsightPayload {
             insight
-            theme
-            user
+            insightID
+            theme { insights }
+            user { insights }
           }
         `
     }
@@ -61,13 +76,23 @@ export default class extends Relay.Mutation {
     id: this.props.insight.id
   })
 
-  getConfigs = () => [{
-    type: 'FIELDS_CHANGE',
-    fieldIDs: {
-      user:     this.props.user ? this.props.user.id : null,
-      theme:    this.props.theme ? this.props.theme.id : null,
-      insight:  this.props.insight.id,
-    }
-  }]
+  getConfigs = () => {
+    let config = [{
+      type: 'FIELDS_CHANGE',
+      fieldIDs: {
+        // user: this.props.user ? this.props.user.id : null,
+        theme: this.props.theme ? this.props.theme.id : null,
+      }
+    }]
+
+    if (this.props.user && this.props.action !== 'reset')
+      config.push(rangeDeleteConfig('user', this.props.user.id))
+
+
+    if (this.props.theme && this.props.action !== 'reset')
+      config.push(rangeDeleteConfig('theme', this.props.theme.id))
+
+    return config
+  }
 
 }

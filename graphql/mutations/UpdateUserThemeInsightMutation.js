@@ -4,6 +4,7 @@ import {
 } from 'graphql'
 
 import {
+  toGlobalId,
   fromGlobalId,
   mutationWithClientMutationId
 } from 'graphql-relay'
@@ -39,6 +40,10 @@ let updateUserThemeInsightMutation = (name, rate) => mutationWithClientMutationI
     },
     insight: {
       type: new GraphQLNonNull(UserThemeInsightType)
+    },
+    insightID: {
+      type: new GraphQLNonNull(GraphQLID),
+      resolve: ({ insight }) => toGlobalId('UserThemeInsight', insight.id)
     }
   },
 
