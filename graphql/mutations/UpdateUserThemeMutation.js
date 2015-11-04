@@ -14,8 +14,6 @@ import {
   UserThemeStorage
 } from '../../storage'
 
-import { nodeToEdge } from '../connections/recordsconnection'
-
 const MaxSubscribedThemesCount = 3
 
 
@@ -50,10 +48,6 @@ export default mutationWithClientMutationId({
   outputFields: {
     userTheme: {
       type: new GraphQLNonNull(UserThemeType)
-    },
-    userThemeEdge: {
-      type: new GraphQLNonNull(userThemesConnection.edgeType),
-      resolve: ({ userTheme }) => nodeToEdge(userTheme)
     },
     user: {
       type: new GraphQLNonNull(UserType)

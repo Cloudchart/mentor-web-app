@@ -8,9 +8,12 @@ import {
 import {
   fromGlobalId,
   connectionArgs,
-  connectionFromArray,
   connectionDefinitions
 } from 'graphql-relay'
+
+import {
+  connectionFromArray
+} from './arrayconnection'
 
 import {
   UserThemeInsightStorage
