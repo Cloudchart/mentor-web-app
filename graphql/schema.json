@@ -1486,22 +1486,6 @@
               "deprecationReason": null
             },
             {
-              "name": "userThemeEdge",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "UserThemesEdge",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "user",
               "description": null,
               "args": [],
