@@ -38,7 +38,7 @@ export default new GraphQLObjectType({
           .then(insight => insight.content)
     },
 
-    theme: {
+    user: {
       type: new GraphQLNonNull(UserType),
       resolve: ({ user_id }) =>
         UserStorage

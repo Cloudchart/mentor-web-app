@@ -8,8 +8,8 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue:   DataTypes.UUIDV4
     },
     user_id:          DataTypes.UUID,
-    insight_id:       DataTypes.UUID,
     theme_id:         DataTypes.UUID,
+    insight_id:       DataTypes.UUID,
     rate:             DataTypes.INTEGER
 
   }, {

@@ -63,8 +63,9 @@ let createStorage = (modelName, options = {}) => {
   let create = (attributes) =>
     model.create(attributes)
 
-  let createMany = (attributesArray) =>
-    model.bulkCreate(attributesArray, { ignoreDuplicates: true })
+  let createMany = (attributesArray) => {
+    return model.bulkCreate(attributesArray, { ignoreDuplicates: true })
+  }
 
   let update = (id, attributes) =>
     model.update(attributes, {where:{id:id}})

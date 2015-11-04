@@ -17,6 +17,7 @@ import {
 } from '../../storage'
 
 import SynchronizeThemeInsightsJob from '../../workers/jobs/SynchronizeThemeInsightsJob'
+import SynchronizeUserThemeInsightsJob from '../../workers/jobs/SynchronizeUserThemeInsightsJob'
 
 
 export const UserThemeInsightsConnectionFilterEnum = new GraphQLEnumType({
@@ -53,8 +54,10 @@ export async function UserThemeInsightsConnectionResolve(root, args, { rootValue
   if (userID !== viewer.id)
     return new Error('Not authorized')
 
-  if (themeID)
+  if (themeID) {
     await SynchronizeThemeInsightsJob.perform({ themeID })
+    await SynchronizeUserThemeInsightsJob.perform({ userID, themeID })
+  }
 
   let query = filter + (themeID ? 'ForTheme' : '')
   let insights = await UserThemeInsightStorage.loadAll(query, { userID, themeID })

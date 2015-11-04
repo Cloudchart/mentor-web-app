@@ -1,7 +1,7 @@
 import BaseStorage from './BaseStorage'
 import models from '../models'
 
-const UserThemeInsightTableName = models.UserThemeInsight.tableName
+const TableName = models.UserThemeInsight.tableName
 
 let idsQuery = (where, includeTheme = false) =>
   `
@@ -10,7 +10,7 @@ let idsQuery = (where, includeTheme = false) =>
       @row := @row + 1 as row
     from
       (select @row := 0) rt,
-      ${UserThemeInsightTableName} uti
+      ${TableName} uti
     where
       ${where}
       and
@@ -33,7 +33,7 @@ let unratedInsightsIDsQuery = (includeTheme = false) =>
   idsQuery(`uti.rate is null`, includeTheme)
 
 
-export default BaseStorage('UserInsightTheme', {
+export default BaseStorage('UserThemeInsight', {
   idsQueries: {
     'positive':           positiveInsightsIDsQuery(),
     'positiveForTheme':   positiveInsightsIDsQuery(true),

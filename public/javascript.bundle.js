@@ -42235,6 +42235,16 @@
 	    _classCallCheck(this, ThemeApp);
 
 	    _get(Object.getPrototypeOf(ThemeApp.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.handleLikeClick = function (event) {
+	      event.preventDefault();
+	      // Like Insight Mutation
+	    };
+
+	    this.handleDislikeClick = function (event) {
+	      event.preventDefault();
+	      // Dislike Insight Mutation
+	    };
 	  }
 
 	  _createClass(ThemeApp, [{
@@ -42247,6 +42257,37 @@
 	          'h2',
 	          null,
 	          '#' + this.props.viewer.theme.name
+	        ),
+	        this.renderInsight()
+	      );
+	    }
+	  }, {
+	    key: 'renderInsight',
+	    value: function renderInsight() {
+	      var insightEdge = this.props.viewer.theme.insights.edges[0];
+	      if (!insightEdge) return;
+	      return _react2['default'].createElement(
+	        'div',
+	        { style: { width: 400 } },
+	        insightEdge.node.content,
+	        this.renderInsightControls()
+	      );
+	    }
+	  }, {
+	    key: 'renderInsightControls',
+	    value: function renderInsightControls() {
+	      return _react2['default'].createElement(
+	        'p',
+	        null,
+	        _react2['default'].createElement(
+	          'a',
+	          { href: '#', onClick: this.handleLikeClick, style: { color: 'green' } },
+	          'Like'
+	        ),
+	        _react2['default'].createElement(
+	          'a',
+	          { href: '#', onClick: this.handleDislikeClick, style: { color: 'red', marginLeft: '1ex' } },
+	          'Dislike'
 	        )
 	      );
 	    }
@@ -42273,6 +42314,8 @@
 	        }), new GraphQL.Field('insights', [new GraphQL.Field('edges', [new GraphQL.Field('node', [new GraphQL.Field('id', null, null, null, null, null, {
 	          parentType: 'UserThemeInsight',
 	          requisite: true
+	        }), new GraphQL.Field('content', null, null, null, null, null, {
+	          parentType: 'UserThemeInsight'
 	        })], null, null, null, null, {
 	          parentType: 'UserThemeInsightsEdge',
 	          rootCall: 'node',
@@ -42297,7 +42340,9 @@
 	          parentType: 'UserThemeInsightsConnection',
 	          generated: true,
 	          requisite: true
-	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(10))], null, null, {
+	        })], null, [new GraphQL.Callv('first', new GraphQL.CallValue(5)), new GraphQL.Callv('filter', new GraphQL.CallValue('UNRATED'), {
+	          type: 'UserThemeInsightsFilterEnum'
+	        })], null, null, {
 	          parentType: 'UserTheme',
 	          connection: true,
 	          nonFindable: true

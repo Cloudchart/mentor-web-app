@@ -3,6 +3,7 @@ import models from '../models'
 
 
 const TableName = models.ThemeInsight.tableName
+const UserThemeInsightTableName = models.UserThemeInsight.tableName
 
 
 const AllForThemeQuery = `
@@ -16,10 +17,34 @@ const AllForThemeQuery = `
     ti.created_at
 `
 
+const NewForUserThemeQuery = `
+  select
+    ti.insight_id as id,
+    @row := @row + 1 as row
+  from
+    (select @row := 0) r,
+    ${TableName} ti
+  where
+    ti.insight_id not in (
+      select
+        id
+      from
+        ${UserThemeInsightTableName}
+      where
+        user_id = :userID
+        and
+        theme_id = :themeID
+    )
+  order by
+    ti.created_at
+  limit :limit
+`
+
 
 let storage = BaseStorage('ThemeInsight', {
   idsQueries: {
-    'allForTheme': AllForThemeQuery
+    'allForTheme':      AllForThemeQuery,
+    'newForUserTheme':  NewForUserThemeQuery
   }
 })
 

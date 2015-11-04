@@ -18,16 +18,18 @@ let perform = async ({ userID, themeID }, callback) => {
   let ratedInsights   = await UserThemeInsightStorage.loadAll('ratedForTheme', { userID, themeID })
   let unratedInsights = await UserThemeInsightStorage.loadAll('unratedForTheme', { userID, themeID })
 
-  console.log(userTheme.status)
-  console.log(ratedInsights.length)
-  console.log(unratedInsights.length)
-
   if ((ratedInsights.length + unratedInsights.length) > 0) {
-    throw new Error('Not implemented')
+    count = 0
+    if (userTheme.status === 'subscribed')
+      count = Math.min(
+        MaxSubscribedInsightsCount - unratedInsights.length,
+        Math.floor((new Date - userTheme.updated_at) * InsightsRate)
+      )
   }
 
   if (count > 0) {
-    let newInsightsIDs = ThemeInsightStorage.loadAllIDs('new', { userID, themeID })
+    let newInsightsIDs = await ThemeInsightStorage.loadAllIDs('newForUserTheme', { userID, themeID, limit: count })
+    await UserThemeInsightStorage.createMany(newInsightsIDs.map(id => ({ user_id: userID, theme_id: themeID, insight_id: id })))
   }
 
   callback()
