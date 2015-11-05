@@ -16,6 +16,7 @@ import {
 } from './arrayconnection'
 
 import {
+  ThemeInsightStorage,
   UserThemeInsightStorage
 } from '../../storage'
 
@@ -65,7 +66,7 @@ export async function UserThemeInsightsConnectionResolve(root, args, { rootValue
   let query = filter + (themeID ? 'ForTheme' : '')
   let insights = await UserThemeInsightStorage.loadAll(query, { userID, themeID })
 
-  return connectionFromArray(insights, args)
+  return Object.assign(connectionFromArray(insights, args), { userID, themeID })
 }
 
 
@@ -76,14 +77,20 @@ export const UserThemeInsightsConnection = connectionDefinitions({
   nodeType: UserThemeInsightType,
 
   connectionFields: {
+    totalCount: {
+      type: GraphQLInt,
+      resolve: ({ themeID }) => themeID ? ThemeInsightStorage.count('allForTheme', { themeID }) : null
+    },
+
+
     ratedCount: {
-      type: new GraphQLNonNull(GraphQLInt),
-      resolve: () => new Error('Not implemented')
+      type: GraphQLInt,
+      resolve: ({ userID, themeID }) => themeID ? UserThemeInsightStorage.count("ratedForTheme", { userID, themeID }) : null
     },
 
     unratedCount: {
-      type: new GraphQLNonNull(GraphQLInt),
-      resolve: () => new Error('Not implemented')
+      type: GraphQLInt,
+      resolve: ({ userID, themeID }) =>  themeID ? UserThemeInsightStorage.count("unratedForTheme", { userID, themeID }) : null
     }
   }
 
