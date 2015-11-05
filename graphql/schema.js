@@ -4,8 +4,8 @@ import {
 } from 'graphql'
 
 
-import ViewerQuery from './queries/Viewer'
-import NodeQuery from './queries/Node'
+import ViewerQuery from './queries/ViewerQuery'
+import NodeQuery from './queries/NodeQuery'
 
 
 let queryType = new GraphQLObjectType({
