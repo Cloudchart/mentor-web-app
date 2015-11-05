@@ -28,14 +28,14 @@ class ChooserApp extends React.Component {
     event.preventDefault()
     if (this.state.subscriptionsCount == 0) return alert('No more')
 
-    let mutation = new UpdateUserThemeMutation({ userTheme: theme, user: this.props.viewer, status: 'SUBSCRIBED' })
+    let mutation = new UpdateUserThemeMutation({ theme: theme, user: this.props.viewer, action: 'subscribe' })
     Relay.Store.update(mutation)
   }
 
   handleUnsubscribe(theme, event) {
     event.preventDefault()
 
-    let mutation = new UpdateUserThemeMutation({ userTheme: theme, user: this.props.viewer, status: 'VISIBLE' })
+    let mutation = new UpdateUserThemeMutation({ theme: theme, user: this.props.viewer, action: 'unsubscribe' })
     Relay.Store.update(mutation)
   }
 
@@ -123,7 +123,7 @@ export default Relay.createContainer(ChooserApp, {
               id
               name
               isSubscribed
-              ${UpdateUserThemeMutation.getFragment('userTheme')}
+              ${UpdateUserThemeMutation.getFragment('theme')}
             }
           }
         }

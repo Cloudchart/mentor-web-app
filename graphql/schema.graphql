@@ -36,7 +36,9 @@ type LikeInsightPayload {
 
 type Mutation {
   activateUser(input: ActivateUserInput!): ActivateUserPayload
-  updateUserTheme(input: UpdateUserThemeInput!): UpdateUserThemePayload
+  subscribeOnTheme(input: SubscribeOnThemeInput!): SubscribeOnThemePayload
+  unsubscribeFromTheme(input: UnsubscribeFromThemeInput!): UnsubscribeFromThemePayload
+  rejectTheme(input: RejectThemeInput!): RejectThemePayload
   likeInsight(input: LikeInsightInput!): LikeInsightPayload
   dislikeInsight(input: DislikeInsightInput!): DislikeInsightPayload
   resetInsight(input: ResetInsightInput!): ResetInsightPayload
@@ -58,6 +60,18 @@ type Query {
   node(id: ID!): Node
 }
 
+input RejectThemeInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type RejectThemePayload {
+  user: User!
+  theme: UserTheme!
+  themeID: ID!
+  clientMutationId: String!
+}
+
 input ResetInsightInput {
   id: ID!
   clientMutationId: String!
@@ -71,6 +85,18 @@ type ResetInsightPayload {
   clientMutationId: String!
 }
 
+input SubscribeOnThemeInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type SubscribeOnThemePayload {
+  user: User!
+  theme: UserTheme!
+  themeID: ID!
+  clientMutationId: String!
+}
+
 type Theme implements Node {
   id: ID!
   name: String
@@ -78,16 +104,15 @@ type Theme implements Node {
   isDefault: Boolean!
 }
 
-input UpdateUserThemeInput {
+input UnsubscribeFromThemeInput {
   id: ID!
-  status: UserThemeStatusEnum!
-  userId: ID
   clientMutationId: String!
 }
 
-type UpdateUserThemePayload {
-  userTheme: UserTheme!
+type UnsubscribeFromThemePayload {
   user: User!
+  theme: UserTheme!
+  themeID: ID!
   clientMutationId: String!
 }
 
@@ -159,11 +184,4 @@ type UserThemesConnection {
 type UserThemesEdge {
   node: UserTheme
   cursor: String!
-}
-
-enum UserThemeStatusEnum {
-  AVAILABLE
-  VISIBLE
-  REJECTED
-  SUBSCRIBED
 }

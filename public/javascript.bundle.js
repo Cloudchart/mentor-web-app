@@ -41621,7 +41621,7 @@
 	      event.preventDefault();
 	      if (this.state.subscriptionsCount == 0) return alert('No more');
 
-	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ userTheme: theme, user: this.props.viewer, status: 'SUBSCRIBED' });
+	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ theme: theme, user: this.props.viewer, action: 'subscribe' });
 	      _reactRelay2['default'].Store.update(mutation);
 	    }
 	  }, {
@@ -41629,7 +41629,7 @@
 	    value: function handleUnsubscribe(theme, event) {
 	      event.preventDefault();
 
-	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ userTheme: theme, user: this.props.viewer, status: 'VISIBLE' });
+	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ theme: theme, user: this.props.viewer, action: 'unsubscribe' });
 	      _reactRelay2['default'].Store.update(mutation);
 	    }
 	  }, {
@@ -41748,7 +41748,7 @@
 	          generated: true,
 	          requisite: true
 	        })], [_reactRelay2['default'].QL.__frag(sub_1), _reactRelay2['default'].QL.__frag(sub_2)]);
-	      })(_mutationsUpdateUserThemeMutation2['default'].getFragment('userTheme'), _mutationsUpdateUserThemeMutation2['default'].getFragment('user'), _mutationsActivateUserMutation2['default'].getFragment('user'));
+	      })(_mutationsUpdateUserThemeMutation2['default'].getFragment('theme'), _mutationsUpdateUserThemeMutation2['default'].getFragment('user'), _mutationsActivateUserMutation2['default'].getFragment('user'));
 	    }
 	  }
 
@@ -41890,45 +41890,126 @@
 	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
 
 	    this.getMutation = function () {
-	      return (function () {
-	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.Mutation('UpdateUserThemeMutation', 'UpdateUserThemePayload', new GraphQL.Callv('updateUserTheme', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
-	          parentType: 'UpdateUserThemePayload',
-	          generated: true,
-	          requisite: true
-	        })], null, {
-	          inputType: 'UpdateUserThemeInput!'
-	        });
-	      })();
+	      switch (_this.props.action) {
+	        case 'subscribe':
+	          return (function () {
+	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	            return new GraphQL.Mutation('UpdateUserThemeMutation', 'SubscribeOnThemePayload', new GraphQL.Callv('subscribeOnTheme', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	              parentType: 'SubscribeOnThemePayload',
+	              generated: true,
+	              requisite: true
+	            })], null, {
+	              inputType: 'SubscribeOnThemeInput!'
+	            });
+	          })();
+	        case 'unsubscribe':
+	          return (function () {
+	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	            return new GraphQL.Mutation('UpdateUserThemeMutation', 'UnsubscribeFromThemePayload', new GraphQL.Callv('unsubscribeFromTheme', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	              parentType: 'UnsubscribeFromThemePayload',
+	              generated: true,
+	              requisite: true
+	            })], null, {
+	              inputType: 'UnsubscribeFromThemeInput!'
+	            });
+	          })();
+	        case 'reject':
+	          return (function () {
+	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	            return new GraphQL.Mutation('UpdateUserThemeMutation', 'RejectThemePayload', new GraphQL.Callv('rejectTheme', new GraphQL.CallVariable('input')), [new GraphQL.Field('clientMutationId', null, null, null, null, null, {
+	              parentType: 'RejectThemePayload',
+	              generated: true,
+	              requisite: true
+	            })], null, {
+	              inputType: 'RejectThemeInput!'
+	            });
+	          })();
+	      }
 	    };
 
 	    this.getFatQuery = function () {
-	      return (function () {
-	        var GraphQL = _reactRelay2['default'].QL.__GraphQL;
-	        return new GraphQL.QueryFragment('UpdateUserThemeMutation', 'UpdateUserThemePayload', [new GraphQL.Field('userTheme', [new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'UserTheme',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'UpdateUserThemePayload',
-	          rootCall: 'node',
-	          pk: 'id'
-	        }), new GraphQL.Field('user', [new GraphQL.Field('id', null, null, null, null, null, {
-	          parentType: 'User',
-	          generated: true,
-	          requisite: true
-	        })], null, null, null, null, {
-	          parentType: 'UpdateUserThemePayload',
-	          rootCall: 'node',
-	          pk: 'id'
-	        })]);
-	      })();
+	      switch (_this.props.action) {
+	        case 'subscribe':
+	          return (function () {
+	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	            return new GraphQL.QueryFragment('UpdateUserThemeMutation', 'SubscribeOnThemePayload', [new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'UserTheme',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'SubscribeOnThemePayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            }), new GraphQL.Field('user', [new GraphQL.Field('themes', null, null, null, null, null, {
+	              parentType: 'User',
+	              connection: true,
+	              nonFindable: true
+	            }), new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'User',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'SubscribeOnThemePayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            })]);
+	          })();
+	        case 'unsubscribe':
+	          return (function () {
+	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	            return new GraphQL.QueryFragment('UpdateUserThemeMutation', 'UnsubscribeFromThemePayload', [new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'UserTheme',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'UnsubscribeFromThemePayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            }), new GraphQL.Field('user', [new GraphQL.Field('themes', null, null, null, null, null, {
+	              parentType: 'User',
+	              connection: true,
+	              nonFindable: true
+	            }), new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'User',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'UnsubscribeFromThemePayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            })]);
+	          })();
+	        case 'reject':
+	          return (function () {
+	            var GraphQL = _reactRelay2['default'].QL.__GraphQL;
+	            return new GraphQL.QueryFragment('UpdateUserThemeMutation', 'RejectThemePayload', [new GraphQL.Field('theme', [new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'UserTheme',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'RejectThemePayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            }), new GraphQL.Field('user', [new GraphQL.Field('themes', null, null, null, null, null, {
+	              parentType: 'User',
+	              connection: true,
+	              nonFindable: true
+	            }), new GraphQL.Field('id', null, null, null, null, null, {
+	              parentType: 'User',
+	              generated: true,
+	              requisite: true
+	            })], null, null, null, null, {
+	              parentType: 'RejectThemePayload',
+	              rootCall: 'node',
+	              pk: 'id'
+	            })]);
+	          })();
+	      }
 	    };
 
 	    this.getVariables = function () {
 	      return {
-	        id: _this.props.userTheme.id,
-	        status: _this.props.status
+	        id: _this.props.theme.id
 	      };
 	    };
 
@@ -41936,7 +42017,7 @@
 	      return [{
 	        type: 'FIELDS_CHANGE',
 	        fieldIDs: {
-	          userTheme: _this.props.userTheme.id,
+	          theme: _this.props.theme.id,
 	          user: _this.props.user.id
 	        }
 	      }];
@@ -41956,7 +42037,7 @@
 	        })();
 	      },
 
-	      userTheme: function userTheme() {
+	      theme: function theme() {
 	        return (function () {
 	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
 	          return new GraphQL.QueryFragment('UpdateUserThemeMutation', 'UserTheme', [new GraphQL.Field('id', null, null, null, null, null, {
@@ -42956,10 +43037,10 @@
 	      _this.props.relay.setVariables({ filter: event.target.value });
 	    };
 
-	    this.handleThemeControlClick = function (themeEdge, status, event) {
+	    this.handleThemeControlClick = function (themeEdge, action, event) {
 	      event.preventDefault();
 
-	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ userTheme: themeEdge.node, user: _this.props.viewer, status: status });
+	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ theme: themeEdge.node, user: _this.props.viewer, action: action });
 
 	      _reactRelay2['default'].Store.update(mutation);
 	    };
@@ -43048,8 +43129,8 @@
 	          // Subscribe, Unsubscribe, Reject
 	          return [this.renderSubscribeControl(themeEdge), this.renderUnsubscribeControl(themeEdge), this.renderRejectControl(themeEdge)];
 	        case 'UNRELATED':
-	          // Subscribe, Follow
-	          return [this.renderSubscribeControl(themeEdge), this.renderFollowControl(themeEdge)];
+	          // Subscribe
+	          return [this.renderSubscribeControl(themeEdge)];
 	      }
 	    }
 	  }, {
@@ -43058,18 +43139,8 @@
 	      if (themeEdge.node.isSubscribed) return;
 	      return _react2['default'].createElement(
 	        'a',
-	        { href: '#', onClick: this.handleThemeControlClick.bind(this, themeEdge, 'SUBSCRIBED'), key: 'subscribe', style: { color: 'green' } },
+	        { href: '#', onClick: this.handleThemeControlClick.bind(this, themeEdge, 'subscribe'), key: 'subscribe', style: { color: 'green' } },
 	        'Subscribe'
-	      );
-	    }
-	  }, {
-	    key: 'renderFollowControl',
-	    value: function renderFollowControl(themeEdge) {
-	      if (themeEdge.node.isSubscribed) return;
-	      return _react2['default'].createElement(
-	        'a',
-	        { href: '#', onClick: this.handleThemeControlClick.bind(this, themeEdge, 'VISIBLE'), key: 'follow', style: { marginLeft: '1ex' } },
-	        'Follow'
 	      );
 	    }
 	  }, {
@@ -43078,7 +43149,7 @@
 	      if (!themeEdge.node.isSubscribed) return;
 	      return _react2['default'].createElement(
 	        'a',
-	        { href: '#', onClick: this.handleThemeControlClick.bind(this, themeEdge, 'VISIBLE'), key: 'unsubscribe', style: { color: 'red' } },
+	        { href: '#', onClick: this.handleThemeControlClick.bind(this, themeEdge, 'unsubscribe'), key: 'unsubscribe', style: { color: 'red' } },
 	        'Unsubscribe'
 	      );
 	    }
@@ -43087,7 +43158,7 @@
 	    value: function renderRejectControl(themeEdge) {
 	      return _react2['default'].createElement(
 	        'a',
-	        { href: '#', onClick: this.handleThemeControlClick.bind(this, themeEdge, 'REJECTED'), key: 'reject', style: { color: 'red', marginLeft: '1ex' } },
+	        { href: '#', onClick: this.handleThemeControlClick.bind(this, themeEdge, 'reject'), key: 'reject', style: { color: 'red', marginLeft: '1ex' } },
 	        'Reject'
 	      );
 	    }
@@ -43151,7 +43222,7 @@
 	          generated: true,
 	          requisite: true
 	        })], [_reactRelay2['default'].QL.__frag(sub_1)]);
-	      })(_mutationsUpdateUserThemeMutation2['default'].getFragment('userTheme'), _mutationsUpdateUserThemeMutation2['default'].getFragment('user'));
+	      })(_mutationsUpdateUserThemeMutation2['default'].getFragment('theme'), _mutationsUpdateUserThemeMutation2['default'].getFragment('user'));
 	    }
 	  }
 

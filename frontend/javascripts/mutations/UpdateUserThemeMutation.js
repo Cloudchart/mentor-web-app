@@ -8,33 +8,69 @@ export default class extends Relay.Mutation {
       fragment on User { id }
     `
     ,
-    userTheme: () => Relay.QL`
+    theme: () => Relay.QL`
       fragment on UserTheme { id }
     `
   }
 
-  getMutation = () => Relay.QL`
-    mutation { updateUserTheme }
-  `
+  getMutation = () => {
+    switch(this.props.action) {
+      case 'subscribe':
+        return Relay.QL`
+          mutation { subscribeOnTheme }
+        `
+      case 'unsubscribe':
+        return Relay.QL`
+          mutation { unsubscribeFromTheme }
+        `
+      case 'reject':
+        return Relay.QL`
+          mutation { rejectTheme }
+        `
+    }
+  }
 
-  getFatQuery = () =>
-    Relay.QL`
-      fragment on UpdateUserThemePayload {
-        userTheme
-        user
-      }
-    `
+  getFatQuery = () => {
+    switch(this.props.action) {
+      case 'subscribe':
+        return Relay.QL`
+          fragment on SubscribeOnThemePayload {
+            theme
+            user {
+              themes
+            }
+          }
+        `
+      case 'unsubscribe':
+        return Relay.QL`
+          fragment on UnsubscribeFromThemePayload {
+            theme
+            user {
+              themes
+            }
+          }
+        `
+      case 'reject':
+        return Relay.QL`
+          fragment on RejectThemePayload {
+            theme
+            user {
+              themes
+            }
+          }
+        `
+    }
+  }
 
   getVariables = () => ({
-    id:       this.props.userTheme.id,
-    status:   this.props.status
+    id: this.props.theme.id
   })
 
   getConfigs = () => [{
       type: 'FIELDS_CHANGE',
       fieldIDs: {
-        userTheme:  this.props.userTheme.id,
-        user:       this.props.user.id
+        theme:  this.props.theme.id,
+        user:   this.props.user.id
       }
   }]
 

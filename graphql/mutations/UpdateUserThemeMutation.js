@@ -14,8 +14,12 @@ import {
   UserThemeStorage
 } from '../../storage'
 
-const MaxSubscribedThemesCount = 3
+import UserType from '../types/UserType'
+import UserThemeType from '../types/UserThemeType'
+import { userThemesConnection } from '../connections/UserThemesConnection'
 
+
+const MaxSubscribedThemesCount = 3
 
 export const GraphQLUserThemeStatusEnum = new GraphQLEnumType({
   name: 'UserThemeStatusEnum',
@@ -29,57 +33,51 @@ export const GraphQLUserThemeStatusEnum = new GraphQLEnumType({
 })
 
 
-export default mutationWithClientMutationId({
+let updateUserThemeMutationGenerator = (name, status) => mutationWithClientMutationId({
 
-  name: 'UpdateUserTheme',
+  name: name,
 
   inputFields: {
     id: {
       type: new GraphQLNonNull(GraphQLID)
-    },
-    status: {
-      type: new GraphQLNonNull(GraphQLUserThemeStatusEnum)
-    },
-    userId: {
-      type: GraphQLID
-    },
-  },
-
-  outputFields: {
-    userTheme: {
-      type: new GraphQLNonNull(UserThemeType)
-    },
-    user: {
-      type: new GraphQLNonNull(UserType)
     }
   },
 
-  mutateAndGetPayload: async ({ id, userId, status }, { rootValue: { viewer } }) => {
-    id      = fromGlobalId(id).id
-    userId  = userId ? fromGlobalId(userId) : viewer.id
+  outputFields: {
+    user: {
+      type: new GraphQLNonNull(UserType)
+    },
+    theme: {
+      type: new GraphQLNonNull(UserThemeType)
+    },
+    themeID: {
+      type: new GraphQLNonNull(GraphQLID),
+      resolve: ({ theme }) => theme.id
+    },
+  },
 
-    let userTheme = await UserThemeStorage.load(id)
+  mutateAndGetPayload: async({ id }, { rootValue: { viewer } }) => {
+    id = fromGlobalId(id).id
 
-    if (userTheme.user_id !== userId)
+    let theme = await UserThemeStorage.load(id)
+    let user  = viewer
+
+    if (theme.user_id !== user.id)
       return new Error('Not authorized')
 
-    let user = await UserStorage.load(userId)
-
-    // Check if can be subscribed
-    if (status === 'subscribed') {
+    if (status === 'subscribed' && theme.status !== 'subscribed') {
       let subscribedUserThemesCount = await UserThemeStorage.count('subscribed', { userID: user.id })
       if (subscribedUserThemesCount >= MaxSubscribedThemesCount)
         return new Error(`Maximum subscribed themes (${MaxSubscribedThemesCount}) count reached`)
     }
 
-    userTheme = await UserThemeStorage.update(userTheme.id, { status: status })
+    theme = await UserThemeStorage.update(id, { status })
 
-    return { userTheme, user }
+    return { theme, user }
   }
-
 
 })
 
-import UserType from '../types/UserType'
-import UserThemeType from '../types/UserThemeType'
-import { userThemesConnection } from '../connections/UserThemesConnection'
+export const SubscribeOnThemeMutation     = updateUserThemeMutationGenerator('SubscribeOnTheme', 'subscribed')
+export const UnsubscribeFromThemeMutation = updateUserThemeMutationGenerator('UnsubscribeFromTheme', 'visible')
+export const RejectThemeMutation          = updateUserThemeMutationGenerator('RejectTheme', 'rejected')

@@ -18,10 +18,10 @@ class ThemesExplorerApp extends React.Component {
   }
 
 
-  handleThemeControlClick = (themeEdge, status, event) => {
+  handleThemeControlClick = (themeEdge, action, event) => {
     event.preventDefault()
 
-    let mutation = new UpdateUserThemeMutation({ userTheme: themeEdge.node, user: this.props.viewer, status })
+    let mutation = new UpdateUserThemeMutation({ theme: themeEdge.node, user: this.props.viewer, action })
 
     Relay.Store.update(mutation)
   }
@@ -95,10 +95,9 @@ class ThemesExplorerApp extends React.Component {
           this.renderRejectControl(themeEdge),
         ]
       case 'UNRELATED':
-        // Subscribe, Follow
+        // Subscribe
         return [
           this.renderSubscribeControl(themeEdge),
-          this.renderFollowControl(themeEdge)
         ]
     }
   }
@@ -106,27 +105,20 @@ class ThemesExplorerApp extends React.Component {
   renderSubscribeControl(themeEdge) {
     if (themeEdge.node.isSubscribed) return
     return (
-      <a href="#" onClick={ this.handleThemeControlClick.bind(this, themeEdge, 'SUBSCRIBED') } key="subscribe" style={{ color: 'green' }}>Subscribe</a>
-    )
-  }
-
-  renderFollowControl(themeEdge) {
-    if (themeEdge.node.isSubscribed) return
-    return (
-      <a href="#" onClick={ this.handleThemeControlClick.bind(this, themeEdge, 'VISIBLE') } key="follow" style={{ marginLeft: '1ex' }}>Follow</a>
+      <a href="#" onClick={ this.handleThemeControlClick.bind(this, themeEdge, 'subscribe') } key="subscribe" style={{ color: 'green' }}>Subscribe</a>
     )
   }
 
   renderUnsubscribeControl(themeEdge) {
     if (!themeEdge.node.isSubscribed) return
     return (
-      <a href="#" onClick={ this.handleThemeControlClick.bind(this, themeEdge, 'VISIBLE') } key="unsubscribe" style={{ color: 'red' }}>Unsubscribe</a>
+      <a href="#" onClick={ this.handleThemeControlClick.bind(this, themeEdge, 'unsubscribe') } key="unsubscribe" style={{ color: 'red' }}>Unsubscribe</a>
     )
   }
 
   renderRejectControl(themeEdge) {
     return (
-      <a href="#" onClick={ this.handleThemeControlClick.bind(this, themeEdge, 'REJECTED') } key="reject" style={{ color: 'red', marginLeft: '1ex' }}>Reject</a>
+      <a href="#" onClick={ this.handleThemeControlClick.bind(this, themeEdge, 'reject') } key="reject" style={{ color: 'red', marginLeft: '1ex' }}>Reject</a>
     )
   }
 
@@ -150,7 +142,7 @@ export default Relay.createContainer(ThemesExplorerApp, {
               name
               url
               isSubscribed
-              ${UpdateUserThemeMutation.getFragment('userTheme')}
+              ${UpdateUserThemeMutation.getFragment('theme')}
             }
           }
         }
