@@ -13,6 +13,8 @@ const AllForThemeQuery = `
   from
     (select @row := 0) r,
     ${TableName} ti
+  where
+    ti.theme_id = :themeID
   order by
     ti.created_at
 `
