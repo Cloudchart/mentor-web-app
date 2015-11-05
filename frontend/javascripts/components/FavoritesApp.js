@@ -1,53 +1,31 @@
 import React from 'react'
 import Relay from 'react-relay'
 
+import UpdateUserThemeInsightMutation from '../mutations/UpdateUserThemeInsightMutation'
 
-import UpdateInsightMutation from '../mutations/UpdateInsightMutation'
 
-
-const InitialCount  = 20
-const Increment     = 50
+const Increment = 10
 
 
 class FavoritesApp extends React.Component {
 
-  state = {
-    isInSync: false
+  handleDislike = (insight, event) => {
+    event.preventDefault()
+
+    let mutation = new UpdateUserThemeInsightMutation({
+      action:   'dislike',
+      user:     this.props.viewer,
+      theme:    null,
+      insight:  insight
+    })
+
+    Relay.Store.update(mutation)
   }
 
-  _handleMoreInsightsButtonClick = (event) => {
-    event.preventDefault()
-    if (this.state.isInSync) return
-    this.setState({ isInSync: true })
-
+  handleLoadMore = () => {
     this.props.relay.setVariables({
       count: this.props.relay.variables.count + Increment
-    }, readyState => readyState.done ? this.setState({ isInSync: false }) : null)
-  }
-
-  _handleUnlikeInsightControlClick = (insight, event) => {
-    event.preventDefault()
-    if (this.state.isInSync) return
-    this.setState({ isInSync: insight.id })
-
-    let mutation = new UpdateInsightMutation({
-      viewer:   this.props.viewer,
-      insight:  insight,
-      rate:     -1
     })
-
-    Relay.Store.update(mutation, {
-      onSuccess: this._handleUnlikeInsightSuccess,
-      onFailure: this._handleUnlikeInsightFailure
-    })
-  }
-
-  _handleUnlikeInsightSuccess = () => {
-    this.setState({ isInSync: false })
-  }
-
-  _handleUnlikeInsightFailure = () => {
-    this.setState({ isInSync: false })
   }
 
   render() {
@@ -55,14 +33,14 @@ class FavoritesApp extends React.Component {
       <div>
         <h2>Favorites</h2>
         { this.renderInsights() }
-        { this.renderMoreInsightsButton() }
+        { this.renderLoadMoreControl() }
       </div>
     )
   }
 
   renderInsights() {
     return (
-      <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+      <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
         { this.props.viewer.insights.edges.map(this.renderInsight) }
       </ul>
     )
@@ -71,33 +49,30 @@ class FavoritesApp extends React.Component {
   renderInsight = (insightEdge) => {
     let insight = insightEdge.node
     return (
-      <li key={ insight.id } style={{ width: 400, margin: '0 0 1em' }}>
+      <li key={ insight.id } style={{ width: 400, margin: '20px 0' }}>
         { insight.content }
-        { this.renderInsightUnlikeControl(insight) }
-        <div style={{ color: 'grey', marginTop: '.25em' }}>
-          <em>at #{ insight.theme.name }</em>
-        </div>
+        <span style={{ color: 'grey', marginLeft: '1ex' }}>#{insight.theme.name}</span>
+        { this.renderInsightControls(insight) }
       </li>
     )
   }
 
-  renderInsightUnlikeControl(insight) {
-    if (this.state.isInSync === insight.id) return
+  renderInsightControls(insight) {
     return (
-      <a href="#" onClick={ this._handleUnlikeInsightControlClick.bind(this, insight) } style={{ color: 'red', marginLeft: '1ex', whiteSpace: 'nowrap' }}>
-        Fuck it!
-      </a>
+      <div style={{ margin: 0, marginTop: 5 }}>
+        <a href="#" onClick={ this.handleDislike.bind(this, insight) } style={{ color: 'red' }}>
+          Dislike
+        </a>
+      </div>
     )
   }
 
-  renderMoreInsightsButton() {
-    if (this.state.isInSync) return
+  renderLoadMoreControl() {
     if (!this.props.viewer.insights.pageInfo.hasNextPage) return
-
     return (
-      <button onClick={ this._handleMoreInsightsButtonClick } style={{ margin: 0, padding: 10 }}>
-        Load more...
-      </button>
+      <p>
+        <button onClick={ this.handleLoadMore }>Load more...</button>
+      </p>
     )
   }
 
@@ -108,23 +83,22 @@ export default Relay.createContainer(FavoritesApp, {
 
 
   initialVariables: {
-    cursor: null,
-    count:  InitialCount
+    count: Increment
   },
 
 
   fragments: {
+
     viewer: () => Relay.QL`
       fragment on User {
-      __typename
-        insights(first: $count, after: $cursor) {
+        ${UpdateUserThemeInsightMutation.getFragment('user')}
+        insights(first: $count, filter: POSITIVE) {
           pageInfo {
             hasNextPage
           }
           edges {
-            cursor
             node {
-              ${UpdateInsightMutation.getFragment('insight')}
+              ${UpdateUserThemeInsightMutation.getFragment('insight')}
               id
               content
               theme {
@@ -135,6 +109,7 @@ export default Relay.createContainer(FavoritesApp, {
         }
       }
     `
+
   }
 
 })

@@ -1,58 +1,73 @@
 import {
-  GraphQLID,
   GraphQLInt,
   GraphQLString,
+  GraphQLBoolean,
   GraphQLNonNull,
-  GraphQLObjectType,
+  GraphQLObjectType
 } from 'graphql'
+
+import {
+  globalIdField
+} from 'graphql-relay'
 
 
 import {
+  UserStorage,
   ThemeStorage,
   InsightStorage
 } from '../../storage'
 
+import { nodeInterface } from './Node'
 
-let UserThemeInsightType = new GraphQLObjectType({
+
+export default new GraphQLObjectType({
 
   name: 'UserThemeInsight',
 
+  interfaces: [nodeInterface],
+
   fields: () => ({
 
-    id: {
-      type: new GraphQLNonNull(GraphQLID)
+    id: globalIdField('UserThemeInsight'),
+
+    content: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: ({ insight_id }) =>
+        InsightStorage
+          .load(insight_id)
+          .then(insight => insight.content)
+    },
+
+    user: {
+      type: new GraphQLNonNull(UserType),
+      resolve: ({ user_id }) =>
+        UserStorage
+          .load(User_id)
+    },
+
+    theme: {
+      type: new GraphQLNonNull(ThemeType),
+      resolve: ({ theme_id }) =>
+        ThemeStorage
+          .load(theme_id)
     },
 
     rate: {
       type: GraphQLInt
     },
 
-    content: {
-      type: new GraphQLNonNull(GraphQLString),
-      resolve: ({ insight_id }) => InsightStorage.load(insight_id).then(insight => insight.content)
-    },
-
     ratedAt: {
       type: GraphQLString,
-      resolve: ({ updated_at }) => updated_at
-    },
-
-    theme: {
-      type: ThemeType,
-      resolve: ({ theme_id }) => ThemeStorage.load(theme_id)
-    },
-
-    insight: {
-      type: new GraphQLNonNull(InsightType),
-      deprecationReason: 'Simplifying UserThemeInsight type',
-      resolve: ({ insight_id }) => InsightStorage.load(insight_id)
+      resolve: ({ rate, updated_at }) =>
+        rate
+          ? updated_at
+          : null
     }
 
   })
 
 })
 
-export default UserThemeInsightType
 
-import ThemeType from '../types/theme_type'
-import InsightType from '../types/insight_type'
+import UserType from './UserType'
+import ThemeType from './ThemeType'

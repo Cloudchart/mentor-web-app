@@ -1,41 +1,35 @@
 import {
-  GraphQLID,
   GraphQLString,
   GraphQLBoolean,
   GraphQLNonNull,
-  GraphQLObjectType,
+  GraphQLObjectType
 } from 'graphql'
 
 import {
-  connectionArgs,
-  connectionFromArray
+  globalIdField
 } from 'graphql-relay'
 
-import {
-  ThemesStorage,
-  UserThemeInsightStorage
-} from '../../storage'
+
+import { nodeInterface } from './Node'
+
+import { ThemeStorage } from '../../storage'
+
+import { Field as UserThemeInsightsConnectionField } from '../connections/UserThemeInsightsConnection'
 
 
-let UserThemeType = new GraphQLObjectType({
+export default new GraphQLObjectType({
 
   name: 'UserTheme',
 
+  interfaces: [nodeInterface],
+
   fields: () => ({
 
-    id: {
-      type: new GraphQLNonNull(GraphQLID),
-      resolve: ({ user_id, theme_id }) => `${user_id}:${theme_id}`
-    },
-
-    status: {
-      type: GraphQLString
-    },
+    id: globalIdField('UserTheme'),
 
     name: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve: ({ theme_id }) =>
-        ThemesStorage.load(theme_id).then(({ name }) => name)
+      resolve: ({ theme_id }) => ThemeStorage.load(theme_id).then(theme => theme.name)
     },
 
     url: {
@@ -43,48 +37,18 @@ let UserThemeType = new GraphQLObjectType({
       resolve: ({ theme_id }) => `/themes/${theme_id}`
     },
 
-    isSystem: {
+    isSubscribed: {
       type: new GraphQLNonNull(GraphQLBoolean),
-      resolve: ({ theme_id }) =>
-        ThemesStorage.load(theme_id).then(({ is_system }) => !!is_system)
+      resolve: ({ status }) => status === 'subscribed'
     },
 
-    isDefault: {
+    isRejected: {
       type: new GraphQLNonNull(GraphQLBoolean),
-      resolve: ({ theme_id }) =>
-        ThemesStorage.load(theme_id).then(({ is_default }) => !!is_default)
+      resolve: ({ status }) => status === 'rejected'
     },
 
-    theme: {
-      type: ThemeType,
-      deprecationReason: 'Simplifying UserTheme type',
-      resolve: ({ theme_id, user_id }) =>
-        ThemesStorage.load(theme_id)
-    },
-
-    insights: {
-      type: UserThemeInsightsConnection.connectionType,
-      args: {
-        includeRated: {
-          type: GraphQLBoolean,
-          defaultValue: false
-        }, ...connectionArgs
-      },
-      resolve: async ({ theme_id, user_id }, args) => {
-        let userThemeInsights = await UserThemeInsightStorage.allForUserTheme(user_id, theme_id)
-
-        if (args.includeRated !== true)
-          userThemeInsights = userThemeInsights.filter(record => !record.rate)
-
-        return connectionFromArray(userThemeInsights, args)
-      }
-    }
+    insights: UserThemeInsightsConnectionField
 
   })
 
 })
-
-export default UserThemeType
-
-import ThemeType from './theme_type'
-import UserThemeInsightsConnection from '../connections/UserThemeInsightsConnection'

@@ -1,33 +1,32 @@
 import {
   GraphQLSchema,
   GraphQLObjectType,
-  GraphQLString
 } from 'graphql'
 
-import { Viewer } from './queries'
-import {
-  ActivateViewer,
-  ThemeToViewer,
-  VoteForInsight,
-  CreateThemeMutation,
-  UpdateThemeStatus,
-  UpdateUserTheme,
-  ActualizeUserThemeInsights,
-  ActualizeThemeInsights,
-  LikeInsight,
-  UpdateUserThemeInsight
-} from './mutations'
+
+import ViewerQuery from './queries/Viewer'
+import NodeQuery from './queries/Node'
+
 
 let queryType = new GraphQLObjectType({
 
   name: 'Query',
 
-  fields: {
-    viewer: Viewer,
-    node:   Viewer
-  }
+  fields: () => ({
+    viewer: ViewerQuery,
+    node:   NodeQuery
+  })
 
 })
+
+
+import ActivateUserMutation from './mutations/ActivateUserMutation'
+import UpdateUserThemeMutation from './mutations/UpdateUserThemeMutation'
+import {
+  LikeInsightMutation,
+  DislikeInsightMutation,
+  ResetInsightMutation,
+} from './mutations/UpdateUserThemeInsightMutation'
 
 
 let mutationType = new GraphQLObjectType({
@@ -35,16 +34,11 @@ let mutationType = new GraphQLObjectType({
   name: 'Mutation',
 
   fields: {
-    activateViewer:             ActivateViewer,
-    themeToViewer:              ThemeToViewer,
-    voteForInsight:             VoteForInsight,
-    createTheme:                CreateThemeMutation,
-    updateThemeStatus:          UpdateThemeStatus,
-    updateUserTheme:            UpdateUserTheme,
-    actualizeUserThemeInsights: ActualizeUserThemeInsights,
-    actualizeThemeInsights:     ActualizeThemeInsights,
-    likeInsight:                LikeInsight,
-    updateUserThemeInsight:     UpdateUserThemeInsight
+    activateUser:     ActivateUserMutation,
+    updateUserTheme:  UpdateUserThemeMutation,
+    likeInsight:      LikeInsightMutation,
+    dislikeInsight:   DislikeInsightMutation,
+    resetInsight:     ResetInsightMutation
   }
 
 })

@@ -1,72 +1,49 @@
-input ActivateViewerInput {
+input ActivateUserInput {
+  userId: ID
   clientMutationId: String!
 }
 
-type ActivateViewerPayload {
-  viewer: User!
+type ActivateUserPayload {
+  user: User!
   clientMutationId: String!
 }
 
-input ActualizeThemeInsightsMutationInput {
-  themeID: ID!
-  clientMutationId: String!
-}
-
-type ActualizeThemeInsightsMutationPayload {
-  timeTaken: Int!
-  clientMutationId: String!
-}
-
-input ActualizeUserThemeInsightsMutationInput {
-  userID: ID!
-  themeID: ID!
-  clientMutationId: String!
-}
-
-type ActualizeUserThemeInsightsMutationPayload {
-  newInsightsCount: Int!
-  timeTaken: Int!
-  clientMutationId: String!
-}
-
-input CreateThemeMutationInput {
-  name: String!
-  clientMutationId: String!
-}
-
-type CreateThemeMutationPayload {
-  theme: UserTheme!
-  viewer: User!
-  clientMutationId: String!
-}
-
-type Insight {
-  id: ID
-  content: String
-}
-
-input LikeInsightMutationInput {
+input DislikeInsightInput {
   id: ID!
-  rate: Int!
   clientMutationId: String!
 }
 
-type LikeInsightMutationPayload {
-  updatedInsight: UserThemeInsight!
+type DislikeInsightPayload {
+  user: User!
+  theme: UserTheme!
+  insight: UserThemeInsight!
+  insightID: ID!
+  clientMutationId: String!
+}
+
+input LikeInsightInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type LikeInsightPayload {
+  user: User!
+  theme: UserTheme!
+  insight: UserThemeInsight!
+  insightID: ID!
   clientMutationId: String!
 }
 
 type Mutation {
-  activateViewer(input: ActivateViewerInput!): ActivateViewerPayload
-  themeToViewer(input: ThemeToViewerInput!): ThemeToViewerPayload
-  voteForInsight(input: VoteForInsightInput!): VoteForInsightPayload
-  createTheme(input: CreateThemeMutationInput!): CreateThemeMutationPayload
-  updateThemeStatus(input: ThemeStatusMutationInput!): ThemeStatusMutationPayload
-  updateUserTheme(input: UserThemeMutationInput!): UserThemeMutationPayload
-  actualizeUserThemeInsights(input: ActualizeUserThemeInsightsMutationInput!): ActualizeUserThemeInsightsMutationPayload
-  actualizeThemeInsights(input: ActualizeThemeInsightsMutationInput!): ActualizeThemeInsightsMutationPayload
-  likeInsight(input: LikeInsightMutationInput!): LikeInsightMutationPayload
-  updateUserThemeInsight(input: UpdateUserThemeInsightMutationInput!): UpdateUserThemeInsightMutationPayload
+  activateUser(input: ActivateUserInput!): ActivateUserPayload
+  updateUserTheme(input: UpdateUserThemeInput!): UpdateUserThemePayload
+  likeInsight(input: LikeInsightInput!): LikeInsightPayload
+  dislikeInsight(input: DislikeInsightInput!): DislikeInsightPayload
+  resetInsight(input: ResetInsightInput!): ResetInsightPayload
+}
+
+interface Node {
+  id: ID!
 }
 
 type PageInfo {
@@ -77,143 +54,85 @@ type PageInfo {
 }
 
 type Query {
-  viewer(id: ID): User
-  node(id: ID): User
+  viewer: User
+  node(id: ID!): Node
 }
 
-type Theme {
-  id: ID
-  name: String
-  url: String
-  isSystem: Boolean
-  isDefault: Boolean
-  isSubscribedByViewer: Boolean
-  isRejectedByViewer: Boolean
-}
-
-type ThemeConnection {
-  pageInfo: PageInfo!
-  edges: [ThemeEdge]
-  count: Int!
-}
-
-type ThemeEdge {
-  node: Theme
-  cursor: String!
-}
-
-enum ThemeFilter {
-  DEFAULT
-  RELATED
-  UNRELATED
-  SUBSCRIBED
-}
-
-type ThemesInsightsEdge {
-  node: Insight
-  cursor: String!
-}
-
-input ThemeStatusMutationInput {
-  themeID: ID!
-  status: String!
-  clientMutationId: String!
-}
-
-type ThemeStatusMutationPayload {
-  viewer: User!
-  theme: Theme!
-  themeID: ID!
-  clientMutationId: String!
-}
-
-input ThemeToViewerInput {
-  themeId: ID!
-  action: String!
-  clientMutationId: String!
-}
-
-type ThemeToViewerPayload {
-  theme: Theme
-  clientMutationId: String!
-}
-
-input UpdateUserThemeInsightMutationInput {
+input ResetInsightInput {
   id: ID!
-  rate: Int!
   clientMutationId: String!
 }
 
-type UpdateUserThemeInsightMutationPayload {
-  insightID: ID!
+type ResetInsightPayload {
+  user: User!
+  theme: UserTheme!
   insight: UserThemeInsight!
-  viewer: User!
-  theme: Theme!
+  insightID: ID!
   clientMutationId: String!
 }
 
-type User {
-  id: ID
-  name: String
-  isActive: Boolean
-  themes(includeRejected: Boolean = false, onlyDefault: Boolean = false, before: String, after: String, first: Int, last: Int): UsersThemesConnection
-  nthemes(filter: ThemeFilter = available, before: String, after: String, first: Int, last: Int): ThemeConnection
-  theme(themeID: ID!): UserTheme
-  insights(filter: UserInsightFilterEnum = positive, before: String, after: String, first: Int, last: Int): UserInsightConnection
-  subscribedThemes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
-  defaultThemes(before: String, after: String, first: Int, last: Int): UsersThemesConnection
-}
-
-type UserInsightConnection {
-  pageInfo: PageInfo!
-  edges: [UserInsightEdge]
-}
-
-type UserInsightEdge {
-  node: UserThemeInsight
-  cursor: String!
-}
-
-enum UserInsightFilterEnum {
-  POSITIVE
-  NEGATIVE
-  UNRATED
-}
-
-type UsersThemesConnection {
-  pageInfo: PageInfo!
-  edges: [UsersThemesEdge]
-}
-
-type UsersThemesEdge {
-  node: UserTheme
-  cursor: String!
-  status: String
-}
-
-type UserTheme {
+type Theme implements Node {
   id: ID!
-  status: String
-  name: String!
-  url: String!
+  name: String
   isSystem: Boolean!
   isDefault: Boolean!
-  theme: Theme
-  insights(includeRated: Boolean = false, before: String, after: String, first: Int, last: Int): UserThemeInsightsConnection
 }
 
-type UserThemeInsight {
+input UpdateUserThemeInput {
   id: ID!
-  rate: Int
+  status: UserThemeStatusEnum!
+  userId: ID
+  clientMutationId: String!
+}
+
+type UpdateUserThemePayload {
+  userTheme: UserTheme!
+  user: User!
+  clientMutationId: String!
+}
+
+type User implements Node {
+  id: ID!
+  name: String
+  isActive: Boolean
+  themes(after: String, first: Int, before: String, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection
+  theme(id: ID!): UserTheme!
+  insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
+}
+
+type UserTheme implements Node {
+  id: ID!
+  name: String!
+  url: String!
+  isSubscribed: Boolean!
+  isRejected: Boolean!
+  insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
+}
+
+enum UserThemeFilterEnum {
+  DEFAULT
+  AVAILABLE
+  VISIBLE
+  SUBSCRIBED
+  REJECTED
+  RELATED
+  UNRELATED
+}
+
+type UserThemeInsight implements Node {
+  id: ID!
   content: String!
+  user: User!
+  theme: Theme!
+  rate: Int
   ratedAt: String
-  theme: Theme
-  insight: Insight!
 }
 
 type UserThemeInsightsConnection {
   pageInfo: PageInfo!
   edges: [UserThemeInsightsEdge]
+  ratedCount: Int!
+  unratedCount: Int!
 }
 
 type UserThemeInsightsEdge {
@@ -221,28 +140,29 @@ type UserThemeInsightsEdge {
   cursor: String!
 }
 
-input UserThemeMutationInput {
-  id: ID!
-  status: String!
-  clientMutationId: String!
+enum UserThemeInsightsFilterEnum {
+  RATED
+  UNRATED
+  POSITIVE
+  NEGATIVE
 }
 
-type UserThemeMutationPayload {
-  userTheme: UserTheme!
-  clientMutationId: String!
+type UserThemesConnection {
+  pageInfo: PageInfo!
+  edges: [UserThemesEdge]
+  count: Int!
+  subscribedCount: Int!
+  rejectedCount: Int!
 }
 
-input VoteForInsightInput {
-  themeID: ID!
-  insightID: ID!
-  isPositive: Boolean!
-  clientMutationId: String!
+type UserThemesEdge {
+  node: UserTheme
+  cursor: String!
 }
 
-type VoteForInsightPayload {
-  theme: Theme
-  viewer: User
-  insightID: ID
-  insightEdge: ThemesInsightsEdge
-  clientMutationId: String!
+enum UserThemeStatusEnum {
+  AVAILABLE
+  VISIBLE
+  REJECTED
+  SUBSCRIBED
 }

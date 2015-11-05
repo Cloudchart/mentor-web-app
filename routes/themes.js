@@ -1,8 +1,11 @@
 import { Router } from 'express'
+
 import {
-  ThemesStorage,
-  UserThemeStorage
-} from '../storage'
+  toGlobalId
+} from 'graphql-relay'
+
+import ThemeStorage from '../storage/ThemeStorage'
+import UserThemeStorage from '../storage/UserThemeStorage'
 
 import {
   authenticationCheck,
@@ -25,20 +28,19 @@ router.get('/explore', authenticationCheck, activityCheck, (req, res, next) => {
 
 
 router.get('/:id', authenticationCheck, activityCheck, async (req, res, next) => {
-  UserThemeStorage.load(req.user.id, req.params.id).then(async (userTheme) => {
+  try {
+    // Load Theme
+    let theme     = await ThemeStorage.load(req.params.id)
 
-    await ActualizeUserThemeInsights.performAsync({
-      userID:   req.user.id,
-      themeID:  req.params.id
-    })
+    // Load User Theme
+    let userTheme = await UserThemeStorage.loadOne('unique', { themeID: theme.id, userID: req.user.id })
 
-    ThemesStorage.load(userTheme.theme_id).then((theme) => {
-      res.render('themes/show', { title: `#${theme.name}`, themeID: theme.id })
-    })
-  }).catch(error => {
+    // Render Page
+    res.render('themes/show', { title: `#${theme.name}`, themeID: toGlobalId('Theme', theme.id) })
+  } catch(e) {
+    // Return Not Found Error
     res.status(404)
-    next()
-  })
+  }
 })
 
 router.get('/new', (req, res, next) => {

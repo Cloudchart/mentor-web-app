@@ -1,192 +1,136 @@
 import React from 'react'
 import Relay from 'react-relay'
 
-import UpdateUserThemeStatus from '../mutations/UpdateUserThemeStatusMutation'
-import ActivateViewer from '../mutations/ActivateViewerMutation'
+import ActivateUserMutation from '../mutations/ActivateUserMutation'
+import UpdateUserThemeMutation from '../mutations/UpdateUserThemeMutation'
 
-const RequiredThemesCount = 3
+
+const MaxSubscriptionsCount = 3
+
+import { pluralize } from '../utils'
+
 
 class ChooserApp extends React.Component {
 
   state = {
-    isInSync:               false,
-    subscribedThemesCount:  0,
-    error:                  null
+    subscriptionsCount: 0
   }
-
-  _updateSubscribedThemesCount = (props) => {
-    this.setState({
-      subscribedThemesCount: props.viewer.themes.edges.filter(edge => edge.node.status == 'subscribed').length
-    })
-  }
-
-
-  _handleSyncComplete = () =>
-    this.setState({ isInSync: false })
-
-
-  _handleThemeEdgeControlClick(userTheme, event) {
-    event.preventDefault()
-
-    if (this.state.isInSync === true) return
-    if (this.state.subscribedThemesCount >= RequiredThemesCount && userTheme.node.status !== 'subscribed') return
-
-    this.setState({ isInSync: true, error: null })
-
-    let mutation = new UpdateUserThemeStatus({
-      userTheme:  userTheme.node,
-      status:     userTheme.node.status === 'subscribed' ? 'visible' : 'subscribed'
-    })
-
-    Relay.Store.update(mutation, {
-      onSuccess: this._handleSyncComplete,
-      onFailure: this._handleSyncComplete
-    })
-  }
-
-  _handleContinueButtonClick = (event) => {
-    event.preventDefault()
-
-    if (this.state.isInSync === true) return
-    if (this.state.subscribedThemesCount < RequiredThemesCount) return
-
-    this.setState({ isInSync: true, error: null })
-
-    let mutation = new ActivateViewer({ viewer: this.props.viewer })
-
-    Relay.Store.update(mutation, {
-      onSuccess: this._handleActivationSuccess,
-      onFailure: this._handleActivationFailure
-    })
-  }
-
-  _handleActivationSuccess = (response) => {
-    location.reload()
-  }
-
-
-  _handleActivationFailure = (transaction) => {
-    this.setState({
-      isInSync: false,
-      error:    transaction.getError().source.errors[0].message
-    })
-  }
-
 
   componentWillMount() {
-    this._updateSubscribedThemesCount(this.props)
+    this._updateSubscriptionsCount(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
-    this._updateSubscribedThemesCount(nextProps)
+    this._updateSubscriptionsCount(nextProps)
   }
 
+  handleSubscribe(theme, event) {
+    event.preventDefault()
+    if (this.state.subscriptionsCount == 0) return alert('No more')
+
+    let mutation = new UpdateUserThemeMutation({ userTheme: theme, user: this.props.viewer, status: 'SUBSCRIBED' })
+    Relay.Store.update(mutation)
+  }
+
+  handleUnsubscribe(theme, event) {
+    event.preventDefault()
+
+    let mutation = new UpdateUserThemeMutation({ userTheme: theme, user: this.props.viewer, status: 'VISIBLE' })
+    Relay.Store.update(mutation)
+  }
+
+  handleContinue = (event) => {
+    event.preventDefault()
+
+    let mutation = new ActivateUserMutation({ user: this.props.viewer })
+    Relay.Store.update(mutation, {
+      onSuccess: () => location.reload()
+    })
+  }
+
+
+  _updateSubscriptionsCount(props) {
+    this.setState({
+      subscriptionsCount: MaxSubscriptionsCount - props.viewer.themes.subscribedCount
+    })
+  }
 
   render() {
     return (
       <div>
-        <h2>Chooser</h2>
-        <h3>Choose {RequiredThemesCount} themes</h3>
-        { this.renderError() }
-        { this.renderThemes() }
-        { this.renderContinueButton() }
-        { this.renderPendingStatus() }
+        <h2>Choose {pluralize(this.state.subscriptionsCount, 'more topic', 'more topics')} to continue</h2>
+        <ul style={{ listStyle: 'none', margin: '30px 0', padding: '0' }}>
+          { this.props.viewer.themes.edges.map(this.renderTheme) }
+        </ul>
+        { this.renderContinueControl() }
       </div>
     )
   }
 
-
-  renderError() {
-    if (this.state.error === null) return
+  renderTheme = (themeEdge) => {
+    let theme = themeEdge.node
     return (
-      <p style={ Styles.error }>
-        { this.state.error }
-      </p>
+      <li key={ theme.id } style={{ margin: '10px 0' }}>
+        #{ theme.name }
+        <div>
+          { this.renderSubscribeOnThemeControl(theme) }
+          { this.renderUnsubscribeFromThemeControl(theme) }
+        </div>
+      </li>
     )
   }
 
-
-  renderThemes() {
-    return (
-      <ul>
-        { this.props.viewer.themes.edges.map(this.renderTheme) }
-      </ul>
-    )
+  renderSubscribeOnThemeControl(theme) {
+    let color = this.state.subscriptionsCount == 0 ? 'grey' : 'blue'
+    return theme.isSubscribed
+      ? null
+      : <a href="#" onClick={ this.handleSubscribe.bind(this, theme) } style={{ color: color }}>Subscribe</a>
   }
 
-
-  renderTheme = (userTheme) =>
-    <li key={ userTheme.node.id } style={ Styles.theme }>
-      { this.renderThemeControls(userTheme) }
-      { userTheme.node.name }
-    </li>
-
-
-  renderThemeControls = (userTheme) => {
-    let action = userTheme.node.status == 'subscribed' ? '-' : '+'
-    return (
-      <a href="#" style={ Styles.themeControl } onClick={ this._handleThemeEdgeControlClick.bind(this, userTheme) }>[{action}]</a>
-    )
+  renderUnsubscribeFromThemeControl(theme) {
+    return theme.isSubscribed
+      ? <a href="#" onClick={ this.handleUnsubscribe.bind(this, theme) } style={{ color: 'red' }}>Unsubscribe</a>
+      : null
   }
 
-  renderContinueButton() {
-    if (this.state.isInSync === true) return
-    if (this.state.subscribedThemesCount < RequiredThemesCount) return
-
-    return (
-      <button onClick={ this._handleContinueButtonClick }>
-        Continue
-      </button>
-    )
-  }
-
-  renderPendingStatus() {
-    if (this.state.isInSync !== true) return
-
-    return (
-      <p style={ Styles.pendingStatus }>Pending...</p>
-    )
+  renderContinueControl() {
+    return this.state.subscriptionsCount == 0
+      ? (
+          <button style={{ margin: 0, padding: 10 }} onClick={ this.handleContinue }>
+            Continue
+          </button>
+        )
+      : null
   }
 
 }
 
-const Styles = {
-  error: {
-    color: 'red'
-  },
-  theme: {
-    textTransform: 'capitalize'
-  },
-  themeControl: {
-    marginRight: '1ex'
-  },
-  pendingStatus: {
-    color: 'grey'
-  }
-}
 
 export default Relay.createContainer(ChooserApp, {
 
-  fragments: {
+  initialVariables: {
+    count:  50,
+    filter: 'DEFAULT'
+  },
 
+  fragments: {
     viewer: () => Relay.QL`
       fragment on User {
-      __typename
-        ${ActivateViewer.getFragment('viewer')}
-        isActive
-        themes(first: 100, onlyDefault: true) {
+        themes(first: $count, filter: $filter) {
+          subscribedCount
           edges {
             node {
-              ${UpdateUserThemeStatus.getFragment('userTheme')}
               id
               name
-              status
+              isSubscribed
+              ${UpdateUserThemeMutation.getFragment('userTheme')}
             }
           }
         }
+        ${UpdateUserThemeMutation.getFragment('user')}
+        ${ActivateUserMutation.getFragment('user')}
       }
     `
-
   }
 
 })

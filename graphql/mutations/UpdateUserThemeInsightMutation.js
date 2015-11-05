@@ -1,53 +1,64 @@
 import {
   GraphQLID,
-  GraphQLInt,
   GraphQLNonNull
 } from 'graphql'
 
 import {
+  toGlobalId,
+  fromGlobalId,
   mutationWithClientMutationId
 } from 'graphql-relay'
 
-import UserType from '../types/user_type'
-import ThemeType from '../types/theme_type'
+import {
+  UserStorage,
+  UserThemeStorage,
+  UserThemeInsightStorage
+} from '../../storage'
+
+import UserType from '../types/UserType'
+import UserThemeType from '../types/UserThemeType'
 import UserThemeInsightType from '../types/UserThemeInsightType'
 
-import ThemeStorage from '../../storage/NewThemeStorage'
-import UserThemeInsightStorage from '../../storage/NewUserThemeInsightStorage'
+let updateUserThemeInsightMutation = (name, rate) => mutationWithClientMutationId({
 
-export default mutationWithClientMutationId({
-
-  name: 'UpdateUserThemeInsightMutation',
+  name: name,
 
   inputFields: {
     id: {
       type: new GraphQLNonNull(GraphQLID)
-    },
-    rate: {
-      type: new GraphQLNonNull(GraphQLInt)
     }
   },
 
   outputFields: {
-    insightID: {
-      type: new GraphQLNonNull(GraphQLID),
-      resolve: ({ insight }) => insight.id
+    user: {
+      type: new GraphQLNonNull(UserType),
+      resolve: ({ insight: { user_id } }) => UserStorage.load(user_id)
+    },
+    theme: {
+      type: new GraphQLNonNull(UserThemeType),
+      resolve: ({ insight: { user_id, theme_id } }) => UserThemeStorage.loadOne('unique', { userID: user_id, themeID: theme_id })
     },
     insight: {
       type: new GraphQLNonNull(UserThemeInsightType)
     },
-    viewer: {
-      type: new GraphQLNonNull(UserType)
-    },
-    theme: {
-      type: new GraphQLNonNull(ThemeType),
-      resolve: ({ insight: { theme_id } }) => ThemeStorage.load(theme_id)
+    insightID: {
+      type: new GraphQLNonNull(GraphQLID),
+      resolve: ({ insight }) => toGlobalId('UserThemeInsight', insight.id)
     }
   },
 
-  mutateAndGetPayload: async ({ id, rate }, { rootValue: { viewer }}) => {
-    let insight = await UserThemeInsightStorage.update(id, { rate })
-    return { insight, viewer }
+  mutateAndGetPayload: async ({ id }, { rootValue: { viewer } }) => {
+    let insight = await UserThemeInsightStorage.load(fromGlobalId(id).id)
+
+    if (insight.user_id !== viewer.id)
+      return new Error('Not authorized')
+
+    insight = await UserThemeInsightStorage.update(insight.id, { rate: rate, updated_at: rate ? null : insight.created_at })
+    return { insight }
   }
 
 })
+
+export const LikeInsightMutation      = updateUserThemeInsightMutation('LikeInsight',     1)
+export const DislikeInsightMutation   = updateUserThemeInsightMutation('DislikeInsight', -1)
+export const ResetInsightMutation     = updateUserThemeInsightMutation('ResetInsight',    null)

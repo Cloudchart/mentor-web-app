@@ -1,73 +1,71 @@
 import React from 'react'
 import Relay from 'react-relay'
-import Immutable from 'immutable'
 
 
-const Increment = 5
-const ThemesFilters         = ['RELATED', 'UNRELATED']
-
-const InitialCount          = 10
-const InitialThemesFilter   = ThemesFilters[0]
+import UpdateUserThemeMutation from '../mutations/UpdateUserThemeMutation'
 
 
-class ThemesExplorer extends React.Component {
+class ThemesExplorerApp extends React.Component {
 
   state = {
-    isInSync: false
+    themesFilter: 'RELATED'
   }
 
-  _handleThemeFilterSwitchClick = (event) => {
+
+  handleThemesFilterChange = (event) => {
+    this.setState({ themesFilter: event.target.value })
+    this.props.relay.setVariables({ filter: event.target.value })
+  }
+
+
+  handleThemeControlClick = (themeEdge, status, event) => {
     event.preventDefault()
-    if (this.state.isInSync) return
-    this.setState({ isInSync: true })
 
-    let current = ThemesFilters.indexOf(this.props.relay.variables.filter)
-    let next    = current === 1 ? 0 : 1
+    let mutation = new UpdateUserThemeMutation({ userTheme: themeEdge.node, user: this.props.viewer, status })
 
-    this.props.relay.setVariables({
-      count:  InitialCount,
-      filter: ThemesFilters[next]
-    }, readyState => readyState.done ? this.setState({ isInSync: false }) : null)
+    Relay.Store.update(mutation)
   }
 
-  _handleMoreThemesButtonClick = (event) => {
-    event.preventDefault()
-    if (this.state.isInSync) return
-    this.setState({ isInSync: true })
-
-    this.props.relay.setVariables({
-      count: this.props.relay.variables.count + Increment
-    }, readyState => readyState.done ? this.setState({ isInSync: false }) : null)
-  }
-
-  _handleRejectThemeControlClick = (theme, event) => {
-    event.preventDefault()
-    if (this.state.isInSync) return
-    this.setState({ isInSync: theme.id })
-  }
 
   render() {
     return (
       <div>
-        <h2>Explore topics</h2>
+        <h2>Explore</h2>
         { this.renderThemesFilterSwitch() }
         { this.renderThemes() }
-        { this.renderMoreThemesButton() }
       </div>
     )
   }
 
   renderThemesFilterSwitch() {
     return (
-      <button onClick={ this._handleThemeFilterSwitchClick } style={{ margin: 0, marginBottom: 10, padding: 10 }}>
-        { this.props.relay.variables.filter }
-      </button>
+      <div>
+        <label>
+          <input
+            type      = 'radio'
+            name      = 'themes-filter'
+            value     = 'RELATED'
+            checked   = { this.state.themesFilter == 'RELATED' }
+            onChange  = { this.handleThemesFilterChange }
+          /> Related
+        </label>
+        &nbsp;
+        <label>
+          <input
+            type      = 'radio'
+            name      = 'themes-filter'
+            value     = 'UNRELATED'
+            checked   = { this.state.themesFilter == 'UNRELATED' }
+            onChange  = { this.handleThemesFilterChange }
+          /> Unrelated
+        </label>
+      </div>
     )
   }
 
   renderThemes() {
     return (
-      <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+      <ul style={{ listStyle: 'none', margin: '20px 0', padding: '0' }}>
         { this.props.viewer.themes.edges.map(this.renderTheme) }
       </ul>
     )
@@ -76,59 +74,87 @@ class ThemesExplorer extends React.Component {
   renderTheme = (themeEdge) => {
     let theme = themeEdge.node
     return (
-      <li key={ theme.id } style={{ margin: '0 0 1em' }}>
+      <li key={ theme.id } style={{ margin: '10px 0' }}>
         <a href={ theme.url }>
-          { theme.name }
+          { '#' + theme.name }
         </a>
-        { this.renderRejectThemeControl(theme) }
+        <div style={{ marginTop: 2, fontSize: '.75em' }}>
+          { this.renderThemeControls(themeEdge) }
+        </div>
       </li>
     )
   }
 
-  renderRejectThemeControl = (theme) => {
-    if (this.props.relay.variables.filter != 'RELATED') return
-    if (this.state.isInSync === theme.id) return
+  renderThemeControls(themeEdge) {
+    switch(this.state.themesFilter) {
+      case 'RELATED':
+        // Subscribe, Unsubscribe, Reject
+        return [
+          this.renderSubscribeControl(themeEdge),
+          this.renderUnsubscribeControl(themeEdge),
+          this.renderRejectControl(themeEdge),
+        ]
+      case 'UNRELATED':
+        // Subscribe, Follow
+        return [
+          this.renderSubscribeControl(themeEdge),
+          this.renderFollowControl(themeEdge)
+        ]
+    }
+  }
+
+  renderSubscribeControl(themeEdge) {
+    if (themeEdge.node.isSubscribed) return
     return (
-      <a href="#" onClick={ this._handleRejectThemeControlClick.bind(this, theme) } style={{ color: 'red', marginLeft: '1ex', whiteSpace: 'nowrap' }}>
-        Fuck it!
-      </a>
+      <a href="#" onClick={ this.handleThemeControlClick.bind(this, themeEdge, 'SUBSCRIBED') } key="subscribe" style={{ color: 'green' }}>Subscribe</a>
     )
   }
 
-  renderMoreThemesButton() {
-    if (this.state.isInSync) return
-    if (!this.props.viewer.themes.pageInfo.hasNextPage) return
-
+  renderFollowControl(themeEdge) {
+    if (themeEdge.node.isSubscribed) return
     return (
-      <button onClick={ this._handleMoreThemesButtonClick } style={{ margin: 0, padding: 10 }}>
-        Load more...
-      </button>
+      <a href="#" onClick={ this.handleThemeControlClick.bind(this, themeEdge, 'VISIBLE') } key="follow" style={{ marginLeft: '1ex' }}>Follow</a>
     )
   }
+
+  renderUnsubscribeControl(themeEdge) {
+    if (!themeEdge.node.isSubscribed) return
+    return (
+      <a href="#" onClick={ this.handleThemeControlClick.bind(this, themeEdge, 'VISIBLE') } key="unsubscribe" style={{ color: 'red' }}>Unsubscribe</a>
+    )
+  }
+
+  renderRejectControl(themeEdge) {
+    return (
+      <a href="#" onClick={ this.handleThemeControlClick.bind(this, themeEdge, 'REJECTED') } key="reject" style={{ color: 'red', marginLeft: '1ex' }}>Reject</a>
+    )
+  }
+
 }
 
 
-export default Relay.createContainer(ThemesExplorer, {
+export default Relay.createContainer(ThemesExplorerApp, {
 
   initialVariables: {
-    count:  InitialCount,
-    filter: InitialThemesFilter
+    count:    50,
+    filter:   'RELATED'
   },
 
   fragments: {
     viewer: () => Relay.QL`
       fragment on User {
-      __typename
-        themes: nthemes(first: $count, filter: $filter) {
-          pageInfo { hasNextPage }
+        themes(first: $count, filter: $filter) {
           edges {
             node {
               id
               name
               url
+              isSubscribed
+              ${UpdateUserThemeMutation.getFragment('userTheme')}
             }
           }
         }
+        ${UpdateUserThemeMutation.getFragment('user')}
       }
     `
   }

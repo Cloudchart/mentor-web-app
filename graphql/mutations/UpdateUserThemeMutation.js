@@ -1,51 +1,85 @@
 import {
   GraphQLID,
-  GraphQLString,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLEnumType
 } from 'graphql'
 
 import {
-  mutationWithClientMutationId,
-  cursorForObjectInConnection
+  fromGlobalId,
+  mutationWithClientMutationId
 } from 'graphql-relay'
 
-import NewThemeStorage from '../../storage/NewThemeStorage'
-import NewUserThemeStorage from '../../storage/NewUserThemeStorage'
+import {
+  UserStorage,
+  UserThemeStorage
+} from '../../storage'
+
+const MaxSubscribedThemesCount = 3
+
+
+export const GraphQLUserThemeStatusEnum = new GraphQLEnumType({
+  name: 'UserThemeStatusEnum',
+
+  values: {
+    AVAILABLE:  { value: 'available'  },
+    VISIBLE:    { value: 'visible'    },
+    REJECTED:   { value: 'rejected'   },
+    SUBSCRIBED: { value: 'subscribed' },
+  }
+})
+
 
 export default mutationWithClientMutationId({
 
-  name: 'UserThemeMutation',
+  name: 'UpdateUserTheme',
 
   inputFields: {
     id: {
       type: new GraphQLNonNull(GraphQLID)
     },
     status: {
-      type: new GraphQLNonNull(GraphQLString)
-    }
+      type: new GraphQLNonNull(GraphQLUserThemeStatusEnum)
+    },
+    userId: {
+      type: GraphQLID
+    },
   },
 
   outputFields: {
     userTheme: {
       type: new GraphQLNonNull(UserThemeType)
+    },
+    user: {
+      type: new GraphQLNonNull(UserType)
     }
   },
 
-  mutateAndGetPayload: async ({ id, status }, { rootValue: { viewer } }) => {
-    let theme     = await NewThemeStorage.load(id)
+  mutateAndGetPayload: async ({ id, userId, status }, { rootValue: { viewer } }) => {
+    id      = fromGlobalId(id).id
+    userId  = userId ? fromGlobalId(userId) : viewer.id
 
-    let userTheme = await NewUserThemeStorage
-      .loadOne('userAndTheme', { userID: viewer.id, themeID: theme.id })
-      .catch(error => null )
+    let userTheme = await UserThemeStorage.load(id)
 
-    userTheme = userTheme
-      ? await NewUserThemeStorage.update(userTheme.id, { status })
-      : await NewUserThemeStorage.create({ status, user_id: viewer.id, theme_id: theme.id })
+    if (userTheme.user_id !== userId)
+      return new Error('Not authorized')
 
-    return { userTheme }
+    let user = await UserStorage.load(userId)
+
+    // Check if can be subscribed
+    if (status === 'subscribed') {
+      let subscribedUserThemesCount = await UserThemeStorage.count('subscribed', { userID: user.id })
+      if (subscribedUserThemesCount >= MaxSubscribedThemesCount)
+        return new Error(`Maximum subscribed themes (${MaxSubscribedThemesCount}) count reached`)
+    }
+
+    userTheme = await UserThemeStorage.update(userTheme.id, { status: status })
+
+    return { userTheme, user }
   }
+
 
 })
 
+import UserType from '../types/UserType'
 import UserThemeType from '../types/UserThemeType'
-import UserThemesConnection from '../connections/user_themes_connection'
+import { userThemesConnection } from '../connections/UserThemesConnection'

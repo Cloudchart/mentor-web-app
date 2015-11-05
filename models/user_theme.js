@@ -10,7 +10,7 @@ export default (db, Sequelize) => {
       theme_id:         Sequelize.UUID,
       status: {
         type:           Sequelize.ENUM,
-        values:         ['visible', 'subscribed', 'rejected']
+        values:         ['available', 'visible', 'subscribed', 'rejected']
       }
     }, {
 
@@ -25,12 +25,8 @@ export default (db, Sequelize) => {
       }],
 
       classMethods: {
-
-        associate: (models) => {
-          UserTheme.belongsTo(models.Theme)
-          UserTheme.belongsTo(models.User)
+        associate: function (models) {
         }
-
       }
 
     }

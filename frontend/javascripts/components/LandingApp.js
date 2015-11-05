@@ -1,61 +1,67 @@
 import React from 'react'
 import Relay from 'react-relay'
-import Immutable from 'immutable'
 
 
 class LandingApp extends React.Component {
 
+  render() {
+    return (
+      <div>
+        <h2>Mentor</h2>
+        { this.renderFavorites() }
+        { this.renderTodayForYou() }
+        { this.renderExplore() }
+      </div>
+    )
+  }
 
-  render = () =>
-    <div>
-      <h2>Mentor</h2>
-      <ul>
-        <li>
-          { this.renderFavorites() }
-        </li>
-        <li>
-          { this.renderToday() }
-        </li>
-        <li>
-          { this.renderExplore() }
-        </li>
-        <li>
-          { this.renderHistory() }
-        </li>
-      </ul>
-    </div>
+  renderFavorites() {
+    return (
+      <div style={{ margin: 20 }}>
+        <h3 style={{ margin: 0 }}>
+          <a href="/favorites">
+            Favorites
+          </a>
+        </h3>
+      </div>
+    )
+  }
 
+  renderTodayForYou() {
+    return (
+      <div style={{ margin: 20 }}>
+        <h3 style={{ margin: 0, marginBottom: 5 }}>
+          Today for you
+        </h3>
+        <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
+          { this.props.viewer.themes.edges.map(this.renderTheme) }
+        </ul>
+      </div>
+    )
+  }
 
-  renderFavorites = () =>
-    <a href="/favorites">
-      Your favourites
-    </a>
+  renderTheme = (themeEdge) => {
+    let theme = themeEdge.node
+    return (
+      <li key={ theme.id } style={{ margin: '5px 0' }}>
+        <a href={ theme.url }>
+          #{ theme.name }
+        </a>
+      </li>
+    )
+  }
 
-  renderToday = () =>
-    <div>
-      <a href="/today">
-        Today for you:
-      </a>
-      <br />
-      { this.renderThemes(3) }
-    </div>
-
-  renderThemes = (count) =>
-    Immutable.Seq(this.props.viewer.themes.edges)
-      .sortBy(themeEdge => themeEdge.node.name)
-      .map(themeEdge => `#${themeEdge.node.name}`)
-      .join(' ')
-
-  renderExplore = () =>
-    <a href="/themes/explore">
-      Explore topics
-    </a>
-
-  renderHistory = () =>
-    <a href="/history">
-      History
-    </a>
-
+  renderExplore() {
+    return (
+      <div style={{ margin: 20 }}>
+        <h3 style={{ margin: 0 }}>
+          <a href="/themes/explore">
+            Explore
+          </a>
+        </h3>
+      </div>
+    )
+  }
 
 }
 
@@ -63,24 +69,19 @@ class LandingApp extends React.Component {
 export default Relay.createContainer(LandingApp, {
 
   fragments: {
-
     viewer: () => Relay.QL`
       fragment on User {
-      __typename
-        id
-        name
-        themes: subscribedThemes(first: 3) {
+        themes(first: 3, filter: SUBSCRIBED) {
           edges {
             node {
               id
-              status
               name
+              url
             }
           }
         }
       }
     `
-
   }
 
 })

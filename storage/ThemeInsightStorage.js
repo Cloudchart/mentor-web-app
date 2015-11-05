@@ -1,78 +1,63 @@
-import DataLoader from 'dataloader'
+import BaseStorage from './BaseStorage'
 import models from '../models'
-import { mapReduce } from './utils'
 
 
-let loaders = {}
-
-let idsFinder = (themeIDs) =>
-  models.ThemeInsight
-    .findAll({
-      attributes: ['theme_id', 'insight_id'],
-      where: { theme_id: { $in: themeIDs } }
-    })
-    .then(records => records.reduce((memo, record) => {
-      memo[record.theme_id] || (memo[record.theme_id] = [])
-      memo[record.theme_id].push(record.insight_id)
-      return memo
-    }, {}))
-    .then(records => themeIDs.map(themeID => records[themeID]))
+const TableName = models.ThemeInsight.tableName
+const UserThemeInsightTableName = models.UserThemeInsight.tableName
 
 
-let idsLoader = new DataLoader(idsFinder, { cache: false })
+const AllForThemeQuery = `
+  select
+    ti.id as id,
+    @row := @row + 1 as row
+  from
+    (select @row := 0) r,
+    ${TableName} ti
+  order by
+    ti.created_at
+`
+
+const NewForUserThemeQuery = `
+  select
+    ti.insight_id as id,
+    @row := @row + 1 as row
+  from
+    (select @row := 0) r,
+    ${TableName} ti
+  where
+    ti.insight_id not in (
+      select
+        insight_id
+      from
+        ${UserThemeInsightTableName}
+      where
+        user_id = :userID
+        and
+        theme_id = :themeID
+    )
+  order by
+    ti.created_at
+  limit :limit
+`
 
 
-let loader = (themeID) =>
-  loaders[themeID] || (loaders[themeID] = new DataLoader(finder.bind(this, themeID)))
+let storage = BaseStorage('ThemeInsight', {
+  idsQueries: {
+    'allForTheme':      AllForThemeQuery,
+    'newForUserTheme':  NewForUserThemeQuery
+  }
+})
 
 
-let finder  = (themeID, insightIDs) =>
-  models.ThemeInsight.findAll({
-    where: {
-      theme_id: themeID,
-      insight_id: { $in: insightIDs }
-    }
-  }).then(records => mapReduce(insightIDs, records, 'insight_id') )
+let destroyAllForTheme = (themeID) =>
+  models.sequelize
+    .query(`delete from ${TableName} where theme_id = :themeID`, { replacements: { themeID }})
+    .then(() => storage.clearAll())
+    .then(() => null)
 
 
-let load      = (themeID, insightID)  => loader(themeID).load(insightID)
-let loadMany  = (themeID, insightIDs) => loader(themeID).loadMany(insightIDs)
-let loadAll   = (themeID)             => idsLoader.load(themeID).then(insightIDs => loadMany(themeID, insightIDs))
+export default Object.assign(storage, {
 
-let clear = (themeID, insightID) => {
-  return loader(themeID).clear(insightID)
-}
+  destroyAllForTheme: destroyAllForTheme
 
-let clearAll  = (themeID) => {
-  idsLoader.clear(themeID)
-  return loader(themeID).clearAll()
-}
-
-
-export default {
-  load:       load,
-  loadMany:   loadMany,
-  loadAll:    loadAll,
-  clear:      clear,
-  clearAll:   clearAll,
-
-  idsForTheme: (themeID) => idsLoader.load(themeID)
-
-  ,
-
-  createMany: (themeID, insightIDs) =>
-    models.ThemeInsight
-      .bulkCreate(insightIDs.map(insightID => ({ theme_id: themeID, insight_id: insightID })))
-      .then(() => clearAll(themeID))
-      .then(() => loadAll(themeID))
-
-  ,
-
-  deleteAll: (themeID) =>
-    models.ThemeInsight
-      .destroy({
-        where: { theme_id: themeID }
-      })
-      .then(() => clearAll(themeID))
-      .then(() => [])
-}
+})

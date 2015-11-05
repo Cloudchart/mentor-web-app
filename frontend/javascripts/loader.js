@@ -4,6 +4,12 @@ import Relay from 'react-relay'
 
 let forEach = Array.prototype.forEach
 
+Relay.injectNetworkLayer(
+  new Relay.DefaultNetworkLayer('/graphql', {
+    credentials: 'same-origin',
+  })
+)
+
 forEach.call(document.querySelectorAll('[data-react-class]'), node => {
   let Component = require('./components/' + node.dataset.reactClass)
   ReactDOM.render(<Component />, node)
