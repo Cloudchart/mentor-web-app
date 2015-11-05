@@ -131,8 +131,9 @@ type UserThemeInsight implements Node {
 type UserThemeInsightsConnection {
   pageInfo: PageInfo!
   edges: [UserThemeInsightsEdge]
-  ratedCount: Int!
-  unratedCount: Int!
+  totalCount: Int
+  ratedCount: Int
+  unratedCount: Int
 }
 
 type UserThemeInsightsEdge {
