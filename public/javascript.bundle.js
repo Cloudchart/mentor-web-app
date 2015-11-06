@@ -42515,7 +42515,6 @@
 	          })]);
 	        })();
 	      },
-
 	      theme: function theme() {
 	        return (function () {
 	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;
@@ -42525,7 +42524,6 @@
 	          })]);
 	        })();
 	      },
-
 	      insight: function insight() {
 	        return (function () {
 	          var GraphQL = _reactRelay2['default'].QL.__GraphQL;

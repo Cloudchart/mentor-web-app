@@ -16,27 +16,16 @@ function rangeDeleteConfig(name, parentID) {
 export default class extends Relay.Mutation {
 
   static fragments = {
-    user: () => Relay.QL`
-      fragment on User { id }
-    `
-    ,
-    theme: () => Relay.QL`
-      fragment on UserTheme { id }
-    `
-    ,
-    insight: () => Relay.QL`
-      fragment on UserThemeInsight { id }
-    `
+    user:     () => Relay.QL`fragment on User { id }`,
+    theme:    () => Relay.QL`fragment on UserTheme { id }`,
+    insight:  () => Relay.QL`fragment on UserThemeInsight { id }`
   }
 
   getMutation = () => {
     switch(this.props.action) {
-      case 'like':
-        return Relay.QL`mutation { likeInsight }`
-      case 'dislike':
-        return Relay.QL`mutation { dislikeInsight }`
-      case 'reset':
-        return Relay.QL`mutation { resetInsight }`
+      case 'like':    return Relay.QL`mutation { likeInsight }`
+      case 'dislike': return Relay.QL`mutation { dislikeInsight }`
+      case 'reset':   return Relay.QL`mutation { resetInsight }`
     }
   }
 
@@ -45,8 +34,7 @@ export default class extends Relay.Mutation {
       case 'like':
         return Relay.QL`
           fragment on LikeInsightPayload {
-            insight
-            insightID
+            insight insightID
             theme { insights }
             user { insights }
           }
@@ -54,8 +42,7 @@ export default class extends Relay.Mutation {
       case 'dislike':
         return Relay.QL`
           fragment on DislikeInsightPayload {
-            insight
-            insightID
+            insight insightID
             theme { insights }
             user { insights }
           }
@@ -63,8 +50,7 @@ export default class extends Relay.Mutation {
       case 'reset':
         return Relay.QL`
           fragment on ResetInsightPayload {
-            insight
-            insightID
+            insight insightID
             theme { insights }
             user { insights }
           }
