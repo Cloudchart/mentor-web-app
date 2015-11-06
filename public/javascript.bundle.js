@@ -41563,6 +41563,19 @@
 
 	var MaxSubscriptionsCount = 3;
 
+	var backgroundColorStart = [137, 59, 43];
+	var backgroundColorShift = [0, -2, 3];
+
+	var backgroundColorPart = function backgroundColorPart(index) {
+	  return function (part, partIndex) {
+	    return part + backgroundColorShift[partIndex] * index + (partIndex == 0 ? '' : '%');
+	  };
+	};
+
+	var backgroundColor = function backgroundColor(index) {
+	  return 'hsl(' + backgroundColorStart.map(backgroundColorPart(index)) + ')';
+	};
+
 	var ChooserApp = (function (_React$Component) {
 	  _inherits(ChooserApp, _React$Component);
 
@@ -41574,7 +41587,7 @@
 	    _get(Object.getPrototypeOf(ChooserApp.prototype), 'constructor', this).apply(this, arguments);
 
 	    this.state = {
-	      subscriptionsCount: 0
+	      subscriptionsIndices: []
 	    };
 
 	    this.handleContinue = function (event) {
@@ -41588,38 +41601,66 @@
 	      });
 	    };
 
-	    this.renderTheme = function (themeEdge) {
+	    this._subscriptionIndexOf = function (id) {
+	      return _this.state.subscriptionsIndices.indexOf(id) + 1;
+	    };
+
+	    this._canSubscribe = function () {
+	      return _this.state.subscriptionsIndices.length < MaxSubscriptionsCount;
+	    };
+
+	    this._canContinue = function () {
+	      return _this.state.subscriptionsIndices.length >= MaxSubscriptionsCount;
+	    };
+
+	    this.renderTheme = function (themeEdge, themeIndex) {
 	      var theme = themeEdge.node;
 	      return _react2['default'].createElement(
 	        'li',
-	        { key: theme.id, style: { margin: '10px 0' } },
-	        '#',
+	        {
+	          key: theme.id,
+	          className: 'theme',
+	          style: { backgroundColor: backgroundColor(themeIndex) },
+	          onClick: theme.isSubscribed ? _this.handleUnsubscribe.bind(_this, theme) : _this.handleSubscribe.bind(_this, theme)
+	        },
 	        theme.name,
-	        _react2['default'].createElement(
-	          'div',
-	          null,
-	          _this.renderSubscribeOnThemeControl(theme),
-	          _this.renderUnsubscribeFromThemeControl(theme)
-	        )
+	        _this.renderThemeSubscriptionIndex(theme.id)
 	      );
+	    };
+
+	    this.renderThemeSubscriptionIndex = function (id) {
+	      var index = _this._subscriptionIndexOf(id);
+	      return index > 0 ? _react2['default'].createElement(
+	        'i',
+	        null,
+	        index
+	      ) : null;
+	    };
+
+	    this.renderContinueControl = function () {
+	      return _this._canContinue() ? _react2['default'].createElement(
+	        'button',
+	        { onClick: _this.handleContinue },
+	        'Continue'
+	      ) : null;
 	    };
 	  }
 
 	  _createClass(ChooserApp, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this._updateSubscriptionsCount(this.props);
+	      this._updateSubscriptionsIndices(this.props);
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      this._updateSubscriptionsCount(nextProps);
+	      this._updateSubscriptionsIndices(nextProps);
 	    }
 	  }, {
 	    key: 'handleSubscribe',
 	    value: function handleSubscribe(theme, event) {
 	      event.preventDefault();
-	      if (this.state.subscriptionsCount == 0) return alert('No more');
+	      if (!this._canSubscribe()) return;
 
 	      var mutation = new _mutationsUpdateUserThemeMutation2['default']({ theme: theme, user: this.props.viewer, action: 'subscribe' });
 	      _reactRelay2['default'].Store.update(mutation);
@@ -41633,60 +41674,40 @@
 	      _reactRelay2['default'].Store.update(mutation);
 	    }
 	  }, {
-	    key: '_updateSubscriptionsCount',
-	    value: function _updateSubscriptionsCount(props) {
+	    key: '_updateSubscriptionsIndices',
+	    value: function _updateSubscriptionsIndices(props) {
+	      var indices = props.viewer.themes.edges.filter(function (themeEdge) {
+	        return themeEdge.node.isSubscribed;
+	      }).map(function (themeEdge) {
+	        return themeEdge.node;
+	      }).sort(function (a, b) {
+	        return a.subscribedAt < b.subscribedAt ? -1 : a.subscribedAt > b.subscribedAt ? 1 : 0;
+	      }).map(function (node) {
+	        return node.id;
+	      });
+
 	      this.setState({
-	        subscriptionsCount: MaxSubscriptionsCount - props.viewer.themes.subscribedCount
+	        subscriptionsIndices: indices
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
-	        'div',
-	        null,
+	        'section',
+	        { id: 'chooser-app', className: 'app' },
 	        _react2['default'].createElement(
-	          'h2',
+	          'header',
 	          null,
-	          'Choose ',
-	          (0, _utils.pluralize)(this.state.subscriptionsCount, 'more topic', 'more topics'),
-	          ' to continue'
+	          'Select first three topics you\'re interested in'
 	        ),
 	        _react2['default'].createElement(
 	          'ul',
-	          { style: { listStyle: 'none', margin: '30px 0', padding: '0' } },
+	          { className: 'themes' },
 	          this.props.viewer.themes.edges.map(this.renderTheme)
 	        ),
 	        this.renderContinueControl()
 	      );
-	    }
-	  }, {
-	    key: 'renderSubscribeOnThemeControl',
-	    value: function renderSubscribeOnThemeControl(theme) {
-	      var color = this.state.subscriptionsCount == 0 ? 'grey' : 'blue';
-	      return theme.isSubscribed ? null : _react2['default'].createElement(
-	        'a',
-	        { href: '#', onClick: this.handleSubscribe.bind(this, theme), style: { color: color } },
-	        'Subscribe'
-	      );
-	    }
-	  }, {
-	    key: 'renderUnsubscribeFromThemeControl',
-	    value: function renderUnsubscribeFromThemeControl(theme) {
-	      return theme.isSubscribed ? _react2['default'].createElement(
-	        'a',
-	        { href: '#', onClick: this.handleUnsubscribe.bind(this, theme), style: { color: 'red' } },
-	        'Unsubscribe'
-	      ) : null;
-	    }
-	  }, {
-	    key: 'renderContinueControl',
-	    value: function renderContinueControl() {
-	      return this.state.subscriptionsCount == 0 ? _react2['default'].createElement(
-	        'button',
-	        { style: { margin: 0, padding: 10 }, onClick: this.handleContinue },
-	        'Continue'
-	      ) : null;
 	    }
 	  }]);
 
@@ -41712,6 +41733,8 @@
 	        }), new GraphQL.Field('name', null, null, null, null, null, {
 	          parentType: 'UserTheme'
 	        }), new GraphQL.Field('isSubscribed', null, null, null, null, null, {
+	          parentType: 'UserTheme'
+	        }), new GraphQL.Field('subscribedAt', null, null, null, null, null, {
 	          parentType: 'UserTheme'
 	        })], [_reactRelay2['default'].QL.__frag(sub_0)], null, null, null, {
 	          parentType: 'UserThemesEdge',

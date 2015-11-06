@@ -62,6 +62,7 @@
   },
   "devDependencies": {
     "chai": "^3.4.0",
-    "chai-as-promised": "^5.1.0"
+    "chai-as-promised": "^5.1.0",
+    "react-style": "^0.5.5"
   }
 }

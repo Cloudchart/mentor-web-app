@@ -1,0 +1,56 @@
+#chooser-app {
+
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+
+  ul.themes {
+    flex: 1;
+    list-style: none;
+    margin: 14px auto 0;
+    padding: 0;
+    width: 322px;
+
+    li.theme {
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 400;
+      height: 42px;
+      line-height: 42px;
+      margin: 0;
+      position: relative;
+      text-align: center;
+      text-transform: capitalize;
+
+      > i {
+        background-color: rgba(216, 216, 216, .35);
+        border-radius: 50%;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        height: 18px;
+        left: 12px;
+        line-height: 18px;
+        margin-top: -9px;
+        position: absolute;
+        top: 50%;
+        width: 18px;
+      }
+    }
+
+  }
+
+  button {
+    background-color: #1f9ce4;
+    border: none;
+    border-radius: 2.5px;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    height: 32px;
+    margin: 0 auto 24px;
+    width: 154.5px;
+  }
+
+}

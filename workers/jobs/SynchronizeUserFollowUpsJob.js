@@ -15,9 +15,6 @@ let perform = async ({ userID }, callback) => {
 
   if (unratedFollowUpsCount > 0) return callback()
 
-  // 2. Delete obsolete skipped follow ups
-  
-
   callback()
 }
 

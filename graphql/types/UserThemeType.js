@@ -42,6 +42,11 @@ export default new GraphQLObjectType({
       resolve: ({ status }) => status === 'subscribed'
     },
 
+    subscribedAt: {
+      type: GraphQLString,
+      resolve: ({ status, updated_at }) => status === 'subscribed' ? updated_at : null
+    },
+
     isRejected: {
       type: new GraphQLNonNull(GraphQLBoolean),
       resolve: ({ status }) => status === 'rejected'

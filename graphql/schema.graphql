@@ -130,6 +130,7 @@ type UserTheme implements Node {
   name: String!
   url: String!
   isSubscribed: Boolean!
+  subscribedAt: String
   isRejected: Boolean!
   insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
 }

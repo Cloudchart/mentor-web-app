@@ -1,8 +1,23 @@
+@import 'proxima';
+
+html,
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 14px proxima-nova;
+  margin: auto;
+  width: 512px;
 }
 
 a {
-  color: #00B7FF;
+  text-decoration: none;
 }
+
+@import 'components/app';
+@import 'components/chooser-app';
