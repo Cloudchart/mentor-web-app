@@ -6,6 +6,7 @@ import UserStorage from './UserStorage'
 import UserThemeStorage from './UserThemeStorage'
 import ThemeInsightStorage from './ThemeInsightStorage'
 import UserThemeInsightStorage from './UserThemeInsightStorage'
+import FollowUpStorage from './FollowUpStorage'
 
 export default {
   AuthTokenStorage,
@@ -16,4 +17,5 @@ export default {
   UserThemeStorage,
   ThemeInsightStorage,
   UserThemeInsightStorage,
+  FollowUpStorage,
 }
