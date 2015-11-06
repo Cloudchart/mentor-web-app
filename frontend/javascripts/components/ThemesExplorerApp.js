@@ -74,7 +74,7 @@ class ThemesExplorerApp extends React.Component {
   renderTheme = (themeEdge) => {
     let theme = themeEdge.node
     return (
-      <li key={ theme.id } style={{ margin: '10px 0' }}>
+      <li key={ theme.id } style={{ margin: 0, padding: 10 }}>
         <a href={ theme.url }>
           { '#' + theme.name }
         </a>

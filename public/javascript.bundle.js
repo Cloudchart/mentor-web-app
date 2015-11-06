@@ -43047,7 +43047,7 @@
 	      var theme = themeEdge.node;
 	      return _react2['default'].createElement(
 	        'li',
-	        { key: theme.id, style: { margin: '10px 0' } },
+	        { key: theme.id, style: { margin: 0, padding: 10 } },
 	        _react2['default'].createElement(
 	          'a',
 	          { href: theme.url },
