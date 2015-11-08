@@ -10,7 +10,8 @@ body {
 }
 
 body {
-  font: 14px proxima-nova;
+  font: 18px proxima-nova;
+  font-weight: 400;
   margin: auto;
   width: 512px;
 }
@@ -19,5 +20,6 @@ a {
   text-decoration: none;
 }
 
+@import 'gradient-list';
 @import 'components/app';
 @import 'components/chooser-app';

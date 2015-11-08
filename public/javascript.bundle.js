@@ -41619,8 +41619,7 @@
 	        'li',
 	        {
 	          key: theme.id,
-	          className: 'theme',
-	          style: { backgroundColor: backgroundColor(themeIndex) },
+	          className: 'theme gradient-item',
 	          onClick: theme.isSubscribed ? _this.handleUnsubscribe.bind(_this, theme) : _this.handleSubscribe.bind(_this, theme)
 	        },
 	        theme.name,
@@ -41703,7 +41702,7 @@
 	        ),
 	        _react2['default'].createElement(
 	          'ul',
-	          { className: 'themes' },
+	          { className: 'themes gradient-list' },
 	          this.props.viewer.themes.edges.map(this.renderTheme)
 	        ),
 	        this.renderContinueControl()

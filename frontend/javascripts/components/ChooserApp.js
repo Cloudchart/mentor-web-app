@@ -88,7 +88,7 @@ class ChooserApp extends React.Component {
         <header>
           Select first three topics you're interested in
         </header>
-        <ul className="themes">
+        <ul className="themes gradient-list">
           { this.props.viewer.themes.edges.map(this.renderTheme) }
         </ul>
         { this.renderContinueControl() }
@@ -101,8 +101,7 @@ class ChooserApp extends React.Component {
     return (
       <li
         key       = { theme.id }
-        className = "theme"
-        style     = {{ backgroundColor: backgroundColor(themeIndex) }}
+        className = "theme gradient-item"
         onClick   = { theme.isSubscribed ? this.handleUnsubscribe.bind(this, theme) : this.handleSubscribe.bind(this, theme) }
       >
         { theme.name }

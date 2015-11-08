@@ -1,0 +1,11 @@
+ul.gradient-list {
+  $initialChildColor: #2daf52;
+  $gradientCount: 10;
+
+  @for $i from 1 through $gradientCount {
+    li.gradient-item:nth-of-type(#{$gradientCount}n+#{$i}) {
+      background-color: lighten(desaturate($initialChildColor, ($i - 1) * 2), ($i - 1) * 3);
+    }
+  }
+
+}

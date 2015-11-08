@@ -19,12 +19,43 @@ body {
   padding: 0; }
 
 body {
-  font: 14px proxima-nova;
+  font: 18px proxima-nova;
+  font-weight: 400;
   margin: auto;
   width: 512px; }
 
 a {
   text-decoration: none; }
+
+ul.gradient-list li.gradient-item:nth-of-type(10n+1) {
+  background-color: #2daf52; }
+
+ul.gradient-list li.gradient-item:nth-of-type(10n+2) {
+  background-color: #32b959; }
+
+ul.gradient-list li.gradient-item:nth-of-type(10n+3) {
+  background-color: #38c260; }
+
+ul.gradient-list li.gradient-item:nth-of-type(10n+4) {
+  background-color: #44c669; }
+
+ul.gradient-list li.gradient-item:nth-of-type(10n+5) {
+  background-color: #52c773; }
+
+ul.gradient-list li.gradient-item:nth-of-type(10n+6) {
+  background-color: #60c97e; }
+
+ul.gradient-list li.gradient-item:nth-of-type(10n+7) {
+  background-color: #6dcb88; }
+
+ul.gradient-list li.gradient-item:nth-of-type(10n+8) {
+  background-color: #7acd92; }
+
+ul.gradient-list li.gradient-item:nth-of-type(10n+9) {
+  background-color: #87cf9c; }
+
+ul.gradient-list li.gradient-item:nth-of-type(10n+10) {
+  background-color: #94d2a5; }
 
 .app {
   height: 522.5px; }
