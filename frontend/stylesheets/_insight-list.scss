@@ -1,0 +1,41 @@
+ul.insight-list {
+  font-size: 12px;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: 322px;
+
+  > li {
+    margin-top: 25px;
+
+    > em {
+      display: block;
+      font-style: normal;
+      margin-bottom: 12px;
+    }
+
+    > p {
+      background-color: white;
+      border-radius: 5px;
+      color: black;
+      margin: 0;
+      padding: 10px;
+    }
+
+    > .controls {
+      display: flex;
+      font-size: 22px;
+      justify-content: center;
+      margin-top: 12px;
+
+      i {
+        color: #f8bc1c;
+        cursor: pointer;
+      }
+
+      i ~ i {
+        margin-left: 12px;
+      }
+    }
+  }
+}

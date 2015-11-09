@@ -13,7 +13,9 @@ module.exports = {
     path: path.resolve(__dirname, './public')
   },
   module: {
-    resolve: ['', '.js'],
+    resolve: {
+      extensions: ['', '.js', '.scss'],
+    },
     loaders: [
       {
         test: /\.js$/,
@@ -29,6 +31,10 @@ module.exports = {
         test: /\.scss$/,
         include: /frontend/,
         loader: ExtractTextWebpackPlugin.extract('style', 'css!postcss!sass')
+      }, {
+        test: /\.(eot|woff|woff2|ttf|svg)(\?.*)?$/,
+        include: /frontend/,
+        loader: 'url'
       }
     ]
   },

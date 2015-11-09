@@ -17,8 +17,8 @@ export default class extends Relay.Mutation {
 
   static fragments = {
     user:     () => Relay.QL`fragment on User { id }`,
+    insight:  () => Relay.QL`fragment on UserThemeInsight { id }`,
     theme:    () => Relay.QL`fragment on UserTheme { id }`,
-    insight:  () => Relay.QL`fragment on UserThemeInsight { id }`
   }
 
   getMutation = () => {

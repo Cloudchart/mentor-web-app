@@ -6,60 +6,42 @@ class LandingApp extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>Mentor</h2>
-        { this.renderFavorites() }
-        { this.renderTodayForYou() }
-        { this.renderExplore() }
-      </div>
-    )
-  }
-
-  renderFavorites() {
-    return (
-      <div style={{ margin: 20 }}>
-        <h3 style={{ margin: 0 }}>
-          <a href="/favorites">
-            Favorites
-          </a>
-        </h3>
-      </div>
-    )
-  }
-
-  renderTodayForYou() {
-    return (
-      <div style={{ margin: 20 }}>
-        <h3 style={{ margin: 0, marginBottom: 5 }}>
-          Today for you
-        </h3>
-        <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
-          { this.props.viewer.themes.edges.map(this.renderTheme) }
+      <section id="landing-app" className="app">
+        <header>
+          Mentor
+        </header>
+        <ul className="gradient-list">
+          <li className="gradient-item">
+            <a href="/favorites">Favorites</a>
+          </li>
+          <li className="gradient-item today">
+            <a href="/themes/today">
+              Today for you
+              { this.renderThemes() }
+            </a>
+          </li>
+          <li className="gradient-item">
+            <a href="/themes/explore">Explore</a>
+          </li>
         </ul>
-      </div>
+      </section>
+    )
+  }
+
+  renderThemes() {
+    return (
+      <ul>
+        { this.props.viewer.themes.edges.map(this.renderTheme) }
+      </ul>
     )
   }
 
   renderTheme = (themeEdge) => {
     let theme = themeEdge.node
     return (
-      <li key={ theme.id } style={{ margin: '5px 0' }}>
-        <a href={ theme.url }>
-          #{ theme.name }
-        </a>
+      <li key={ theme.id }>
+        #{ theme.name.toLowerCase() }
       </li>
-    )
-  }
-
-  renderExplore() {
-    return (
-      <div style={{ margin: 20 }}>
-        <h3 style={{ margin: 0 }}>
-          <a href="/themes/explore">
-            Explore
-          </a>
-        </h3>
-      </div>
     )
   }
 

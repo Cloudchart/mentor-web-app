@@ -1,0 +1,26 @@
+#landing-app {
+
+  ul.gradient-list {
+    margin-top: 14px;
+  }
+
+  li.today {
+
+    ul {
+      font-size: 12px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline;
+      }
+
+      li ~ li {
+        margin-left: 1ex;
+      }
+    }
+
+  }
+
+}

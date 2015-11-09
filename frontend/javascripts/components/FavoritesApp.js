@@ -1,5 +1,6 @@
 import React from 'react'
 import Relay from 'react-relay'
+import moment from 'moment'
 
 import UpdateUserThemeInsightMutation from '../mutations/UpdateUserThemeInsightMutation'
 
@@ -7,20 +8,28 @@ import UpdateUserThemeInsightMutation from '../mutations/UpdateUserThemeInsightM
 const Increment = 10
 
 
+let dislikeInsight = (insight, options) => {
+  let mutation = new UpdateUserThemeInsightMutation({
+    action:   'dislike',
+    user:     options.user  || null,
+    theme:    options.theme || null,
+    insight:  insight
+  })
+
+  Relay.Store.update(mutation, {
+    onSuccess: options.onSuccess,
+    onFailure: options.onFailure
+  })
+}
+
+
 class FavoritesApp extends React.Component {
 
-  handleDislike = (insight, event) => {
-    event.preventDefault()
-
-    let mutation = new UpdateUserThemeInsightMutation({
-      action:   'dislike',
-      user:     this.props.viewer,
-      theme:    null,
-      insight:  insight
-    })
-
-    Relay.Store.update(mutation)
-  }
+  handleDislike = (insight) =>
+    (event) => {
+      event.preventDefault()
+      dislikeInsight(insight, { user: this.props.viewer })
+    }
 
   handleLoadMore = () => {
     this.props.relay.setVariables({
@@ -30,28 +39,28 @@ class FavoritesApp extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>Favorites</h2>
-        { this.renderInsights() }
-        { this.renderLoadMoreControl() }
-      </div>
-    )
-  }
-
-  renderInsights() {
-    return (
-      <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-        { this.props.viewer.insights.edges.map(this.renderInsight) }
-      </ul>
+      <article className="app">
+        <header>
+          Rate starred advice
+        </header>
+        <ul className="insight-list">
+          {
+            this.props.viewer.insights.edges
+              .map(this.renderInsight)
+          }
+        </ul>
+      </article>
     )
   }
 
   renderInsight = (insightEdge) => {
     let insight = insightEdge.node
     return (
-      <li key={ insight.id } style={{ width: 400, margin: '20px 0' }}>
-        { insight.content }
-        <span style={{ color: 'grey', marginLeft: '1ex' }}>#{insight.theme.name}</span>
+      <li key={ insight.id } className="insight-item">
+        <em>{ moment(new Date(insight.ratedAt)).format('ddd MMM D') }, { insight.theme.name }</em>
+        <p>
+          { insight.content }
+        </p>
         { this.renderInsightControls(insight) }
       </li>
     )
@@ -59,20 +68,9 @@ class FavoritesApp extends React.Component {
 
   renderInsightControls(insight) {
     return (
-      <div style={{ margin: 0, marginTop: 5 }}>
-        <a href="#" onClick={ this.handleDislike.bind(this, insight) } style={{ color: 'red' }}>
-          Dislike
-        </a>
+      <div className="controls">
+        <i className="fa fa-thumbs-o-down" onClick={ this.handleDislike(insight) } />
       </div>
-    )
-  }
-
-  renderLoadMoreControl() {
-    if (!this.props.viewer.insights.pageInfo.hasNextPage) return
-    return (
-      <p>
-        <button onClick={ this.handleLoadMore }>Load more...</button>
-      </p>
     )
   }
 
@@ -101,6 +99,7 @@ export default Relay.createContainer(FavoritesApp, {
               ${UpdateUserThemeInsightMutation.getFragment('insight')}
               id
               content
+              ratedAt
               theme {
                 name
               }
