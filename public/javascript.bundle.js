@@ -42105,7 +42105,7 @@
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -42131,7 +42131,15 @@
 
 	var Increment = 10;
 
-	var dislikeInsight = function dislikeInsight(insight, options) {
+	var isElementInViewport = function isElementInViewport(element) {
+	  var rect = element.getBoundingClientRect();
+
+	  return rect.top >= 0 && rect.right <= window.innerWidth && rect.bottom <= window.innerHeight && rect.left >= 0;
+	};
+
+	var dislikeInsight = function dislikeInsight(insight) {
+	  var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
 	  var mutation = new _mutationsUpdateUserThemeInsightMutation2['default']({
 	    action: 'dislike',
 	    user: options.user || null,
@@ -42155,17 +42163,37 @@
 
 	    _get(Object.getPrototypeOf(FavoritesApp.prototype), 'constructor', this).apply(this, arguments);
 
+	    this.state = {
+	      isLoadingMore: false
+	    };
+
+	    this._loadMore = function () {
+	      if (_this.state.isLoadingMore) return;
+
+	      _this.setState({ isLoadingMore: true });
+
+	      _this.props.relay.setVariables({
+	        count: _this.props.relay.variables.count + Increment
+	      }, function (state) {
+	        return state.done ? _this.setState({ isLoadingMore: false }) : null;
+	      });
+	    };
+
 	    this.handleDislike = function (insight) {
 	      return function (event) {
 	        event.preventDefault();
-	        dislikeInsight(insight, { user: _this.props.viewer });
+	        if (_this.state.isInSync) return;
+	        _this.setState({ isInSync: insight.id });
+	        dislikeInsight(insight, { onSuccess: function onSuccess() {
+	            return _this.setState({ isInSync: false });
+	          } });
 	      };
 	    };
 
-	    this.handleLoadMore = function () {
-	      _this.props.relay.setVariables({
-	        count: _this.props.relay.variables.count + Increment
-	      });
+	    this.handleScroll = function () {
+	      if (!_this.refs.loader) return;
+	      if (!isElementInViewport(_this.refs.loader)) return;
+	      _this._loadMore();
 	    };
 
 	    this.renderInsight = function (insightEdge) {
@@ -42191,6 +42219,26 @@
 	  }
 
 	  _createClass(FavoritesApp, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this._addScrollListener();
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      this._removeScrollListener();
+	    }
+	  }, {
+	    key: '_addScrollListener',
+	    value: function _addScrollListener() {
+	      window.addEventListener('scroll', this.handleScroll);
+	    }
+	  }, {
+	    key: '_removeScrollListener',
+	    value: function _removeScrollListener() {
+	      window.removeEventListener('scroll', this.handleScroll);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
@@ -42199,23 +42247,34 @@
 	        _react2['default'].createElement(
 	          'header',
 	          null,
-	          'Rate starred advice'
+	          'Favorites'
 	        ),
 	        _react2['default'].createElement(
 	          'ul',
 	          { className: 'insight-list' },
-	          this.props.viewer.insights.edges.map(this.renderInsight)
-	        )
+	          this.props.viewer.insights.edges.filter(function (insightEdge) {
+	            return insightEdge.node.rate > 0;
+	          }).map(this.renderInsight)
+	        ),
+	        this.renderLoader()
 	      );
 	    }
 	  }, {
 	    key: 'renderInsightControls',
 	    value: function renderInsightControls(insight) {
+	      var isInSync = this.state.isInSync === insight.id;
+	      var className = isInSync ? 'fa fa-spin fa-spinner' : 'fa fa-thumbs-o-down';
 	      return _react2['default'].createElement(
 	        'div',
 	        { className: 'controls' },
-	        _react2['default'].createElement('i', { className: 'fa fa-thumbs-o-down', onClick: this.handleDislike(insight) })
+	        _react2['default'].createElement('i', { className: className, onClick: isInSync ? false : this.handleDislike(insight) })
 	      );
+	    }
+	  }, {
+	    key: 'renderLoader',
+	    value: function renderLoader() {
+	      if (!this.props.viewer.insights.pageInfo.hasNextPage) return;
+	      return _react2['default'].createElement('div', { ref: 'loader' });
 	    }
 	  }]);
 
@@ -42247,6 +42306,8 @@
 	          parentType: 'UserThemeInsight',
 	          requisite: true
 	        }), new GraphQL.Field('content', null, null, null, null, null, {
+	          parentType: 'UserThemeInsight'
+	        }), new GraphQL.Field('rate', null, null, null, null, null, {
 	          parentType: 'UserThemeInsight'
 	        }), new GraphQL.Field('ratedAt', null, null, null, null, null, {
 	          parentType: 'UserThemeInsight'

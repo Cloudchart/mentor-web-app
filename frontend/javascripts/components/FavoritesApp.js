@@ -8,7 +8,19 @@ import UpdateUserThemeInsightMutation from '../mutations/UpdateUserThemeInsightM
 const Increment = 10
 
 
-let dislikeInsight = (insight, options) => {
+let isElementInViewport = (element) => {
+  let rect = element.getBoundingClientRect()
+
+  return (
+    rect.top      >= 0 &&
+    rect.right    <= window.innerWidth &&
+    rect.bottom   <= window.innerHeight &&
+    rect.left     >= 0
+  )
+}
+
+
+let dislikeInsight = (insight, options = {}) => {
   let mutation = new UpdateUserThemeInsightMutation({
     action:   'dislike',
     user:     options.user  || null,
@@ -25,30 +37,71 @@ let dislikeInsight = (insight, options) => {
 
 class FavoritesApp extends React.Component {
 
+
+  state = {
+    isLoadingMore: false
+  }
+
+
+  componentDidMount() {
+    this._addScrollListener()
+  }
+
+
+  componentWillUnmount() {
+    this._removeScrollListener()
+  }
+
+
+  _addScrollListener() {
+    window.addEventListener('scroll', this.handleScroll)
+  }
+
+  _removeScrollListener() {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  _loadMore = () => {
+    if (this.state.isLoadingMore) return
+
+    this.setState({ isLoadingMore: true })
+
+    this.props.relay.setVariables({
+      count: this.props.relay.variables.count + Increment
+    }, (state) => state.done ? this.setState({ isLoadingMore: false }) : null)
+  }
+
+
   handleDislike = (insight) =>
     (event) => {
       event.preventDefault()
-      dislikeInsight(insight, { user: this.props.viewer })
+      if (this.state.isInSync) return
+      this.setState({ isInSync: insight.id })
+      dislikeInsight(insight, { onSuccess: () => this.setState({ isInSync: false }) })
     }
 
-  handleLoadMore = () => {
-    this.props.relay.setVariables({
-      count: this.props.relay.variables.count + Increment
-    })
+
+  handleScroll = () => {
+    if (!this.refs.loader) return
+    if (!isElementInViewport(this.refs.loader)) return
+    this._loadMore()
   }
+
 
   render() {
     return (
       <article className="app">
         <header>
-          Rate starred advice
+          Favorites
         </header>
         <ul className="insight-list">
           {
             this.props.viewer.insights.edges
+              .filter(insightEdge => insightEdge.node.rate > 0)
               .map(this.renderInsight)
           }
         </ul>
+        { this.renderLoader() }
       </article>
     )
   }
@@ -67,11 +120,18 @@ class FavoritesApp extends React.Component {
   }
 
   renderInsightControls(insight) {
+    let isInSync  = this.state.isInSync === insight.id
+    let className = isInSync ? 'fa fa-spin fa-spinner' : 'fa fa-thumbs-o-down'
     return (
       <div className="controls">
-        <i className="fa fa-thumbs-o-down" onClick={ this.handleDislike(insight) } />
+        <i className={ className } onClick={ isInSync ? false : this.handleDislike(insight) } />
       </div>
     )
+  }
+
+  renderLoader() {
+    if (!this.props.viewer.insights.pageInfo.hasNextPage) return
+    return <div ref="loader" />
   }
 
 }
@@ -99,6 +159,7 @@ export default Relay.createContainer(FavoritesApp, {
               ${UpdateUserThemeInsightMutation.getFragment('insight')}
               id
               content
+              rate
               ratedAt
               theme {
                 name
