@@ -67,12 +67,20 @@ ul.gradient-list li.gradient-item:nth-of-type(10n+10) {
     text-align: center; }
 
 #chooser-app {
-  align-items: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   min-height: 100%; }
   #chooser-app ul.themes {
-    flex: 1;
+    -webkit-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
     list-style: none;
     margin: 14px auto 0;
     padding: 0;

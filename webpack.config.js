@@ -1,4 +1,5 @@
 var path = require('path')
+var autoprefixer = require('autoprefixer')
 var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
@@ -27,7 +28,7 @@ module.exports = {
       }, {
         test: /\.scss$/,
         include: /frontend/,
-        loader: ExtractTextWebpackPlugin.extract('style', 'css!sass')
+        loader: ExtractTextWebpackPlugin.extract('style', 'css!postcss!sass')
       }
     ]
   },
@@ -37,5 +38,8 @@ module.exports = {
       extract:    true,
       remove:     true
     })
-  ]
+  ],
+  postcss: () => {
+    return [autoprefixer({ browsers: ['last 2 versions'] })]
+  }
 }
