@@ -54356,23 +54356,21 @@
 
 	    _get(Object.getPrototypeOf(ThemeApp.prototype), 'constructor', this).apply(this, arguments);
 
-	    this.state = {
-	      lastUpdatedInsight: null
-	    };
+	    this.state = {};
 
-	    this.handleInsightAction = function (insight, action, event) {
-	      event.preventDefault();
+	    this.handleInsightAction = function (insight, action) {
+	      return function (event) {
+	        event.preventDefault();
 
-	      var mutation = new _mutationsUpdateUserThemeInsightMutation2['default']({
-	        action: action,
-	        user: null,
-	        theme: _this.props.viewer.theme,
-	        insight: insight
-	      });
+	        var mutation = new _mutationsUpdateUserThemeInsightMutation2['default']({
+	          action: action,
+	          user: null,
+	          theme: _this.props.viewer.theme,
+	          insight: insight
+	        });
 
-	      _reactRelay2['default'].Store.update(mutation);
-
-	      _this.setState({ lastUpdatedInsight: action === 'reset' ? null : insight });
+	        _reactRelay2['default'].Store.update(mutation);
+	      };
 	    };
 	  }
 
@@ -54380,15 +54378,15 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
-	        'div',
-	        null,
+	        'section',
+	        { id: 'theme-app', className: 'app' },
 	        _react2['default'].createElement(
-	          'h2',
+	          'header',
 	          null,
-	          '#' + this.props.viewer.theme.name
+	          this.props.viewer.theme.name
 	        ),
-	        this.renderUndoControl(),
-	        this.renderInsight()
+	        this.renderInsight(),
+	        this.renderInsightControls()
 	      );
 	    }
 	  }, {
@@ -54397,41 +54395,28 @@
 	      var insightEdge = this.props.viewer.theme.insights.edges[0];
 	      if (!insightEdge) return;
 	      return _react2['default'].createElement(
-	        'div',
-	        { style: { width: 400 } },
-	        insightEdge.node.content,
-	        this.renderInsightControls(insightEdge.node)
+	        'p',
+	        { className: 'insight' },
+	        insightEdge.node.content
 	      );
 	    }
 	  }, {
 	    key: 'renderInsightControls',
-	    value: function renderInsightControls(insight) {
+	    value: function renderInsightControls() {
+	      var insightEdge = this.props.viewer.theme.insights.edges[0];
+	      if (!insightEdge) return;
 	      return _react2['default'].createElement(
-	        'p',
-	        null,
+	        'div',
+	        { className: 'controls' },
 	        _react2['default'].createElement(
-	          'a',
-	          { href: '#', onClick: this.handleInsightAction.bind(this, insight, 'like'), style: { color: 'green' } },
-	          'Like'
+	          'span',
+	          { className: 'dislike', onClick: this.handleInsightAction(insightEdge.node, 'dislike') },
+	          _react2['default'].createElement('i', { className: 'fa fa-times-circle' })
 	        ),
 	        _react2['default'].createElement(
-	          'a',
-	          { href: '#', onClick: this.handleInsightAction.bind(this, insight, 'dislike'), style: { color: 'red', marginLeft: '1ex' } },
-	          'Dislike'
-	        )
-	      );
-	    }
-	  }, {
-	    key: 'renderUndoControl',
-	    value: function renderUndoControl() {
-	      if (!this.state.lastUpdatedInsight) return;
-	      return _react2['default'].createElement(
-	        'p',
-	        null,
-	        _react2['default'].createElement(
-	          'a',
-	          { href: '#', onClick: this.handleInsightAction.bind(this, this.state.lastUpdatedInsight, 'reset') },
-	          'Undo'
+	          'span',
+	          { className: 'like', onClick: this.handleInsightAction(insightEdge.node, 'like') },
+	          _react2['default'].createElement('i', { className: 'fa fa-plus-circle' })
 	        )
 	      );
 	    }

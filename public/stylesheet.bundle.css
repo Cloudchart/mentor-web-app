@@ -2031,10 +2031,16 @@
 html,
 body {
   background-color: #000;
+  box-sizing: border-box;
   color: #fff;
   height: 100%;
   margin: 0;
   padding: 0; }
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit; }
 
 body {
   font: 18px proxima-nova;
@@ -2219,3 +2225,71 @@ ul.insight-list {
 
 #favorites-app {
   padding-bottom: 12px; }
+
+#theme-app {
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+  #theme-app > header {
+    margin-bottom: 178.5px; }
+  #theme-app > .insight {
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    font-size: 16px;
+    margin: 0;
+    padding: 16px;
+    width: 322px; }
+  #theme-app > .controls {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    margin-top: 70.5px;
+    width: 322px; }
+    #theme-app > .controls > span {
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      border-radius: 50%;
+      cursor: pointer;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      height: 75px;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      position: relative;
+      width: 75px; }
+      #theme-app > .controls > span::before {
+        background-color: white;
+        border-radius: 50%;
+        bottom: 10px;
+        content: '';
+        left: 10px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 0; }
+      #theme-app > .controls > span > i {
+        color: white;
+        font-size: 75px;
+        line-height: 75px;
+        position: relative; }
+      #theme-app > .controls > span.dislike {
+        background-color: #e0383c; }
+        #theme-app > .controls > span.dislike > i {
+          color: #e0383c; }
+      #theme-app > .controls > span.like {
+        background-color: #3bc462; }
+        #theme-app > .controls > span.like > i {
+          color: #3bc462; }
