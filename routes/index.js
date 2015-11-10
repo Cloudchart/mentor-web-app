@@ -7,13 +7,6 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get('/today', function(req, res, next) {
-  if (!req.user) return res.redirect('/login')
-  if (!req.user.is_active) return res.redirect('/')
-  res.render('today', { title: 'Today for you', user: req.user })
-})
-
-
 router.get('/favorites', function(req, res, next) {
   if (!req.user) return res.redirect('/login')
   if (!req.user.is_active) return res.redirect('/')

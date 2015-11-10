@@ -2081,6 +2081,15 @@ ul.gradient-list {
         -ms-flex-pack: center;
             justify-content: center;
     position: relative; }
+    ul.gradient-list > li.gradient-item > .progress {
+      background-color: black;
+      bottom: 0;
+      left: 25%;
+      opacity: .25;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 0; }
     ul.gradient-list > li.gradient-item > a {
       -webkit-align-items: center;
           -ms-flex-align: center;
@@ -2096,7 +2105,8 @@ ul.gradient-list {
       -webkit-justify-content: center;
           -ms-flex-pack: center;
               justify-content: center;
-      width: 100%; }
+      width: 100%;
+      z-index: 1; }
 
 ul.insight-list {
   font-size: 12px;
@@ -2138,6 +2148,7 @@ ul.insight-list {
     font-weight: 400;
     height: 37.5px;
     line-height: 37.5px;
+    margin-bottom: 12px;
     text-align: center; }
 
 #chooser-app {

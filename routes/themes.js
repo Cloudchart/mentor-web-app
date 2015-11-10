@@ -27,6 +27,13 @@ router.get('/explore', authenticationCheck, activityCheck, (req, res, next) => {
 })
 
 
+router.get('/today', function(req, res, next) {
+  if (!req.user) return res.redirect('/login')
+  if (!req.user.is_active) return res.redirect('/')
+  res.render('themes/today', { title: 'Today for you' })
+})
+
+
 router.get('/:id', authenticationCheck, activityCheck, async (req, res, next) => {
   try {
     // Load Theme
