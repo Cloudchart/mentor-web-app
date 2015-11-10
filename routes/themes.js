@@ -47,6 +47,7 @@ router.get('/:id', authenticationCheck, activityCheck, async (req, res, next) =>
   } catch(e) {
     // Return Not Found Error
     res.status(404)
+    next()
   }
 })
 
