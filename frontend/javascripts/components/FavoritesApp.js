@@ -90,7 +90,7 @@ class FavoritesApp extends React.Component {
 
   render() {
     return (
-      <article className="app">
+      <article id="favorites-app" className="app">
         <header>
           Favorites
         </header>

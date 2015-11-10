@@ -49,11 +49,14 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID)
         }
       },
-      resolve: async (user, { id }) => {
+      resolve: async (user, { id }, { rootValue: { viewer } }) => {
         id = fromGlobalId(id).id
 
-        let theme = await ThemeStorage.load(id)
-        let userTheme = await UserThemeStorage.loadOne('unique', { userID: user.id, themeID: theme.id })
+        let userTheme = await UserThemeStorage.load(id)
+
+        // Check if theme belongs to user
+        if (userTheme.user_id !== viewer.id)
+          return new Error('Not authorized')
 
         // Set theme visibility status
         if (userTheme.status === 'available' || userTheme.status === 'rejected')

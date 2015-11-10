@@ -2132,7 +2132,7 @@ ul.insight-list {
         margin-left: 12px; }
 
 .app {
-  height: 522.5px; }
+  min-height: 522.5px; }
   .app > header {
     font-size: 18px;
     font-weight: 400;
@@ -2205,3 +2205,6 @@ ul.insight-list {
     display: inline; }
   #landing-app li.today ul li ~ li {
     margin-left: 1ex; }
+
+#favorites-app {
+  padding-bottom: 12px; }

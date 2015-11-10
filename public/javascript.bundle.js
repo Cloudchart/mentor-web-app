@@ -42243,7 +42243,7 @@
 	    value: function render() {
 	      return _react2['default'].createElement(
 	        'article',
-	        { className: 'app' },
+	        { id: 'favorites-app', className: 'app' },
 	        _react2['default'].createElement(
 	          'header',
 	          null,

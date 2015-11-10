@@ -36,7 +36,7 @@ router.get('/:id', authenticationCheck, activityCheck, async (req, res, next) =>
     let userTheme = await UserThemeStorage.loadOne('unique', { themeID: theme.id, userID: req.user.id })
 
     // Render Page
-    res.render('themes/show', { title: `#${theme.name}`, themeID: toGlobalId('Theme', theme.id) })
+    res.render('themes/show', { title: `#${theme.name}`, themeID: toGlobalId('UserTheme', userTheme.id) })
   } catch(e) {
     // Return Not Found Error
     res.status(404)
