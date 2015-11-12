@@ -1,8 +1,13 @@
 import React from 'react'
 import Relay from 'react-relay'
+import { requestSafariPush } from '../notifications/safari_push'
 
 
 class LandingApp extends React.Component {
+
+  componentDidMount() {
+    requestSafariPush()
+  }
 
   render() {
     return (
