@@ -36,6 +36,7 @@ type LikeInsightPayload {
 
 type Mutation {
   activateUser(input: ActivateUserInput!): ActivateUserPayload
+  setUserPushToken(input: SetUserPushTokenInput!): SetUserPushTokenPayload
   subscribeOnTheme(input: SubscribeOnThemeInput!): SubscribeOnThemePayload
   unsubscribeFromTheme(input: UnsubscribeFromThemeInput!): UnsubscribeFromThemePayload
   rejectTheme(input: RejectThemeInput!): RejectThemePayload
@@ -85,6 +86,17 @@ type ResetInsightPayload {
   clientMutationId: String!
 }
 
+input SetUserPushTokenInput {
+  token: String!
+  userId: ID
+  clientMutationId: String!
+}
+
+type SetUserPushTokenPayload {
+  user: User!
+  clientMutationId: String!
+}
+
 input SubscribeOnThemeInput {
   id: ID!
   clientMutationId: String!
@@ -120,6 +132,7 @@ type User implements Node {
   id: ID!
   name: String
   isActive: Boolean
+  pushToken: String
   themes(after: String, first: Int, before: String, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection
   theme(id: ID!): UserTheme!
   insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection

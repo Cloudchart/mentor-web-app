@@ -13,7 +13,8 @@ import {
 
 import {
   ThemeStorage,
-  UserThemeStorage
+  UserThemeStorage,
+  DeviceStorage,
 } from '../../storage'
 
 import { nodeInterface } from './Node'
@@ -38,6 +39,12 @@ export default new GraphQLObjectType({
     isActive: {
       type:     GraphQLBoolean,
       resolve:  user => user.is_active
+    },
+
+    pushToken: {
+      type: GraphQLString,
+      resolve: (user) =>
+        DeviceStorage.loadOne('user', { userID: user.id }).then(({ push_token }) => push_token).catch(e => null)
     },
 
     themes: UserThemesConnectionField,

@@ -7,7 +7,8 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey:     true
     },
 
-    user_id:          DataTypes.UUID
+    user_id:          DataTypes.UUID,
+    push_token:       DataTypes.STRING,
 
   }, {
 

@@ -22,6 +22,8 @@ let queryType = new GraphQLObjectType({
 
 import ActivateUserMutation from './mutations/ActivateUserMutation'
 
+import SetUserPushTokenMutation from './mutations/SetUserPushTokenMutation'
+
 import {
   SubscribeOnThemeMutation,
   UnsubscribeFromThemeMutation,
@@ -41,6 +43,7 @@ let mutationType = new GraphQLObjectType({
 
   fields: {
     activateUser:         ActivateUserMutation,
+    setUserPushToken:     SetUserPushTokenMutation,
     subscribeOnTheme:     SubscribeOnThemeMutation,
     unsubscribeFromTheme: UnsubscribeFromThemeMutation,
     rejectTheme:          RejectThemeMutation,
