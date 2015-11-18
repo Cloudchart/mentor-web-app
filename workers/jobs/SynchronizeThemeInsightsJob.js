@@ -14,11 +14,7 @@ const FetchDelay = 24 * 60 * 60 * 1000
 
 let filterHits = (query) =>
   (hits) =>
-    hits.filter(
-      hit =>
-        hit.pinboard && hit.pinboard.tags && hit.pinboard.tags.map(tag => tag.toLowerCase()).indexOf(query) >= 0 ||
-        hit.children.find((child) => child.pinboard && child.pinboard.tags && child.pinboard.tags.map(tag => tag.toLowerCase()).indexOf(query) >= 0)
-    )
+    hits.filter(hit => hit.pinboard_tags && hit.pinboard_tags.indexOf(query) >= 0)
 
 
 let perform = async ({ themeID }, callback) => {
