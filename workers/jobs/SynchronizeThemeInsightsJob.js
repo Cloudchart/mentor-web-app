@@ -12,6 +12,15 @@ import {
 const FetchDelay = 24 * 60 * 60 * 1000
 
 
+let filterHits = (query) =>
+  (hits) =>
+    hits.filter(
+      hit =>
+        hit.pinboard && hit.pinboard.tags && hit.pinboard.tags.map(tag => tag.toLowerCase()).indexOf(query) >= 0 ||
+        hit.children.find((child) => child.pinboard && child.pinboard.tags && child.pinboard.tags.map(tag => tag.toLowerCase()).indexOf(query) >= 0)
+    )
+
+
 let perform = async ({ themeID }, callback) => {
   let now   = new Date
   let theme = await ThemeStorage.load(themeID)
@@ -19,7 +28,8 @@ let perform = async ({ themeID }, callback) => {
   if (theme.last_fetched_at && (now - theme.last_fetched_at) < FetchDelay )
     return callback()
 
-  let hits = await Algolia(theme.name)
+  let query = theme.name.toLowerCase()
+  let hits  = await Algolia(query).then(filterHits(query))
 
   await InsightStorage.createMany(hits.map(hit => ({ id: hit.objectID, content: hit.content })))
   await ThemeInsightStorage.destroyAllForTheme(themeID)

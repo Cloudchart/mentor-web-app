@@ -44,7 +44,6 @@ app.use('/users', users);
 app.use('/auth', auth)
 app.use('/themes', themes)
 
-
 // GraphQL
 app.use('/graphql', graphql)
 
