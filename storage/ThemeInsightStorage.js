@@ -36,7 +36,7 @@ const NewForUserThemeQuery = `
         user_id = :userID
         and
         theme_id = :themeID
-    )
+    ) and ti.theme_id = :themeID
   order by
     ti.created_at
   limit :limit
