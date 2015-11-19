@@ -48,8 +48,8 @@ module.exports = {
       remove:     true
     }),
     new webpack.DefinePlugin({
-      WEBSITE_PUSH_ID: JSON.stringify(process.env.WEBSITE_PUSH_ID),
-      ZERO_PUSH_URL: JSON.stringify(process.env.ZERO_PUSH_URL)
+      SAFARI_PUSH_ID: JSON.stringify(process.env.SAFARI_PUSH_ID),
+      SAFARI_PUSH_URL: JSON.stringify(process.env.SAFARI_PUSH_URL)
     })
   ],
   postcss: () => {
