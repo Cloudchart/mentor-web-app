@@ -36,6 +36,7 @@ type LikeInsightPayload {
 
 type Mutation {
   activateUser(input: ActivateUserInput!): ActivateUserPayload
+  resetUser(input: ResetUserInput!): ResetUserPayload
   setUserPushToken(input: SetUserPushTokenInput!): SetUserPushTokenPayload
   subscribeOnTheme(input: SubscribeOnThemeInput!): SubscribeOnThemePayload
   unsubscribeFromTheme(input: UnsubscribeFromThemeInput!): UnsubscribeFromThemePayload
@@ -83,6 +84,16 @@ type ResetInsightPayload {
   theme: UserTheme!
   insight: UserThemeInsight!
   insightID: ID!
+  clientMutationId: String!
+}
+
+input ResetUserInput {
+  userId: ID
+  clientMutationId: String!
+}
+
+type ResetUserPayload {
+  user: User!
   clientMutationId: String!
 }
 

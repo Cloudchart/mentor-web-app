@@ -33,7 +33,7 @@ let unratedInsightsIDsQuery = (includeTheme = false) =>
   idsQuery(`uti.rate is null`, includeTheme)
 
 
-export default BaseStorage('UserThemeInsight', {
+ let storage = BaseStorage('UserThemeInsight', {
   idsQueries: {
     'positive':           positiveInsightsIDsQuery(),
     'positiveForTheme':   positiveInsightsIDsQuery(true),
@@ -45,3 +45,13 @@ export default BaseStorage('UserThemeInsight', {
     'unratedForTheme':    unratedInsightsIDsQuery(true),
   }
 })
+
+
+let destroyAllForUser = (userID) =>
+  models.sequelize
+    .query(`delete from ${TableName} where user_id = :userID`, { replacements: { userID } })
+    .then(() => storage.clearAll())
+    .then(() => null)
+
+
+export default { ...storage, destroyAllForUser }
