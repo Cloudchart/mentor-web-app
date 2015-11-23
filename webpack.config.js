@@ -1,6 +1,9 @@
+require('dotenv').load()
+
 var path = require('path')
 var autoprefixer = require('autoprefixer')
 var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
+var webpack = require('webpack')
 
 module.exports = {
   context: path.resolve(__dirname, './frontend'),
@@ -14,7 +17,7 @@ module.exports = {
   },
   module: {
     resolve: {
-      extensions: ['', '.js', '.scss'],
+      extensions: ['', '.js', '.scss']
     },
     loaders: [
       {
@@ -43,6 +46,10 @@ module.exports = {
       allChunks:  true,
       extract:    true,
       remove:     true
+    }),
+    new webpack.DefinePlugin({
+      SAFARI_PUSH_ID: JSON.stringify(process.env.SAFARI_PUSH_ID),
+      SAFARI_PUSH_URL: JSON.stringify(process.env.SAFARI_PUSH_URL)
     })
   ],
   postcss: () => {

@@ -1,27 +1,44 @@
-var express = require('express');
-var router = express.Router();
+import passport from 'passport'
+import { Router } from 'express'
+import { DevicePushTokenStorage } from '../storage'
 
-router.get('/', function(req, res, next) {
+let router = Router()
+
+router.get('/', (req, res, next) => {
   if (!req.user) return res.redirect('/login')
-  res.render('index', { title: 'Express', user: req.user });
-});
+  res.render('index', { title: 'Express', user: req.user })
+})
 
-
-router.get('/favorites', function(req, res, next) {
+router.get('/favorites', (req, res, next) => {
   if (!req.user) return res.redirect('/login')
   if (!req.user.is_active) return res.redirect('/')
   res.render('favorites', { title: 'Favorites' })
 })
 
-
-router.get('/login', function(req, res, next) {
+router.get('/login', (req, res, next) => {
   res.render('login')
 })
 
-
-router.get('/logout', function(req, res, next) {
+router.get('/logout', (req, res, next) => {
   req.logout()
   res.redirect('/')
 })
 
-module.exports = router;
+router.post('/device_tokens', async (req, res, next) => {
+  let value = req.body.value
+  if (!value) { res.status(400).json('bad request') }
+
+  let devicePushToken = await DevicePushTokenStorage.loadOne('byValue', { value: value })
+
+  if (devicePushToken) {
+    res.json('ok')
+  } else {
+    DevicePushTokenStorage.create({ value: value, user_id: req.user.id }).then((devicePushToken) => {
+      res.status(201).json('ok')
+    }).catch((error) => {
+      res.status(412).json({ error: error.message })
+    })
+  }
+})
+
+export default router
