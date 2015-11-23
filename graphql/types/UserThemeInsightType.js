@@ -38,6 +38,11 @@ export default new GraphQLObjectType({
           .then(insight => insight.content)
     },
 
+    url: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: ({ insight_id }) => `/insights/${insight_id}`
+    },
+
     user: {
       type: new GraphQLNonNull(UserType),
       resolve: ({ user_id }) =>

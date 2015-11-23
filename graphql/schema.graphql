@@ -172,6 +172,7 @@ enum UserThemeFilterEnum {
 type UserThemeInsight implements Node {
   id: ID!
   content: String!
+  url: String!
   user: User!
   theme: Theme!
   rate: Int
