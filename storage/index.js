@@ -7,6 +7,7 @@ import UserThemeStorage from './UserThemeStorage'
 import ThemeInsightStorage from './ThemeInsightStorage'
 import UserThemeInsightStorage from './UserThemeInsightStorage'
 import FollowUpStorage from './FollowUpStorage'
+import DevicePushTokenStorage from './DevicePushTokenStorage'
 
 export default {
   AuthTokenStorage,
@@ -18,4 +19,5 @@ export default {
   ThemeInsightStorage,
   UserThemeInsightStorage,
   FollowUpStorage,
+  DevicePushTokenStorage,
 }

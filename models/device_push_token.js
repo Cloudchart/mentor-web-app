@@ -7,8 +7,17 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey:     true,
       defaultValue:   DataTypes.UUIDV4
     },
-    user_id: DataTypes.UUID,
-    value: DataTypes.STRING
+    user_id: {
+      type: DataTypes.UUID,
+      allowNull: false
+    },
+    value: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
+    }
   }, {
     tableName: 'device_push_tokens',
     underscored: true,

@@ -1,6 +1,6 @@
 import passport from 'passport'
 import { Router } from 'express'
-import { DevicePushToken } from '../models'
+import { DevicePushTokenStorage } from '../storage'
 
 let router = Router()
 
@@ -24,16 +24,21 @@ router.get('/logout', (req, res, next) => {
   res.redirect('/')
 })
 
-router.post('/device_tokens', (req, res, next) => {
+router.post('/device_tokens', async (req, res, next) => {
   let value = req.body.value
+  if (!value) { res.status(400).json('bad request') }
 
-  DevicePushToken.findOrCreate({
-    where: { value: value }, defaults: { user_id: req.user.id }
-  }).spread((devicePushToken, created) => {
+  let devicePushToken = await DevicePushTokenStorage.loadOne('byValue', { value: value })
+
+  if (devicePushToken) {
     res.json('ok')
-  }).catch((error) => {
-    res.status(500).json({ error: error })
-  })
+  } else {
+    DevicePushTokenStorage.create({ value: value, user_id: req.user.id }).then((devicePushToken) => {
+      res.status(201).json('ok')
+    }).catch((error) => {
+      res.status(412).json({ error: error.message })
+    })
+  }
 })
 
 export default router
