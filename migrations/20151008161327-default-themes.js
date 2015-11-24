@@ -1,5 +1,5 @@
 var uuid = require('node-uuid')
-var themesNames = ['Leadership', 'Investors', 'Product', 'Design', 'Start a startup', 'Growth hacking', 'Team', 'Growth Hacking', 'Overcoming failures', 'Building company culture', 'Hiring people']
+var themesNames = ['Leadership', 'Investors', 'Product', 'Design', 'Start a startup', 'Growth hacking', 'Team', 'Overcoming failures', 'Building company culture', 'Hiring people']
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
