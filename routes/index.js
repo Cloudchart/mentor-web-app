@@ -33,7 +33,11 @@ router.post('/device_tokens', async (req, res, next) => {
   if (devicePushToken) {
     res.json('ok')
   } else {
-    DevicePushTokenStorage.create({ value: value, user_id: req.user.id }).then((devicePushToken) => {
+    DevicePushTokenStorage.create({
+      value: value,
+      user_id: req.user.id,
+      type: 'safari'
+    }).then((devicePushToken) => {
       res.status(201).json('ok')
     }).catch((error) => {
       res.status(412).json({ error: error.message })
