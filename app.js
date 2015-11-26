@@ -15,6 +15,9 @@ var users = require('./routes/users');
 var auth = require('./routes/auth');
 var themes = require('./routes/themes');
 var graphql = require('./routes/graphql');
+var models  = require('./models')
+
+models.sequelize.sync()
 
 var app = express();
 

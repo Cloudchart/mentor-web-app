@@ -21,6 +21,13 @@ type DislikeInsightPayload {
   clientMutationId: String!
 }
 
+type InsightOrigin {
+  author: String!
+  url: String!
+  title: String!
+  duration: Int!
+}
+
 input LikeInsightInput {
   id: ID!
   clientMutationId: String!
@@ -147,6 +154,11 @@ type User implements Node {
   themes(after: String, first: Int, before: String, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection
   theme(id: ID!): UserTheme!
   insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
+  questionnaire: UserQuestionnaire
+}
+
+type UserQuestionnaire {
+  questions: [String]
 }
 
 type UserTheme implements Node {
@@ -172,6 +184,7 @@ enum UserThemeFilterEnum {
 type UserThemeInsight implements Node {
   id: ID!
   content: String!
+  origin: InsightOrigin
   url: String!
   user: User!
   theme: Theme!

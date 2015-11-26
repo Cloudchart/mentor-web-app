@@ -1,6 +1,7 @@
 import AuthTokenStorage from './AuthTokenStorage'
 import DeviceStorage from './DeviceStorage'
 import InsightStorage from './InsightStorage'
+import InsightOriginStorage from './InsightOriginStorage'
 import ThemeStorage from './ThemeStorage'
 import UserStorage from './UserStorage'
 import UserThemeStorage from './UserThemeStorage'
@@ -13,6 +14,7 @@ export default {
   AuthTokenStorage,
   DeviceStorage,
   InsightStorage,
+  InsightOriginStorage,
   ThemeStorage,
   UserStorage,
   UserThemeStorage,

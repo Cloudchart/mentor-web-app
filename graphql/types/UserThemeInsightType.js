@@ -38,6 +38,11 @@ export default new GraphQLObjectType({
           .then(insight => insight.content)
     },
 
+    origin: {
+      type: InsightOriginType,
+      resolve: () => null
+    },
+
     url: {
       type: new GraphQLNonNull(GraphQLString),
       resolve: ({ insight_id }) => `/insights/${insight_id}`
@@ -76,3 +81,4 @@ export default new GraphQLObjectType({
 
 import UserType from './UserType'
 import ThemeType from './ThemeType'
+import InsightOriginType from './InsightOriginType'

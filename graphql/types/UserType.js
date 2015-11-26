@@ -73,10 +73,16 @@ export default new GraphQLObjectType({
       }
     },
 
-    insights: UserThemeInsightsConnectionField
+    insights: UserThemeInsightsConnectionField,
+
+    questionnaire: {
+      type: UserQuestionnaireType,
+      resolve: (user) => user
+    },
 
   })
 
 })
 
 import UserThemeType from './UserThemeType'
+import UserQuestionnaireType from './UserQuestionnaireType'
