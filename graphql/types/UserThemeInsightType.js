@@ -41,7 +41,7 @@ export default new GraphQLObjectType({
 
     origin: {
       type: InsightOriginType,
-      resolve: ({ insight_id }) => InsightOriginStorage.load(insight_id).catch(null)
+      resolve: ({ insight_id }) => InsightOriginStorage.load(insight_id).catch(() => null)
     },
 
     url: {
