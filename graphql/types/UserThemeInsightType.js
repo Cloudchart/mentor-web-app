@@ -14,7 +14,8 @@ import {
 import {
   UserStorage,
   ThemeStorage,
-  InsightStorage
+  InsightStorage,
+  InsightOriginStorage,
 } from '../../storage'
 
 import { nodeInterface } from './Node'
@@ -40,7 +41,7 @@ export default new GraphQLObjectType({
 
     origin: {
       type: InsightOriginType,
-      resolve: () => null
+      resolve: ({ insight_id }) => InsightOriginStorage.load(insight_id).catch(null)
     },
 
     url: {
