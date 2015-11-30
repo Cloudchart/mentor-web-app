@@ -1,3 +1,4 @@
+import AnswerStorage from './AnswerStorage'
 import AuthTokenStorage from './AuthTokenStorage'
 import DeviceStorage from './DeviceStorage'
 import InsightStorage from './InsightStorage'
@@ -11,6 +12,7 @@ import FollowUpStorage from './FollowUpStorage'
 import DevicePushTokenStorage from './DevicePushTokenStorage'
 
 export default {
+  AnswerStorage,
   AuthTokenStorage,
   DeviceStorage,
   InsightStorage,
