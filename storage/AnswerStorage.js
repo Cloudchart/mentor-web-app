@@ -1,4 +1,5 @@
 import BaseStorage from './BaseStorage'
+import models from '../models'
 
 const tableName = models.Answer.tableName
 

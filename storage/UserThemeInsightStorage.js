@@ -23,8 +23,20 @@ let idsQuery = (where, includeTheme = false) =>
 let positiveInsightsIDsQuery = (includeTheme = false) =>
   idsQuery(`uti.rate > 0`, includeTheme)
 
+let likedInsightsIDsQuery = (includeTheme = false) =>
+  idsQuery(`uti.rate = 1`, includeTheme)
+
+let usefulInsightsIDsQuery = (includeTheme = false) =>
+  idsQuery(`uti.rate = 2`, includeTheme)
+
 let negativeInsightsIDsQuery = (includeTheme = false) =>
   idsQuery(`uti.rate < 0`, includeTheme)
+
+let dislikedInsightsIDsQuery = (includeTheme = false) =>
+  idsQuery(`uti.rate = -1`, includeTheme)
+
+let uselessInsightsIDsQuery = (includeTheme = false) =>
+  idsQuery(`uti.rate = -2`, includeTheme)
 
 let ratedInsightsIDsQuery = (includeTheme = false) =>
   idsQuery(`uti.rate is not null`, includeTheme)
@@ -37,8 +49,16 @@ let unratedInsightsIDsQuery = (includeTheme = false) =>
   idsQueries: {
     'positive':           positiveInsightsIDsQuery(),
     'positiveForTheme':   positiveInsightsIDsQuery(true),
+    'liked':              likedInsightsIDsQuery(),
+    'likedForTheme':      likedInsightsIDsQuery(true),
+    'useful':             usefulInsightsIDsQuery(),
+    'usefulForTheme':     usefulInsightsIDsQuery(true),
     'negative':           negativeInsightsIDsQuery(),
     'negativeForTheme':   negativeInsightsIDsQuery(true),
+    'disliked':           dislikedInsightsIDsQuery(),
+    'dislikedForTheme':   dislikedInsightsIDsQuery(true),
+    'useless':            uselessInsightsIDsQuery(),
+    'uselessForTheme':    uselessInsightsIDsQuery(true),
     'rated':              ratedInsightsIDsQuery(),
     'ratedForTheme':      ratedInsightsIDsQuery(true),
     'unrated':            unratedInsightsIDsQuery(),

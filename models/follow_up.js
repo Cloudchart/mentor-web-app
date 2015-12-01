@@ -1,16 +1,21 @@
-export default (sequelize, DataTypes) =>
-  sequelize.define('FollowUp', {
-
+module.exports = function(sequelize, DataTypes) {
+  var FollowUp = sequelize.define('FollowUp', {
     id: {
-      type:       DataTypes.UUID,
-      primaryKey: true,
+      type:           DataTypes.UUID,
+      primaryKey:     true,
     },
 
-    rate: DataTypes.INTEGER
+    rate:             DataTypes.INTEGER,
 
   }, {
+    tableName: 'follow_ups',
+    underscored: true,
 
-    tableName:    'follow_ups',
-    underscored:  true
+    classMethods: {
+      associate: function(models) {
+      }
+    }
+  });
 
-  })
+  return FollowUp;
+};

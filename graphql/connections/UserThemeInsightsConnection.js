@@ -28,10 +28,14 @@ export const UserThemeInsightsConnectionFilterEnum = new GraphQLEnumType({
   name: 'UserThemeInsightsFilterEnum',
 
   values: {
-    RATED:    { value: 'rated'    },
-    UNRATED:  { value: 'unrated'  },
-    POSITIVE: { value: 'positive' },
-    NEGATIVE: { value: 'negative' }
+    RATED:      { value: 'rated'    },
+    UNRATED:    { value: 'unrated'  },
+    POSITIVE:   { value: 'positive' },
+    LIKED:      { value: 'liked'    },
+    USEFUL:     { value: 'useful'   },
+    NEGATIVE:   { value: 'negative' },
+    DISLIKED:   { value: 'disliked' },
+    USELESS:    { value: 'useless'  },
   }
 })
 
@@ -63,8 +67,7 @@ export async function UserThemeInsightsConnectionResolve(root, args, { rootValue
     await SynchronizeUserThemeInsightsJob.perform({ userID, themeID })
   }
 
-  let query = filter + (themeID ? 'ForTheme' : '')
-  let insights = await UserThemeInsightStorage.loadAll(query, { userID, themeID })
+  let insights = await UserThemeInsightStorage.loadAll(filter + (themeID ? 'ForTheme' : ''), { userID, themeID })
 
   return Object.assign(connectionFromArray(insights, args), { userID, themeID })
 }
