@@ -28,14 +28,15 @@ export const UserThemeInsightsConnectionFilterEnum = new GraphQLEnumType({
   name: 'UserThemeInsightsFilterEnum',
 
   values: {
-    RATED:      { value: 'rated'    },
-    UNRATED:    { value: 'unrated'  },
-    POSITIVE:   { value: 'positive' },
-    LIKED:      { value: 'liked'    },
-    USEFUL:     { value: 'useful'   },
-    NEGATIVE:   { value: 'negative' },
-    DISLIKED:   { value: 'disliked' },
-    USELESS:    { value: 'useless'  },
+    RATED:      { value: 'rated'      },
+    UNRATED:    { value: 'unrated'    },
+    POSITIVE:   { value: 'positive'   },
+    LIKED:      { value: 'liked'      },
+    USEFUL:     { value: 'useful'     },
+    NEGATIVE:   { value: 'negative'   },
+    DISLIKED:   { value: 'disliked'   },
+    USELESS:    { value: 'useless'    },
+    FOLLOWUPS:  { value: 'followUps'  },
   }
 })
 
@@ -84,7 +85,6 @@ export const UserThemeInsightsConnection = connectionDefinitions({
       type: GraphQLInt,
       resolve: ({ themeID }) => themeID ? ThemeInsightStorage.count('allForTheme', { themeID }) : null
     },
-
 
     ratedCount: {
       type: GraphQLInt,

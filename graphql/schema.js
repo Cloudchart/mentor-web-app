@@ -33,7 +33,9 @@ import {
 
 import {
   LikeInsightMutation,
+  MarkInsightUsefulMutation,
   DislikeInsightMutation,
+  MarkInsightUselessMutation,
   ResetInsightMutation,
 } from './mutations/UpdateUserThemeInsightMutation'
 
@@ -50,7 +52,9 @@ let mutationType = new GraphQLObjectType({
     unsubscribeFromTheme: UnsubscribeFromThemeMutation,
     rejectTheme:          RejectThemeMutation,
     likeInsight:          LikeInsightMutation,
+    markInsightUseful:    MarkInsightUsefulMutation,
     dislikeInsight:       DislikeInsightMutation,
+    markInsightUseless:   MarkInsightUselessMutation,
     resetInsight:         ResetInsightMutation
   }
 

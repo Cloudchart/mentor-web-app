@@ -41,6 +41,32 @@ type LikeInsightPayload {
   clientMutationId: String!
 }
 
+input MarkInsightUsefulInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type MarkInsightUsefulPayload {
+  user: User!
+  theme: UserTheme!
+  insight: UserThemeInsight!
+  insightID: ID!
+  clientMutationId: String!
+}
+
+input MarkInsightUselessInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type MarkInsightUselessPayload {
+  user: User!
+  theme: UserTheme!
+  insight: UserThemeInsight!
+  insightID: ID!
+  clientMutationId: String!
+}
+
 type Mutation {
   activateUser(input: ActivateUserInput!): ActivateUserPayload
   resetUser(input: ResetUserInput!): ResetUserPayload
@@ -49,7 +75,9 @@ type Mutation {
   unsubscribeFromTheme(input: UnsubscribeFromThemeInput!): UnsubscribeFromThemePayload
   rejectTheme(input: RejectThemeInput!): RejectThemePayload
   likeInsight(input: LikeInsightInput!): LikeInsightPayload
+  markInsightUseful(input: MarkInsightUsefulInput!): MarkInsightUsefulPayload
   dislikeInsight(input: DislikeInsightInput!): DislikeInsightPayload
+  markInsightUseless(input: MarkInsightUselessInput!): MarkInsightUselessPayload
   resetInsight(input: ResetInsightInput!): ResetInsightPayload
 }
 
@@ -209,7 +237,12 @@ enum UserThemeInsightsFilterEnum {
   RATED
   UNRATED
   POSITIVE
+  LIKED
+  USEFUL
   NEGATIVE
+  DISLIKED
+  USELESS
+  FOLLOWUPS
 }
 
 type UserThemesConnection {

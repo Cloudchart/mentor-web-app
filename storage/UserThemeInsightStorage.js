@@ -3,6 +3,23 @@ import models from '../models'
 
 const TableName = models.UserThemeInsight.tableName
 
+const FollowUpsQuery = `
+  select
+    id
+  from
+    ${TableName}
+  where
+    user_id = :userID
+    and
+    rate = 1
+    and
+    updated_at < NOW() - INTERVAL 1 WEEK
+  order by
+    RAND()
+  limit
+    5
+`
+
 let idsQuery = (where, includeTheme = false) =>
   `
     select
@@ -63,6 +80,7 @@ let unratedInsightsIDsQuery = (includeTheme = false) =>
     'ratedForTheme':      ratedInsightsIDsQuery(true),
     'unrated':            unratedInsightsIDsQuery(),
     'unratedForTheme':    unratedInsightsIDsQuery(true),
+    'followUps':          FollowUpsQuery,
   }
 })
 

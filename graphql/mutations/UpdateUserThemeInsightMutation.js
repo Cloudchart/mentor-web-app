@@ -53,12 +53,15 @@ let updateUserThemeInsightMutation = (name, rate) => mutationWithClientMutationI
     if (insight.user_id !== viewer.id)
       return new Error('Not authorized')
 
-    insight = await UserThemeInsightStorage.update(insight.id, { rate: rate, updated_at: rate ? null : insight.created_at })
+    let updatedAt = rate == 1 || rate == -1 ? null : insight.updated_at
+    insight = await UserThemeInsightStorage.update(insight.id, { rate: rate, updated_at: updatedAt })
     return { insight }
   }
 
 })
 
-export const LikeInsightMutation      = updateUserThemeInsightMutation('LikeInsight',     1)
-export const DislikeInsightMutation   = updateUserThemeInsightMutation('DislikeInsight', -1)
-export const ResetInsightMutation     = updateUserThemeInsightMutation('ResetInsight',    null)
+export const LikeInsightMutation        = updateUserThemeInsightMutation('LikeInsight',            1)
+export const MarkInsightUsefulMutation  = updateUserThemeInsightMutation('MarkInsightUseful',     -2)
+export const DislikeInsightMutation     = updateUserThemeInsightMutation('DislikeInsight',        -1)
+export const MarkInsightUselessMutation = updateUserThemeInsightMutation('MarkInsightUseless',    -2)
+export const ResetInsightMutation       = updateUserThemeInsightMutation('ResetInsight',        null)
