@@ -5,10 +5,26 @@ export default (db, Sequelize) => {
         type:           Sequelize.UUID,
         primaryKey:     true,
       },
-      start_at:         Sequelize.STRING,
-      finish_at:        Sequelize.STRING,
-      utc_offset:       Sequelize.INTEGER,
-      times_to_send:    Sequelize.INTEGER,
+      start_at: {
+        type:           Sequelize.STRING(5),
+        defaultValue:   '00:00',
+        allowNull:      false,
+      },
+      finish_at: {
+        type:           Sequelize.STRING(5),
+        defaultValue:   '23:59',
+        allowNull:      false,
+      },
+      utc_offset: {
+        type:           Sequelize.INTEGER,
+        defaultValue:   0,
+        allowNull:      false,
+      },
+      times_to_send: {
+        type:           Sequelize.INTEGER,
+        defaultValue:   0,
+        allowNull:      false,
+      },
     }, {
 
       tableName:    'user_notifications_settings',
