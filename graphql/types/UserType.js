@@ -15,6 +15,7 @@ import {
   ThemeStorage,
   UserThemeStorage,
   DeviceStorage,
+  UserNotificationsSettingsStorage
 } from '../../storage'
 
 import { nodeInterface } from './Node'
@@ -80,9 +81,15 @@ export default new GraphQLObjectType({
       resolve: (user) => user
     },
 
+    notificationSettings: {
+      type: UserNotificationsSettingsType,
+      resolve: (user) => UserNotificationsSettingsStorage.load(user.id).catch(error => null)
+    }
+
   })
 
 })
 
 import UserThemeType from './UserThemeType'
 import UserQuestionnaireType from './UserQuestionnaireType'
+import UserNotificationsSettingsType from './UserNotificationsSettingsType'

@@ -183,6 +183,14 @@ type User implements Node {
   theme(id: ID!): UserTheme!
   insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
   questionnaire: UserQuestionnaire
+  notificationSettings: UserNotificationsSettings
+}
+
+type UserNotificationsSettings {
+  startAt: String!
+  finishAt: String!
+  utcOffset: Int!
+  timesToSend: Int!
 }
 
 type UserQuestionnaire {

@@ -10,6 +10,7 @@ import ThemeInsightStorage from './ThemeInsightStorage'
 import UserThemeInsightStorage from './UserThemeInsightStorage'
 import FollowUpStorage from './FollowUpStorage'
 import DevicePushTokenStorage from './DevicePushTokenStorage'
+import UserNotificationsSettingsStorage from './UserNotificationsSettingsStorage'
 
 export default {
   AnswerStorage,
@@ -24,4 +25,5 @@ export default {
   UserThemeInsightStorage,
   FollowUpStorage,
   DevicePushTokenStorage,
+  UserNotificationsSettingsStorage,
 }
