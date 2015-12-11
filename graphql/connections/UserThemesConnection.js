@@ -49,6 +49,11 @@ export const userThemesConnection = connectionDefinitions({
       resolve: ({ userID }) => UserThemeStorage.count('subscribed', { userID })
     },
 
+    subscriptionsCount: {
+      type: new GraphQLNonNull(GraphQLInt),
+      resolve: () => 3
+    },
+
     rejectedCount: {
       type: new GraphQLNonNull(GraphQLInt),
       resolve: ({ userID }) => UserThemeStorage.count('rejected', { userID })

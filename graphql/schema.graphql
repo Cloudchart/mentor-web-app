@@ -272,6 +272,7 @@ type UserThemesConnection {
   edges: [UserThemesEdge]
   count: Int!
   subscribedCount: Int!
+  subscriptionsCount: Int!
   rejectedCount: Int!
 }
 
