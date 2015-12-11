@@ -81,7 +81,7 @@ export default new GraphQLObjectType({
       resolve: (user) => user
     },
 
-    notificationSettings: {
+    notificationsSettings: {
       type: UserNotificationsSettingsType,
       resolve: (user) => UserNotificationsSettingsStorage.load(user.id).catch(error => null)
     }

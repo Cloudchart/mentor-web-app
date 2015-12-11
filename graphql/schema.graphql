@@ -79,6 +79,7 @@ type Mutation {
   dislikeInsight(input: DislikeInsightInput!): DislikeInsightPayload
   markInsightUseless(input: MarkInsightUselessInput!): MarkInsightUselessPayload
   resetInsight(input: ResetInsightInput!): ResetInsightPayload
+  updateUserNotificationsSettings(input: UpdateUserNotificationsSettingsInput!): UpdateUserNotificationsSettingsPayload
 }
 
 interface Node {
@@ -174,6 +175,19 @@ type UnsubscribeFromThemePayload {
   clientMutationId: String!
 }
 
+input UpdateUserNotificationsSettingsInput {
+  startAt: String
+  finishAt: String
+  utcOffset: Int
+  timesToSend: Int
+  clientMutationId: String!
+}
+
+type UpdateUserNotificationsSettingsPayload {
+  notificationsSettings: UserNotificationsSettings!
+  clientMutationId: String!
+}
+
 type User implements Node {
   id: ID!
   name: String
@@ -183,7 +197,7 @@ type User implements Node {
   theme(id: ID!): UserTheme!
   insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
   questionnaire: UserQuestionnaire
-  notificationSettings: UserNotificationsSettings
+  notificationsSettings: UserNotificationsSettings
 }
 
 type UserNotificationsSettings {

@@ -25,6 +25,8 @@ import ResetUserMutation from './mutations/ResetUserMutation'
 
 import SetUserPushTokenMutation from './mutations/SetUserPushTokenMutation'
 
+import UpdateUserNotificationsSettingsMutation from './mutations/UpdateUserNotificationsSettingsMutation'
+
 import {
   SubscribeOnThemeMutation,
   UnsubscribeFromThemeMutation,
@@ -45,17 +47,18 @@ let mutationType = new GraphQLObjectType({
   name: 'Mutation',
 
   fields: {
-    activateUser:         ActivateUserMutation,
-    resetUser:            ResetUserMutation,
-    setUserPushToken:     SetUserPushTokenMutation,
-    subscribeOnTheme:     SubscribeOnThemeMutation,
-    unsubscribeFromTheme: UnsubscribeFromThemeMutation,
-    rejectTheme:          RejectThemeMutation,
-    likeInsight:          LikeInsightMutation,
-    markInsightUseful:    MarkInsightUsefulMutation,
-    dislikeInsight:       DislikeInsightMutation,
-    markInsightUseless:   MarkInsightUselessMutation,
-    resetInsight:         ResetInsightMutation
+    activateUser:                     ActivateUserMutation,
+    resetUser:                        ResetUserMutation,
+    setUserPushToken:                 SetUserPushTokenMutation,
+    subscribeOnTheme:                 SubscribeOnThemeMutation,
+    unsubscribeFromTheme:             UnsubscribeFromThemeMutation,
+    rejectTheme:                      RejectThemeMutation,
+    likeInsight:                      LikeInsightMutation,
+    markInsightUseful:                MarkInsightUsefulMutation,
+    dislikeInsight:                   DislikeInsightMutation,
+    markInsightUseless:               MarkInsightUselessMutation,
+    resetInsight:                     ResetInsightMutation,
+    updateUserNotificationsSettings:  UpdateUserNotificationsSettingsMutation,
   }
 
 })
