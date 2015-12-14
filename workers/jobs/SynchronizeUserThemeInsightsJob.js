@@ -1,8 +1,8 @@
 import Bluebird from 'bluebird'
 
-const InitialInsightsCount = 10
-const MaxSubscribedInsightsCount = 24
-const InsightsRate = 1 / (60 * 60 * 1000)
+const InitialInsightsCount = 4
+const MaxSubscribedInsightsCount = 8
+const InsightsRate = 2 / (60 * 60 * 1000)
 
 
 import {
