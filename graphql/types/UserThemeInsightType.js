@@ -33,10 +33,11 @@ export default new GraphQLObjectType({
 
     content: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve: ({ insight_id }) =>
-        InsightStorage
-          .load(insight_id)
-          .then(insight => insight.content)
+      resolve: async ({ theme_id, insight_id }) => {
+        let theme = await ThemeStorage.load(theme_id)
+        let insight = await InsightStorage.load(insight_id)
+        return `${theme.name} - ${insight.content}`
+      }
     },
 
     origin: {
