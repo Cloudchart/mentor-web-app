@@ -54,7 +54,7 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(UserType),
       resolve: ({ user_id }) =>
         UserStorage
-          .load(User_id)
+          .load(user_id)
     },
 
     theme: {

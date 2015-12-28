@@ -67,6 +67,8 @@
   "devDependencies": {
     "chai": "^3.4.0",
     "chai-as-promised": "^5.1.0",
-    "react-style": "^0.5.5"
+    "react-style": "^0.5.5",
+    "shipit-cli": "^1.4.1",
+    "shipit-deploy": "^2.1.2"
   }
 }
