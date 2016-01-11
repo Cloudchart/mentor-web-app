@@ -8,6 +8,11 @@ type ActivateUserPayload {
   clientMutationId: String!
 }
 
+type Admin implements Node {
+  id: ID!
+  name: String
+}
+
 input DislikeInsightInput {
   id: ID!
   clientMutationId: String!
@@ -96,6 +101,7 @@ type PageInfo {
 type Query {
   viewer: User
   node(id: ID!): Node
+  admin: Admin
 }
 
 input RejectThemeInput {

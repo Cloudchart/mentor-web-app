@@ -10,7 +10,8 @@ import {
   InsightStorage,
   UserThemeStorage,
   ThemeInsightStorage,
-  UserThemeInsightStorage
+  UserThemeInsightStorage,
+  RoleStorage,
 } from '../../storage'
 
 
@@ -31,6 +32,8 @@ export default nodeDefinitions(
         return ThemeInsightStorage.load(id)
       case 'UserThemeInsight':
         return UserThemeInsightStorage.load(id)
+      case 'Role':
+        return RoleStorage.load(id)
     }
   },
 
@@ -48,6 +51,8 @@ export default nodeDefinitions(
         return require('./ThemeInsightType')
       case 'UserThemeInsight':
         return require('./UserThemeInsightType')
+      case 'Role':
+        return require('./RoleType')
     }
   }
 

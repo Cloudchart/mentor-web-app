@@ -4,7 +4,8 @@ import {
 
 import {
   UserStorage,
-  DeviceStorage
+  DeviceStorage,
+  RoleStorage,
 } from '../storage'
 
 import path from 'path'

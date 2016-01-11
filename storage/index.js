@@ -11,6 +11,7 @@ import UserThemeInsightStorage from './UserThemeInsightStorage'
 import FollowUpStorage from './FollowUpStorage'
 import DevicePushTokenStorage from './DevicePushTokenStorage'
 import UserNotificationsSettingsStorage from './UserNotificationsSettingsStorage'
+import RoleStorage from './RoleStorage'
 
 export default {
   AnswerStorage,
@@ -26,4 +27,5 @@ export default {
   FollowUpStorage,
   DevicePushTokenStorage,
   UserNotificationsSettingsStorage,
+  RoleStorage,
 }
