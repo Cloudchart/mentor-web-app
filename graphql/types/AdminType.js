@@ -19,7 +19,7 @@ export default new GraphQLObjectType({
 
   fields: () => ({
 
-    id: globalIdField('User'),
+    id: globalIdField('Admin'),
 
     name: {
       type: GraphQLString
