@@ -223,6 +223,7 @@ type UserTheme implements Node {
 
 enum UserThemeFilterEnum {
   DEFAULT
+  SYSTEM
   AVAILABLE
   VISIBLE
   SUBSCRIBED

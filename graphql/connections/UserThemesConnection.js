@@ -25,6 +25,7 @@ export const UserThemesConnectionFilterEnum = new GraphQLEnumType({
 
   values: {
     DEFAULT:    { value: 'default'    },
+    SYSTEM:     { value: 'system'     },
     AVAILABLE:  { value: 'available'  },
     VISIBLE:    { value: 'visible'    },
     SUBSCRIBED: { value: 'subscribed' },
