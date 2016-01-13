@@ -13,7 +13,7 @@ const FollowUpsQuery = `
     and
     rate = 1
     and
-    updated_at < NOW() - INTERVAL 15 MINUTE
+    updated_at < NOW() - INTERVAL 5 MINUTE
   order by
     RAND()
   limit
