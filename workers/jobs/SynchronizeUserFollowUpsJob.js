@@ -5,7 +5,7 @@ import {
 } from '../../storage'
 
 
-const CheckInterval = 7 * 24 * 60 * 60 * 1000
+const CheckInterval = 5 * 60 * 60 * 1000
 
 
 let perform = async ({ userID }, callback) => {
