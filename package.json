@@ -25,6 +25,7 @@
     "bunyan": "^1.5.1",
     "connect-redis": "^3.0.0",
     "cookie-parser": "^1.4.0",
+    "cors": "^2.7.1",
     "css-loader": "^0.23.0",
     "dataloader": "^1.0.0",
     "debug": "^2.2.0",

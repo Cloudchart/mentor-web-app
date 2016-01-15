@@ -34,6 +34,8 @@ export default nodeDefinitions(
         return UserThemeInsightStorage.load(id)
       case 'Role':
         return RoleStorage.load(id)
+      case 'Admin':
+        return UserStorage.load(id)
     }
   },
 
@@ -53,6 +55,8 @@ export default nodeDefinitions(
         return require('./UserThemeInsightType')
       case 'Role':
         return require('./RoleType')
+      case 'Admin':
+        return require('./AdminType')
     }
   }
 

@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  store: new RedisStore({ prefix: 'mentor:', url: process.env.REDIS_URL }),
+  store: new RedisStore({ url: process.env.REDIS_URL }),
   secret: 'keyboard cat',
   name: 'mentor',
   resave: true,
