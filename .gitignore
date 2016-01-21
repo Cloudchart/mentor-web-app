@@ -2,6 +2,7 @@
 .env
 
 node_modules
+logs
 npm-debug.log
 
 public/stylesheet.bundle.js
