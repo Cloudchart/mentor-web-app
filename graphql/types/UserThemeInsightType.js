@@ -36,7 +36,7 @@ export default new GraphQLObjectType({
       resolve: async ({ theme_id, insight_id }) => {
         let theme = await ThemeStorage.load(theme_id)
         let insight = await InsightStorage.load(insight_id)
-        return `${theme.name} - ${insight.content}`
+        return insight.content
       }
     },
 
