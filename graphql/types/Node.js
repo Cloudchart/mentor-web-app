@@ -11,7 +11,6 @@ import {
   UserThemeStorage,
   ThemeInsightStorage,
   UserThemeInsightStorage,
-  RoleStorage,
 } from '../../storage'
 
 
@@ -32,10 +31,6 @@ export default nodeDefinitions(
         return ThemeInsightStorage.load(id)
       case 'UserThemeInsight':
         return UserThemeInsightStorage.load(id)
-      case 'Role':
-        return RoleStorage.load(id)
-      case 'Admin':
-        return UserStorage.load(id)
     }
   },
 
@@ -53,10 +48,6 @@ export default nodeDefinitions(
         return require('./ThemeInsightType')
       case 'UserThemeInsight':
         return require('./UserThemeInsightType')
-      case 'Role':
-        return require('./RoleType')
-      case 'Admin':
-        return require('./AdminType')
     }
   }
 

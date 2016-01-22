@@ -2,7 +2,7 @@ import {
   RoleStorage,
 } from '../../storage'
 
-import AdminType from '../types/AdminType'
+import AdminType from '../types/admin/AdminType'
 
 
 export default {

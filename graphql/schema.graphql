@@ -11,6 +11,25 @@ type ActivateUserPayload {
 type Admin implements Node {
   id: ID!
   name: String
+  users(after: String, first: Int, before: String, last: Int): AdminUsersConnection
+}
+
+type AdminUser implements Node {
+  id: ID!
+  name: String
+  isActive: Boolean
+  pushToken: String
+}
+
+type AdminUsersConnection {
+  pageInfo: PageInfo!
+  edges: [AdminUsersEdge]
+  count: Int!
+}
+
+type AdminUsersEdge {
+  node: AdminUser
+  cursor: String!
 }
 
 input DislikeInsightInput {

@@ -12,6 +12,7 @@ import FollowUpStorage from './FollowUpStorage'
 import DevicePushTokenStorage from './DevicePushTokenStorage'
 import UserNotificationsSettingsStorage from './UserNotificationsSettingsStorage'
 import RoleStorage from './RoleStorage'
+import AdminUserStorage from './admin/AdminUserStorage'
 
 export default {
   AnswerStorage,
@@ -28,4 +29,5 @@ export default {
   DevicePushTokenStorage,
   UserNotificationsSettingsStorage,
   RoleStorage,
+  AdminUserStorage,
 }

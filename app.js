@@ -32,9 +32,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(session({
   store: new RedisStore({ url: process.env.REDIS_URL }),
-  secret: 'keyboard cat',
+  secret: process.env.SESSION_SECRET || 'keyboard cat',
   name: 'mentor',
   resave: true,
   saveUninitialized: true

@@ -8,7 +8,8 @@ import {
   globalIdField
 } from 'graphql-relay'
 
-import { nodeInterface } from './Node'
+import { nodeInterface } from '../Node'
+import { field as AdminUsersConnectionField } from '../../connections/admin/AdminUsersConnection'
 
 
 export default new GraphQLObjectType({
@@ -23,7 +24,9 @@ export default new GraphQLObjectType({
 
     name: {
       type: GraphQLString
-    }
+    },
+
+    users: AdminUsersConnectionField,
 
   })
 })
