@@ -31,7 +31,7 @@ export const adminUsersConnection = connectionDefinitions({
 })
 
 export async function adminUsersConnectionResolve(_, args) {
-  let adminUsers = await AdminUserStorage.loadAll('all')
+  let adminUsers = await AdminUserStorage.loadAll('regular')
   return Object.assign(connectionFromArray(adminUsers, args), { count: adminUsers.length })
 }
 
