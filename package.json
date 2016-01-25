@@ -10,7 +10,8 @@
     "schema": "./node_modules/.bin/babel-node ./bin/graphql-schema-update.js",
     "webpack:watch": "./node_modules/.bin/webpack --color --progress --watch",
     "sql": "./node_modules/.bin/sequelize",
-    "test": "mocha $npm_package_options_mocha"
+    "test": "mocha $npm_package_options_mocha",
+    "seed": "./node_modules/.bin/babel-node ./seed/index.js"
   },
   "dependencies": {
     "algoliasearch": "^3.8.1",
@@ -69,6 +70,7 @@
   "devDependencies": {
     "chai": "^3.4.0",
     "chai-as-promised": "^5.1.0",
+    "faker": "^3.0.1",
     "react-style": "^0.5.5",
     "shipit-cli": "^1.4.1",
     "shipit-deploy": "^2.1.2",
