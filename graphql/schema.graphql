@@ -17,8 +17,10 @@ type Admin implements Node {
 type AdminUser implements Node {
   id: ID!
   name: String
+  email: String
   isActive: Boolean
-  pushToken: String
+  authProvider: String
+  createdAt: String
 }
 
 type AdminUsersConnection {

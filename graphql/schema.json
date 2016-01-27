@@ -1200,6 +1200,18 @@
               "deprecationReason": null
             },
             {
+              "name": "email",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "isActive",
               "description": null,
               "args": [],
@@ -1212,7 +1224,19 @@
               "deprecationReason": null
             },
             {
-              "name": "pushToken",
+              "name": "authProvider",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
               "description": null,
               "args": [],
               "type": {

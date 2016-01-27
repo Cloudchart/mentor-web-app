@@ -13,6 +13,7 @@ import {
 
 import {
   DeviceStorage,
+  AuthTokenStorage,
 } from '../../../storage'
 
 import { nodeInterface } from '../Node'
@@ -32,15 +33,24 @@ export default new GraphQLObjectType({
       type: GraphQLString
     },
 
-    isActive: {
-      type:     GraphQLBoolean,
-      resolve:  user => user.is_active
+    email: {
+      type: GraphQLString
     },
 
-    pushToken: {
+    isActive: {
+      type: GraphQLBoolean,
+      resolve: user => user.is_active
+    },
+
+    authProvider: {
       type: GraphQLString,
       resolve: (user) =>
-        DeviceStorage.loadOne('user', { userID: user.id }).then(({ push_token }) => push_token).catch(e => null)
+        AuthTokenStorage.loadOne('byUser', { userID: user.id }).then(({ provider_name }) => provider_name).catch(e => null)
+    },
+
+    createdAt: {
+      type: GraphQLString,
+      resolve: user => user.created_at
     },
 
   })
