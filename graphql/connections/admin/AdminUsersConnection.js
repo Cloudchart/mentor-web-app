@@ -1,6 +1,7 @@
 import {
   GraphQLInt,
   GraphQLNonNull,
+  GraphQLString,
 } from 'graphql'
 
 import {
@@ -19,6 +20,13 @@ import {
 import AdminUserType from '../../types/admin/AdminUserType'
 
 
+export const adminUsersConnectionArgs = {
+  ...connectionArgs,
+  query: {
+    type: GraphQLString,
+  }
+}
+
 export const adminUsersConnection = connectionDefinitions({
   name: 'AdminUsers',
   nodeType: AdminUserType,
@@ -31,12 +39,19 @@ export const adminUsersConnection = connectionDefinitions({
 })
 
 export async function adminUsersConnectionResolve(_, args) {
-  let adminUsers = await AdminUserStorage.loadAll('regular')
+  let adminUsers
+
+  if (args.query) {
+    adminUsers = await AdminUserStorage.loadAll('search', { query: args.query })
+  } else {
+    adminUsers = await AdminUserStorage.loadAll('regular')
+  }
+
   return Object.assign(connectionFromArray(adminUsers, args), { count: adminUsers.length })
 }
 
 export const field = {
   type: adminUsersConnection.connectionType,
-  args: connectionArgs,
+  args: adminUsersConnectionArgs,
   resolve: adminUsersConnectionResolve
 }

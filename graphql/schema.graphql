@@ -11,7 +11,7 @@ type ActivateUserPayload {
 type Admin implements Node {
   id: ID!
   name: String
-  users(after: String, first: Int, before: String, last: Int): AdminUsersConnection
+  users(after: String, first: Int, before: String, last: Int, query: String): AdminUsersConnection
 }
 
 type AdminUser implements Node {
