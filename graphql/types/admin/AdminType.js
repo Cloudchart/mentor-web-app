@@ -9,7 +9,9 @@ import {
 } from 'graphql-relay'
 
 import { nodeInterface } from '../Node'
-import { field as AdminUsersConnectionField } from '../../connections/admin/AdminUsersConnection'
+
+import AdminUsersConnectionField from '../../connections/admin/AdminUsersConnection'
+import AdminInsightsConnectionField from '../../connections/admin/AdminInsightsConnection'
 
 
 export default new GraphQLObjectType({
@@ -27,6 +29,7 @@ export default new GraphQLObjectType({
     },
 
     users: AdminUsersConnectionField,
+    insights: AdminInsightsConnectionField,
 
   })
 })

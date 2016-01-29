@@ -12,6 +12,24 @@ type Admin implements Node {
   id: ID!
   name: String
   users(after: String, first: Int, before: String, last: Int, query: String): AdminUsersConnection
+  insights(after: String, first: Int, before: String, last: Int, query: String): AdminInsightsConnection
+}
+
+type AdminInsight implements Node {
+  id: ID!
+  content: String!
+  createdAt: String
+}
+
+type AdminInsightsConnection {
+  pageInfo: PageInfo!
+  edges: [AdminInsightsEdge]
+  count: Int!
+}
+
+type AdminInsightsEdge {
+  node: AdminInsight
+  cursor: String!
 }
 
 type AdminUser implements Node {

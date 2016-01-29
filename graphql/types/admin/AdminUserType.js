@@ -1,18 +1,14 @@
 import {
-  GraphQLID,
   GraphQLString,
   GraphQLBoolean,
-  GraphQLNonNull,
   GraphQLObjectType,
 } from 'graphql'
 
 import {
-  fromGlobalId,
   globalIdField
 } from 'graphql-relay'
 
 import {
-  DeviceStorage,
   AuthTokenStorage,
 } from '../../../storage'
 

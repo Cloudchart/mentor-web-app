@@ -20,14 +20,14 @@ import {
 import AdminUserType from '../../types/admin/AdminUserType'
 
 
-export const adminUsersConnectionArgs = {
+const adminUsersConnectionArgs = {
   ...connectionArgs,
   query: {
     type: GraphQLString,
   }
 }
 
-export const adminUsersConnection = connectionDefinitions({
+const adminUsersConnection = connectionDefinitions({
   name: 'AdminUsers',
   nodeType: AdminUserType,
 
@@ -38,7 +38,7 @@ export const adminUsersConnection = connectionDefinitions({
   }
 })
 
-export async function adminUsersConnectionResolve(_, args) {
+async function adminUsersConnectionResolve(_, args) {
   let adminUsers
 
   if (args.query) {
@@ -50,7 +50,7 @@ export async function adminUsersConnectionResolve(_, args) {
   return Object.assign(connectionFromArray(adminUsers, args), { count: adminUsers.length })
 }
 
-export const field = {
+export default {
   type: adminUsersConnection.connectionType,
   args: adminUsersConnectionArgs,
   resolve: adminUsersConnectionResolve
