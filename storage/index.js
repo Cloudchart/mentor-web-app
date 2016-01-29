@@ -15,7 +15,8 @@ import RoleStorage from './RoleStorage'
 
 import AdminUserStorage from './admin/AdminUserStorage'
 import AdminStorage from './admin/AdminStorage'
-import AdmininsightStorage from './admin/AdmininsightStorage'
+import AdminInsightStorage from './admin/AdminInsightStorage'
+import AdminThemeStorage from './admin/AdminThemeStorage'
 
 export default {
   AnswerStorage,
@@ -34,5 +35,6 @@ export default {
   RoleStorage,
   AdminUserStorage,
   AdminStorage,
-  AdmininsightStorage,
+  AdminInsightStorage,
+  AdminThemeStorage,
 }

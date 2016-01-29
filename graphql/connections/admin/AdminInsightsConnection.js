@@ -10,7 +10,7 @@ import {
 } from 'graphql-relay'
 
 import {
-  AdmininsightStorage
+  AdminInsightStorage
 } from '../../../storage'
 
 import {
@@ -42,9 +42,9 @@ async function adminInsightsConnectionResolve(_, args) {
   let adminInsights
 
   if (args.query) {
-    adminInsights = await AdmininsightStorage.loadAll('search', { query: args.query })
+    adminInsights = await AdminInsightStorage.loadAll('search', { query: args.query })
   } else {
-    adminInsights = await AdmininsightStorage.loadAll('default')
+    adminInsights = await AdminInsightStorage.loadAll('default')
   }
 
   return Object.assign(connectionFromArray(adminInsights, args), { count: adminInsights.length })
