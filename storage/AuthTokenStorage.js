@@ -18,7 +18,7 @@ let storagesForProviders = {}
 
 let finderForProvider = (providerName) =>
   (ids) =>
-    models.AuthToken
+    AuthToken
       .findAll({where:{provider_name:providerName,provider_id:{$in:ids}}})
       .then(records => mapReduce(ids, records, 'provider_id', 'AuthToken'))
 
