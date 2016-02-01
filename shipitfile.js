@@ -34,7 +34,7 @@ module.exports = function(shipit) {
       workspace: '/tmp/mentor-web-app-deploy',
       deployTo: HOME_PATH,
       repositoryUrl: 'git@github.com:Cloudchart/mentor-web-app.git',
-      shallowClone: 'true',
+      // shallowClone: 'true',
     }
 
   })
