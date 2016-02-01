@@ -6,6 +6,7 @@ import {
 
 import ViewerQuery from './queries/ViewerQuery'
 import NodeQuery from './queries/NodeQuery'
+import AdminQuery from './queries/AdminQuery'
 
 
 let queryType = new GraphQLObjectType({
@@ -14,7 +15,8 @@ let queryType = new GraphQLObjectType({
 
   fields: () => ({
     viewer: ViewerQuery,
-    node:   NodeQuery
+    node:   NodeQuery,
+    admin:  AdminQuery
   })
 
 })

@@ -4,12 +4,13 @@ import {
 
 import {
   UserStorage,
-  DeviceStorage
+  DeviceStorage,
 } from '../storage'
 
 import path from 'path'
 import bunyan from 'bunyan'
 
+import cors from 'cors'
 import graphqlHTTP from 'express-graphql'
 import GraphQLSchema from '../graphql/schema'
 
@@ -48,7 +49,7 @@ let deviceLogger = async (req, res, next) => {
   next()
 }
 
-router.use('/', deviceAuthorizer, deviceLogger, graphqlHTTP(req => ({
+router.use('/', deviceAuthorizer, deviceLogger, cors({ origin: process.env.CORS_ALLOW_ORIGIN, credentials: true }), graphqlHTTP(req => ({
   schema: GraphQLSchema,
   rootValue: {
     viewer: req.user

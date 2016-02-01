@@ -8,6 +8,62 @@ type ActivateUserPayload {
   clientMutationId: String!
 }
 
+type Admin implements Node {
+  id: ID!
+  name: String
+  users(after: String, first: Int, before: String, last: Int, query: String): AdminUsersConnection
+  insights(after: String, first: Int, before: String, last: Int, query: String): AdminInsightsConnection
+}
+
+type AdminInsight implements Node {
+  id: ID!
+  content: String!
+  themes(after: String, first: Int, before: String, last: Int): AdminInsightThemesConnection
+  createdAt: String
+}
+
+type AdminInsightsConnection {
+  pageInfo: PageInfo!
+  edges: [AdminInsightsEdge]
+  count: Int!
+}
+
+type AdminInsightsEdge {
+  node: AdminInsight
+  cursor: String!
+}
+
+type AdminInsightThemesConnection {
+  pageInfo: PageInfo!
+  edges: [AdminInsightThemesEdge]
+  count: Int!
+}
+
+type AdminInsightThemesEdge {
+  node: Theme
+  cursor: String!
+}
+
+type AdminUser implements Node {
+  id: ID!
+  name: String
+  email: String
+  isActive: Boolean
+  authProvider: String
+  createdAt: String
+}
+
+type AdminUsersConnection {
+  pageInfo: PageInfo!
+  edges: [AdminUsersEdge]
+  count: Int!
+}
+
+type AdminUsersEdge {
+  node: AdminUser
+  cursor: String!
+}
+
 input DislikeInsightInput {
   id: ID!
   clientMutationId: String!
@@ -96,6 +152,7 @@ type PageInfo {
 type Query {
   viewer: User
   node(id: ID!): Node
+  admin: Admin
 }
 
 input RejectThemeInput {

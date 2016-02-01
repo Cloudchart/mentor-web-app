@@ -11,6 +11,12 @@ import UserThemeInsightStorage from './UserThemeInsightStorage'
 import FollowUpStorage from './FollowUpStorage'
 import DevicePushTokenStorage from './DevicePushTokenStorage'
 import UserNotificationsSettingsStorage from './UserNotificationsSettingsStorage'
+import RoleStorage from './RoleStorage'
+
+import AdminUserStorage from './admin/AdminUserStorage'
+import AdminStorage from './admin/AdminStorage'
+import AdminInsightStorage from './admin/AdminInsightStorage'
+import AdminThemeStorage from './admin/AdminThemeStorage'
 
 export default {
   AnswerStorage,
@@ -26,4 +32,9 @@ export default {
   FollowUpStorage,
   DevicePushTokenStorage,
   UserNotificationsSettingsStorage,
+  RoleStorage,
+  AdminUserStorage,
+  AdminStorage,
+  AdminInsightStorage,
+  AdminThemeStorage,
 }
