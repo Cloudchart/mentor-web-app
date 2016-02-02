@@ -10,8 +10,9 @@ import {
 
 import { nodeInterface } from '../Node'
 
-import AdminUsersConnectionField from '../../connections/admin/AdminUsersConnection'
-import AdminInsightsConnectionField from '../../connections/admin/AdminInsightsConnection'
+import AdminUsersConnection from '../../connections/admin/AdminUsersConnection'
+import AdminInsightsConnection from '../../connections/admin/AdminInsightsConnection'
+import AdminThemesConnection from '../../connections/admin/AdminThemesConnection'
 
 
 export default new GraphQLObjectType({
@@ -28,8 +29,9 @@ export default new GraphQLObjectType({
       type: GraphQLString
     },
 
-    users: AdminUsersConnectionField,
-    insights: AdminInsightsConnectionField,
+    users: AdminUsersConnection,
+    insights: AdminInsightsConnection,
+    themes: AdminThemesConnection,
 
   })
 })

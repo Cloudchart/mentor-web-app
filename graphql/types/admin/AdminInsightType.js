@@ -10,7 +10,7 @@ import {
 
 import { nodeInterface } from '../Node'
 
-import AdminInsightThemeConnection from '../../connections/admin/AdminInsightThemesConnection'
+import AdminThemesConnection from '../../connections/admin/AdminThemesConnection'
 
 export default new GraphQLObjectType({
 
@@ -26,7 +26,7 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString)
     },
 
-    themes: AdminInsightThemeConnection,
+    themes: AdminThemesConnection,
 
     createdAt: {
       type: GraphQLString,

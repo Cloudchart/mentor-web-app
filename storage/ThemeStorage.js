@@ -1,9 +1,9 @@
 import BaseStorage from './BaseStorage'
 import models from '../models'
 
+
 const themesTableName       = models.Theme.tableName
 const usersThemesTableName  = models.UserTheme.tableName
-
 
 const UnrelatedThemesIDsQuery = `
   select

@@ -13,12 +13,13 @@ type Admin implements Node {
   name: String
   users(after: String, first: Int, before: String, last: Int, query: String): AdminUsersConnection
   insights(after: String, first: Int, before: String, last: Int, query: String): AdminInsightsConnection
+  themes(after: String, first: Int, before: String, last: Int, query: String, filter: String): AdminInsightThemesConnection
 }
 
 type AdminInsight implements Node {
   id: ID!
   content: String!
-  themes(after: String, first: Int, before: String, last: Int): AdminInsightThemesConnection
+  themes(after: String, first: Int, before: String, last: Int, query: String, filter: String): AdminInsightThemesConnection
   createdAt: String
 }
 
@@ -40,8 +41,16 @@ type AdminInsightThemesConnection {
 }
 
 type AdminInsightThemesEdge {
-  node: Theme
+  node: AdminTheme
   cursor: String!
+}
+
+type AdminTheme implements Node {
+  id: ID!
+  name: String
+  isSystem: Boolean!
+  isDefault: Boolean!
+  createdAt: String
 }
 
 type AdminUser implements Node {
