@@ -10,7 +10,7 @@ import {
 
 import { nodeInterface } from '../Node'
 
-import AdminThemesConnection from '../../connections/admin/AdminThemesConnection'
+import { Field as AdminThemesConnection } from '../../connections/admin/AdminThemesConnection'
 
 export default new GraphQLObjectType({
 

@@ -28,10 +28,13 @@ const adminThemesConnectionArgs = {
   filter: {
     type: GraphQLString,
   },
+  order: {
+    type: GraphQLString,
+  },
 }
 
-const adminInsightThemesConnection = connectionDefinitions({
-  name: 'AdminInsightThemes',
+export const adminThemesConnection = connectionDefinitions({
+  name: 'AdminThemes',
   nodeType: AdminThemeType,
 
   connectionFields: {
@@ -41,7 +44,7 @@ const adminInsightThemesConnection = connectionDefinitions({
   }
 })
 
-async function adminInsightThemesConnectionResolve(obj, args) {
+async function adminThemesConnectionResolve(obj, args) {
   let filter = args.filter || (args.query ? 'search' : 'default')
   let replacements = {}
 
@@ -53,8 +56,8 @@ async function adminInsightThemesConnectionResolve(obj, args) {
 }
 
 
-export default {
-  type: adminInsightThemesConnection.connectionType,
+export const Field = {
+  type: adminThemesConnection.connectionType,
   args: adminThemesConnectionArgs,
-  resolve: adminInsightThemesConnectionResolve
+  resolve: adminThemesConnectionResolve
 }

@@ -13,13 +13,13 @@ type Admin implements Node {
   name: String
   users(after: String, first: Int, before: String, last: Int, query: String): AdminUsersConnection
   insights(after: String, first: Int, before: String, last: Int, query: String): AdminInsightsConnection
-  themes(after: String, first: Int, before: String, last: Int, query: String, filter: String): AdminInsightThemesConnection
+  themes(after: String, first: Int, before: String, last: Int, query: String, filter: String, order: String): AdminThemesConnection
 }
 
 type AdminInsight implements Node {
   id: ID!
   content: String!
-  themes(after: String, first: Int, before: String, last: Int, query: String, filter: String): AdminInsightThemesConnection
+  themes(after: String, first: Int, before: String, last: Int, query: String, filter: String, order: String): AdminThemesConnection
   createdAt: String
 }
 
@@ -34,23 +34,23 @@ type AdminInsightsEdge {
   cursor: String!
 }
 
-type AdminInsightThemesConnection {
-  pageInfo: PageInfo!
-  edges: [AdminInsightThemesEdge]
-  count: Int!
-}
-
-type AdminInsightThemesEdge {
-  node: AdminTheme
-  cursor: String!
-}
-
 type AdminTheme implements Node {
   id: ID!
   name: String
   isSystem: Boolean!
   isDefault: Boolean!
   createdAt: String
+}
+
+type AdminThemesConnection {
+  pageInfo: PageInfo!
+  edges: [AdminThemesEdge]
+  count: Int!
+}
+
+type AdminThemesEdge {
+  node: AdminTheme
+  cursor: String!
 }
 
 type AdminUser implements Node {
@@ -71,6 +71,19 @@ type AdminUsersConnection {
 type AdminUsersEdge {
   node: AdminUser
   cursor: String!
+}
+
+input CreateThemeInput {
+  name: String!
+  isSystem: Boolean
+  isDefault: Boolean
+  clientMutationId: String!
+}
+
+type CreateThemePayload {
+  admin: Admin
+  themeEdge: AdminThemesEdge
+  clientMutationId: String!
 }
 
 input DislikeInsightInput {
@@ -145,6 +158,7 @@ type Mutation {
   markInsightUseless(input: MarkInsightUselessInput!): MarkInsightUselessPayload
   resetInsight(input: ResetInsightInput!): ResetInsightPayload
   updateUserNotificationsSettings(input: UpdateUserNotificationsSettingsInput!): UpdateUserNotificationsSettingsPayload
+  createTheme(input: CreateThemeInput!): CreateThemePayload
 }
 
 interface Node {

@@ -1458,11 +1458,21 @@
                     "ofType": null
                   },
                   "defaultValue": null
+                },
+                {
+                  "name": "order",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
                 }
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "AdminInsightThemesConnection",
+                "name": "AdminThemesConnection",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1494,7 +1504,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "AdminInsightThemesConnection",
+          "name": "AdminThemesConnection",
           "description": "A connection to a list of items.",
           "fields": [
             {
@@ -1522,7 +1532,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "AdminInsightThemesEdge",
+                  "name": "AdminThemesEdge",
                   "ofType": null
                 }
               },
@@ -1553,7 +1563,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "AdminInsightThemesEdge",
+          "name": "AdminThemesEdge",
           "description": "An edge in a connection.",
           "fields": [
             {
@@ -1812,11 +1822,21 @@
                     "ofType": null
                   },
                   "defaultValue": null
+                },
+                {
+                  "name": "order",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
                 }
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "AdminInsightThemesConnection",
+                "name": "AdminThemesConnection",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -2661,6 +2681,33 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "UpdateUserNotificationsSettingsPayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createTheme",
+              "description": null,
+              "args": [
+                {
+                  "name": "input",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "CreateThemeInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CreateThemePayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -3994,6 +4041,116 @@
                   "name": "UserNotificationsSettings",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "CreateThemeInput",
+          "description": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "name",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "isSystem",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "isDefault",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CreateThemePayload",
+          "description": null,
+          "fields": [
+            {
+              "name": "admin",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Admin",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "themeEdge",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "AdminThemesEdge",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null

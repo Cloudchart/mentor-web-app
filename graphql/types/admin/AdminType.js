@@ -12,7 +12,7 @@ import { nodeInterface } from '../Node'
 
 import AdminUsersConnection from '../../connections/admin/AdminUsersConnection'
 import AdminInsightsConnection from '../../connections/admin/AdminInsightsConnection'
-import AdminThemesConnection from '../../connections/admin/AdminThemesConnection'
+import { Field as AdminThemesConnection } from '../../connections/admin/AdminThemesConnection'
 
 
 export default new GraphQLObjectType({

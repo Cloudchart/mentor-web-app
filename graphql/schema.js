@@ -24,10 +24,10 @@ let queryType = new GraphQLObjectType({
 
 import ActivateUserMutation from './mutations/ActivateUserMutation'
 import ResetUserMutation from './mutations/ResetUserMutation'
-
 import SetUserPushTokenMutation from './mutations/SetUserPushTokenMutation'
-
 import UpdateUserNotificationsSettingsMutation from './mutations/UpdateUserNotificationsSettingsMutation'
+
+import CreateThemeMutation from './mutations/admin/CreateThemeMutation'
 
 import {
   SubscribeOnThemeMutation,
@@ -61,6 +61,7 @@ let mutationType = new GraphQLObjectType({
     markInsightUseless:               MarkInsightUselessMutation,
     resetInsight:                     ResetInsightMutation,
     updateUserNotificationsSettings:  UpdateUserNotificationsSettingsMutation,
+    createTheme:                      CreateThemeMutation,
   }
 
 })
