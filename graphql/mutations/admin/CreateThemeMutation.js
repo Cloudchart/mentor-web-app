@@ -11,7 +11,7 @@ import {
 } from 'graphql-relay'
 
 import {
-  ThemeStorage,
+  AdminThemeStorage,
   RoleStorage,
   AdminStorage,
 } from '../../../storage'
@@ -47,8 +47,8 @@ export default mutationWithClientMutationId({
     themeEdge: {
       type: adminThemesConnection.edgeType,
       resolve: (payload) => {
-        // TODO: figure this out
         console.log('>>>', 'outputFields', 'themeEdge', 'resolve', payload);
+        // TODO: figure out how to return edge
         return { node: {}, cursor: ''}
       }
     },
@@ -59,7 +59,7 @@ export default mutationWithClientMutationId({
 
       if (!payload.name) throw new Error('Name is blank')
 
-      let theme = await ThemeStorage.create({
+      let theme = await AdminThemeStorage.create({
         name: payload.name,
         is_system: payload.isSystem,
         is_default: payload.isDefault,
