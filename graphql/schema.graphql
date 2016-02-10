@@ -159,6 +159,7 @@ type Mutation {
   resetInsight(input: ResetInsightInput!): ResetInsightPayload
   updateUserNotificationsSettings(input: UpdateUserNotificationsSettingsInput!): UpdateUserNotificationsSettingsPayload
   createTheme(input: CreateThemeInput!): CreateThemePayload
+  updateTheme(input: UpdateThemeInput!): UpdateThemePayload
 }
 
 interface Node {
@@ -252,6 +253,20 @@ type UnsubscribeFromThemePayload {
   user: User!
   theme: UserTheme!
   themeID: ID!
+  clientMutationId: String!
+}
+
+input UpdateThemeInput {
+  id: ID!
+  name: String!
+  isSystem: Boolean
+  isDefault: Boolean
+  clientMutationId: String!
+}
+
+type UpdateThemePayload {
+  admin: Admin
+  theme: AdminTheme
   clientMutationId: String!
 }
 

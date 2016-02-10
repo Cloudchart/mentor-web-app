@@ -1,4 +1,5 @@
 import {
+  GraphQLID,
   GraphQLString,
   GraphQLNonNull,
   GraphQLBoolean,
@@ -7,24 +8,26 @@ import {
 import {
   fromGlobalId,
   mutationWithClientMutationId,
-  cursorForObjectInConnection,
 } from 'graphql-relay'
 
 import {
-  ThemeStorage,
+  AdminThemeStorage,
   RoleStorage,
   AdminStorage,
 } from '../../../storage'
 
 import AdminType from '../../types/admin/AdminType'
-import { adminThemesConnection } from '../../connections/admin/AdminThemesConnection'
+import AdminThemeType from '../../types/admin/AdminThemeType'
 
 
 export default mutationWithClientMutationId({
 
-  name: 'CreateTheme',
+  name: 'UpdateTheme',
 
   inputFields: {
+    id: {
+      type: new GraphQLNonNull(GraphQLID)
+    },
     name: {
       type: new GraphQLNonNull(GraphQLString)
     },
@@ -38,19 +41,11 @@ export default mutationWithClientMutationId({
 
   outputFields: {
     admin: {
-      type: AdminType,
-      resolve: (payload) => {
-        console.log('>>>', 'outputFields', 'admin', 'resolve', payload);
-        return AdminStorage.load(payload.adminID)
-      }
+      type: AdminType
     },
-    themeEdge: {
-      type: adminThemesConnection.edgeType,
-      resolve: (payload) => {
-        // TODO: figure this out
-        console.log('>>>', 'outputFields', 'themeEdge', 'resolve', payload);
-        return { node: {}, cursor: ''}
-      }
+    theme: {
+      type: AdminThemeType,
+      resolve: (payload) => AdminThemeStorage.load(payload.theme.id)
     },
   },
 
@@ -59,13 +54,15 @@ export default mutationWithClientMutationId({
 
       if (!payload.name) throw new Error('Name is blank')
 
-      let theme = await ThemeStorage.create({
+      let themeID = fromGlobalId(payload.id).id
+
+      let theme = await AdminThemeStorage.update(themeID, {
         name: payload.name,
         is_system: payload.isSystem,
         is_default: payload.isDefault,
       })
 
-      return { adminID: viewer.id, theme }
+      return { theme }
     } else {
       throw new Error('Not authorized')
     }

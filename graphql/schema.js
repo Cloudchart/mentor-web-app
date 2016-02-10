@@ -28,6 +28,7 @@ import SetUserPushTokenMutation from './mutations/SetUserPushTokenMutation'
 import UpdateUserNotificationsSettingsMutation from './mutations/UpdateUserNotificationsSettingsMutation'
 
 import CreateThemeMutation from './mutations/admin/CreateThemeMutation'
+import UpdateThemeMutation from './mutations/admin/UpdateThemeMutation'
 
 import {
   SubscribeOnThemeMutation,
@@ -62,6 +63,7 @@ let mutationType = new GraphQLObjectType({
     resetInsight:                     ResetInsightMutation,
     updateUserNotificationsSettings:  UpdateUserNotificationsSettingsMutation,
     createTheme:                      CreateThemeMutation,
+    updateTheme:                      UpdateThemeMutation,
   }
 
 })
