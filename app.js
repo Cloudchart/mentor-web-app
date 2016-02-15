@@ -15,6 +15,8 @@ var users = require('./routes/users');
 var auth = require('./routes/auth');
 var themes = require('./routes/themes');
 var graphql = require('./routes/graphql');
+var slackbot = require('./routes/slackbot');
+
 var models  = require('./models')
 
 models.sequelize.sync()
@@ -47,6 +49,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/auth', auth)
 app.use('/themes', themes)
+app.use('/slackbot', slackbot)
 
 // GraphQL
 app.use('/graphql', graphql)
