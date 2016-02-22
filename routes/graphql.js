@@ -5,6 +5,7 @@ import {
 import {
   UserStorage,
   DeviceStorage,
+  SlackChannelStorage,
 } from '../storage'
 
 import path from 'path'
@@ -24,6 +25,24 @@ let logger = bunyan.createLogger({
 })
 
 let router = Router()
+
+let channelAuthorizer = async (req, res, next) => {
+  let channelID = req.get('X-Slack-Channel-Id')
+  if (req.user || !channelID) return next()
+
+  SlackChannelStorage.load(channelID)
+  .then(async channel => {
+    let user = await UserStorage.load(channel.user_id)
+    req.user = user
+    next()
+  })
+  .catch(async error => {
+    let user = await UserStorage.create()
+    let channel = await SlackChannelStorage.create({ id: channelID, user_id: user.id })
+    req.user = user
+    next()
+  })
+}
 
 let deviceAuthorizer = async (req, res, next) => {
   let deviceID = req.get('X-Device-Id')
@@ -49,7 +68,12 @@ let deviceLogger = async (req, res, next) => {
   next()
 }
 
-router.use('/', deviceAuthorizer, deviceLogger, cors({ origin: process.env.CORS_ALLOW_ORIGIN, credentials: true }), graphqlHTTP(req => ({
+router.use('/',
+  deviceAuthorizer,
+  deviceLogger,
+  channelAuthorizer,
+  cors({ origin: process.env.CORS_ALLOW_ORIGIN, credentials: true },
+), graphqlHTTP(req => ({
   schema: GraphQLSchema,
   rootValue: {
     viewer: req.user

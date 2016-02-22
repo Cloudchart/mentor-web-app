@@ -12,6 +12,7 @@ import FollowUpStorage from './FollowUpStorage'
 import DevicePushTokenStorage from './DevicePushTokenStorage'
 import UserNotificationsSettingsStorage from './UserNotificationsSettingsStorage'
 import RoleStorage from './RoleStorage'
+import SlackChannelStorage from './SlackChannelStorage'
 
 import AdminUserStorage from './admin/AdminUserStorage'
 import AdminStorage from './admin/AdminStorage'
@@ -33,6 +34,7 @@ export default {
   DevicePushTokenStorage,
   UserNotificationsSettingsStorage,
   RoleStorage,
+  SlackChannelStorage,
   AdminUserStorage,
   AdminStorage,
   AdminInsightStorage,
