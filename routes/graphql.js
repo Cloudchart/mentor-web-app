@@ -26,6 +26,10 @@ let logger = bunyan.createLogger({
 
 let router = Router()
 
+let checkCorsOrigins = (origin, callback) => {
+  callback(null, process.env.CORS_ALLOW_ORIGINS.split(',').includes(origin))
+}
+
 let channelAuthorizer = async (req, res, next) => {
   let channelID = req.get('X-Slack-Channel-Id')
   if (req.user || !channelID) return next()
@@ -72,7 +76,7 @@ router.use('/',
   deviceAuthorizer,
   deviceLogger,
   channelAuthorizer,
-  cors({ origin: process.env.CORS_ALLOW_ORIGIN, credentials: true },
+  cors({ origin: checkCorsOrigins, credentials: true },
 ), graphqlHTTP(req => ({
   schema: GraphQLSchema,
   rootValue: {
