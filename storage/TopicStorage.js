@@ -50,7 +50,7 @@ const SubscribedTopicsQuery = `
 `
 
 
-export default BaseStorage('Topic', {
+const Storage = BaseStorage('Topic', {
   modelName: 'Theme',
   idsQueries: {
     'all': AllTopicsQuery,
@@ -58,3 +58,8 @@ export default BaseStorage('Topic', {
     'subscribed': SubscribedTopicsQuery,
   }
 })
+
+
+export default {
+  ...Storage,
+}

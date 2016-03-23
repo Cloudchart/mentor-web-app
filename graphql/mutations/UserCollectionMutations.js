@@ -5,6 +5,7 @@ import {
 } from 'graphql'
 
 import {
+  toGlobalId,
   fromGlobalId,
   mutationWithClientMutationId
 } from 'graphql-relay'
@@ -40,7 +41,7 @@ export const AddCollectionToUserMutation = mutationWithClientMutationId({
 
     collectionID: {
       type: new GraphQLNonNull(GraphQLID),
-      resolve: ({ collection }) => collection.id,
+      resolve: ({ collection }) => toGlobalId('UserCollection', collection.id),
     },
 
     collectionEdge: {
@@ -76,7 +77,7 @@ export const RemoveCollectionFromUserMutation = mutationWithClientMutationId({
 
     collectionID: {
       type: new GraphQLNonNull(GraphQLID),
-      resolve: ({ collection }) => collection.id
+      resolve: ({ collection }) => toGlobalId('UserCollection', collection.id),
     }
   },
 
@@ -85,6 +86,8 @@ export const RemoveCollectionFromUserMutation = mutationWithClientMutationId({
 
     if (!collection || collection.user_id !== viewer.id)
       return new Error("User collection not found.")
+
+    await UserCollectionStorage.removeAllInsights(collection.id)
 
     await UserCollectionStorage.destroy(collection.id)
 
