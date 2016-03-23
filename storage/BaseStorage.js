@@ -6,17 +6,19 @@ import {
 } from './utils'
 
 
-let basicFinder = (modelName, ids) =>
+let basicFinder = (storageName, modelName, ids) =>
   (ids) =>
     models[modelName]
       .findAll({where:{id:{$in:ids}}})
-      .then(records => mapReduce(ids, records, 'id', modelName))
+      .then(records => mapReduce(ids, records, 'id', storageName))
 
 
-let createStorage = (modelName, options = {}) => {
+let createStorage = (storageName, options = {}) => {
+  let modelName = options.modelName || storageName
+
   let model = models[modelName]
 
-  let finder = options.finder || basicFinder(modelName)
+  let finder = options.finder || basicFinder(storageName, modelName)
 
   let loader = new DataLoader(finder, { cache: options.cache !== false })
 

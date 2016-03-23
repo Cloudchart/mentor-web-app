@@ -22,6 +22,7 @@ import { nodeInterface } from './Node'
 import { field as UserThemesConnectionField } from '../connections/UserThemesConnection'
 import { Field as UserThemeInsightsConnectionField } from '../connections/UserThemeInsightsConnection'
 import UserCollectionsConnection from '../connections/UserCollectionsConnection'
+import UserTopicsConnection from '../connections/UserTopicsConnection'
 
 
 export default new GraphQLObjectType({
@@ -52,6 +53,7 @@ export default new GraphQLObjectType({
     themes: UserThemesConnectionField,
 
     theme: {
+      deprecationReason: "Obsolete",
       type: new GraphQLNonNull(UserThemeType),
       args: {
         id: {
@@ -78,6 +80,8 @@ export default new GraphQLObjectType({
     insights: UserThemeInsightsConnectionField,
 
     collections: UserCollectionsConnection,
+
+    topics: UserTopicsConnection,
 
     questionnaire: {
       type: UserQuestionnaireType,

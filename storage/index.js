@@ -14,6 +14,7 @@ import DevicePushTokenStorage from './DevicePushTokenStorage'
 import UserNotificationsSettingsStorage from './UserNotificationsSettingsStorage'
 import RoleStorage from './RoleStorage'
 import SlackChannelStorage from './SlackChannelStorage'
+import TopicStorage from './TopicStorage'
 
 import AdminUserStorage from './admin/AdminUserStorage'
 import AdminStorage from './admin/AdminStorage'
@@ -41,4 +42,5 @@ export default {
   AdminStorage,
   AdminInsightStorage,
   AdminThemeStorage,
+  TopicStorage,
 }

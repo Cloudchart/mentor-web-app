@@ -35,6 +35,11 @@ import {
 } from './mutations/UserCollectionMutations'
 
 import {
+  SubscribeOnTopicMutation,
+  UnsubscribeFromTopicMutation,
+} from './mutations/UserTopicMutations'
+
+import {
   SubscribeOnThemeMutation,
   UnsubscribeFromThemeMutation,
   RejectThemeMutation,
@@ -70,6 +75,8 @@ let mutationType = new GraphQLObjectType({
     updateTheme:                      UpdateThemeMutation,
     addCollectionToUser:              AddCollectionToUserMutation,
     removeCollectionFromUser:         RemoveCollectionFromUserMutation,
+    subscribeOnTopic:                 SubscribeOnTopicMutation,
+    unsubscribeFromTopic:             UnsubscribeFromTopicMutation,
   }
 
 })

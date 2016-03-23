@@ -174,6 +174,8 @@ type Mutation {
   updateTheme(input: UpdateThemeInput!): UpdateThemePayload
   addCollectionToUser(input: AddCollectionToUserMutationInput!): AddCollectionToUserMutationPayload
   removeCollectionFromUser(input: RemoveCollectionFromUserMutationInput!): RemoveCollectionFromUserMutationPayload
+  subscribeOnTopic(input: SubscribeOnTopicMutationInput!): SubscribeOnTopicMutationPayload
+  unsubscribeFromTopic(input: UnsubscribeFromTopicMutationInput!): UnsubscribeFromTopicMutationPayload
 }
 
 interface Node {
@@ -262,11 +264,30 @@ type SubscribeOnThemePayload {
   clientMutationId: String!
 }
 
+input SubscribeOnTopicMutationInput {
+  topicID: ID!
+  clientMutationId: String!
+}
+
+type SubscribeOnTopicMutationPayload {
+  topic: Topic!
+  topicID: ID!
+  topicEdge: UserTopicsConnectionEdge
+  clientMutationId: String!
+}
+
 type Theme implements Node {
   id: ID!
   name: String
   isSystem: Boolean!
   isDefault: Boolean!
+}
+
+type Topic implements Node {
+  id: ID!
+  name: String
+  isDefault: Boolean!
+  isSubscribedByViewer: Boolean!
 }
 
 input UnsubscribeFromThemeInput {
@@ -278,6 +299,18 @@ type UnsubscribeFromThemePayload {
   user: User!
   theme: UserTheme!
   themeID: ID!
+  clientMutationId: String!
+}
+
+input UnsubscribeFromTopicMutationInput {
+  topicID: ID!
+  clientMutationId: String!
+}
+
+type UnsubscribeFromTopicMutationPayload {
+  topic: Topic!
+  topicID: ID!
+  topicEdge: UserTopicsConnectionEdge
   clientMutationId: String!
 }
 
@@ -317,6 +350,7 @@ type User implements Node {
   theme(id: ID!): UserTheme!
   insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
   collections(after: String, first: Int, before: String, last: Int): UserCollectionsConnectionConnection
+  topics(after: String, first: Int, before: String, last: Int, filter: UserTopicsConnectionFilter = all): UserTopicsConnectionConnection
   questionnaire: UserQuestionnaire
   notificationsSettings: UserNotificationsSettings
 }
@@ -417,4 +451,21 @@ type UserThemesConnection {
 type UserThemesEdge {
   node: UserTheme
   cursor: String!
+}
+
+type UserTopicsConnectionConnection {
+  pageInfo: PageInfo!
+  edges: [UserTopicsConnectionEdge]
+  count: Int!
+}
+
+type UserTopicsConnectionEdge {
+  node: Topic
+  cursor: String!
+}
+
+enum UserTopicsConnectionFilter {
+  ALL
+  DEFAULT
+  SUBSCRIBED
 }

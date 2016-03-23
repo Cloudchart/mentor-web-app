@@ -21,6 +21,8 @@ export default new GraphQLObjectType({
 
   name: 'UserTheme',
 
+  deprecationReason: "Moved to Topic type",
+
   interfaces: [nodeInterface],
 
   fields: () => ({
