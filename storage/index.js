@@ -5,6 +5,7 @@ import InsightStorage from './InsightStorage'
 import InsightOriginStorage from './InsightOriginStorage'
 import ThemeStorage from './ThemeStorage'
 import UserStorage from './UserStorage'
+import UserCollectionStorage from './UserCollectionStorage'
 import UserThemeStorage from './UserThemeStorage'
 import ThemeInsightStorage from './ThemeInsightStorage'
 import UserThemeInsightStorage from './UserThemeInsightStorage'
@@ -27,6 +28,7 @@ export default {
   InsightOriginStorage,
   ThemeStorage,
   UserStorage,
+  UserCollectionStorage,
   UserThemeStorage,
   ThemeInsightStorage,
   UserThemeInsightStorage,

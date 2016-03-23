@@ -21,6 +21,7 @@ import {
 import { nodeInterface } from './Node'
 import { field as UserThemesConnectionField } from '../connections/UserThemesConnection'
 import { Field as UserThemeInsightsConnectionField } from '../connections/UserThemeInsightsConnection'
+import UserCollectionsConnection from '../connections/UserCollectionsConnection'
 
 
 export default new GraphQLObjectType({
@@ -75,6 +76,8 @@ export default new GraphQLObjectType({
     },
 
     insights: UserThemeInsightsConnectionField,
+
+    collections: UserCollectionsConnection,
 
     questionnaire: {
       type: UserQuestionnaireType,

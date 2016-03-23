@@ -8,6 +8,17 @@ type ActivateUserPayload {
   clientMutationId: String!
 }
 
+input AddCollectionToUserMutationInput {
+  name: String!
+  clientMutationId: String!
+}
+
+type AddCollectionToUserMutationPayload {
+  collection: UserCollection!
+  collectionID: ID!
+  clientMutationId: String!
+}
+
 type Admin implements Node {
   id: ID!
   name: String
@@ -160,6 +171,8 @@ type Mutation {
   updateUserNotificationsSettings(input: UpdateUserNotificationsSettingsInput!): UpdateUserNotificationsSettingsPayload
   createTheme(input: CreateThemeInput!): CreateThemePayload
   updateTheme(input: UpdateThemeInput!): UpdateThemePayload
+  addCollectionToUser(input: AddCollectionToUserMutationInput!): AddCollectionToUserMutationPayload
+  removeCollectionFromUser(input: RemoveCollectionFromUserMutationInput!): RemoveCollectionFromUserMutationPayload
 }
 
 interface Node {
@@ -188,6 +201,17 @@ type RejectThemePayload {
   user: User!
   theme: UserTheme!
   themeID: ID!
+  clientMutationId: String!
+}
+
+input RemoveCollectionFromUserMutationInput {
+  collectionID: ID!
+  clientMutationId: String!
+}
+
+type RemoveCollectionFromUserMutationPayload {
+  collection: UserCollection!
+  collectionID: ID!
   clientMutationId: String!
 }
 
@@ -291,8 +315,25 @@ type User implements Node {
   themes(after: String, first: Int, before: String, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection
   theme(id: ID!): UserTheme!
   insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
+  collections(after: String, first: Int, before: String, last: Int): UserCollectionsConnectionConnection
   questionnaire: UserQuestionnaire
   notificationsSettings: UserNotificationsSettings
+}
+
+type UserCollection implements Node {
+  id: ID!
+  name: String!
+}
+
+type UserCollectionsConnectionConnection {
+  pageInfo: PageInfo!
+  edges: [UserCollectionsConnectionEdge]
+  count: Int!
+}
+
+type UserCollectionsConnectionEdge {
+  node: UserCollection
+  cursor: String!
 }
 
 type UserNotificationsSettings {

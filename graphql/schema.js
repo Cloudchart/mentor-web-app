@@ -29,6 +29,10 @@ import UpdateUserNotificationsSettingsMutation from './mutations/UpdateUserNotif
 
 import CreateThemeMutation from './mutations/admin/CreateThemeMutation'
 import UpdateThemeMutation from './mutations/admin/UpdateThemeMutation'
+import {
+  AddCollectionToUserMutation,
+  RemoveCollectionFromUserMutation,
+} from './mutations/UserCollectionMutations'
 
 import {
   SubscribeOnThemeMutation,
@@ -64,6 +68,8 @@ let mutationType = new GraphQLObjectType({
     updateUserNotificationsSettings:  UpdateUserNotificationsSettingsMutation,
     createTheme:                      CreateThemeMutation,
     updateTheme:                      UpdateThemeMutation,
+    addCollectionToUser:              AddCollectionToUserMutation,
+    removeCollectionFromUser:         RemoveCollectionFromUserMutation,
   }
 
 })
