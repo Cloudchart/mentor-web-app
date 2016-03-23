@@ -20,6 +20,18 @@ type AddCollectionToUserMutationPayload {
   clientMutationId: String!
 }
 
+input AddInsightToCollectionMutationInput {
+  insightID: ID!
+  collectionID: ID!
+  clientMutationId: String!
+}
+
+type AddInsightToCollectionMutationPayload {
+  insight: Insight!
+  insightEdge: String
+  clientMutationId: String!
+}
+
 type Admin implements Node {
   id: ID!
   name: String
@@ -103,12 +115,29 @@ input DislikeInsightInput {
   clientMutationId: String!
 }
 
+input DislikeInsightInTopicMutationInput {
+  insightID: ID!
+  topicID: ID!
+  clientMutationId: String!
+}
+
+type DislikeInsightInTopicMutationPayload {
+  insight: Insight!
+  insightEdge: String
+  clientMutationId: String!
+}
+
 type DislikeInsightPayload {
   user: User!
   theme: UserTheme!
   insight: UserThemeInsight!
   insightID: ID!
   clientMutationId: String!
+}
+
+type Insight implements Node {
+  id: ID!
+  content: String!
 }
 
 type InsightOrigin {
@@ -123,11 +152,35 @@ input LikeInsightInput {
   clientMutationId: String!
 }
 
+input LikeInsightInTopicMutationInput {
+  insightID: ID!
+  topicID: ID!
+  clientMutationId: String!
+}
+
+type LikeInsightInTopicMutationPayload {
+  insight: Insight!
+  insightEdge: String
+  clientMutationId: String!
+}
+
 type LikeInsightPayload {
   user: User!
   theme: UserTheme!
   insight: UserThemeInsight!
   insightID: ID!
+  clientMutationId: String!
+}
+
+input MarkInsightUsefulInCollectionMutationInput {
+  insightID: ID!
+  collectionID: ID!
+  clientMutationId: String!
+}
+
+type MarkInsightUsefulInCollectionMutationPayload {
+  insight: Insight!
+  insightEdge: String
   clientMutationId: String!
 }
 
@@ -141,6 +194,18 @@ type MarkInsightUsefulPayload {
   theme: UserTheme!
   insight: UserThemeInsight!
   insightID: ID!
+  clientMutationId: String!
+}
+
+input MarkInsightUselessInCollectionMutationInput {
+  insightID: ID!
+  collectionID: ID!
+  clientMutationId: String!
+}
+
+type MarkInsightUselessInCollectionMutationPayload {
+  insight: Insight!
+  insightEdge: String
   clientMutationId: String!
 }
 
@@ -176,6 +241,11 @@ type Mutation {
   removeCollectionFromUser(input: RemoveCollectionFromUserMutationInput!): RemoveCollectionFromUserMutationPayload
   subscribeOnTopic(input: SubscribeOnTopicMutationInput!): SubscribeOnTopicMutationPayload
   unsubscribeFromTopic(input: UnsubscribeFromTopicMutationInput!): UnsubscribeFromTopicMutationPayload
+  likeInsightInTopic(input: LikeInsightInTopicMutationInput!): LikeInsightInTopicMutationPayload
+  dislikeInsightInTopic(input: DislikeInsightInTopicMutationInput!): DislikeInsightInTopicMutationPayload
+  addInsightToCollection(input: AddInsightToCollectionMutationInput!): AddInsightToCollectionMutationPayload
+  markInsightUsefulInCollection(input: MarkInsightUsefulInCollectionMutationInput!): MarkInsightUsefulInCollectionMutationPayload
+  markInsightUselessInCollection(input: MarkInsightUselessInCollectionMutationInput!): MarkInsightUselessInCollectionMutationPayload
 }
 
 interface Node {
@@ -273,6 +343,7 @@ type SubscribeOnTopicMutationPayload {
   topic: Topic!
   topicID: ID!
   topicEdge: UserTopicsConnectionEdge
+  user: User
   clientMutationId: String!
 }
 
@@ -311,6 +382,7 @@ type UnsubscribeFromTopicMutationPayload {
   topic: Topic!
   topicID: ID!
   topicEdge: UserTopicsConnectionEdge
+  user: User
   clientMutationId: String!
 }
 

@@ -40,6 +40,14 @@ import {
 } from './mutations/UserTopicMutations'
 
 import {
+  LikeInsightInTopicMutation,
+  DislikeInsightInTopicMutation,
+  AddInsightToCollectionMutation,
+  MarkInsightUsefulInCollectionMutation,
+  MarkInsightUselessInCollectionMutation,
+} from './mutations/InsightMutations'
+
+import {
   SubscribeOnThemeMutation,
   UnsubscribeFromThemeMutation,
   RejectThemeMutation,
@@ -77,6 +85,11 @@ let mutationType = new GraphQLObjectType({
     removeCollectionFromUser:         RemoveCollectionFromUserMutation,
     subscribeOnTopic:                 SubscribeOnTopicMutation,
     unsubscribeFromTopic:             UnsubscribeFromTopicMutation,
+    likeInsightInTopic:               LikeInsightInTopicMutation,
+    dislikeInsightInTopic:            DislikeInsightInTopicMutation,
+    addInsightToCollection:           AddInsightToCollectionMutation,
+    markInsightUsefulInCollection:    MarkInsightUsefulInCollectionMutation,
+    markInsightUselessInCollection:   MarkInsightUselessInCollectionMutation,
   }
 
 })

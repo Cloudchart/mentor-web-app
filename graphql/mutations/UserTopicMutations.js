@@ -16,6 +16,7 @@ import {
 } from '../../storage'
 
 import TopicType from '../types/TopicType'
+import UserType from '../types/UserType'
 
 import {
   UserTopicsEdgeType
@@ -45,6 +46,10 @@ const MutationOutputFields = {
   topicEdge: {
     type: UserTopicsEdgeType,
     resolve: ({ topic }) => nodeToEdge(topic)
+  },
+
+  user: {
+    type: UserType
   }
 }
 
@@ -80,7 +85,7 @@ export const SubscribeOnTopicMutation = mutationWithClientMutationId({
     if (!link || link.status !== 'subscribed')
       return new Error('Subscribed topics cap reached.')
 
-    return { topic }
+    return { topic, user: viewer }
   }
 })
 
@@ -104,6 +109,6 @@ export const UnsubscribeFromTopicMutation = mutationWithClientMutationId({
     if (link && link.status === 'subscribed')
       await UserThemeStorage.update(link.id, { status: 'available' })
 
-    return { topic }
+    return { topic, user: viewer }
   }
 })
