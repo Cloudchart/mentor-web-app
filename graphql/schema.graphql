@@ -16,6 +16,7 @@ input AddCollectionToUserMutationInput {
 type AddCollectionToUserMutationPayload {
   collection: UserCollection!
   collectionID: ID!
+  collectionEdge: UserCollectionsConnectionEdge
   clientMutationId: String!
 }
 

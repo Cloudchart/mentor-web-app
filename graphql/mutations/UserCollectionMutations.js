@@ -15,6 +15,14 @@ import {
 
 import UserCollectionType from '../types/UserCollectionType'
 
+import {
+  UserCollectionsEdgeType
+} from '../connections/UserCollectionsConnection'
+
+import {
+  nodeToEdge
+} from '../connections/arrayconnection'
+
 
 export const AddCollectionToUserMutation = mutationWithClientMutationId({
   name: 'AddCollectionToUserMutation',
@@ -34,6 +42,11 @@ export const AddCollectionToUserMutation = mutationWithClientMutationId({
       type: new GraphQLNonNull(GraphQLID),
       resolve: ({ collection }) => collection.id,
     },
+
+    collectionEdge: {
+      type: UserCollectionsEdgeType,
+      resolve: ({ collection }) => nodeToEdge(collection)
+    }
   },
 
   mutateAndGetPayload: async({ name }, { rootValue: { viewer } }) => {
