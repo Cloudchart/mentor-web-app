@@ -70,7 +70,7 @@ export const RemoveCollectionFromUserMutation = mutationWithClientMutationId({
   mutateAndGetPayload: async ({ collectionID }, { rootValue: { viewer } }) => {
     let collection = await UserCollectionStorage.load(fromGlobalId(collectionID).id).catch(error => null)
 
-    if (!collection)
+    if (!collection || collection.user_id !== viewer.id)
       return new Error("User collection not found.")
 
     await UserCollectionStorage.destroy(collection.id)
