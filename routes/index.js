@@ -5,7 +5,7 @@ import { DevicePushTokenStorage } from '../storage'
 let router = Router()
 
 router.get('/', (req, res, next) => {
-  if (process.env.NODE_ENV === 'production' && process.env.INDEX_REDIRECT_URL)
+  if (process.env.INDEX_REDIRECT_URL)
     return res.redirect(process.env.INDEX_REDIRECT_URL)
 
   if (!req.user) return res.redirect('/login')
