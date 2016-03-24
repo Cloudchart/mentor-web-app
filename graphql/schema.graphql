@@ -359,6 +359,28 @@ type Topic implements Node {
   name: String
   isDefault: Boolean!
   isSubscribedByViewer: Boolean!
+  insights(after: String, first: Int, before: String, last: Int, filter: TopicInsightsFilterEnum = unrated): TopicInsightsConnection
+}
+
+type TopicInsightsConnection {
+  pageInfo: PageInfo!
+  edges: [TopicInsightsEdge]
+  totalCount: Int!
+  ratedCount: Int!
+  unratedCount: Int!
+}
+
+type TopicInsightsEdge {
+  node: Insight
+  cursor: String!
+}
+
+enum TopicInsightsFilterEnum {
+  ALL
+  RATED
+  UNRATED
+  LIKED
+  DISLIKED
 }
 
 input UnsubscribeFromThemeInput {

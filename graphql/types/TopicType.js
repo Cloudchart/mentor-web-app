@@ -15,6 +15,8 @@ import {
   UserThemeStorage
 } from '../../storage'
 
+import TopicInsightsConnection from '../connections/TopicInsightsConnection'
+
 
 export default new GraphQLObjectType({
 
@@ -41,7 +43,9 @@ export default new GraphQLObjectType({
         let link = await UserThemeStorage.loadOne('unique', { userID: viewer.id, themeID: id })
         return link && link.status === 'subscribed'
       }
-    }
+    },
+
+    insights: TopicInsightsConnection
 
   })
 

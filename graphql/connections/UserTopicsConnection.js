@@ -62,7 +62,7 @@ export default {
     let topics = await TopicStorage.loadAll(filter, { userID: viewer.id })
     return {
       ...connectionFromArray(topics, args),
-      count: 0
+      count: topics.length
     }
   }
 }
