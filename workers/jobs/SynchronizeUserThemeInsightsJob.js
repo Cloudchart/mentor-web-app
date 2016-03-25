@@ -1,22 +1,34 @@
 import Bluebird from 'bluebird'
 
-const InitialInsightsCount = 4
-const MaxSubscribedInsightsCount = 8
-const InsightsRate = 2 / (60 * 60 * 1000)
+const Variables = {
+  user: {
+    InitialInsightsCount: 4,
+    MaxSubscribedInsightsCount: 8,
+    InsightsRate: 2 / (60 * 60 * 1000)
+  },
+  slackChannel: {
+    InitialInsightsCount: 1,
+    MaxSubscribedInsightsCount: 1,
+    InsightsRate: 1 / (2 * 60 * 60 * 1000)
+  }
+}
 
 
 import {
   UserThemeStorage,
   ThemeInsightStorage,
-  UserThemeInsightStorage
+  UserThemeInsightStorage,
+  SlackChannelStorage,
 } from '../../storage'
 
 
 let perform = async ({ userID, themeID }, callback) => {
-  let count           = InitialInsightsCount
   let userTheme       = await UserThemeStorage.loadOne('unique', { userID, themeID })
   let ratedInsights   = await UserThemeInsightStorage.loadAll('ratedForTheme', { userID, themeID })
   let unratedInsights = await UserThemeInsightStorage.loadAll('unratedForTheme', { userID, themeID })
+  let slackChannel    = await SlackChannelStorage.loadOne('forUser', { user_id: userID }).catch(() => null)
+
+  let { InitialInsightsCount: count, MaxSubscribedInsightsCount, InsightsRate } = Variables[slackChannel ? 'slackChannel' : 'user']
 
   if ((ratedInsights.length + unratedInsights.length) > 0) {
     count = 0
