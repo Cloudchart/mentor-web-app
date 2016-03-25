@@ -5,38 +5,28 @@ const TableName = models.UserCollection.tableName
 const UserCollectionInsightTableName = models.UserCollectionInsight.tableName
 
 
-const UserQuery = `
+const GenericQuery = (options = {}) => `
   select
     id
   from
-    ${TableName}
-  where
-    user_id = :userID
-  order by
-    created_at
+  ${ options.table ? options.table : TableName }
+  ${ options.where ? ' where ' + options.where : '' }
+  ${ options.order ? ' order by ' + options.order: '' }
 `
-
-const UserAndNameQuery = `
-  select
-    id
-  from
-    ${TableName}
-  where
-    user_id = :userID
-    and
-    name = :name
-`
-
 
 const Storage = BaseStorage('UserCollection', {
   idsQueries: {
-    user: UserQuery,
-    userAndName: UserAndNameQuery,
+    user: GenericQuery({ where: `user_id = :user_id` }),
+    userAndName: GenericQuery({ where: `user_id = :user_id and name = :name` }),
   }
 })
 
 export default {
   ...Storage,
+
+  loadOrCreateBy: async (attributes) => {
+    return await Storage.loadOne('userAndName', attributes).catch(() => null) || await Storage.create(attributes)
+  },
 
   removeAllInsights: async (id) => {
     models.sequelize

@@ -1,4 +1,5 @@
 import {
+  GraphQLBoolean,
   GraphQLID,
   GraphQLNonNull,
   GraphQLString,
@@ -9,6 +10,14 @@ import {
   fromGlobalId,
   mutationWithClientMutationId
 } from 'graphql-relay'
+
+import {
+  TopicStorage,
+  InsightStorage,
+  UserCollectionStorage,
+  UserTopicInsightStorage,
+  UserCollectionInsightStorage,
+} from '../../storage'
 
 import InsightType from '../types/InsightsType'
 import TopicType from '../types/TopicType'
@@ -24,6 +33,9 @@ const MutationsInputFields = {
 const MutationsOutputFields = {
   insight: {
     type: new GraphQLNonNull(InsightType)
+  },
+  insightID: {
+    type: new GraphQLNonNull(GraphQLID)
   }
 }
 
@@ -56,14 +68,36 @@ const UserCollectionMutationsOutputFields = {
 }
 
 let mutateAndGetPayloadForTopicMutation = (rate) =>
-  async ({ insightID, topicID }, { rootValue: { viewer } }) => {
+  async ({ insightID, topicID, shouldAddToUserCollectionWithTopicName }, { rootValue: { viewer } }) => {
+    let link = await UserTopicInsightStorage.loadOne('unique', {
+      user_id:    viewer.id,
+      topic_id:   fromGlobalId(topicID).id,
+      insight_id: fromGlobalId(insightID).id
+    }).catch(error => null)
 
+    if (!link)
+      return new Error('Not found.')
+
+    await UserTopicInsightStorage.update(link.id, { rate })
+
+    let insight = await InsightStorage.load(fromGlobalId(insightID).id)
+
+    if (shouldAddToUserCollectionWithTopicName) {
+      let topic = await TopicStorage.load(fromGlobalId(topicID).id)
+      let userCollection = await UserCollectionStorage.loadOrCreateBy({ name: topic.name, user_id: viewer.id })
+      await UserCollectionInsightStorage.loadOrCreateByUserCollectionAndInsight({
+        user_collection_id:   userCollection.id,
+        insight_id:           insight.id
+      })
+    }
+
+    return { insight, insightID }
   }
 
 
 let mutateAndGetPayloadForUserCollectionMutation = (is_useless) =>
   async ({ insightID, collectionID }, { rootValue: { viewer } }) => {
-
+    return new Error('Not implemented.')
   }
 
 // Like Insight in Topic
@@ -73,6 +107,10 @@ export const LikeInsightInTopicMutation = mutationWithClientMutationId({
 
   inputFields: {
     ...TopicMutationsInputFields,
+    shouldAddToUserCollectionWithTopicName: {
+      type: GraphQLBoolean,
+      defaultValue: false,
+    }
   },
 
   outputFields: {

@@ -45,7 +45,7 @@ export default {
   },
 
   resolve: async (user, args, { rootValue: { viewer } }) => {
-    let userCollections = await UserCollectionStorage.loadAll('user', { userID: user.id })
+    let userCollections = await UserCollectionStorage.loadAll('user', { user_id: user.id })
     return {
       ...connectionFromArray(userCollections, args),
       count: userCollections.length

@@ -28,6 +28,7 @@ input AddInsightToCollectionMutationInput {
 
 type AddInsightToCollectionMutationPayload {
   insight: Insight!
+  insightID: ID!
   insightEdge: String
   clientMutationId: String!
 }
@@ -123,6 +124,7 @@ input DislikeInsightInTopicMutationInput {
 
 type DislikeInsightInTopicMutationPayload {
   insight: Insight!
+  insightID: ID!
   insightEdge: String
   clientMutationId: String!
 }
@@ -155,11 +157,13 @@ input LikeInsightInput {
 input LikeInsightInTopicMutationInput {
   insightID: ID!
   topicID: ID!
+  shouldAddToUserCollectionWithTopicName: Boolean = false
   clientMutationId: String!
 }
 
 type LikeInsightInTopicMutationPayload {
   insight: Insight!
+  insightID: ID!
   insightEdge: String
   clientMutationId: String!
 }
@@ -180,6 +184,7 @@ input MarkInsightUsefulInCollectionMutationInput {
 
 type MarkInsightUsefulInCollectionMutationPayload {
   insight: Insight!
+  insightID: ID!
   insightEdge: String
   clientMutationId: String!
 }
@@ -205,6 +210,7 @@ input MarkInsightUselessInCollectionMutationInput {
 
 type MarkInsightUselessInCollectionMutationPayload {
   insight: Insight!
+  insightID: ID!
   insightEdge: String
   clientMutationId: String!
 }
@@ -365,7 +371,6 @@ type Topic implements Node {
 type TopicInsightsConnection {
   pageInfo: PageInfo!
   edges: [TopicInsightsEdge]
-  totalCount: Int!
   ratedCount: Int!
   unratedCount: Int!
 }

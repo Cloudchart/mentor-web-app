@@ -51,7 +51,7 @@ export const AddCollectionToUserMutation = mutationWithClientMutationId({
   },
 
   mutateAndGetPayload: async({ name }, { rootValue: { viewer } }) => {
-    let collection = await UserCollectionStorage.loadOne('userAndName', { userID: viewer.id, name }).catch(error => null)
+    let collection = await UserCollectionStorage.loadOne('userAndName', { user_id: viewer.id, name }).catch(error => null)
 
     if (!collection)
       collection = await UserCollectionStorage.create({ user_id: viewer.id, name })

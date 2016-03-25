@@ -6,6 +6,7 @@ import InsightOriginStorage from './InsightOriginStorage'
 import ThemeStorage from './ThemeStorage'
 import UserStorage from './UserStorage'
 import UserCollectionStorage from './UserCollectionStorage'
+import UserCollectionInsightStorage from './UserCollectionInsightStorage'
 import UserThemeStorage from './UserThemeStorage'
 import ThemeInsightStorage from './ThemeInsightStorage'
 import UserThemeInsightStorage from './UserThemeInsightStorage'
@@ -15,6 +16,7 @@ import UserNotificationsSettingsStorage from './UserNotificationsSettingsStorage
 import RoleStorage from './RoleStorage'
 import SlackChannelStorage from './SlackChannelStorage'
 import TopicStorage from './TopicStorage'
+import UserTopicInsightStorage from './UserTopicInsightStorage'
 
 import AdminUserStorage from './admin/AdminUserStorage'
 import AdminStorage from './admin/AdminStorage'
@@ -30,6 +32,7 @@ export default {
   ThemeStorage,
   UserStorage,
   UserCollectionStorage,
+  UserCollectionInsightStorage,
   UserThemeStorage,
   ThemeInsightStorage,
   UserThemeInsightStorage,
@@ -43,4 +46,5 @@ export default {
   AdminInsightStorage,
   AdminThemeStorage,
   TopicStorage,
+  UserTopicInsightStorage,
 }
