@@ -19,6 +19,7 @@ import {
 
 import TopicType from '../types/TopicType'
 
+import SynchronizeUserThemesJob from '../../workers/jobs/SynchronizeUserThemesJob'
 
 
 export const UserTopicsConnectionFilterEnum = new GraphQLEnumType({
@@ -59,6 +60,7 @@ export default {
   },
 
   resolve: async (user, { filter, ...args }, { rootValue: { viewer } }) => {
+    await SynchronizeUserThemesJob.perform({ userID: viewer.id })
     let topics = await TopicStorage.loadAll(filter, { userID: viewer.id })
     return {
       ...connectionFromArray(topics, args),

@@ -20,6 +20,8 @@ import {
 import TopicType from '../types/TopicType'
 import InsightType from '../types/InsightsType'
 
+import SynchronizeUserThemeInsightsJob from '../../workers/jobs/SynchronizeUserThemeInsightsJob'
+
 
 export const TopicInsightsConnectionFilterEnum = new GraphQLEnumType({
   name: 'TopicInsightsFilterEnum',
@@ -75,6 +77,7 @@ export default {
   },
 
   resolve: async (topic, { filter, ...args }, { rootValue: { viewer } }) => {
+    await SynchronizeUserThemeInsightsJob.perform({ userID: viewer.id, themeID: topic.id })
     let insights = await InsightStorage.loadAll(filter + 'ForTopicAndUser', { userID: viewer.id, topicID: topic.id })
     return {
       ...connectionFromArray(insights, args),
