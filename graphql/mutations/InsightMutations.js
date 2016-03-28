@@ -97,7 +97,22 @@ let mutateAndGetPayloadForTopicMutation = (rate) =>
 
 let mutateAndGetPayloadForUserCollectionMutation = (is_useless) =>
   async ({ insightID, collectionID }, { rootValue: { viewer } }) => {
-    return new Error('Not implemented.')
+
+    let userCollection = await UserCollectionStorage.load(fromGlobalId(collectionID).id).catch(() => null)
+    if (!userCollection)
+      return new Error('User collection not found.')
+
+    let insight = await InsightStorage.load(fromGlobalId(insightID).id).catch(() => null)
+    if (!insight)
+      return new Error('Insight not found.')
+
+    await UserCollectionInsightStorage.loadOrCreateByUserCollectionAndInsight({
+      user_collection_id:   userCollection.id,
+      insight_id:           insight.id,
+      is_useless
+    })
+
+    return { insight, insightID }
   }
 
 // Like Insight in Topic
