@@ -469,6 +469,8 @@ type UserCollectionInsightsConnection {
   pageInfo: PageInfo!
   edges: [UserCollectionInsightsEdge]
   count: Int!
+  usefulCount: Int!
+  uselessCount: Int!
 }
 
 type UserCollectionInsightsEdge {

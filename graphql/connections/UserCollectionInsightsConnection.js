@@ -39,7 +39,25 @@ const Connection = connectionDefinitions({
   connectionFields: {
     count: {
       type: new GraphQLNonNull(GraphQLInt),
+      resolve: async ({ userCollection }) => {
+        return await UserCollectionInsightStorage.loadAllIDs('allForUserCollection', { user_collection_id: userCollection.id })
+          .then(ids => ids.length)
+      }
     },
+    usefulCount: {
+      type: new GraphQLNonNull(GraphQLInt),
+      resolve: async ({ userCollection }) => {
+        return await UserCollectionInsightStorage.loadAllIDs('usefulForUserCollection', { user_collection_id: userCollection.id })
+          .then(ids => ids.length)
+      }
+    },
+    uselessCount: {
+      type: new GraphQLNonNull(GraphQLInt),
+      resolve: async ({ userCollection }) => {
+        return await UserCollectionInsightStorage.loadAllIDs('uselessForUserCollection', { user_collection_id: userCollection.id })
+          .then(ids => ids.length)
+      }
+    }
   },
 
   nodeType: InsightType
@@ -66,7 +84,7 @@ export default {
     let insights = await InsightStorage.loadMany(links.map(link => link.insight_id))
     return {
       ...connectionFromArray(insights, args),
-      count: insights.length,
+      userCollection,
     }
   }
 }

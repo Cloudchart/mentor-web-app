@@ -112,11 +112,12 @@ let mutateAndGetPayloadForUserCollectionMutation = (is_useless) =>
     if (!insight)
       return new Error('Insight not found.')
 
-    await UserCollectionInsightStorage.loadOrCreateByUserCollectionAndInsight({
+    let relation = await UserCollectionInsightStorage.loadOrCreateByUserCollectionAndInsight({
       user_collection_id:   userCollection.id,
-      insight_id:           insight.id,
-      is_useless
+      insight_id:           insight.id
     })
+
+    await UserCollectionInsightStorage.update(relation.id, { is_useless })
 
     return { userCollection, insight, insightID }
   }
