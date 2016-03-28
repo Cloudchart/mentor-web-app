@@ -10,6 +10,10 @@ import {
   globalIdField
 } from 'graphql-relay'
 
+import {
+  InsightOriginStorage,
+} from '../../storage'
+
 import { nodeInterface } from './Node'
 
 
@@ -25,8 +29,16 @@ export default new GraphQLObjectType({
 
     content: {
       type: new GraphQLNonNull(GraphQLString)
+    },
+
+    origin: {
+      type: InsightOriginType,
+      resolve: ({ id }) => InsightOriginStorage.load(id).catch(() => null)
     }
 
   })
 
 })
+
+
+import InsightOriginType from './InsightOriginType'

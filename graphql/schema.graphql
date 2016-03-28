@@ -142,6 +142,7 @@ type DislikeInsightPayload {
 type Insight implements Node {
   id: ID!
   content: String!
+  origin: InsightOrigin
 }
 
 type InsightOrigin {
