@@ -30,7 +30,7 @@ type AddInsightToCollectionMutationPayload {
   insight: Insight!
   insightID: ID!
   collection: UserCollection!
-  insightEdge: String
+  insightEdge: UserCollectionInsightsEdge!
   clientMutationId: String!
 }
 
@@ -127,7 +127,7 @@ type DislikeInsightInTopicMutationPayload {
   insight: Insight!
   insightID: ID!
   topic: Topic!
-  insightEdge: String
+  insightEdge: TopicInsightsEdge!
   clientMutationId: String!
 }
 
@@ -167,7 +167,7 @@ type LikeInsightInTopicMutationPayload {
   insight: Insight!
   insightID: ID!
   topic: Topic!
-  insightEdge: String
+  insightEdge: TopicInsightsEdge!
   clientMutationId: String!
 }
 
@@ -189,7 +189,7 @@ type MarkInsightUsefulInCollectionMutationPayload {
   insight: Insight!
   insightID: ID!
   collection: UserCollection!
-  insightEdge: String
+  insightEdge: UserCollectionInsightsEdge!
   clientMutationId: String!
 }
 
@@ -216,7 +216,7 @@ type MarkInsightUselessInCollectionMutationPayload {
   insight: Insight!
   insightID: ID!
   collection: UserCollection!
-  insightEdge: String
+  insightEdge: UserCollectionInsightsEdge!
   clientMutationId: String!
 }
 
@@ -462,7 +462,7 @@ type User implements Node {
 type UserCollection implements Node {
   id: ID!
   name: String!
-  insights(after: String, first: Int, before: String, last: Int, filter: UserCollectionInsightsFilterEnum = useful): UserCollectionInsightsConnection
+  insights(after: String, first: Int, before: String, last: Int, filter: UserCollectionInsightsFilter = useful): UserCollectionInsightsConnection
 }
 
 type UserCollectionInsightsConnection {
@@ -478,7 +478,7 @@ type UserCollectionInsightsEdge {
   cursor: String!
 }
 
-enum UserCollectionInsightsFilterEnum {
+enum UserCollectionInsightsFilter {
   ALL
   USEFUL
   USELESS

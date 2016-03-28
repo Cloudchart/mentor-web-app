@@ -15,14 +15,18 @@ import {
 
 import {
   InsightStorage,
-  UserCollectionInsightStorage,
 } from '../../storage'
 
 import InsightType from '../types/InsightsType'
 
 
-export const UserCollectionInsightsConnectionFilterEnum = new GraphQLEnumType({
-  name: 'UserCollectionInsightsFilterEnum',
+let countUserCollectionInsights = async (filter, user_collection_id) =>
+  await InsightStorage
+    .count(filter + 'ForUserCollection', { user_collection_id })
+
+
+export const FilterEnum = new GraphQLEnumType({
+  name: 'UserCollectionInsightsFilter',
 
   values: {
     ALL:      { value: 'all'      },
@@ -33,30 +37,21 @@ export const UserCollectionInsightsConnectionFilterEnum = new GraphQLEnumType({
 
 
 
-const Connection = connectionDefinitions({
+export const Connection = connectionDefinitions({
   name: 'UserCollectionInsights',
 
   connectionFields: {
     count: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve: async ({ userCollection }) => {
-        return await UserCollectionInsightStorage.loadAllIDs('allForUserCollection', { user_collection_id: userCollection.id })
-          .then(ids => ids.length)
-      }
+      resolve: async ({ userCollection }) => countUserCollectionInsights('all', userCollection.id)
     },
     usefulCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve: async ({ userCollection }) => {
-        return await UserCollectionInsightStorage.loadAllIDs('usefulForUserCollection', { user_collection_id: userCollection.id })
-          .then(ids => ids.length)
-      }
+      resolve: async ({ userCollection }) => countUserCollectionInsights('useful', userCollection.id)
     },
     uselessCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve: async ({ userCollection }) => {
-        return await UserCollectionInsightStorage.loadAllIDs('uselessForUserCollection', { user_collection_id: userCollection.id })
-          .then(ids => ids.length)
-      }
+      resolve: async ({ userCollection }) => countUserCollectionInsights('useless', userCollection.id)
     }
   },
 
@@ -74,17 +69,17 @@ export default {
   args: {
     ...connectionArgs,
     filter: {
-      type: UserCollectionInsightsConnectionFilterEnum,
+      type: FilterEnum,
       defaultValue: 'useful',
     },
   },
 
   resolve: async (userCollection, { filter, ...args }, { rootValue: { viewer } }) => {
-    let links = await UserCollectionInsightStorage.loadAll(filter + 'ForUserCollection', { user_collection_id: userCollection.id })
-    let insights = await InsightStorage.loadMany(links.map(link => link.insight_id))
+    let insights = await InsightStorage.loadAll(filter + 'ForUserCollection', { user_collection_id: userCollection.id })
     return {
       ...connectionFromArray(insights, args),
       userCollection,
+      viewer,
     }
   }
 }

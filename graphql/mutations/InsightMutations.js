@@ -19,9 +19,22 @@ import {
   UserCollectionInsightStorage,
 } from '../../storage'
 
+import {
+  nodeToEdge
+} from '../connections/arrayconnection'
+
+
 import InsightType from '../types/InsightsType'
 import TopicType from '../types/TopicType'
 import UserCollectionType from '../types/UserCollectionType'
+
+import {
+  EdgeType as UserCollectionInsightsConnectionEdgeType,
+} from '../connections/UserCollectionInsightsConnection'
+
+import {
+  TopicInsightsEdgeType
+} from '../connections/TopicInsightsConnection'
 
 
 const MutationsInputFields = {
@@ -52,8 +65,9 @@ const TopicMutationsOutputFields = {
     type: new GraphQLNonNull(TopicType)
   },
   insightEdge: {
-    type: GraphQLString
-  },
+    type: new GraphQLNonNull(TopicInsightsEdgeType),
+    resolve: ({ insight }) => nodeToEdge('Insight', insight)
+  }
 }
 
 const UserCollectionMutationsInputFields = {
@@ -69,7 +83,8 @@ const UserCollectionMutationsOutputFields = {
     type: new GraphQLNonNull(UserCollectionType)
   },
   insightEdge: {
-    type: GraphQLString
+    type: new GraphQLNonNull(UserCollectionInsightsConnectionEdgeType),
+    resolve: ({ insight }) => nodeToEdge('Insight', insight)
   }
 }
 
