@@ -457,6 +457,18 @@ type User implements Node {
 type UserCollection implements Node {
   id: ID!
   name: String!
+  insights(after: String, first: Int, before: String, last: Int): UserCollectionInsightsConnection
+}
+
+type UserCollectionInsightsConnection {
+  pageInfo: PageInfo!
+  edges: [UserCollectionInsightsEdge]
+  count: Int!
+}
+
+type UserCollectionInsightsEdge {
+  node: Insight
+  cursor: String!
 }
 
 type UserCollectionsConnectionConnection {

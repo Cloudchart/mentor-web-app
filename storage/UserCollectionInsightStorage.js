@@ -15,6 +15,9 @@ const GenericQuery = (options = {}) => `
 
 const Storage = BaseStorage('UserCollectionInsight', {
   idsQueries: {
+    'allForUserCollection': GenericQuery({ where: `user_collection_id = :user_collection_id` }),
+    'usefulForUserCollection': GenericQuery({ where: `user_collection_id = :user_collection_id and is_useless = false` }),
+    'uselessForUserCollection': GenericQuery({ where: `user_collection_id = :user_collection_id and is_useless = true` }),
     'forUserCollectionAndInsight': GenericQuery({ where: `user_collection_id = :user_collection_id and insight_id = :insight_id` })
   }
 })

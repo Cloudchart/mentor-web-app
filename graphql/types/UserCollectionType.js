@@ -11,6 +11,8 @@ import {
 
 import { nodeInterface } from './Node'
 
+import UserCollectionInsightsConnection from '../connections/UserCollectionInsightsConnection'
+
 
 export default new GraphQLObjectType({
 
@@ -25,6 +27,8 @@ export default new GraphQLObjectType({
     name: {
       type: new GraphQLNonNull(GraphQLString),
     },
+
+    insights: UserCollectionInsightsConnection
 
   })
 
