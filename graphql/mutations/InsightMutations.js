@@ -48,9 +48,12 @@ const TopicMutationsInputFields = {
 
 const TopicMutationsOutputFields = {
   ...MutationsOutputFields,
+  topic: {
+    type: new GraphQLNonNull(TopicType)
+  },
   insightEdge: {
     type: GraphQLString
-  }
+  },
 }
 
 const UserCollectionMutationsInputFields = {
@@ -62,6 +65,9 @@ const UserCollectionMutationsInputFields = {
 
 const UserCollectionMutationsOutputFields = {
   ...MutationsOutputFields,
+  collection: {
+    type: new GraphQLNonNull(UserCollectionType)
+  },
   insightEdge: {
     type: GraphQLString
   }
@@ -91,7 +97,7 @@ let mutateAndGetPayloadForTopicMutation = (rate) =>
       })
     }
 
-    return { insight, insightID }
+    return { topic, insight, insightID }
   }
 
 
@@ -112,7 +118,7 @@ let mutateAndGetPayloadForUserCollectionMutation = (is_useless) =>
       is_useless
     })
 
-    return { insight, insightID }
+    return { userCollection, insight, insightID }
   }
 
 // Like Insight in Topic

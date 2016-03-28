@@ -1,6 +1,7 @@
 import {
   GraphQLInt,
   GraphQLNonNull,
+  GraphQLEnumType,
 } from 'graphql'
 
 import {
@@ -18,6 +19,18 @@ import {
 } from '../../storage'
 
 import InsightType from '../types/InsightsType'
+
+
+export const UserCollectionInsightsConnectionFilterEnum = new GraphQLEnumType({
+  name: 'UserCollectionInsightsFilterEnum',
+
+  values: {
+    ALL:      { value: 'all'      },
+    USEFUL:   { value: 'useful'   },
+    USELESS:  { value: 'useless'  },
+  }
+})
+
 
 
 const Connection = connectionDefinitions({
@@ -41,11 +54,15 @@ export default {
   type: Connection.connectionType,
 
   args: {
-    ...connectionArgs
+    ...connectionArgs,
+    filter: {
+      type: UserCollectionInsightsConnectionFilterEnum,
+      defaultValue: 'useful',
+    },
   },
 
-  resolve: async (userCollection, { ...args }, { rootValue: { viewer } }) => {
-    let links = await UserCollectionInsightStorage.loadAll('allForUserCollection', { user_collection_id: userCollection.id })
+  resolve: async (userCollection, { filter, ...args }, { rootValue: { viewer } }) => {
+    let links = await UserCollectionInsightStorage.loadAll(filter + 'ForUserCollection', { user_collection_id: userCollection.id })
     let insights = await InsightStorage.loadMany(links.map(link => link.insight_id))
     return {
       ...connectionFromArray(insights, args),
