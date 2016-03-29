@@ -37,6 +37,11 @@ export default new GraphQLObjectType({
       resolve: ({ is_default }) => !!is_default
     },
 
+    isPaid: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      resolve: () => false
+    },
+
     isSubscribedByViewer: {
       type: new GraphQLNonNull(GraphQLBoolean),
       resolve: async ({ id }, args, { rootValue: { viewer } }) => {

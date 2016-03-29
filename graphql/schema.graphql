@@ -370,6 +370,7 @@ type Topic implements Node {
   id: ID!
   name: String
   isDefault: Boolean!
+  isPaid: Boolean!
   isSubscribedByViewer: Boolean!
   insights(after: String, first: Int, before: String, last: Int, filter: TopicInsightsFilterEnum = unrated): TopicInsightsConnection
 }
