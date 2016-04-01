@@ -15,7 +15,8 @@ var users = require('./routes/users');
 var auth = require('./routes/auth');
 var themes = require('./routes/themes');
 var graphql = require('./routes/graphql');
-var models  = require('./models')
+var admin = require('./routes/admin');
+var models  = require('./models');
 
 models.sequelize.sync()
 
@@ -47,6 +48,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/auth', auth)
 app.use('/themes', themes)
+app.use('/admin', admin)
 
 // GraphQL
 app.use('/graphql', graphql)

@@ -2293,3 +2293,51 @@ ul.insight-list {
         background-color: #3bc462; }
         #theme-app > .controls > span.like > i {
           color: #3bc462; }
+
+.topic-link-form-insights-container {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.topic-link-form-insight {
+  background-color: #333;
+  font-size: 15px;
+  margin: 5px 0;
+  padding: 5px;
+  position: relative; }
+  .topic-link-form-insight > a.remove {
+    background-color: #f00;
+    color: white;
+    display: none;
+    font-size: 12px;
+    height: 12px;
+    line-height: 12px;
+    position: absolute;
+    right: 5px;
+    text-align: center;
+    top: 5px;
+    width: 12px; }
+  .topic-link-form-insight:hover > a.remove {
+    display: block; }
+
+.insights-chooser-container {
+  margin: 20px 0; }
+
+.insights-chooser-filter {
+  width: 100%; }
+
+.insights-chooser-list {
+  height: 200px;
+  list-style: none;
+  margin: 10px 0 0;
+  overflow-y: scroll;
+  padding: 0; }
+
+.insights-chooser-item {
+  font-size: 15px;
+  margin: 0;
+  padding: 5px;
+  position: relative; }
+  .insights-chooser-item:hover {
+    background-color: #333;
+    cursor: pointer; }

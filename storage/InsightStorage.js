@@ -2,8 +2,28 @@ import BaseStorage from './BaseStorage'
 import models from '../models'
 
 const TableName = models.Insight.tableName
+const TopicInsightTableName = models.ThemeInsight.tableName
 const UserThemeInsightTableName = models.UserThemeInsight.tableName
 const UserCollectionInsightTableName = models.UserCollectionInsight.tableName
+
+
+const AllForAdminQuery = `
+  select
+    t.id as id,
+    @row := @row + 1 as row
+  from
+    (select @row := 0) rt,
+    ${TableName} t
+  inner join
+    ${TopicInsightTableName} as tit
+  on
+    tit.insight_id = t.id
+  where
+    tit.theme_id = :topicID
+  order by
+    tit.created_at asc
+`
+
 
 let TopicQueryBuilder = (options = {}) => `
   select
@@ -46,6 +66,8 @@ let UserCollectionQueryBuilder = (options = {}) => `
 
 export default BaseStorage('Insight', {
   idsQueries: {
+    'admin': AllForAdminQuery,
+
     'allForTopicAndUser': TopicQueryBuilder(),
     'ratedForTopicAndUser': TopicQueryBuilder({ where: `utit.rate is not null`, order: `utit.updated_at desc` }),
     'unratedForTopicAndUser': TopicQueryBuilder({ where: `utit.rate is null` }),

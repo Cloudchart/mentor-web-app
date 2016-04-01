@@ -43,6 +43,10 @@ import {
   ResetInsightMutation,
 } from './UpdateUserThemeInsightMutation'
 
+import IntroduceLinkToTopicMutation from './admin/IntroduceLinkToTopic'
+import RemoveTopicLinkMutation from './admin/RemoveTopicLink'
+import AddInsightToTopicLinkMutation from './AddInsightToTopicLink'
+
 
 export default new GraphQLObjectType({
   name: 'Mutation',
@@ -71,5 +75,9 @@ export default new GraphQLObjectType({
     addInsightToCollection:           AddInsightToCollectionMutation,
     markInsightUsefulInCollection:    MarkInsightUsefulInCollectionMutation,
     markInsightUselessInCollection:   MarkInsightUselessInCollectionMutation,
+
+    introduceLinkToTopic:             IntroduceLinkToTopicMutation,
+    removeTopicLink:                  RemoveTopicLinkMutation,
+    addInsightToTopicLink:            AddInsightToTopicLinkMutation,
   }
 })

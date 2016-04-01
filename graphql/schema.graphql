@@ -34,12 +34,26 @@ type AddInsightToCollectionMutationPayload {
   clientMutationId: String!
 }
 
+input AddInsightToTopicLinkInput {
+  topicLinkID: ID!
+  insightID: ID!
+  clientMutationId: String!
+}
+
+type AddInsightToTopicLinkPayload {
+  insight: Insight!
+  topicLink: TopicLink!
+  insightEdge: TopicLinkInsightsEdge!
+  clientMutationId: String!
+}
+
 type Admin implements Node {
   id: ID!
   name: String
   users(after: String, first: Int, before: String, last: Int, query: String): AdminUsersConnection
   insights(after: String, first: Int, before: String, last: Int, query: String): AdminInsightsConnection
   themes(after: String, first: Int, before: String, last: Int, query: String, filter: String, order: String): AdminThemesConnection
+  topics(after: String, first: Int, before: String, last: Int): AdminTopicsConnection
 }
 
 type AdminInsight implements Node {
@@ -76,6 +90,16 @@ type AdminThemesConnection {
 
 type AdminThemesEdge {
   node: AdminTheme
+  cursor: String!
+}
+
+type AdminTopicsConnection {
+  pageInfo: PageInfo!
+  edges: [AdminTopicsEdge]
+}
+
+type AdminTopicsEdge {
+  node: Topic
   cursor: String!
 }
 
@@ -150,6 +174,22 @@ type InsightOrigin {
   url: String!
   title: String!
   duration: Int!
+}
+
+input IntroduceLinkToTopicInput {
+  topicID: ID!
+  linkURL: String!
+  linkTitle: String!
+  linkInsightsIDs: [ID]
+  reactionContent: String
+  clientMutationId: String!
+}
+
+type IntroduceLinkToTopicPayload {
+  link: TopicLink!
+  linkEdge: TopicLinksEdge!
+  topic: Topic!
+  clientMutationId: String!
 }
 
 input LikeInsightInput {
@@ -258,6 +298,9 @@ type Mutation {
   addInsightToCollection(input: AddInsightToCollectionMutationInput!): AddInsightToCollectionMutationPayload
   markInsightUsefulInCollection(input: MarkInsightUsefulInCollectionMutationInput!): MarkInsightUsefulInCollectionMutationPayload
   markInsightUselessInCollection(input: MarkInsightUselessInCollectionMutationInput!): MarkInsightUselessInCollectionMutationPayload
+  introduceLinkToTopic(input: IntroduceLinkToTopicInput!): IntroduceLinkToTopicPayload
+  removeTopicLink(input: RemoveTopicLinkInput!): RemoveTopicLinkPayload
+  addInsightToTopicLink(input: AddInsightToTopicLinkInput!): AddInsightToTopicLinkPayload
 }
 
 interface Node {
@@ -297,6 +340,18 @@ input RemoveCollectionFromUserMutationInput {
 type RemoveCollectionFromUserMutationPayload {
   collection: UserCollection!
   collectionID: ID!
+  clientMutationId: String!
+}
+
+input RemoveTopicLinkInput {
+  linkID: ID!
+  clientMutationId: String!
+}
+
+type RemoveTopicLinkPayload {
+  link: TopicLink!
+  linkID: ID!
+  topic: Topic!
   clientMutationId: String!
 }
 
@@ -373,6 +428,7 @@ type Topic implements Node {
   isPaid: Boolean!
   isSubscribedByViewer: Boolean!
   insights(after: String, first: Int, before: String, last: Int, filter: TopicInsightsFilterEnum = unrated): TopicInsightsConnection
+  links(after: String, first: Int, before: String, last: Int): TopicLinksConnection
 }
 
 type TopicInsightsConnection {
@@ -393,6 +449,34 @@ enum TopicInsightsFilterEnum {
   UNRATED
   LIKED
   DISLIKED
+  ADMIN
+}
+
+type TopicLink implements Node {
+  id: ID!
+  url: String!
+  title: String!
+  insights(after: String, first: Int, before: String, last: Int): TopicLinkInsightsConnection
+}
+
+type TopicLinkInsightsConnection {
+  pageInfo: PageInfo!
+  edges: [TopicLinkInsightsEdge]
+}
+
+type TopicLinkInsightsEdge {
+  node: Insight
+  cursor: String!
+}
+
+type TopicLinksConnection {
+  pageInfo: PageInfo!
+  edges: [TopicLinksEdge]
+}
+
+type TopicLinksEdge {
+  node: TopicLink
+  cursor: String!
 }
 
 input UnsubscribeFromThemeInput {

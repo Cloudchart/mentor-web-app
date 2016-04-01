@@ -16,6 +16,7 @@ import {
 } from '../../storage'
 
 import TopicInsightsConnection from '../connections/TopicInsightsConnection'
+import TopicLinksConnection from '../connections/TopicLinksConnection'
 
 
 export default new GraphQLObjectType({
@@ -50,7 +51,9 @@ export default new GraphQLObjectType({
       }
     },
 
-    insights: TopicInsightsConnection
+    insights: TopicInsightsConnection,
+
+    links: TopicLinksConnection,
 
   })
 

@@ -16,6 +16,8 @@ import UserNotificationsSettingsStorage from './UserNotificationsSettingsStorage
 import RoleStorage from './RoleStorage'
 import SlackChannelStorage from './SlackChannelStorage'
 import TopicStorage from './TopicStorage'
+import TopicLinkStorage from './TopicLink'
+import TopicLinkInsightStorage from './TopicLinkInsight'
 import UserTopicInsightStorage from './UserTopicInsightStorage'
 
 import AdminUserStorage from './admin/AdminUserStorage'
@@ -46,5 +48,7 @@ export default {
   AdminInsightStorage,
   AdminThemeStorage,
   TopicStorage,
+  TopicLinkStorage,
+  TopicLinkInsightStorage,
   UserTopicInsightStorage,
 }

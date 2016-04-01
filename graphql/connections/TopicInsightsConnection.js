@@ -32,6 +32,7 @@ export const TopicInsightsConnectionFilterEnum = new GraphQLEnumType({
     UNRATED:  { value: 'unrated'  },
     LIKED:    { value: 'liked'    },
     DISLIKED: { value: 'disliked' },
+    ADMIN:    { value: 'admin'    },
   }
 })
 
@@ -77,8 +78,15 @@ export default {
   },
 
   resolve: async (topic, { filter, ...args }, { rootValue: { viewer } }) => {
-    await SynchronizeUserThemeInsightsJob.perform({ userID: viewer.id, themeID: topic.id })
-    let insights = await InsightStorage.loadAll(filter + 'ForTopicAndUser', { userID: viewer.id, topicID: topic.id })
+    let queryName = filter === 'admin' ? 'admin' : filter + 'ForTopicAndUser'
+
+    // TODO: Check if user is admin is filter === 'admin'
+
+    if (filter !== 'admin')
+      await SynchronizeUserThemeInsightsJob.perform({ userID: viewer.id, themeID: topic.id })
+
+    let insights = await InsightStorage.loadAll(queryName, { userID: viewer.id, topicID: topic.id })
+
     return {
       ...connectionFromArray(insights, args),
       topic:  topic,
