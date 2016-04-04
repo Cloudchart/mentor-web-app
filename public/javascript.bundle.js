@@ -42368,18 +42368,20 @@
 		"./TodayApp.js": 510,
 		"./admin/ChooserApp": 511,
 		"./admin/ChooserApp.js": 511,
-		"./admin/LandingApp": 787,
-		"./admin/LandingApp.js": 787,
+		"./admin/LandingApp": 788,
+		"./admin/LandingApp.js": 788,
 		"./admin/TopicApp": 783,
 		"./admin/TopicApp.js": 783,
-		"./admin/TopicInsightsTable": 786,
-		"./admin/TopicInsightsTable.js": 786,
+		"./admin/TopicInsightsTable": 787,
+		"./admin/TopicInsightsTable.js": 787,
 		"./admin/TopicLinksCard": 784,
 		"./admin/TopicLinksCard.js": 784,
 		"./admin/TopicsApp": 513,
 		"./admin/TopicsApp.js": 513,
-		"./admin/_TopicApp": 788,
-		"./admin/_TopicApp.js": 788,
+		"./admin/_TopicApp": 789,
+		"./admin/_TopicApp.js": 789,
+		"./admin/forms/InsightChooser": 786,
+		"./admin/forms/InsightChooser.js": 786,
 		"./admin/forms/TopicLinkForm": 785,
 		"./admin/forms/TopicLinkForm.js": 785,
 		"./admin/forms/_TopicLinkForm": 791,
@@ -96402,7 +96404,7 @@
 
 	var _TopicLinksCard2 = _interopRequireDefault(_TopicLinksCard);
 
-	var _TopicInsightsTable = __webpack_require__(786);
+	var _TopicInsightsTable = __webpack_require__(787);
 
 	var _TopicInsightsTable2 = _interopRequireDefault(_TopicInsightsTable);
 
@@ -96547,12 +96549,14 @@
 	        _react2['default'].createElement(
 	          _materialUi.Dialog,
 	          {
+	            autoDetectWindowHeight: false,
 	            title: 'Add new link',
 	            actions: _this._renderActions(),
 	            open: _this.state.shouldRenderDialog,
 	            onRequestClose: function () {
 	              return _this.setState({ shouldRenderDialog: false });
-	            }
+	            },
+	            repositionOnUpdate: false
 	          },
 	          _react2['default'].createElement(_formsTopicLinkForm2['default'], { topicLink: null, topic: _this.props.topic })
 	        )
@@ -96731,7 +96735,7 @@
 
 	var _materialUi = __webpack_require__(514);
 
-	var _InsightChooser = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./InsightChooser\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _InsightChooser = __webpack_require__(786);
 
 	var _InsightChooser2 = _interopRequireDefault(_InsightChooser);
 
@@ -96745,6 +96749,12 @@
 
 	    _get(Object.getPrototypeOf(TopicLinkForm.prototype), 'constructor', this).call(this, props);
 
+	    this._handleInsightSelect = function (id) {
+	      _this.setState({
+	        linkInsightsIDs: _this.state.linkInsightsIDs.concat(id)
+	      });
+	    };
+
 	    this._showInsightChooser = function () {
 	      _this.setState({
 	        isInsightChooserOpen: true
@@ -96757,6 +96767,10 @@
 	      });
 	    };
 
+	    this._insightChooserDialogActions = function () {
+	      return _react2['default'].createElement(_materialUi.FlatButton, { label: 'Done', primary: true, onTouchTap: _this._hideInsightChooser });
+	    };
+
 	    this.render = function () {
 	      return _react2['default'].createElement(
 	        'div',
@@ -96764,19 +96778,41 @@
 	        _react2['default'].createElement(_materialUi.TextField, { floatingLabelText: 'Boris said', multiLine: true, autoFocus: true, style: { width: '100%' } }),
 	        _react2['default'].createElement('br', null),
 	        _react2['default'].createElement(_materialUi.TextField, { floatingLabelText: 'Link URL', value: _this.state.linkURL, onChange: _this._handleInputChange.bind(_this, 'linkURL') }),
-	        _react2['default'].createElement(_materialUi.TextField, { floatingLabelText: 'Link Title', value: _this.state.linkTitle, onChange: _this._handleInputChange.bind(_this, 'linkTitle'), style: { marginLeft: 24 } }),
 	        _react2['default'].createElement('br', null),
+	        _react2['default'].createElement(_materialUi.TextField, { floatingLabelText: 'Link Title', value: _this.state.linkTitle, onChange: _this._handleInputChange.bind(_this, 'linkTitle') }),
+	        _react2['default'].createElement(
+	          _materialUi.List,
+	          null,
+	          _this.state.linkInsightsIDs.map(_this._renderInsight)
+	        ),
 	        _react2['default'].createElement(_materialUi.FlatButton, { label: 'Add an insight', primary: true, onClick: _this._showInsightChooser }),
 	        _react2['default'].createElement(
 	          _materialUi.Dialog,
 	          {
+	            autoDetectWindowHeight: false,
+	            actions: _this._insightChooserDialogActions(),
 	            open: _this.state.isInsightChooserOpen,
-	            onRequestClose: _this._hideInsightChooser
+	            onRequestClose: _this._hideInsightChooser,
+	            modal: true
 	          },
-	          _react2['default'].createElement(_InsightChooser2['default'], { insights: _this.props.topic.insights.edges.map(function (edge) {
+	          _react2['default'].createElement(_InsightChooser2['default'], {
+	            insights: _this.props.topic.insights.edges.map(function (edge) {
 	              return edge.node;
-	            }) })
+	            }),
+	            selectedInsights: _this.state.linkInsightsIDs,
+	            onSelect: _this._handleInsightSelect
+	          })
 	        )
+	      );
+	    };
+
+	    this._renderInsight = function (id) {
+	      return _react2['default'].createElement(
+	        _materialUi.ListItem,
+	        { key: id },
+	        _this.props.topic.insights.edges.find(function (edge) {
+	          return edge.node.id === id;
+	        }).node.content
 	      );
 	    };
 
@@ -96794,8 +96830,12 @@
 	    key: '_updateStateFromProps',
 	    value: function _updateStateFromProps(props) {
 	      this.setState({
-	        linkURL: props.topic && props.topic.url || '',
-	        linkTitle: props.topic && props.topic.title || ''
+	        linkURL: props.topicLink && props.topicLink.url || '',
+	        linkTitle: props.topicLink && props.topicLink.title || '',
+	        reactionContent: props.topicLink && props.topicLink.reaction.content || '',
+	        linkInsightsIDs: props.topicLink && props.topicLink.insights.edges.map(function (edge) {
+	          return edge.node.id;
+	        }) || []
 	      });
 	    }
 	  }, {
@@ -96839,11 +96879,6 @@
 	            type: 'String'
 	          }, {
 	            children: [{
-	              fieldName: 'mood',
-	              kind: 'Field',
-	              metadata: {},
-	              type: 'String'
-	            }, {
 	              fieldName: 'content',
 	              kind: 'Field',
 	              metadata: {},
@@ -96872,7 +96907,7 @@
 	              name: 'first',
 	              value: {
 	                kind: 'CallValue',
-	                callValue: 10
+	                callValue: 1000
 	              }
 	            }],
 	            children: [{
@@ -96884,11 +96919,6 @@
 	                    isRequisite: true
 	                  },
 	                  type: 'ID'
-	                }, {
-	                  fieldName: 'content',
-	                  kind: 'Field',
-	                  metadata: {},
-	                  type: 'String'
 	                }],
 	                fieldName: 'node',
 	                kind: 'Field',
@@ -97092,6 +97122,117 @@
 	  value: true
 	});
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _materialUi = __webpack_require__(514);
+
+	var InsightChooser = (function (_React$Component) {
+	  _inherits(InsightChooser, _React$Component);
+
+	  function InsightChooser(props) {
+	    var _this = this;
+
+	    _classCallCheck(this, InsightChooser);
+
+	    _get(Object.getPrototypeOf(InsightChooser.prototype), 'constructor', this).call(this, props);
+
+	    this._filterInsights = function () {
+	      var filter = _this.state.filter.toLowerCase();
+	      _this.setState({
+	        dataSource: _this.props.insights.filter(function (insight) {
+	          return _this.props.selectedInsights.indexOf(insight.id) == -1 && insight.content.toLowerCase().indexOf(filter) >= 0;
+	        })
+	      });
+	    };
+
+	    this._handleFilterChange = function (event) {
+	      _this.setState({
+	        filter: event.target.value
+	      });
+	    };
+
+	    this.render = function () {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_materialUi.TextField, {
+	          hintText: 'Start typing...',
+	          fullWidth: true,
+	          value: _this.state.filter,
+	          onChange: _this._handleFilterChange,
+	          autoFocus: true
+	        }),
+	        _react2['default'].createElement(
+	          _materialUi.List,
+	          { style: { height: 400, overflowY: 'scroll' } },
+	          _this.state.dataSource.map(_this._renderInsight)
+	        )
+	      );
+	    };
+
+	    this._renderInsight = function (insight) {
+	      return _react2['default'].createElement(
+	        _materialUi.ListItem,
+	        { key: insight.id, onTouchTap: function () {
+	            return _this.props.onSelect && _this.props.onSelect(insight.id);
+	          } },
+	        insight.content
+	      );
+	    };
+
+	    this.state = {
+	      filter: '',
+	      dataSource: []
+	    };
+	  }
+
+	  _createClass(InsightChooser, [{
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate(prevProps, prevState) {
+	      if (prevState.filter !== this.state.filter || this.props.selectedInsights !== prevProps.selectedInsights) {
+	        clearTimeout(this._filterInsightTimeout);
+	        this._filterInsightTimeout = setTimeout(this._filterInsights, 250);
+	      }
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this._filterInsights();
+	    }
+	  }]);
+
+	  return InsightChooser;
+	})(_react2['default'].Component);
+
+	exports['default'] = InsightChooser;
+	module.exports = exports['default'];
+
+/***/ },
+/* 787 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -97268,7 +97409,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 787 */
+/* 788 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97430,7 +97571,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 788 */
+/* 789 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97457,7 +97598,7 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _mutationsAdminRemoveTopicLink = __webpack_require__(789);
+	var _mutationsAdminRemoveTopicLink = __webpack_require__(790);
 
 	var _mutationsAdminRemoveTopicLink2 = _interopRequireDefault(_mutationsAdminRemoveTopicLink);
 
@@ -97713,7 +97854,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 789 */
+/* 790 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97843,7 +97984,6 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 790 */,
 /* 791 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -97877,7 +98017,7 @@
 
 	var _mutationsAdminIntroduceLinkToTopic2 = _interopRequireDefault(_mutationsAdminIntroduceLinkToTopic);
 
-	var _InsightChooser = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./InsightChooser\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _InsightChooser = __webpack_require__(786);
 
 	var _InsightChooser2 = _interopRequireDefault(_InsightChooser);
 
@@ -98277,6 +98417,7 @@
 	        topicID: _this.props.topicID,
 	        linkURL: _this.props.linkURL,
 	        linkTitle: _this.props.linkTitle,
+	        reactionContent: _this.props.reactionContent,
 	        linkInsightsIDs: _this.props.linkInsightsIDs
 	      };
 	    };

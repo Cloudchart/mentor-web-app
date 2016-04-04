@@ -4,6 +4,8 @@ import Relay from 'react-relay'
 import {
   Dialog,
   FlatButton,
+  List,
+  ListItem,
   TextField,
 } from 'material-ui'
 
@@ -26,8 +28,10 @@ class TopicLinkForm extends React.Component {
 
   _updateStateFromProps(props) {
     this.setState({
-      linkURL:    props.topic && props.topic.url || '',
-      linkTitle:  props.topic && props.topic.title || ''
+      linkURL:          props.topicLink && props.topicLink.url || '',
+      linkTitle:        props.topicLink && props.topicLink.title || '',
+      reactionContent:  props.topicLink && props.topicLink.reaction.content || '',
+      linkInsightsIDs:  props.topicLink && props.topicLink.insights.edges.map(edge => edge.node.id) || [],
     })
   }
 
@@ -35,6 +39,12 @@ class TopicLinkForm extends React.Component {
     let nextState = {}
     nextState[field] = event.target.value
     this.setState(nextState)
+  }
+
+  _handleInsightSelect = (id) => {
+    this.setState({
+      linkInsightsIDs: this.state.linkInsightsIDs.concat(id)
+    })
   }
 
   _showInsightChooser = () => {
@@ -49,22 +59,41 @@ class TopicLinkForm extends React.Component {
     })
   }
 
+  _insightChooserDialogActions = () =>
+    <FlatButton label="Done" primary={ true } onTouchTap={ this._hideInsightChooser } />
+
   render = () =>
     <div>
       <TextField floatingLabelText="Boris said" multiLine={ true } autoFocus={ true } style={{ width: '100%' }} />
       <br />
       <TextField floatingLabelText="Link URL" value={ this.state.linkURL } onChange={ this._handleInputChange.bind(this, 'linkURL') } />
-      <TextField floatingLabelText="Link Title" value={ this.state.linkTitle } onChange={ this._handleInputChange.bind(this, 'linkTitle') } style={{ marginLeft: 24 }} />
       <br />
+      <TextField floatingLabelText="Link Title" value={ this.state.linkTitle } onChange={ this._handleInputChange.bind(this, 'linkTitle') } />
+      <List>
+        { this.state.linkInsightsIDs.map(this._renderInsight) }
+      </List>
       <FlatButton label="Add an insight" primary={ true } onClick={ this._showInsightChooser } />
 
       <Dialog
-        open            = { this.state.isInsightChooserOpen }
-        onRequestClose  = { this._hideInsightChooser }
+        autoDetectWindowHeight  = { false }
+        actions                 = { this._insightChooserDialogActions() }
+        open                    = { this.state.isInsightChooserOpen }
+        onRequestClose          = { this._hideInsightChooser }
+        modal                   = { true }
       >
-        <InsightChooser insights={ this.props.topic.insights.edges.map(edge => edge.node) } />
+        <InsightChooser
+          insights          = { this.props.topic.insights.edges.map(edge => edge.node) }
+          selectedInsights  = { this.state.linkInsightsIDs }
+          onSelect          = { this._handleInsightSelect }
+        />
       </Dialog>
     </div>
+
+
+  _renderInsight = (id) =>
+    <ListItem key={ id }>
+      { this.props.topic.insights.edges.find(edge => edge.node.id === id).node.content }
+    </ListItem>
 
 }
 
@@ -82,14 +111,12 @@ export default Relay.createContainer(TopicLinkForm, {
         url
         title
         reaction {
-          mood
           content
         }
-        insights(first: 10) {
+        insights(first: 1000) {
           edges {
             node {
               id
-              content
             }
           }
         }

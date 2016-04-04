@@ -18,6 +18,7 @@ export default class extends Relay.Mutation {
     topicID:          this.props.topicID,
     linkURL:          this.props.linkURL,
     linkTitle:        this.props.linkTitle,
+    reactionContent:  this.props.reactionContent,
     linkInsightsIDs:  this.props.linkInsightsIDs,
   })
 

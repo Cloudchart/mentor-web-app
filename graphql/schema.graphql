@@ -187,7 +187,7 @@ input IntroduceLinkToTopicInput {
   linkURL: String!
   linkTitle: String!
   linkInsightsIDs: [ID]
-  reactionContent: String
+  reactionContent: String!
   clientMutationId: String!
 }
 

@@ -33,10 +33,12 @@ class TopicLinksCard extends React.Component {
         </CardActions>
       </Card>
       <Dialog
+        autoDetectWindowHeight = { false }
         title="Add new link"
         actions = { this._renderActions() }
         open={ this.state.shouldRenderDialog }
         onRequestClose = { () => this.setState({ shouldRenderDialog: false }) }
+        repositionOnUpdate = { false }
       >
         <TopicLinkForm topicLink={ null } topic={ this.props.topic } />
       </Dialog>

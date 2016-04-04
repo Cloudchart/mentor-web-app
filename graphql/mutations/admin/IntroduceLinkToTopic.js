@@ -19,6 +19,7 @@ import {
   TopicStorage,
   TopicLinkStorage,
   TopicLinkInsightStorage,
+  BotReactionStorage,
 } from '../../../storage'
 
 import TopicType from '../../types/TopicType'
@@ -47,7 +48,7 @@ export default mutationWithClientMutationId({
       type: new GraphQLList(GraphQLID)
     },
     reactionContent: {
-      type: GraphQLString
+      type: new GraphQLNonNull(GraphQLString)
     }
   },
 
@@ -77,6 +78,9 @@ export default mutationWithClientMutationId({
 
     // Create Topic Link Insights relations
     await TopicLinkInsightStorage.createMany(linkInsightsIDs.map(id => ({ topic_link_id: link.id, insight_id: fromGlobalId(id).id })))
+
+    // Create Topic Link Bot Reaction
+    await BotReactionStorage.create({ owner_id: link.id, owner_type: 'TopicLink', content: reactionContent })
 
     return { link, topic }
   }
