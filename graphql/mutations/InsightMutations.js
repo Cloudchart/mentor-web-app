@@ -101,10 +101,10 @@ let mutateAndGetPayloadForTopicMutation = (rate) =>
 
     await UserTopicInsightStorage.update(link.id, { rate })
 
+    let topic = await TopicStorage.load(fromGlobalId(topicID).id)
     let insight = await InsightStorage.load(fromGlobalId(insightID).id)
 
     if (shouldAddToUserCollectionWithTopicName) {
-      let topic = await TopicStorage.load(fromGlobalId(topicID).id)
       let userCollection = await UserCollectionStorage.loadOrCreateBy({ name: topic.name, user_id: viewer.id })
       await UserCollectionInsightStorage.loadOrCreateByUserCollectionAndInsight({
         user_collection_id:   userCollection.id,

@@ -5,6 +5,11 @@ import AdminRoute from '../../routes/admin/AdminRoute'
 
 import TopicsApp from './TopicsApp'
 
+import {
+  Divider,
+  List,
+  ListItem,
+} from 'material-ui'
 
 const Types = {
   'topics': {
@@ -18,33 +23,25 @@ const Types = {
 class Chooser extends React.Component {
 
   render = () =>
-    <ul>
-      { Object.keys(Types).map(key => this._renderType(key)) }
-    </ul>
+    <div>
+      <List>
+        { Object.keys(Types).map(key => this._renderType(key)) }
+      </List>
+    </div>
 
   _renderType = (key) =>
-    <li key={ key }>
-      <a href="#" onClick={ event => this._handleTypeClick(event, key) }>
-        { Types[key].title }
-      </a>
-    </li>
+    [
+      <ListItem
+        primaryText = { Types[key].title }
+        onTouchTap  = { () => this._handleTypeClick(key) }
+      />,
+      <Divider />
+    ]
 
-  _handleTypeClick = (event, key) => {
-    event.preventDefault()
+  _handleTypeClick = (key) => {
     this.props.navigator.push(Types[key])
   }
 
 }
 
-
-export default Relay.createContainer(Chooser, {
-
-  fragments: {
-    admin: () => Relay.QL`
-      fragment on Admin {
-        id
-      }
-    `
-  }
-
-})
+export default Chooser

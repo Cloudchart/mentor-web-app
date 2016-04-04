@@ -123,6 +123,12 @@ type AdminUsersEdge {
   cursor: String!
 }
 
+type BotReaction implements Node {
+  id: ID!
+  mood: String!
+  content: String!
+}
+
 input CreateThemeInput {
   name: String!
   isSystem: Boolean
@@ -456,6 +462,7 @@ type TopicLink implements Node {
   id: ID!
   url: String!
   title: String!
+  reaction: BotReaction!
   insights(after: String, first: Int, before: String, last: Int): TopicLinkInsightsConnection
 }
 

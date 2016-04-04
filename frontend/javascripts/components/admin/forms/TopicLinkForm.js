@@ -1,175 +1,115 @@
 import React from 'react'
 import Relay from 'react-relay'
 
+import {
+  Dialog,
+  FlatButton,
+  TextField,
+} from 'material-ui'
 
-import IntroduceLinkToTopicMutation from '../../../mutations/admin/IntroduceLinkToTopic'
 import InsightChooser from './InsightChooser'
-import NodeRoute from '../../../routes/NodeRoute'
-
-
-class InsightComponent extends React.Component {
-  render() {
-    return (
-      <div className="topic-link-form-insight">
-        { this.props.node.content }
-        <a className="remove" href="#" onClick={ (event) => { event.preventDefault() ; this.props.onSelect && this.props.onSelect(this.props.node.id) } }>-</a>
-      </div>
-    )
-  }
-}
-
-let RelayInsightComponent = Relay.createContainer(InsightComponent, {
-  fragments: {
-    node: () => Relay.QL`
-      fragment on Insight {
-        id
-        content
-      }
-    `
-  }
-})
 
 
 class TopicLinkForm extends React.Component {
 
-
-  constructor(props, context) {
-    super(props, context)
+  constructor(props) {
+    super(props)
 
     this.state = {
-      linkID:           this.props.linkID,
-      url:              this.props.url || '',
-      title:            this.props.title || '',
-      insightIDs:       this.props.insightIDs || [],
-      reactionContent:  this.props.reactionContent || '',
+      isInsightChooserOpen: false
     }
-
-    this._handleInsightSelect = this._handleInsightSelect.bind(this)
-    this._handleRemoveInsight = this._handleRemoveInsight.bind(this)
   }
 
-
-  render() {
-    return(
-      <form onSubmit={ this._handleSubmit.bind(this) }>
-        <div>Boris said</div>
-        <div>
-          <textarea
-            placeholder = "Always tell your mommy before you go somewhere"
-            autoFocus   = { true }
-            value       = { this.state.reactionContent }
-            onChange    = { this._handleInputChange.bind(this, 'reactionContent') }
-          />
-        </div>
-        <div>Where do we go?</div>
-        <div>
-          <input
-            type        = "text"
-            placeholder = "URL"
-            value       = { this.state.url }
-            onChange    = { this._handleInputChange.bind(this, 'url') }
-          />
-        </div>
-        <div>
-          <input
-            type        = "text"
-            placeholder = "Title"
-            value       = { this.state.title }
-            onChange    = { this._handleInputChange.bind(this, 'title') }
-          />
-        </div>
-        <div>And there should be insights:</div>
-        { this._renderInsights() }
-        <Relay.RootContainer
-          Component={ InsightChooser }
-          route={
-            new NodeRoute({
-              id: this.props.topicID,
-              onSelect: this._handleInsightSelect,
-              filterIDs: this.state.insightIDs,
-            })
-          }
-          />
-        <div>
-          <button type="submit" disabled={ this._validate() }>Save</button>
-          <button type="button" onClick={ this.props.onCancel }>Cancel</button>
-        </div>
-      </form>
-    )
+  componentWillMount() {
+    this._updateStateFromProps(this.props)
   }
 
-  _renderInsights() {
-    if (this.state.insightIDs.length == 0) return
-    return (
-      <ul className="topic-link-form-insights-container">
-        { this.state.insightIDs.map((id) => this._renderInsight(id)) }
-      </ul>
-    )
-  }
-
-  _renderInsight(id) {
-    return <Relay.RootContainer
-      key={ id }
-      Component={ RelayInsightComponent }
-      route={
-        new NodeRoute({ id, onSelect: this._handleRemoveInsight })
-      }
-    />
-  }
-
-  _validate() {
-    return this.state.url.trim().length == 0
-      || this.state.title.trim().length == 0
-      || this.state.insightIDs.length == 0
-  }
-
-  _handleSubmit(event) {
-    event.preventDefault()
-    this.props.linkID
-      ? this._updateLink()
-      : this._createLink()
-  }
-
-  _handleInsightSelect(id) {
-    if (this.state.insightIDs.indexOf(id) >= 0) return
+  _updateStateFromProps(props) {
     this.setState({
-      insightIDs: this.state.insightIDs.concat(id)
+      linkURL:    props.topic && props.topic.url || '',
+      linkTitle:  props.topic && props.topic.title || ''
     })
   }
 
-  _handleRemoveInsight(id) {
-    let index = this.state.insightIDs.indexOf(id)
-    if (index == -1) return
-    let ids = [].concat(this.state.insightIDs)
-    ids.splice(index, 1)
-    this.setState({
-      insightIDs: ids
-    })
-  }
-
-  _createLink() {
-    Relay.Store.update(new IntroduceLinkToTopicMutation({
-      topicID:          this.props.topicID,
-      linkURL:          this.state.url,
-      linkTitle:        this.state.title,
-      linkInsightsIDs:  this.state.insightIDs,
-    }), {
-      onSuccess: () => this.props.onDone && this.props.onDone(),
-      onFailure: () => alert('Shit happens :)')
-    })
-  }
-
-  _updateLink() {
-    alert('Not implemented.')
-  }
-
-  _handleInputChange(name, event) {
-    let nextState = { ...this.state }
-    nextState[name] = event.target.value
+  _handleInputChange(field, event) {
+    let nextState = {}
+    nextState[field] = event.target.value
     this.setState(nextState)
   }
+
+  _showInsightChooser = () => {
+    this.setState({
+      isInsightChooserOpen: true
+    })
+  }
+
+  _hideInsightChooser = () => {
+    this.setState({
+      isInsightChooserOpen: false
+    })
+  }
+
+  render = () =>
+    <div>
+      <TextField floatingLabelText="Boris said" multiLine={ true } autoFocus={ true } style={{ width: '100%' }} />
+      <br />
+      <TextField floatingLabelText="Link URL" value={ this.state.linkURL } onChange={ this._handleInputChange.bind(this, 'linkURL') } />
+      <TextField floatingLabelText="Link Title" value={ this.state.linkTitle } onChange={ this._handleInputChange.bind(this, 'linkTitle') } style={{ marginLeft: 24 }} />
+      <br />
+      <FlatButton label="Add an insight" primary={ true } onClick={ this._showInsightChooser } />
+
+      <Dialog
+        open            = { this.state.isInsightChooserOpen }
+        onRequestClose  = { this._hideInsightChooser }
+      >
+        <InsightChooser insights={ this.props.topic.insights.edges.map(edge => edge.node) } />
+      </Dialog>
+    </div>
 
 }
 
 
-export default TopicLinkForm
+export default Relay.createContainer(TopicLinkForm, {
+
+  initialVariables: {
+    first: 1000,
+  },
+
+  fragments: {
+    topicLink: () => Relay.QL`
+      fragment on TopicLink {
+        id
+        url
+        title
+        reaction {
+          mood
+          content
+        }
+        insights(first: 10) {
+          edges {
+            node {
+              id
+              content
+            }
+          }
+        }
+      }
+    `,
+
+    topic: () => Relay.QL`
+      fragment on Topic {
+        id
+        name
+        insights(filter: ADMIN, first: $first) {
+          edges {
+            node {
+              id
+              content
+            }
+          }
+        }
+      }
+    `
+  }
+
+})

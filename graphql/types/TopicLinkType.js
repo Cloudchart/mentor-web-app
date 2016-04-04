@@ -12,10 +12,12 @@ import {
 import { nodeInterface } from './Node'
 
 import {
-  TopicLinkStorage
+  TopicLinkStorage,
+  BotReactionStorage,
 } from '../../storage'
 
 
+import BotReactionType from './BotReaction'
 import TopicLinkInsightsConnection from '../connections/TopicLinkInsights'
 
 
@@ -35,6 +37,11 @@ export default new GraphQLObjectType({
 
     title: {
       type: new GraphQLNonNull(GraphQLString)
+    },
+
+    reaction: {
+      type: new GraphQLNonNull(BotReactionType),
+      resolve: async (topicLink) => await BotReactionStorage.loadOne('forOwner', { owner_id: topicLink.id, owner_type: 'TopicLink' })
     },
 
     insights: TopicLinkInsightsConnection

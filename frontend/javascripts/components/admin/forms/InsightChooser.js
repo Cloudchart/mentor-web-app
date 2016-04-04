@@ -2,104 +2,39 @@ import React from 'react'
 import Relay from 'react-relay'
 
 
-const InitialPageSize = 1000
+import {
+  List,
+  ListItem,
+  TextField
+} from 'material-ui'
 
 
 class InsightChooser extends React.Component {
+
 
   constructor(props) {
     super(props)
 
     this.state = {
-      filter: '',
-      filterIDs: this.props.filterIDs || []
+      filter: ''
     }
-
-    this._handleFilterChange = this._handleFilterChange.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      filterIDs: nextProps.filterIDs || this.state.filterIDs
-    })
-  }
 
-  render() {
-    return (
-      <div className="insights-chooser-container">
-        { this._renderFilter() }
-        <ul ref="list" className="insights-chooser-list" onScroll={ this._handleListScroll }>
-          { this._filterInsights().map(edge => this._renderInsight(edge.node)) }
-        </ul>
+  render = () =>
+    <div style={ height: '100%' }>
+      <TextField hintText="Start typing..." fullWidth={ true } autoFocus={ true } />
+      <div style={{ overflowY: 'scroll' }}>
+        <List>
+          { this.props.insights.map(this._renderInsight) }
+        </List>
       </div>
-    )
-  }
+    </div>
 
-  _renderFilter() {
-    return (
-      <input
-        type        = "text"
-        placeholder = "Type something"
-        className   = "insights-chooser-filter"
-        value       = { this.state.filter }
-        onChange    = { this._handleFilterChange }
-      />
-    )
-  }
-
-  _renderInsight(node) {
-    return (
-      <li key={ node.id } className="insights-chooser-item" onClick={ this._handleListItemClick.bind(this, node.id) }>
-        { node.content }
-      </li>
-    )
-  }
-
-  _handleFilterChange(event) {
-    this.setState({ filter: event.target.value })
-  }
-
-  _handleListItemClick(id, event) {
-    this.props.onSelect && this.props.onSelect(id)
-  }
-
-  _filterInsights() {
-    if (this._prevFilter !== this.state.filter || this.state.filterIDs) {
-      let filter = this.state.filter.toLowerCase()
-      this._filteredInsights = this.props.node.insights.edges.filter(edge => this.props.filterIDs.indexOf(edge.node.id) == -1 && edge.node.content.toLowerCase().indexOf(filter) >= 0)
-    }
-    this._prevFilter = this.state.filter
-    return this._filteredInsights
-  }
+  _renderInsight = (insight) =>
+    <ListItem key={ insight.id } primaryText={ insight.content } />
 
 }
 
 
-export default Relay.createContainer(InsightChooser, {
-
-  initialVariables: {
-    first: InitialPageSize,
-  },
-
-  fragments: {
-
-    node: () => Relay.QL`
-      fragment on Topic {
-        id
-        insights(filter: ADMIN, first: $first) {
-          pageInfo {
-            hasNextPage
-          }
-          edges {
-            node {
-              id
-              content
-            }
-          }
-        }
-      }
-    `
-
-  }
-
-})
+export default InsightChooser

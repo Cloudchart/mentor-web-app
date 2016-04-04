@@ -3,28 +3,26 @@ import Relay, {
   RootContainer
 } from 'react-relay'
 
+import {
+  AppBar,
+  Divider,
+  List,
+  ListItem,
+} from 'material-ui'
+
 import NodeRoute from '../../routes/NodeRoute'
 import TopicApp from './TopicApp'
 
 
 class TopicsApp extends React.Component {
 
-  componentDidMount() {
-    this._loadMoreTopics()
-  }
+  render = () =>
+    <div>
+      <List>
+        { this.props.admin.topics.edges.map(this._renderTopic)}
+      </List>
+    </div>
 
-  componentDidUpdate() {
-    this._loadMoreTopics()
-  }
-
-  render() {
-    return (
-      <div>
-        <div onClick={ event => this.props.navigator.pop() }>&lt; Back</div>
-        { this._renderTopics() }
-      </div>
-    )
-  }
 
   _renderTopics() {
     return (
@@ -34,33 +32,17 @@ class TopicsApp extends React.Component {
     )
   }
 
-  _renderTopic(topic) {
-    return (
-      <li key={ topic.id }>
-        <a href="#" onClick={ event => this._handleTopicClick(event, topic.id) }>
-          { topic.name }
-        </a>
-      </li>
-    )
-  }
+  _renderTopic = (topicEdge) =>
+    [
+      <ListItem
+        primaryText = { topicEdge.node.name }
+        onTouchTap  = { () => this._handleTopicSelect(topicEdge.node) }
+      />,
+      <Divider />
+    ]
 
-  _handleTopicClick(event, id) {
-    event.preventDefault()
-    this.props.navigator.push({
-      Component:  TopicApp,
-      Route:      NodeRoute,
-      props:      { id },
-    })
-  }
-
-  _loadMoreTopics() {
-    if (this.props.admin.topics.pageInfo.hasNextPage)
-      setTimeout(() => {
-        this.props.relay.setVariables({
-          first: this.props.relay.variables.first + 5
-        })
-      })
-  }
+  _handleTopicSelect = (node) =>
+    this.props.navigator.push({ Component: TopicApp, Route: NodeRoute, props: { id: node.id }, title: `Topics / ${node.name}` })
 
 }
 
@@ -68,7 +50,7 @@ class TopicsApp extends React.Component {
 export default Relay.createContainer(TopicsApp, {
 
   initialVariables: {
-    first: 5
+    first: 100
   },
 
   fragments: {

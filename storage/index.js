@@ -19,6 +19,7 @@ import TopicStorage from './TopicStorage'
 import TopicLinkStorage from './TopicLink'
 import TopicLinkInsightStorage from './TopicLinkInsight'
 import UserTopicInsightStorage from './UserTopicInsightStorage'
+import BotReactionStorage from './BotReaction'
 
 import AdminUserStorage from './admin/AdminUserStorage'
 import AdminStorage from './admin/AdminStorage'
@@ -51,4 +52,5 @@ export default {
   TopicLinkStorage,
   TopicLinkInsightStorage,
   UserTopicInsightStorage,
+  BotReactionStorage,
 }

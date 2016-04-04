@@ -1,38 +1,8 @@
-@import 'proxima';
-@import 'font-awesome';
-
 html,
 body {
-  background-color: #000;
-  box-sizing: border-box;
-  color: #fff;
-  height: 100%;
   margin: 0;
-  padding: 0;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
 }
 
 body {
-  font: 18px proxima-nova;
-  font-weight: 400;
-  margin: auto;
-  width: 512px;
+  height: 100%;
 }
-
-a {
-  text-decoration: none;
-}
-
-@import 'gradient-list';
-@import 'insight-list';
-@import 'components/app';
-@import 'components/chooser-app';
-@import 'components/landing-app';
-@import 'components/favorites-app';
-@import 'components/theme-app';
-@import 'components/admin/index';

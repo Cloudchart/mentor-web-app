@@ -2,6 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Relay from 'react-relay'
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin()
+
 let forEach = Array.prototype.forEach
 
 Relay.injectNetworkLayer(
