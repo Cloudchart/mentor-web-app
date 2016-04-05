@@ -18,7 +18,7 @@ const GenericQuery = (options = {}) => `
 
 const Storage = BaseStorage('User', {
   idsQueries: {
-    'named': GenericQuery({ where: `name is not null`, order: 'name' })
+    'named': GenericQuery({ where: `name is not null and name != ''`, order: 'name' })
   }
 })
 
