@@ -48,7 +48,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/auth', auth)
 app.use('/themes', themes)
-app.use('/admin', admin)
+app.use('/admin-new', admin)
 
 // GraphQL
 app.use('/graphql', graphql)
