@@ -458,7 +458,7 @@ type Topic implements Node {
   isPaid: Boolean!
   isSubscribedByViewer: Boolean!
   insights(after: String, first: Int, before: String, last: Int, filter: TopicInsightsFilterEnum = unrated): TopicInsightsConnection
-  links(after: String, first: Int, before: String, last: Int): TopicLinksConnection
+  links(after: String, first: Int, before: String, last: Int, filter: TopicLinkFilter = default): TopicLinksConnection
 }
 
 type TopicInsightsConnection {
@@ -488,6 +488,13 @@ type TopicLink implements Node {
   title: String!
   reaction: BotReaction!
   insights(after: String, first: Int, before: String, last: Int): TopicLinkInsightsConnection
+}
+
+enum TopicLinkFilter {
+  ALL
+  READ
+  UNREAD
+  DEFAULT
 }
 
 type TopicLinkInsightsConnection {

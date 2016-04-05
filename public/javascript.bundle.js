@@ -87,7 +87,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(397)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(802)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(803)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -42380,16 +42380,16 @@
 		"./admin/TopicsApp.js": 513,
 		"./admin/UsersApp": 797,
 		"./admin/UsersApp.js": 797,
-		"./admin/_TopicApp": 800,
-		"./admin/_TopicApp.js": 800,
+		"./admin/_TopicApp": 801,
+		"./admin/_TopicApp.js": 801,
 		"./admin/forms/InsightChooser": 791,
 		"./admin/forms/InsightChooser.js": 791,
 		"./admin/forms/RolesForm": 798,
 		"./admin/forms/RolesForm.js": 798,
 		"./admin/forms/TopicLinkForm": 789,
 		"./admin/forms/TopicLinkForm.js": 789,
-		"./admin/forms/_TopicLinkForm": 801,
-		"./admin/forms/_TopicLinkForm.js": 801
+		"./admin/forms/_TopicLinkForm": 802,
+		"./admin/forms/_TopicLinkForm.js": 802
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -99063,7 +99063,7 @@
 
 	var _mutationsGrantRoleToUser2 = _interopRequireDefault(_mutationsGrantRoleToUser);
 
-	var _mutationsRevokeRoleFromUser = __webpack_require__(806);
+	var _mutationsRevokeRoleFromUser = __webpack_require__(800);
 
 	var _mutationsRevokeRoleFromUser2 = _interopRequireDefault(_mutationsRevokeRoleFromUser);
 
@@ -99443,6 +99443,137 @@
 	  value: true
 	});
 
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'revokeRoleFromUser',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'RevokeRoleFromUserInput!'
+	          },
+	          name: 'RevokeRoleFromUser',
+	          responseType: 'RevokeRoleFromUserPayload'
+	        };
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        return {
+	          children: [{
+	            fieldName: 'roleID',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'ID'
+	          }, {
+	            children: [{
+	              fieldName: 'roles',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isConnection: true
+	              },
+	              type: 'UserRolesConnection'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'user',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'User'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'RevokeRoleFromUserRelayQL',
+	          type: 'RevokeRoleFromUserPayload'
+	        };
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        userID: _this.props.userID,
+	        roleName: _this.props.roleName
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'NODE_DELETE',
+	        parentName: 'user',
+	        parentID: _this.props.userID,
+	        connectionName: 'roles',
+	        deletedIDFieldName: 'roleID'
+	      }];
+	    };
+	  }
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 801 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -99717,7 +99848,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 801 */
+/* 802 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -100008,18 +100139,18 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 802 */
+/* 803 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
 		"./NodeRoute": 785,
 		"./NodeRoute.js": 785,
-		"./ThemeAppRoute": 803,
-		"./ThemeAppRoute.js": 803,
-		"./ThemesRoute": 804,
-		"./ThemesRoute.js": 804,
-		"./ViewerRoute": 805,
-		"./ViewerRoute.js": 805,
+		"./ThemeAppRoute": 804,
+		"./ThemeAppRoute.js": 804,
+		"./ThemesRoute": 805,
+		"./ThemesRoute.js": 805,
+		"./ViewerRoute": 806,
+		"./ViewerRoute.js": 806,
 		"./admin/AdminRoute": 512,
 		"./admin/AdminRoute.js": 512
 	};
@@ -100034,11 +100165,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 802;
+	webpackContext.id = 803;
 
 
 /***/ },
-/* 803 */
+/* 804 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -100116,7 +100247,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 804 */
+/* 805 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -100192,7 +100323,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 805 */
+/* 806 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -100257,137 +100388,6 @@
 
 	  return _default;
 	})(_reactRelay2['default'].Route);
-
-	exports['default'] = _default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 806 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _reactRelay = __webpack_require__(160);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _default = (function (_Relay$Mutation) {
-	  _inherits(_default, _Relay$Mutation);
-
-	  function _default() {
-	    var _this = this;
-
-	    _classCallCheck(this, _default);
-
-	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.getMutation = function () {
-	      return (function () {
-	        return {
-	          calls: [{
-	            kind: 'Call',
-	            metadata: {},
-	            name: 'revokeRoleFromUser',
-	            value: {
-	              kind: 'CallVariable',
-	              callVariableName: 'input'
-	            }
-	          }],
-	          children: [{
-	            fieldName: 'clientMutationId',
-	            kind: 'Field',
-	            metadata: {
-	              isGenerated: true,
-	              isRequisite: true
-	            },
-	            type: 'String'
-	          }],
-	          kind: 'Mutation',
-	          metadata: {
-	            inputType: 'RevokeRoleFromUserInput!'
-	          },
-	          name: 'RevokeRoleFromUser',
-	          responseType: 'RevokeRoleFromUserPayload'
-	        };
-	      })();
-	    };
-
-	    this.getFatQuery = function () {
-	      return (function () {
-	        return {
-	          children: [{
-	            fieldName: 'roleID',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'ID'
-	          }, {
-	            children: [{
-	              fieldName: 'roles',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isConnection: true
-	              },
-	              type: 'UserRolesConnection'
-	            }, {
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'user',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'User'
-	          }],
-	          id: _reactRelay2['default'].QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'RevokeRoleFromUserRelayQL',
-	          type: 'RevokeRoleFromUserPayload'
-	        };
-	      })();
-	    };
-
-	    this.getVariables = function () {
-	      return {
-	        userID: _this.props.userID,
-	        roleName: _this.props.roleName
-	      };
-	    };
-
-	    this.getConfigs = function () {
-	      return [{
-	        type: 'NODE_DELETE',
-	        parentName: 'user',
-	        parentID: _this.props.userID,
-	        connectionName: 'roles',
-	        deletedIDFieldName: 'roleID'
-	      }];
-	    };
-	  }
-
-	  return _default;
-	})(_reactRelay2['default'].Mutation);
 
 	exports['default'] = _default;
 	module.exports = exports['default'];

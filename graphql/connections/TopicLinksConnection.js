@@ -21,6 +21,17 @@ import {
 import TopicLinkType from '../types/TopicLinkType'
 
 
+export const TopicLinksFilter = new GraphQLEnumType({
+  name: 'TopicLinkFilter',
+
+  values: {
+    ALL:      { value: 'all'          },
+    READ:     { value: 'readByUser'   },
+    UNREAD:   { value: 'unreadByUser' },
+    DEFAULT:  { value: 'default'      },
+  }
+})
+
 export const Connection = connectionDefinitions({
   name: 'TopicLinks',
 
@@ -37,10 +48,21 @@ export default {
 
   args: {
     ...connectionArgs,
+    filter: {
+      type: TopicLinksFilter,
+      defaultValue: 'default',
+    }
   },
 
-  resolve: async (topic, { ...args }, { rootValue: { viewer } }) => {
-    let topicLinks = await TopicLinkStorage.loadAll('forTopic', { topic_id: topic.id })
+  resolve: async (topic, { filter, ...args }, { rootValue: { viewer } }) => {
+    if (filter === 'default')
+      filter = viewer.isAdmin ? 'all' : 'unreadByUser'
+
+    if (filter === 'all' && !viewer.isAdmin)
+      return new Error('Not authorized.')
+
+    let topicLinks = await TopicLinkStorage.loadAll(filter + 'ForTopic', { topic_id: topic.id, user_id: viewer.id })
+
     return {
       ...connectionFromArray(topicLinks, args),
       topic:  topic,

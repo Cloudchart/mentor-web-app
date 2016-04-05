@@ -1,8 +1,9 @@
 import BaseStorage from './BaseStorage'
-import { TopicLink } from '../models'
+import { TopicLink, UserTopicLink } from '../models'
 
 
 const TableName = TopicLink.tableName
+const UserTopicLinkTableName  = UserTopicLink.tableName
 
 
 const GenericQuery = (options = {}) => `
@@ -14,14 +15,56 @@ const GenericQuery = (options = {}) => `
   ${ options.order ? ' order by ' + options.order: '' }
 `
 
+const TopicLinkIDsByUser = `
+  select
+    topic_link_id
+  from
+    ${UserTopicLinkTableName}
+  where
+    user_id = :user_id
+`
+
+const UnreadByUserForTopicQuery = `
+  select
+    id
+  from
+    ${TableName}
+  where
+    topic_id = :topic_id
+    and
+    id not in (${TopicLinkIDsByUser})
+  order by
+    created_at
+`
+
+const ReadByUserForTopicQuery = `
+  select
+    id
+  from
+    ${TableName}
+  where
+    topic_id = :topic_id
+    and
+    id in (${TopicLinkIDsByUser})
+  order by
+    created_at
+`
 
 const Storage = BaseStorage('TopicLink', {
   modelName: 'TopicLink',
   idsQueries: {
-    forTopic: GenericQuery({
+    'allForTopic': GenericQuery({
       where: `topic_id = :topic_id`,
       order: 'created_at'
-    })
+    }),
+    'unreadByUserForTopic': GenericQuery({
+      where: `topic_id = :topic_id and id not in (${TopicLinkIDsByUser})`,
+      order: 'created_at'
+    }),
+    'readByUserForTopic': GenericQuery({
+      where: `topic_id = :topic_id and id in (${TopicLinkIDsByUser})`,
+      order: 'created_at'
+    }),
   }
 })
 
