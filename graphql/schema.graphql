@@ -283,6 +283,19 @@ type MarkInsightUselessPayload {
   clientMutationId: String!
 }
 
+input MarkTopicLinkAsReadInput {
+  topicLinkID: ID!
+  clientMutationId: String!
+}
+
+type MarkTopicLinkAsReadPayload {
+  topicLink: TopicLink!
+  topic: Topic!
+  topicLinkID: String!
+  topicLinkEdge: TopicLinksEdge!
+  clientMutationId: String!
+}
+
 type Mutation {
   activateUser(input: ActivateUserInput!): ActivateUserPayload
   resetUser(input: ResetUserInput!): ResetUserPayload
@@ -313,6 +326,7 @@ type Mutation {
   updateTopicLink(input: UpdateTopicLinkInput!): UpdateTopicLinkPayload
   grantRoleToUser(input: GrantRoleToUserInput!): GrantRoleToUserPayload
   revokeRoleFromUser(input: RevokeRoleFromUserInput!): RevokeRoleFromUserPayload
+  markTopicLinkAsRead(input: MarkTopicLinkAsReadInput!): MarkTopicLinkAsReadPayload
 }
 
 interface Node {

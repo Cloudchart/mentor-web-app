@@ -51,6 +51,8 @@ import UpdateTopicLinkMutation from './admin/UpdateTopicLink'
 import GrantRoleToUserMutation from './GrantRoleToUser'
 import RevokeRoleFromUserMutation from './RevokeRoleFromUser'
 
+import MarkTopicLinkAsReadMutation from './MarkTopicLinkAsRead'
+
 
 export default new GraphQLObjectType({
   name: 'Mutation',
@@ -87,5 +89,7 @@ export default new GraphQLObjectType({
 
     grantRoleToUser:                  GrantRoleToUserMutation,
     revokeRoleFromUser:               RevokeRoleFromUserMutation,
+
+    markTopicLinkAsRead:              MarkTopicLinkAsReadMutation,
   }
 })

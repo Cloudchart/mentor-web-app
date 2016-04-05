@@ -24,32 +24,6 @@ const TopicLinkIDsByUser = `
     user_id = :user_id
 `
 
-const UnreadByUserForTopicQuery = `
-  select
-    id
-  from
-    ${TableName}
-  where
-    topic_id = :topic_id
-    and
-    id not in (${TopicLinkIDsByUser})
-  order by
-    created_at
-`
-
-const ReadByUserForTopicQuery = `
-  select
-    id
-  from
-    ${TableName}
-  where
-    topic_id = :topic_id
-    and
-    id in (${TopicLinkIDsByUser})
-  order by
-    created_at
-`
-
 const Storage = BaseStorage('TopicLink', {
   modelName: 'TopicLink',
   idsQueries: {
