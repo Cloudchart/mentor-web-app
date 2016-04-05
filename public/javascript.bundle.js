@@ -98792,18 +98792,18 @@
 	        _react2['default'].createElement(
 	          _materialUi.TableRowColumn,
 	          { style: { display: 'flex', alignItems: 'center' } },
-	          user.roles.edges.map(function (edge) {
-	            return edge.node.name;
-	          }).map(function (name) {
-	            return name[0].toUpperCase() + name.slice(1);
-	          }).join(','),
 	          _react2['default'].createElement(
 	            _materialUi.IconButton,
 	            { onTouchTap: function () {
 	                return _this._showRolesDialog(user);
 	              } },
 	            _react2['default'].createElement(ZoomIn, { color: _materialUiLibStylesColors.blueGrey500 })
-	          )
+	          ),
+	          user.roles.edges.map(function (edge) {
+	            return edge.node.name;
+	          }).map(function (name) {
+	            return name[0].toUpperCase() + name.slice(1);
+	          }).join(', ')
 	        )
 	      );
 	    };

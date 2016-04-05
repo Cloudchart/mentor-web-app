@@ -79,10 +79,10 @@ class UsersApp extends React.Component {
         { user.name }
       </TableRowColumn>
       <TableRowColumn style={{ display: 'flex', alignItems: 'center' }}>
-        { user.roles.edges.map(edge => edge.node.name).map(name => name[0].toUpperCase() + name.slice(1)).join(',') }
         <IconButton onTouchTap={ () => this._showRolesDialog(user) }>
           <ZoomIn color={ blueGrey500 }/>
         </IconButton>
+        { user.roles.edges.map(edge => edge.node.name).map(name => name[0].toUpperCase() + name.slice(1)).join(', ') }
       </TableRowColumn>
     </TableRow>
 
