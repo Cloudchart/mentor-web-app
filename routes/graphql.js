@@ -5,6 +5,7 @@ import {
 import {
   UserStorage,
   DeviceStorage,
+  RoleStorage,
   SlackChannelStorage,
 } from '../storage'
 
@@ -72,10 +73,21 @@ let deviceLogger = async (req, res, next) => {
   next()
 }
 
+let rolesInjector = async (req, res, next) => {
+  if (req.user) {
+    req.user.isAdmin = await RoleStorage
+      .loadAll('adminByUser', { user_id: req.user.id })
+      .then(r => r.length > 0)
+      .catch(() => false)
+  }
+  next()
+}
+
 router.use('/',
   deviceAuthorizer,
   deviceLogger,
   channelAuthorizer,
+  rolesInjector,
   cors({ origin: checkCorsOrigins, credentials: true },
 ), graphqlHTTP(req => ({
   schema: GraphQLSchema,

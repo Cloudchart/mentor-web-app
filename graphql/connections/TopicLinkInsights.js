@@ -14,6 +14,7 @@ import {
 } from './arrayconnection'
 
 import {
+  InsightStorage,
   TopicLinkInsightStorage,
 } from '../../storage'
 
@@ -40,9 +41,10 @@ export default {
   },
 
   resolve: async (topic_link, { ...args }) => {
-    let topicLinks = await TopicLinkInsightStorage.loadAll('forTopicLink', { topic_link_id: topic_link.id })
+    let relations = await TopicLinkInsightStorage.loadAll('forTopicLink', { topic_link_id: topic_link.id })
+    let insights = await InsightStorage.loadMany(relations.map(r => r.insight_id))
     return {
-      ...connectionFromArray(topicLinks, args),
+      ...connectionFromArray(insights, args),
       topic_link: topic_link,
     }
   }

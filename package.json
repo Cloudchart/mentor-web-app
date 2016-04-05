@@ -42,7 +42,7 @@
     "immutable": "^3.7.5",
     "ioredis": "^1.10.0",
     "jade": "^1.11.0",
-    "material-ui": "^0.15.0-alpha.2",
+    "material-ui": "^0.15.0-alpha",
     "mocha": "^2.3.3",
     "moment": "^2.10.6",
     "morgan": "^1.6.0",

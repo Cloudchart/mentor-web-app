@@ -3,14 +3,30 @@ import Relay from 'react-relay'
 
 import {
   Card,
-  CardTitle,
+  CardHeader,
   CardActions,
-  Dialog,
+  Checkbox,
+  Divider,
   FlatButton,
-  TextField,
+  IconButton,
+  IconMenu,
+  MenuItem,
+  List,
+  ListItem,
+  Subheader,
 } from 'material-ui'
 
+import Close from 'material-ui/lib/svg-icons/navigation/close'
+
 import TopicLinkForm from './forms/TopicLinkForm'
+
+import RemoveTopicLinkMutation from '../../mutations/admin/RemoveTopicLink'
+
+const RightIconButton = (callback) =>
+  <IconButton onTouchTap={ () => { if (confirm('Are you sure?')) { callback() } } }>
+    <Close color="red" />
+  </IconButton>
+
 
 
 class TopicLinksCard extends React.Component {
@@ -19,42 +35,65 @@ class TopicLinksCard extends React.Component {
     super(props)
 
     this.state = {
-      shouldRenderDialog: false
+      topicLink: undefined
     }
+  }
 
-    this._handleAddLink = this._handleAddLink.bind(this)
+  _handleRemoveRequest = (id) => {
+    Relay.Store.commitUpdate(
+      new RemoveTopicLinkMutation({
+        topicID:  this.props.topic.id,
+        linkID:   id,
+      })
+    )
   }
 
   render = () =>
-    <div>
-      <Card>
-        <CardActions>
-          <FlatButton label="Add Link" primary={ true } onTouchTap={ this._handleAddLink } />
-        </CardActions>
-      </Card>
-      <Dialog
-        autoDetectWindowHeight = { false }
-        title="Add new link"
-        actions = { this._renderActions() }
-        open={ this.state.shouldRenderDialog }
-        onRequestClose = { () => this.setState({ shouldRenderDialog: false }) }
-        repositionOnUpdate = { false }
-      >
-        <TopicLinkForm topicLink={ null } topic={ this.props.topic } />
-      </Dialog>
-    </div>
+    this.state.topicLink === undefined
+      ? this.renderList()
+      : this.renderForm()
 
-  _handleAddLink() {
-    this.setState({ shouldRenderDialog: true })
-  }
+  renderList = () =>
+    <Card style={{ margin: 20 }}>
+      <List>
+        {
+          this.props.topic.links.edges.length > 0
+            ? this.props.topic.links.edges.map(edge => this._renderTopicLink(edge.node))
+            : this._renderEmptyTopicListItem()
+        }
 
-  _renderActions() {
-    return [
-      <FlatButton label="Cancel" secondary={ true } onTouchTap={ () => this.setState({ shouldRenderDialog: false }) } />
-      ,
-      <FlatButton label="Save" primary={ true } />
-    ]
-  }
+      </List>
+      <Divider />
+      <CardActions>
+        <FlatButton label="Add link" primary onTouchTap={() => this.setState({ topicLink: null })} />
+      </CardActions>
+    </Card>
+
+  renderForm = () =>
+    <TopicLinkForm
+      topic     = { this.props.topic }
+      topicLink = { this.state.topicLink }
+      onCancel  = { () => this.setState({ topicLink: undefined }) }
+      onDone    = { () => this.setState({ topicLink: undefined }) }
+    />
+
+  _renderTopicLink = (topicLink) =>
+    <ListItem
+      key             = { topicLink.id }
+      nestedItems     = { topicLink.insights.edges.map(edge => this._renderInsight(edge.node)) }
+      onTouchTap      = { () => this.setState({ topicLink }) }
+      secondaryText   = { topicLink.reaction && topicLink.reaction.content || '' }
+      rightIconButton = { RightIconButton(this._handleRemoveRequest.bind(this, topicLink.id)) }
+    >
+      <a href={ topicLink.url }>{ topicLink.title }</a>
+    </ListItem>
+
+  _renderEmptyTopicListItem = () =>
+    <ListItem disabled>No links</ListItem>
+
+  _renderInsight = (insight) =>
+    <ListItem key={ insight.id } disabled>{ insight.content }</ListItem>
+
 
 }
 
@@ -73,6 +112,17 @@ export default Relay.createContainer(TopicLinksCard, {
               id
               url
               title
+              reaction {
+                content
+              }
+              insights(first: 100) {
+                edges {
+                  node {
+                    id
+                    content
+                  }
+                }
+              }
             }
           }
         }

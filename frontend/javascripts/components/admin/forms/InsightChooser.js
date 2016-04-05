@@ -24,7 +24,7 @@ class InsightChooser extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.filter !== this.state.filter || this.props.selectedInsights !== prevProps.selectedInsights) {
       clearTimeout(this._filterInsightTimeout)
-      this._filterInsightTimeout = setTimeout(this._filterInsights, 250)
+      this._filterInsightTimeout = setTimeout(this._filterInsights)
     }
   }
 
