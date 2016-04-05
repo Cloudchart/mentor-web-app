@@ -66,7 +66,7 @@ const TopicMutationsOutputFields = {
   },
   insightEdge: {
     type: new GraphQLNonNull(TopicInsightsEdgeType),
-    resolve: ({ insight }) => nodeToEdge('Insight', insight)
+    resolve: ({ insight }) => nodeToEdge(insight)
   }
 }
 
@@ -84,7 +84,7 @@ const UserCollectionMutationsOutputFields = {
   },
   insightEdge: {
     type: new GraphQLNonNull(UserCollectionInsightsConnectionEdgeType),
-    resolve: ({ insight }) => nodeToEdge('Insight', insight)
+    resolve: ({ insight }) => nodeToEdge(insight)
   }
 }
 
