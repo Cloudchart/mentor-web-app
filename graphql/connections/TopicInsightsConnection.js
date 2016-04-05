@@ -20,6 +20,7 @@ import {
 import TopicType from '../types/TopicType'
 import InsightType from '../types/InsightsType'
 
+import SynchronizeThemeInsightsJob from '../../workers/jobs/SynchronizeThemeInsightsJob'
 import SynchronizeUserThemeInsightsJob from '../../workers/jobs/SynchronizeUserThemeInsightsJob'
 
 
@@ -82,6 +83,8 @@ export default {
 
     if (filter === 'admin' && !viewer.isAdmin)
       return new Error('Not authorized.')
+
+    await SynchronizeThemeInsightsJob.perform({ themeID: topic.id })
 
     if (filter !== 'admin')
       await SynchronizeUserThemeInsightsJob.perform({ userID: viewer.id, themeID: topic.id })

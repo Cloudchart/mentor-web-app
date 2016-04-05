@@ -97392,7 +97392,7 @@
 	      return _react2['default'].createElement(
 	        _materialUi.Card,
 	        { style: { margin: 20 } },
-	        _react2['default'].createElement(_materialUi.CardTitle, { title: 'Add link', subtitle: _this.props.topic.name }),
+	        _react2['default'].createElement(_materialUi.CardTitle, { title: _this.props.topicLink ? 'Edit link' : 'Add link', subtitle: _this.props.topic.name }),
 	        _react2['default'].createElement(
 	          _materialUi.CardText,
 	          null,

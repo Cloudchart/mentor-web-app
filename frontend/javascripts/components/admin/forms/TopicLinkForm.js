@@ -131,7 +131,7 @@ class TopicLinkForm extends React.Component {
 
   render = () =>
     <Card style={{ margin: 20 }}>
-      <CardTitle title="Add link" subtitle={ this.props.topic.name } />
+      <CardTitle title={ this.props.topicLink ? 'Edit link' : 'Add link' } subtitle={ this.props.topic.name } />
       <CardText>
         <TextField floatingLabelText="Link URL" value={ this.state.linkURL } autoFocus={ true } onChange={ this._handleLinkURLChange } />
         <br />
