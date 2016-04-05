@@ -55,7 +55,8 @@ export default mutationWithClientMutationId({
   },
 
   mutateAndGetPayload: async ({ linkID }, { rootValue: { viewer } }) => {
-    // TODO: Check if viewer is admin
+    if (!viewer.isAdmin)
+      return new Error('Not authorized.')
 
     let link = await TopicLinkStorage.load(fromGlobalId(linkID).id).catch(() => null)
     if (!link) return new Error('Topic Link not found.')

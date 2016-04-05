@@ -80,7 +80,8 @@ export default {
   resolve: async (topic, { filter, ...args }, { rootValue: { viewer } }) => {
     let queryName = filter === 'admin' ? 'admin' : filter + 'ForTopicAndUser'
 
-    // TODO: Check if user is admin is filter === 'admin'
+    if (filter === 'admin' && !viewer.isAdmin)
+      return new Error('Not authorized.')
 
     if (filter !== 'admin')
       await SynchronizeUserThemeInsightsJob.perform({ userID: viewer.id, themeID: topic.id })

@@ -68,7 +68,8 @@ export default mutationWithClientMutationId({
   },
 
   mutateAndGetPayload: async ({ topicID, linkURL, linkTitle, linkInsightsIDs, reactionContent }, { rootValue: { viewer } }) => {
-    // TODO: Check if viewer is admin
+    if (!viewer.isAdmin)
+      return new Error('Not authorized')
 
     let topic = await TopicStorage.load(fromGlobalId(topicID).id).catch(() => null)
     if (!topic) return new Error('Topic not found.')
