@@ -10,7 +10,7 @@ import {
 
 import { nodeInterface } from '../Node'
 
-import AdminUsersConnection from '../../connections/admin/AdminUsersConnection'
+import AdminUsersConnection from '../../connections/admin/AdminUsers'
 import AdminInsightsConnection from '../../connections/admin/AdminInsightsConnection'
 import { Field as AdminThemesConnection } from '../../connections/admin/AdminThemesConnection'
 import AdminTopicsConnection from '../../connections/admin/AdminTopicsConnection'

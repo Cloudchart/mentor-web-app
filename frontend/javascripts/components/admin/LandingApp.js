@@ -6,6 +6,7 @@ import Relay, {
 import Navigator from '../Navigator'
 import AdminRoute from '../../routes/admin/AdminRoute'
 import TopicsApp from './TopicsApp'
+import UsersApp from './UsersApp'
 
 import {
   AppBar,
@@ -28,6 +29,10 @@ const RootRoutes = [
   {
     title:      'Topics',
     Component:  TopicsApp,
+    Route:      AdminRoute,
+  }, {
+    title:      'Users',
+    Component:  UsersApp,
     Route:      AdminRoute,
   }
 ]

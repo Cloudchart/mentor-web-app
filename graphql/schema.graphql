@@ -50,7 +50,7 @@ type AddInsightToTopicLinkPayload {
 type Admin implements Node {
   id: ID!
   name: String
-  users(after: String, first: Int, before: String, last: Int, query: String): AdminUsersConnection
+  users(after: String, first: Int, before: String, last: Int): AdminUsersConnection
   insights(after: String, first: Int, before: String, last: Int, query: String): AdminInsightsConnection
   themes(after: String, first: Int, before: String, last: Int, query: String, filter: String, order: String): AdminThemesConnection
   topics(after: String, first: Int, before: String, last: Int): AdminTopicsConnection
@@ -103,23 +103,13 @@ type AdminTopicsEdge {
   cursor: String!
 }
 
-type AdminUser implements Node {
-  id: ID!
-  name: String
-  email: String
-  isActive: Boolean
-  authProvider: String
-  createdAt: String
-}
-
 type AdminUsersConnection {
   pageInfo: PageInfo!
   edges: [AdminUsersEdge]
-  count: Int!
 }
 
 type AdminUsersEdge {
-  node: AdminUser
+  node: User
   cursor: String!
 }
 
@@ -166,6 +156,19 @@ type DislikeInsightPayload {
   theme: UserTheme!
   insight: UserThemeInsight!
   insightID: ID!
+  clientMutationId: String!
+}
+
+input GrantRoleToUserInput {
+  userID: ID!
+  roleName: String!
+  clientMutationId: String!
+}
+
+type GrantRoleToUserPayload {
+  role: Role!
+  roleEdge: UserRolesEdge!
+  user: User!
   clientMutationId: String!
 }
 
@@ -308,6 +311,8 @@ type Mutation {
   removeTopicLink(input: RemoveTopicLinkInput!): RemoveTopicLinkPayload
   addInsightToTopicLink(input: AddInsightToTopicLinkInput!): AddInsightToTopicLinkPayload
   updateTopicLink(input: UpdateTopicLinkInput!): UpdateTopicLinkPayload
+  grantRoleToUser(input: GrantRoleToUserInput!): GrantRoleToUserPayload
+  revokeRoleFromUser(input: RevokeRoleFromUserInput!): RevokeRoleFromUserPayload
 }
 
 interface Node {
@@ -383,6 +388,24 @@ input ResetUserInput {
 type ResetUserPayload {
   user: User!
   clientMutationId: String!
+}
+
+input RevokeRoleFromUserInput {
+  userID: ID!
+  roleName: String!
+  clientMutationId: String!
+}
+
+type RevokeRoleFromUserPayload {
+  role: Role!
+  roleID: ID!
+  user: User!
+  clientMutationId: String!
+}
+
+type Role implements Node {
+  id: ID!
+  name: String!
 }
 
 input SetUserPushTokenInput {
@@ -566,6 +589,7 @@ type User implements Node {
   topics(after: String, first: Int, before: String, last: Int, filter: UserTopicsConnectionFilter = all): UserTopicsConnectionConnection
   questionnaire: UserQuestionnaire
   notificationsSettings: UserNotificationsSettings
+  roles(after: String, first: Int, before: String, last: Int): UserRolesConnection
 }
 
 type UserCollection implements Node {
@@ -613,6 +637,16 @@ type UserNotificationsSettings {
 
 type UserQuestionnaire {
   questions: [String]
+}
+
+type UserRolesConnection {
+  pageInfo: PageInfo!
+  edges: [UserRolesEdge]
+}
+
+type UserRolesEdge {
+  node: Role
+  cursor: String!
 }
 
 type UserTheme implements Node {

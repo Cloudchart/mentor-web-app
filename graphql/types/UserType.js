@@ -23,6 +23,7 @@ import { field as UserThemesConnectionField } from '../connections/UserThemesCon
 import { Field as UserThemeInsightsConnectionField } from '../connections/UserThemeInsightsConnection'
 import UserCollectionsConnection from '../connections/UserCollectionsConnection'
 import UserTopicsConnection from '../connections/UserTopicsConnection'
+import UserRolesConnection from '../connections/UserRoles'
 
 
 export default new GraphQLObjectType({
@@ -91,7 +92,9 @@ export default new GraphQLObjectType({
     notificationsSettings: {
       type: UserNotificationsSettingsType,
       resolve: (user) => UserNotificationsSettingsStorage.load(user.id).catch(error => null)
-    }
+    },
+
+    roles: UserRolesConnection,
 
   })
 

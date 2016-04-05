@@ -87,7 +87,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(397)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(798)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(802)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -42368,24 +42368,28 @@
 		"./TodayApp.js": 510,
 		"./admin/ChooserApp": 511,
 		"./admin/ChooserApp.js": 511,
-		"./admin/LandingApp": 795,
-		"./admin/LandingApp.js": 795,
+		"./admin/LandingApp": 796,
+		"./admin/LandingApp.js": 796,
 		"./admin/TopicApp": 786,
 		"./admin/TopicApp.js": 786,
-		"./admin/TopicInsightsTable": 794,
-		"./admin/TopicInsightsTable.js": 794,
+		"./admin/TopicInsightsTable": 795,
+		"./admin/TopicInsightsTable.js": 795,
 		"./admin/TopicLinksCard": 787,
 		"./admin/TopicLinksCard.js": 787,
 		"./admin/TopicsApp": 513,
 		"./admin/TopicsApp.js": 513,
-		"./admin/_TopicApp": 796,
-		"./admin/_TopicApp.js": 796,
+		"./admin/UsersApp": 797,
+		"./admin/UsersApp.js": 797,
+		"./admin/_TopicApp": 800,
+		"./admin/_TopicApp.js": 800,
 		"./admin/forms/InsightChooser": 791,
 		"./admin/forms/InsightChooser.js": 791,
+		"./admin/forms/RolesForm": 798,
+		"./admin/forms/RolesForm.js": 798,
 		"./admin/forms/TopicLinkForm": 789,
 		"./admin/forms/TopicLinkForm.js": 789,
-		"./admin/forms/_TopicLinkForm": 797,
-		"./admin/forms/_TopicLinkForm.js": 797
+		"./admin/forms/_TopicLinkForm": 801,
+		"./admin/forms/_TopicLinkForm.js": 801
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -96765,7 +96769,7 @@
 
 	var _TopicLinksCard2 = _interopRequireDefault(_TopicLinksCard);
 
-	var _TopicInsightsTable = __webpack_require__(794);
+	var _TopicInsightsTable = __webpack_require__(795);
 
 	var _TopicInsightsTable2 = _interopRequireDefault(_TopicInsightsTable);
 
@@ -96886,7 +96890,7 @@
 
 	var _formsTopicLinkForm2 = _interopRequireDefault(_formsTopicLinkForm);
 
-	var _mutationsAdminRemoveTopicLink = __webpack_require__(793);
+	var _mutationsAdminRemoveTopicLink = __webpack_require__(794);
 
 	var _mutationsAdminRemoveTopicLink2 = _interopRequireDefault(_mutationsAdminRemoveTopicLink);
 
@@ -97307,7 +97311,7 @@
 
 	var _mutationsAdminIntroduceLinkToTopic2 = _interopRequireDefault(_mutationsAdminIntroduceLinkToTopic);
 
-	var _mutationsAdminUpdateTopicLink = __webpack_require__(802);
+	var _mutationsAdminUpdateTopicLink = __webpack_require__(793);
 
 	var _mutationsAdminUpdateTopicLink2 = _interopRequireDefault(_mutationsAdminUpdateTopicLink);
 
@@ -98104,6 +98108,124 @@
 	          calls: [{
 	            kind: 'Call',
 	            metadata: {},
+	            name: 'updateTopicLink',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'UpdateTopicLinkInput!'
+	          },
+	          name: 'UpdateTopicLink',
+	          responseType: 'UpdateTopicLinkPayload'
+	        };
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'link',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'TopicLink'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'UpdateTopicLinkRelayQL',
+	          type: 'UpdateTopicLinkPayload'
+	        };
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        linkID: _this.props.linkID,
+	        linkURL: _this.props.linkURL,
+	        linkTitle: _this.props.linkTitle,
+	        reactionContent: _this.props.reactionContent,
+	        linkInsightsIDs: _this.props.linkInsightsIDs
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: { link: _this.props.linkID }
+	      }];
+	    };
+	  }
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 794 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
 	            name: 'removeTopicLink',
 	            value: {
 	              kind: 'CallVariable',
@@ -98197,7 +98319,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 794 */
+/* 795 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98382,7 +98504,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 795 */
+/* 796 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98423,6 +98545,10 @@
 
 	var _TopicsApp2 = _interopRequireDefault(_TopicsApp);
 
+	var _UsersApp = __webpack_require__(797);
+
+	var _UsersApp2 = _interopRequireDefault(_UsersApp);
+
 	var _materialUi = __webpack_require__(514);
 
 	// const RootRoutes = {
@@ -98436,6 +98562,10 @@
 	var RootRoutes = [{
 	  title: 'Topics',
 	  Component: _TopicsApp2['default'],
+	  Route: _routesAdminAdminRoute2['default']
+	}, {
+	  title: 'Users',
+	  Component: _UsersApp2['default'],
 	  Route: _routesAdminAdminRoute2['default']
 	}];
 
@@ -98544,7 +98674,767 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 796 */
+/* 797 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _materialUi = __webpack_require__(514);
+
+	var _materialUiLibStylesColors = __webpack_require__(546);
+
+	var _formsRolesForm = __webpack_require__(798);
+
+	var _formsRolesForm2 = _interopRequireDefault(_formsRolesForm);
+
+	var ZoomIn = function ZoomIn(props) {
+	  return _react2['default'].createElement(
+	    _materialUi.SvgIcon,
+	    props,
+	    _react2['default'].createElement('path', { d: 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' }),
+	    _react2['default'].createElement('path', { d: 'M0 0h24v24H0V0z', fill: 'none' }),
+	    _react2['default'].createElement('path', { d: 'M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z' })
+	  );
+	};
+
+	var UsersPerPage = 10;
+
+	var UsersApp = (function (_React$Component) {
+	  _inherits(UsersApp, _React$Component);
+
+	  function UsersApp(props) {
+	    var _this = this;
+
+	    _classCallCheck(this, UsersApp);
+
+	    _get(Object.getPrototypeOf(UsersApp.prototype), 'constructor', this).call(this, props);
+
+	    this._showRolesDialog = function (user) {
+	      return _this.setState({
+	        currentUser: user,
+	        shouldShowRolesDialog: true
+	      });
+	    };
+
+	    this._hideRolesDialog = function () {
+	      return _this.setState({
+	        currentUser: null,
+	        shouldShowRolesDialog: false
+	      });
+	    };
+
+	    this.render = function () {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(
+	          _materialUi.Table,
+	          { selectable: false },
+	          _react2['default'].createElement(
+	            _materialUi.TableHeader,
+	            { adjustForCheckbox: false, displaySelectAll: false },
+	            _react2['default'].createElement(
+	              _materialUi.TableRow,
+	              null,
+	              _react2['default'].createElement(
+	                _materialUi.TableHeaderColumn,
+	                null,
+	                'Name'
+	              ),
+	              _react2['default'].createElement(
+	                _materialUi.TableHeaderColumn,
+	                null,
+	                'Roles'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _materialUi.TableBody,
+	            { displayRowCheckbox: false },
+	            _this.props.admin.users.edges.map(function (edge, ii) {
+	              return _this._renderUser(edge.node, ii);
+	            })
+	          )
+	        ),
+	        _this._renderRolesDialog()
+	      );
+	    };
+
+	    this._renderUser = function (user, ii) {
+	      return _react2['default'].createElement(
+	        _materialUi.TableRow,
+	        { key: user.id },
+	        _react2['default'].createElement(
+	          _materialUi.TableRowColumn,
+	          null,
+	          user.name
+	        ),
+	        _react2['default'].createElement(
+	          _materialUi.TableRowColumn,
+	          { style: { display: 'flex', alignItems: 'center' } },
+	          user.roles.edges.map(function (edge) {
+	            return edge.node.name;
+	          }).map(function (name) {
+	            return name[0].toUpperCase() + name.slice(1);
+	          }).join(','),
+	          _react2['default'].createElement(
+	            _materialUi.IconButton,
+	            { onTouchTap: function () {
+	                return _this._showRolesDialog(user);
+	              } },
+	            _react2['default'].createElement(ZoomIn, { color: _materialUiLibStylesColors.blueGrey500 })
+	          )
+	        )
+	      );
+	    };
+
+	    this._renderRolesDialog = function () {
+	      return _this.state.shouldShowRolesDialog && _this.state.currentUser && _react2['default'].createElement(
+	        _materialUi.Dialog,
+	        {
+	          open: _this.state.shouldShowRolesDialog,
+	          onRequestClose: _this._hideRolesDialog,
+	          title: 'Roles for ' + _this.state.currentUser.name,
+	          actions: _react2['default'].createElement(_materialUi.FlatButton, { label: 'Done', primary: true, onTouchTap: _this._hideRolesDialog })
+	        },
+	        _react2['default'].createElement(_formsRolesForm2['default'], { user: _this.state.currentUser })
+	      );
+	    };
+
+	    this.state = {
+	      shouldShowRolesDialog: false,
+	      currentUser: null
+	    };
+	  }
+
+	  return UsersApp;
+	})(_react2['default'].Component);
+
+	exports['default'] = _reactRelay2['default'].createContainer(UsersApp, {
+
+	  initialVariables: {
+	    usersCount: UsersPerPage
+	  },
+
+	  fragments: {
+	    admin: function admin() {
+	      return (function (RQL_0) {
+	        return {
+	          children: [{
+	            calls: [{
+	              kind: 'Call',
+	              metadata: {},
+	              name: 'first',
+	              value: {
+	                kind: 'CallVariable',
+	                callVariableName: 'usersCount'
+	              }
+	            }],
+	            children: [{
+	              children: [{
+	                children: [].concat.apply([], [{
+	                  fieldName: 'id',
+	                  kind: 'Field',
+	                  metadata: {
+	                    isRequisite: true
+	                  },
+	                  type: 'ID'
+	                }, {
+	                  fieldName: 'name',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  calls: [{
+	                    kind: 'Call',
+	                    metadata: {},
+	                    name: 'first',
+	                    value: {
+	                      kind: 'CallValue',
+	                      callValue: 100
+	                    }
+	                  }],
+	                  children: [{
+	                    children: [{
+	                      children: [{
+	                        fieldName: 'name',
+	                        kind: 'Field',
+	                        metadata: {},
+	                        type: 'String'
+	                      }, {
+	                        fieldName: 'id',
+	                        kind: 'Field',
+	                        metadata: {
+	                          isGenerated: true,
+	                          isRequisite: true
+	                        },
+	                        type: 'ID'
+	                      }],
+	                      fieldName: 'node',
+	                      kind: 'Field',
+	                      metadata: {
+	                        canHaveSubselections: true,
+	                        inferredRootCallName: 'node',
+	                        inferredPrimaryKey: 'id',
+	                        isRequisite: true
+	                      },
+	                      type: 'Role'
+	                    }, {
+	                      fieldName: 'cursor',
+	                      kind: 'Field',
+	                      metadata: {
+	                        isGenerated: true,
+	                        isRequisite: true
+	                      },
+	                      type: 'String'
+	                    }],
+	                    fieldName: 'edges',
+	                    kind: 'Field',
+	                    metadata: {
+	                      canHaveSubselections: true,
+	                      isPlural: true
+	                    },
+	                    type: 'UserRolesEdge'
+	                  }, {
+	                    children: [{
+	                      fieldName: 'hasNextPage',
+	                      kind: 'Field',
+	                      metadata: {
+	                        isGenerated: true,
+	                        isRequisite: true
+	                      },
+	                      type: 'Boolean'
+	                    }, {
+	                      fieldName: 'hasPreviousPage',
+	                      kind: 'Field',
+	                      metadata: {
+	                        isGenerated: true,
+	                        isRequisite: true
+	                      },
+	                      type: 'Boolean'
+	                    }],
+	                    fieldName: 'pageInfo',
+	                    kind: 'Field',
+	                    metadata: {
+	                      canHaveSubselections: true,
+	                      isGenerated: true,
+	                      isRequisite: true
+	                    },
+	                    type: 'PageInfo'
+	                  }],
+	                  fieldName: 'roles',
+	                  kind: 'Field',
+	                  metadata: {
+	                    canHaveSubselections: true,
+	                    isConnection: true
+	                  },
+	                  type: 'UserRolesConnection'
+	                }, _reactRelay2['default'].QL.__frag(RQL_0)]),
+	                fieldName: 'node',
+	                kind: 'Field',
+	                metadata: {
+	                  canHaveSubselections: true,
+	                  inferredRootCallName: 'node',
+	                  inferredPrimaryKey: 'id',
+	                  isRequisite: true
+	                },
+	                type: 'User'
+	              }, {
+	                fieldName: 'cursor',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'String'
+	              }],
+	              fieldName: 'edges',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isPlural: true
+	              },
+	              type: 'AdminUsersEdge'
+	            }, {
+	              children: [{
+	                fieldName: 'hasNextPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }, {
+	                fieldName: 'hasPreviousPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }],
+	              fieldName: 'pageInfo',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'PageInfo'
+	            }],
+	            fieldName: 'users',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              isConnection: true
+	            },
+	            type: 'AdminUsersConnection'
+	          }, {
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'UsersAppRelayQL',
+	          type: 'Admin'
+	        };
+	      })(_formsRolesForm2['default'].getFragment('user'));
+	    }
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 798 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _materialUi = __webpack_require__(514);
+
+	var _mutationsGrantRoleToUser = __webpack_require__(799);
+
+	var _mutationsGrantRoleToUser2 = _interopRequireDefault(_mutationsGrantRoleToUser);
+
+	var _mutationsRevokeRoleFromUser = __webpack_require__(806);
+
+	var _mutationsRevokeRoleFromUser2 = _interopRequireDefault(_mutationsRevokeRoleFromUser);
+
+	var AvailableRoles = ['admin', 'editor'];
+
+	var RolesForm = (function (_React$Component) {
+	  _inherits(RolesForm, _React$Component);
+
+	  function RolesForm(props) {
+	    var _this = this;
+
+	    _classCallCheck(this, RolesForm);
+
+	    _get(Object.getPrototypeOf(RolesForm.prototype), 'constructor', this).call(this, props);
+
+	    this._hasRole = function (role) {
+	      return !!_this.props.user.roles.edges.find(function (edge) {
+	        return edge.node.name == role;
+	      });
+	    };
+
+	    this._handleRoleCheck = function (role) {
+	      return _this._hasRole(role) ? _this._revokeRole(role) : _this._grantRole(role);
+	    };
+
+	    this._grantRole = function (role) {
+	      return _reactRelay2['default'].Store.commitUpdate(new _mutationsGrantRoleToUser2['default']({
+	        userID: _this.props.user.id,
+	        roleName: role
+	      }), {
+	        onSuccess: _this._handleSuccess,
+	        onFailure: _this._handleFailure
+	      });
+	    };
+
+	    this._revokeRole = function (role) {
+	      return _reactRelay2['default'].Store.commitUpdate(new _mutationsRevokeRoleFromUser2['default']({
+	        userID: _this.props.user.id,
+	        roleName: role
+	      }), {
+	        onSuccess: _this._handleSuccess,
+	        onFailure: _this._handleFailure
+	      });
+	    };
+
+	    this._handleSuccess = function (response) {
+	      return null;
+	    };
+
+	    this._handleFailure = function (transaction) {
+	      return _this.setState({
+	        error: transaction.getError().source.errors[0].message
+	      });
+	    };
+
+	    this.render = function () {
+	      return _react2['default'].createElement(
+	        _materialUi.List,
+	        null,
+	        AvailableRoles.map(_this._renderRole),
+	        _react2['default'].createElement(_materialUi.Snackbar, {
+	          autoHideDuration: 3000,
+	          message: _this.state.error || '',
+	          open: !!_this.state.error,
+	          onRequestClose: function () {
+	            return _this.setState({ error: null });
+	          }
+	        })
+	      );
+	    };
+
+	    this._renderRole = function (role) {
+	      return _react2['default'].createElement(
+	        _materialUi.ListItem,
+	        { key: role, leftCheckbox: _react2['default'].createElement(_materialUi.Checkbox, { checked: _this._hasRole(role), onCheck: function () {
+	              return _this._handleRoleCheck(role);
+	            } }) },
+	        role[0].toUpperCase() + role.slice(1)
+	      );
+	    };
+
+	    this.state = {
+	      error: null
+	    };
+	  }
+
+	  return RolesForm;
+	})(_react2['default'].Component);
+
+	exports['default'] = _reactRelay2['default'].createContainer(RolesForm, {
+
+	  initialVariables: {
+	    rolesToFetch: 10
+	  },
+
+	  fragments: {
+	    user: function user() {
+	      return (function () {
+	        return {
+	          children: [{
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }, {
+	            calls: [{
+	              kind: 'Call',
+	              metadata: {},
+	              name: 'first',
+	              value: {
+	                kind: 'CallVariable',
+	                callVariableName: 'rolesToFetch'
+	              }
+	            }],
+	            children: [{
+	              children: [{
+	                children: [{
+	                  fieldName: 'id',
+	                  kind: 'Field',
+	                  metadata: {
+	                    isRequisite: true
+	                  },
+	                  type: 'ID'
+	                }, {
+	                  fieldName: 'name',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }],
+	                fieldName: 'node',
+	                kind: 'Field',
+	                metadata: {
+	                  canHaveSubselections: true,
+	                  inferredRootCallName: 'node',
+	                  inferredPrimaryKey: 'id',
+	                  isRequisite: true
+	                },
+	                type: 'Role'
+	              }, {
+	                fieldName: 'cursor',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'String'
+	              }],
+	              fieldName: 'edges',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isPlural: true
+	              },
+	              type: 'UserRolesEdge'
+	            }, {
+	              children: [{
+	                fieldName: 'hasNextPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }, {
+	                fieldName: 'hasPreviousPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }],
+	              fieldName: 'pageInfo',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'PageInfo'
+	            }],
+	            fieldName: 'roles',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              isConnection: true
+	            },
+	            type: 'UserRolesConnection'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'RolesFormRelayQL',
+	          type: 'User'
+	        };
+	      })();
+	    }
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 799 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'grantRoleToUser',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'GrantRoleToUserInput!'
+	          },
+	          name: 'GrantRoleToUser',
+	          responseType: 'GrantRoleToUserPayload'
+	        };
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'roles',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isConnection: true
+	              },
+	              type: 'UserRolesConnection'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'user',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'User'
+	          }, {
+	            children: [{
+	              fieldName: 'cursor',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'String'
+	            }, {
+	              children: [{
+	                fieldName: 'id',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'ID'
+	              }],
+	              fieldName: 'node',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                inferredRootCallName: 'node',
+	                inferredPrimaryKey: 'id',
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'Role'
+	            }],
+	            fieldName: 'roleEdge',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true
+	            },
+	            type: 'UserRolesEdge'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'GrantRoleToUserRelayQL',
+	          type: 'GrantRoleToUserPayload'
+	        };
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        userID: _this.props.userID,
+	        roleName: _this.props.roleName
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'RANGE_ADD',
+	        parentName: 'user',
+	        parentID: _this.props.userID,
+	        connectionName: 'roles',
+	        edgeName: 'roleEdge',
+	        rangeBehaviors: {
+	          '': 'append'
+	        }
+	      }];
+	    };
+	  }
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 800 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98571,7 +99461,7 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _mutationsAdminRemoveTopicLink = __webpack_require__(793);
+	var _mutationsAdminRemoveTopicLink = __webpack_require__(794);
 
 	var _mutationsAdminRemoveTopicLink2 = _interopRequireDefault(_mutationsAdminRemoveTopicLink);
 
@@ -98827,7 +99717,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 797 */
+/* 801 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99118,18 +100008,18 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 798 */
+/* 802 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
 		"./NodeRoute": 785,
 		"./NodeRoute.js": 785,
-		"./ThemeAppRoute": 799,
-		"./ThemeAppRoute.js": 799,
-		"./ThemesRoute": 800,
-		"./ThemesRoute.js": 800,
-		"./ViewerRoute": 801,
-		"./ViewerRoute.js": 801,
+		"./ThemeAppRoute": 803,
+		"./ThemeAppRoute.js": 803,
+		"./ThemesRoute": 804,
+		"./ThemesRoute.js": 804,
+		"./ViewerRoute": 805,
+		"./ViewerRoute.js": 805,
 		"./admin/AdminRoute": 512,
 		"./admin/AdminRoute.js": 512
 	};
@@ -99144,11 +100034,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 798;
+	webpackContext.id = 802;
 
 
 /***/ },
-/* 799 */
+/* 803 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99226,7 +100116,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 800 */
+/* 804 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99302,7 +100192,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 801 */
+/* 805 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99372,7 +100262,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 802 */
+/* 806 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99409,7 +100299,7 @@
 	          calls: [{
 	            kind: 'Call',
 	            metadata: {},
-	            name: 'updateTopicLink',
+	            name: 'revokeRoleFromUser',
 	            value: {
 	              kind: 'CallVariable',
 	              callVariableName: 'input'
@@ -99426,10 +100316,10 @@
 	          }],
 	          kind: 'Mutation',
 	          metadata: {
-	            inputType: 'UpdateTopicLinkInput!'
+	            inputType: 'RevokeRoleFromUserInput!'
 	          },
-	          name: 'UpdateTopicLink',
-	          responseType: 'UpdateTopicLinkPayload'
+	          name: 'RevokeRoleFromUser',
+	          responseType: 'RevokeRoleFromUserPayload'
 	        };
 	      })();
 	    };
@@ -99438,7 +100328,20 @@
 	      return (function () {
 	        return {
 	          children: [{
+	            fieldName: 'roleID',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'ID'
+	          }, {
 	            children: [{
+	              fieldName: 'roles',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isConnection: true
+	              },
+	              type: 'UserRolesConnection'
+	            }, {
 	              fieldName: 'id',
 	              kind: 'Field',
 	              metadata: {
@@ -99447,38 +100350,38 @@
 	              },
 	              type: 'ID'
 	            }],
-	            fieldName: 'link',
+	            fieldName: 'user',
 	            kind: 'Field',
 	            metadata: {
 	              canHaveSubselections: true,
 	              inferredRootCallName: 'node',
 	              inferredPrimaryKey: 'id'
 	            },
-	            type: 'TopicLink'
+	            type: 'User'
 	          }],
 	          id: _reactRelay2['default'].QL.__id(),
 	          kind: 'Fragment',
 	          metadata: {},
-	          name: 'UpdateTopicLinkRelayQL',
-	          type: 'UpdateTopicLinkPayload'
+	          name: 'RevokeRoleFromUserRelayQL',
+	          type: 'RevokeRoleFromUserPayload'
 	        };
 	      })();
 	    };
 
 	    this.getVariables = function () {
 	      return {
-	        linkID: _this.props.linkID,
-	        linkURL: _this.props.linkURL,
-	        linkTitle: _this.props.linkTitle,
-	        reactionContent: _this.props.reactionContent,
-	        linkInsightsIDs: _this.props.linkInsightsIDs
+	        userID: _this.props.userID,
+	        roleName: _this.props.roleName
 	      };
 	    };
 
 	    this.getConfigs = function () {
 	      return [{
-	        type: 'FIELDS_CHANGE',
-	        fieldIDs: { link: _this.props.linkID }
+	        type: 'NODE_DELETE',
+	        parentName: 'user',
+	        parentID: _this.props.userID,
+	        connectionName: 'roles',
+	        deletedIDFieldName: 'roleID'
 	      }];
 	    };
 	  }

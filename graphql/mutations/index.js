@@ -48,6 +48,9 @@ import RemoveTopicLinkMutation from './admin/RemoveTopicLink'
 import AddInsightToTopicLinkMutation from './AddInsightToTopicLink'
 import UpdateTopicLinkMutation from './admin/UpdateTopicLink'
 
+import GrantRoleToUserMutation from './GrantRoleToUser'
+import RevokeRoleFromUserMutation from './RevokeRoleFromUser'
+
 
 export default new GraphQLObjectType({
   name: 'Mutation',
@@ -81,5 +84,8 @@ export default new GraphQLObjectType({
     removeTopicLink:                  RemoveTopicLinkMutation,
     addInsightToTopicLink:            AddInsightToTopicLinkMutation,
     updateTopicLink:                  UpdateTopicLinkMutation,
+
+    grantRoleToUser:                  GrantRoleToUserMutation,
+    revokeRoleFromUser:               RevokeRoleFromUserMutation,
   }
 })
