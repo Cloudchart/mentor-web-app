@@ -87,7 +87,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(397)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(797)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(798)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -42368,24 +42368,24 @@
 		"./TodayApp.js": 510,
 		"./admin/ChooserApp": 511,
 		"./admin/ChooserApp.js": 511,
-		"./admin/LandingApp": 792,
-		"./admin/LandingApp.js": 792,
+		"./admin/LandingApp": 795,
+		"./admin/LandingApp.js": 795,
 		"./admin/TopicApp": 786,
 		"./admin/TopicApp.js": 786,
-		"./admin/TopicInsightsTable": 791,
-		"./admin/TopicInsightsTable.js": 791,
+		"./admin/TopicInsightsTable": 794,
+		"./admin/TopicInsightsTable.js": 794,
 		"./admin/TopicLinksCard": 787,
 		"./admin/TopicLinksCard.js": 787,
 		"./admin/TopicsApp": 513,
 		"./admin/TopicsApp.js": 513,
-		"./admin/_TopicApp": 793,
-		"./admin/_TopicApp.js": 793,
-		"./admin/forms/InsightChooser": 790,
-		"./admin/forms/InsightChooser.js": 790,
-		"./admin/forms/TopicLinkForm": 788,
-		"./admin/forms/TopicLinkForm.js": 788,
-		"./admin/forms/_TopicLinkForm": 795,
-		"./admin/forms/_TopicLinkForm.js": 795
+		"./admin/_TopicApp": 796,
+		"./admin/_TopicApp.js": 796,
+		"./admin/forms/InsightChooser": 791,
+		"./admin/forms/InsightChooser.js": 791,
+		"./admin/forms/TopicLinkForm": 789,
+		"./admin/forms/TopicLinkForm.js": 789,
+		"./admin/forms/_TopicLinkForm": 797,
+		"./admin/forms/_TopicLinkForm.js": 797
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -96765,7 +96765,7 @@
 
 	var _TopicLinksCard2 = _interopRequireDefault(_TopicLinksCard);
 
-	var _TopicInsightsTable = __webpack_require__(791);
+	var _TopicInsightsTable = __webpack_require__(794);
 
 	var _TopicInsightsTable2 = _interopRequireDefault(_TopicInsightsTable);
 
@@ -96878,15 +96878,15 @@
 
 	var _materialUi = __webpack_require__(514);
 
-	var _materialUiLibSvgIconsNavigationClose = __webpack_require__(802);
+	var _materialUiLibSvgIconsNavigationClose = __webpack_require__(788);
 
 	var _materialUiLibSvgIconsNavigationClose2 = _interopRequireDefault(_materialUiLibSvgIconsNavigationClose);
 
-	var _formsTopicLinkForm = __webpack_require__(788);
+	var _formsTopicLinkForm = __webpack_require__(789);
 
 	var _formsTopicLinkForm2 = _interopRequireDefault(_formsTopicLinkForm);
 
-	var _mutationsAdminRemoveTopicLink = __webpack_require__(794);
+	var _mutationsAdminRemoveTopicLink = __webpack_require__(793);
 
 	var _mutationsAdminRemoveTopicLink2 = _interopRequireDefault(_mutationsAdminRemoveTopicLink);
 
@@ -96974,7 +96974,7 @@
 	        },
 	        _react2['default'].createElement(
 	          'a',
-	          { href: topicLink.url },
+	          { href: topicLink.url, target: '_blank' },
 	          topicLink.title
 	        )
 	      );
@@ -97233,6 +97233,42 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(595);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _svgIcon = __webpack_require__(654);
+
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var NavigationClose = function NavigationClose(props) {
+	  return _react2.default.createElement(
+	    _svgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z' })
+	  );
+	};
+	NavigationClose = (0, _pure2.default)(NavigationClose);
+	NavigationClose.displayName = 'NavigationClose';
+
+	exports.default = NavigationClose;
+
+/***/ },
+/* 789 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
@@ -97259,17 +97295,21 @@
 
 	var _materialUi = __webpack_require__(514);
 
-	var _materialUiLibSvgIconsNavigationCancel = __webpack_require__(789);
+	var _materialUiLibSvgIconsNavigationCancel = __webpack_require__(790);
 
 	var _materialUiLibSvgIconsNavigationCancel2 = _interopRequireDefault(_materialUiLibSvgIconsNavigationCancel);
 
-	var _InsightChooser = __webpack_require__(790);
+	var _InsightChooser = __webpack_require__(791);
 
 	var _InsightChooser2 = _interopRequireDefault(_InsightChooser);
 
-	var _mutationsAdminIntroduceLinkToTopic = __webpack_require__(796);
+	var _mutationsAdminIntroduceLinkToTopic = __webpack_require__(792);
 
 	var _mutationsAdminIntroduceLinkToTopic2 = _interopRequireDefault(_mutationsAdminIntroduceLinkToTopic);
+
+	var _mutationsAdminUpdateTopicLink = __webpack_require__(802);
+
+	var _mutationsAdminUpdateTopicLink2 = _interopRequireDefault(_mutationsAdminUpdateTopicLink);
 
 	var TopicLinkForm = (function (_React$Component) {
 	  _inherits(TopicLinkForm, _React$Component);
@@ -97327,15 +97367,20 @@
 	    };
 
 	    this._update = function () {
-	      alert('Not implemented');
+	      var mutation = new _mutationsAdminUpdateTopicLink2['default'](_extends({}, _this.state, { linkID: _this.props.topicLink.id }));
+	      _reactRelay2['default'].Store.commitUpdate(mutation, {
+	        onSuccess: _this._handleSuccess,
+	        onFailure: _this._handleFailure
+	      });
 	    };
 
-	    this._handleSuccess = function () {
+	    this._handleSuccess = function (response) {
 	      _this.setState({ loading: false });
 	      _this.props.onDone && _this.props.onDone();
 	    };
 
 	    this._handleFailure = function (transaction) {
+	      alert('Error!');
 	      _this.setState({ loading: false });
 	    };
 
@@ -97707,7 +97752,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 789 */
+/* 790 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97743,7 +97788,7 @@
 	exports.default = NavigationCancel;
 
 /***/ },
-/* 790 */
+/* 791 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97854,7 +97899,305 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 791 */
+/* 792 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'introduceLinkToTopic',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'IntroduceLinkToTopicInput!'
+	          },
+	          name: 'IntroduceLinkToTopic',
+	          responseType: 'IntroduceLinkToTopicPayload'
+	        };
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'links',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isConnection: true
+	              },
+	              type: 'TopicLinksConnection'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'topic',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Topic'
+	          }, {
+	            children: [{
+	              fieldName: 'cursor',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'String'
+	            }, {
+	              children: [{
+	                fieldName: 'id',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'ID'
+	              }],
+	              fieldName: 'node',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                inferredRootCallName: 'node',
+	                inferredPrimaryKey: 'id',
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'TopicLink'
+	            }],
+	            fieldName: 'linkEdge',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true
+	            },
+	            type: 'TopicLinksEdge'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'IntroduceLinkToTopicRelayQL',
+	          type: 'IntroduceLinkToTopicPayload'
+	        };
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        topicID: _this.props.topicID,
+	        linkURL: _this.props.linkURL,
+	        linkTitle: _this.props.linkTitle,
+	        reactionContent: _this.props.reactionContent,
+	        linkInsightsIDs: _this.props.linkInsightsIDs
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'RANGE_ADD',
+	        parentName: 'topic',
+	        parentID: _this.props.topicID,
+	        connectionName: 'links',
+	        edgeName: 'linkEdge',
+	        rangeBehaviors: {
+	          '': 'append'
+	        }
+	      }];
+	    };
+	  }
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 793 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'removeTopicLink',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'RemoveTopicLinkInput!'
+	          },
+	          name: 'RemoveTopicLink',
+	          responseType: 'RemoveTopicLinkPayload'
+	        };
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        return {
+	          children: [{
+	            fieldName: 'linkID',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'ID'
+	          }, {
+	            children: [{
+	              fieldName: 'links',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isConnection: true
+	              },
+	              type: 'TopicLinksConnection'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'topic',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Topic'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'RemoveTopicLinkRelayQL',
+	          type: 'RemoveTopicLinkPayload'
+	        };
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        linkID: _this.props.linkID
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'NODE_DELETE',
+	        parentName: 'topic',
+	        parentID: _this.props.topicID,
+	        connectionName: 'links',
+	        deletedIDFieldName: 'linkID'
+	      }];
+	    };
+	  }
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 794 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98039,7 +98382,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 792 */
+/* 795 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98201,7 +98544,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 793 */
+/* 796 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98228,11 +98571,11 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _mutationsAdminRemoveTopicLink = __webpack_require__(794);
+	var _mutationsAdminRemoveTopicLink = __webpack_require__(793);
 
 	var _mutationsAdminRemoveTopicLink2 = _interopRequireDefault(_mutationsAdminRemoveTopicLink);
 
-	var _formsTopicLinkForm = __webpack_require__(788);
+	var _formsTopicLinkForm = __webpack_require__(789);
 
 	var _formsTopicLinkForm2 = _interopRequireDefault(_formsTopicLinkForm);
 
@@ -98484,137 +98827,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 794 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _reactRelay = __webpack_require__(160);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _default = (function (_Relay$Mutation) {
-	  _inherits(_default, _Relay$Mutation);
-
-	  function _default() {
-	    var _this = this;
-
-	    _classCallCheck(this, _default);
-
-	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.getMutation = function () {
-	      return (function () {
-	        return {
-	          calls: [{
-	            kind: 'Call',
-	            metadata: {},
-	            name: 'removeTopicLink',
-	            value: {
-	              kind: 'CallVariable',
-	              callVariableName: 'input'
-	            }
-	          }],
-	          children: [{
-	            fieldName: 'clientMutationId',
-	            kind: 'Field',
-	            metadata: {
-	              isGenerated: true,
-	              isRequisite: true
-	            },
-	            type: 'String'
-	          }],
-	          kind: 'Mutation',
-	          metadata: {
-	            inputType: 'RemoveTopicLinkInput!'
-	          },
-	          name: 'RemoveTopicLink',
-	          responseType: 'RemoveTopicLinkPayload'
-	        };
-	      })();
-	    };
-
-	    this.getFatQuery = function () {
-	      return (function () {
-	        return {
-	          children: [{
-	            fieldName: 'linkID',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'ID'
-	          }, {
-	            children: [{
-	              fieldName: 'links',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isConnection: true
-	              },
-	              type: 'TopicLinksConnection'
-	            }, {
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'topic',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'Topic'
-	          }],
-	          id: _reactRelay2['default'].QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'RemoveTopicLinkRelayQL',
-	          type: 'RemoveTopicLinkPayload'
-	        };
-	      })();
-	    };
-
-	    this.getVariables = function () {
-	      return {
-	        linkID: _this.props.linkID
-	      };
-	    };
-
-	    this.getConfigs = function () {
-	      return [{
-	        type: 'NODE_DELETE',
-	        parentName: 'topic',
-	        parentID: _this.props.topicID,
-	        connectionName: 'links',
-	        deletedIDFieldName: 'linkID'
-	      }];
-	    };
-	  }
-
-	  return _default;
-	})(_reactRelay2['default'].Mutation);
-
-	exports['default'] = _default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 795 */
+/* 797 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98643,11 +98856,11 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _mutationsAdminIntroduceLinkToTopic = __webpack_require__(796);
+	var _mutationsAdminIntroduceLinkToTopic = __webpack_require__(792);
 
 	var _mutationsAdminIntroduceLinkToTopic2 = _interopRequireDefault(_mutationsAdminIntroduceLinkToTopic);
 
-	var _InsightChooser = __webpack_require__(790);
+	var _InsightChooser = __webpack_require__(791);
 
 	var _InsightChooser2 = _interopRequireDefault(_InsightChooser);
 
@@ -98905,186 +99118,18 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 796 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _reactRelay = __webpack_require__(160);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _default = (function (_Relay$Mutation) {
-	  _inherits(_default, _Relay$Mutation);
-
-	  function _default() {
-	    var _this = this;
-
-	    _classCallCheck(this, _default);
-
-	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.getMutation = function () {
-	      return (function () {
-	        return {
-	          calls: [{
-	            kind: 'Call',
-	            metadata: {},
-	            name: 'introduceLinkToTopic',
-	            value: {
-	              kind: 'CallVariable',
-	              callVariableName: 'input'
-	            }
-	          }],
-	          children: [{
-	            fieldName: 'clientMutationId',
-	            kind: 'Field',
-	            metadata: {
-	              isGenerated: true,
-	              isRequisite: true
-	            },
-	            type: 'String'
-	          }],
-	          kind: 'Mutation',
-	          metadata: {
-	            inputType: 'IntroduceLinkToTopicInput!'
-	          },
-	          name: 'IntroduceLinkToTopic',
-	          responseType: 'IntroduceLinkToTopicPayload'
-	        };
-	      })();
-	    };
-
-	    this.getFatQuery = function () {
-	      return (function () {
-	        return {
-	          children: [{
-	            children: [{
-	              fieldName: 'links',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isConnection: true
-	              },
-	              type: 'TopicLinksConnection'
-	            }, {
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'topic',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'Topic'
-	          }, {
-	            children: [{
-	              fieldName: 'cursor',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'String'
-	            }, {
-	              children: [{
-	                fieldName: 'id',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'ID'
-	              }],
-	              fieldName: 'node',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                inferredRootCallName: 'node',
-	                inferredPrimaryKey: 'id',
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'TopicLink'
-	            }],
-	            fieldName: 'linkEdge',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true
-	            },
-	            type: 'TopicLinksEdge'
-	          }],
-	          id: _reactRelay2['default'].QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'IntroduceLinkToTopicRelayQL',
-	          type: 'IntroduceLinkToTopicPayload'
-	        };
-	      })();
-	    };
-
-	    this.getVariables = function () {
-	      return {
-	        topicID: _this.props.topicID,
-	        linkURL: _this.props.linkURL,
-	        linkTitle: _this.props.linkTitle,
-	        reactionContent: _this.props.reactionContent,
-	        linkInsightsIDs: _this.props.linkInsightsIDs
-	      };
-	    };
-
-	    this.getConfigs = function () {
-	      return [{
-	        type: 'RANGE_ADD',
-	        parentName: 'topic',
-	        parentID: _this.props.topicID,
-	        connectionName: 'links',
-	        edgeName: 'linkEdge',
-	        rangeBehaviors: {
-	          '': 'append'
-	        }
-	      }];
-	    };
-	  }
-
-	  return _default;
-	})(_reactRelay2['default'].Mutation);
-
-	exports['default'] = _default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 797 */
+/* 798 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
 		"./NodeRoute": 785,
 		"./NodeRoute.js": 785,
-		"./ThemeAppRoute": 798,
-		"./ThemeAppRoute.js": 798,
-		"./ThemesRoute": 799,
-		"./ThemesRoute.js": 799,
-		"./ViewerRoute": 800,
-		"./ViewerRoute.js": 800,
+		"./ThemeAppRoute": 799,
+		"./ThemeAppRoute.js": 799,
+		"./ThemesRoute": 800,
+		"./ThemesRoute.js": 800,
+		"./ViewerRoute": 801,
+		"./ViewerRoute.js": 801,
 		"./admin/AdminRoute": 512,
 		"./admin/AdminRoute.js": 512
 	};
@@ -99099,11 +99144,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 797;
+	webpackContext.id = 798;
 
 
 /***/ },
-/* 798 */
+/* 799 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99181,7 +99226,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 799 */
+/* 800 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99257,7 +99302,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 800 */
+/* 801 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99327,41 +99372,122 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 801 */,
 /* 802 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
 
-	var _react = __webpack_require__(2);
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-	var _react2 = _interopRequireDefault(_react);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _pure = __webpack_require__(595);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _pure2 = _interopRequireDefault(_pure);
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _svgIcon = __webpack_require__(654);
+	var _reactRelay = __webpack_require__(160);
 
-	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
 
-	var NavigationClose = function NavigationClose(props) {
-	  return _react2.default.createElement(
-	    _svgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z' })
-	  );
-	};
-	NavigationClose = (0, _pure2.default)(NavigationClose);
-	NavigationClose.displayName = 'NavigationClose';
+	  function _default() {
+	    var _this = this;
 
-	exports.default = NavigationClose;
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'updateTopicLink',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'UpdateTopicLinkInput!'
+	          },
+	          name: 'UpdateTopicLink',
+	          responseType: 'UpdateTopicLinkPayload'
+	        };
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'link',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'TopicLink'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'UpdateTopicLinkRelayQL',
+	          type: 'UpdateTopicLinkPayload'
+	        };
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        linkID: _this.props.linkID,
+	        linkURL: _this.props.linkURL,
+	        linkTitle: _this.props.linkTitle,
+	        reactionContent: _this.props.reactionContent,
+	        linkInsightsIDs: _this.props.linkInsightsIDs
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: { link: _this.props.linkID }
+	      }];
+	    };
+	  }
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

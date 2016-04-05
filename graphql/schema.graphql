@@ -307,6 +307,7 @@ type Mutation {
   introduceLinkToTopic(input: IntroduceLinkToTopicInput!): IntroduceLinkToTopicPayload
   removeTopicLink(input: RemoveTopicLinkInput!): RemoveTopicLinkPayload
   addInsightToTopicLink(input: AddInsightToTopicLinkInput!): AddInsightToTopicLinkPayload
+  updateTopicLink(input: UpdateTopicLinkInput!): UpdateTopicLinkPayload
 }
 
 interface Node {
@@ -522,6 +523,21 @@ input UpdateThemeInput {
 type UpdateThemePayload {
   admin: Admin
   theme: AdminTheme
+  clientMutationId: String!
+}
+
+input UpdateTopicLinkInput {
+  linkID: ID!
+  linkURL: String!
+  linkTitle: String!
+  linkInsightsIDs: [ID]!
+  reactionContent: String!
+  clientMutationId: String!
+}
+
+type UpdateTopicLinkPayload {
+  link: TopicLink!
+  linkID: ID!
   clientMutationId: String!
 }
 

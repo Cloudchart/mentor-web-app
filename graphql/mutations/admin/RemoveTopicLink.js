@@ -18,6 +18,7 @@ import {
   TopicStorage,
   TopicLinkStorage,
   TopicLinkInsightStorage,
+  BotReactionStorage,
 } from '../../../storage'
 
 import TopicType from '../../types/TopicType'
@@ -62,6 +63,10 @@ export default mutationWithClientMutationId({
     // Destroy Topic Link Insights relations
     let relationsIDs = await TopicLinkInsightStorage.loadAllIDs('forTopicLink', { topic_link_id: link.id })
     relationsIDs.forEach(async id => await TopicLinkInsightStorage.destroy(id))
+
+    // Destroy Topic Link Bot Reaction
+    let reaction = await BotReactionStorage.loadOne('forOwner', { owner_id: link.id, owner_type: 'TopicLink' })
+    await BotReactionStorage.destroy(reaction.id)
 
     // Destroy Topic Link
     await TopicLinkStorage.destroy(link.id)

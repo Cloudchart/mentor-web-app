@@ -46,6 +46,7 @@ import {
 import IntroduceLinkToTopicMutation from './admin/IntroduceLinkToTopic'
 import RemoveTopicLinkMutation from './admin/RemoveTopicLink'
 import AddInsightToTopicLinkMutation from './AddInsightToTopicLink'
+import UpdateTopicLinkMutation from './admin/UpdateTopicLink'
 
 
 export default new GraphQLObjectType({
@@ -79,5 +80,6 @@ export default new GraphQLObjectType({
     introduceLinkToTopic:             IntroduceLinkToTopicMutation,
     removeTopicLink:                  RemoveTopicLinkMutation,
     addInsightToTopicLink:            AddInsightToTopicLinkMutation,
+    updateTopicLink:                  UpdateTopicLinkMutation,
   }
 })

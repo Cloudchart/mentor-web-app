@@ -85,7 +85,7 @@ class TopicLinksCard extends React.Component {
       secondaryText   = { topicLink.reaction && topicLink.reaction.content || '' }
       rightIconButton = { RightIconButton(this._handleRemoveRequest.bind(this, topicLink.id)) }
     >
-      <a href={ topicLink.url }>{ topicLink.title }</a>
+      <a href={ topicLink.url } target="_blank">{ topicLink.title }</a>
     </ListItem>
 
   _renderEmptyTopicListItem = () =>

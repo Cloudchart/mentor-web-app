@@ -21,6 +21,7 @@ import CancelIcon from 'material-ui/lib/svg-icons/navigation/cancel'
 import InsightChooser from './InsightChooser'
 
 import IntroduceLinkToTopicMutation from '../../../mutations/admin/IntroduceLinkToTopic'
+import UpdateTopicLinkMutation from '../../../mutations/admin/UpdateTopicLink'
 
 class TopicLinkForm extends React.Component {
 
@@ -108,15 +109,20 @@ class TopicLinkForm extends React.Component {
   }
 
   _update = () => {
-    alert('Not implemented')
+    let mutation = new UpdateTopicLinkMutation({ ...this.state, linkID: this.props.topicLink.id })
+    Relay.Store.commitUpdate(mutation, {
+      onSuccess: this._handleSuccess,
+      onFailure: this._handleFailure,
+    })
   }
 
-  _handleSuccess = () => {
+  _handleSuccess = (response) => {
     this.setState({ loading: false })
     this.props.onDone && this.props.onDone()
   }
 
   _handleFailure = (transaction) => {
+    alert('Error!')
     this.setState({ loading: false })
   }
 
