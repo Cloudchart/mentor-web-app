@@ -98703,19 +98703,13 @@
 
 	var _materialUiLibStylesColors = __webpack_require__(546);
 
+	var _materialUiLibSvgIconsEditorModeEdit = __webpack_require__(807);
+
+	var _materialUiLibSvgIconsEditorModeEdit2 = _interopRequireDefault(_materialUiLibSvgIconsEditorModeEdit);
+
 	var _formsRolesForm = __webpack_require__(798);
 
 	var _formsRolesForm2 = _interopRequireDefault(_formsRolesForm);
-
-	var ZoomIn = function ZoomIn(props) {
-	  return _react2['default'].createElement(
-	    _materialUi.SvgIcon,
-	    props,
-	    _react2['default'].createElement('path', { d: 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' }),
-	    _react2['default'].createElement('path', { d: 'M0 0h24v24H0V0z', fill: 'none' }),
-	    _react2['default'].createElement('path', { d: 'M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z' })
-	  );
-	};
 
 	var UsersPerPage = 10;
 
@@ -98797,7 +98791,7 @@
 	            { onTouchTap: function () {
 	                return _this._showRolesDialog(user);
 	              } },
-	            _react2['default'].createElement(ZoomIn, { color: _materialUiLibStylesColors.blueGrey500 })
+	            _react2['default'].createElement(_materialUiLibSvgIconsEditorModeEdit2['default'], { color: _materialUiLibStylesColors.blueGrey500 })
 	          ),
 	          user.roles.edges.map(function (edge) {
 	            return edge.node.name;
@@ -100391,6 +100385,42 @@
 
 	exports['default'] = _default;
 	module.exports = exports['default'];
+
+/***/ },
+/* 807 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(595);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _svgIcon = __webpack_require__(654);
+
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var EditorModeEdit = function EditorModeEdit(props) {
+	  return _react2.default.createElement(
+	    _svgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z' })
+	  );
+	};
+	EditorModeEdit = (0, _pure2.default)(EditorModeEdit);
+	EditorModeEdit.displayName = 'EditorModeEdit';
+
+	exports.default = EditorModeEdit;
 
 /***/ }
 /******/ ]);

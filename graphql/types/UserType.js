@@ -21,24 +21,38 @@ import {
 import { nodeInterface } from './Node'
 import { field as UserThemesConnectionField } from '../connections/UserThemesConnection'
 import { Field as UserThemeInsightsConnectionField } from '../connections/UserThemeInsightsConnection'
-import UserCollectionsConnection from '../connections/UserCollectionsConnection'
+
 import UserTopicsConnection from '../connections/UserTopicsConnection'
+import UserCollectionsConnection from '../connections/UserCollectionsConnection'
 import UserRolesConnection from '../connections/UserRoles'
+
+
+export const Fields = () => ({
+
+  name: {
+    type: GraphQLString,
+  },
+
+  topics:  UserTopicsConnection,
+
+  collections: UserCollectionsConnection,
+
+  roles: UserRolesConnection,
+
+})
 
 
 export default new GraphQLObjectType({
 
   name: 'User',
 
-  interfaces: [nodeInterface],
+  interfaces: () => [nodeInterface],
 
   fields: () => ({
 
     id: globalIdField('User'),
 
-    name: {
-      type: GraphQLString
-    },
+    ...Fields(),
 
     isActive: {
       type:     GraphQLBoolean,
@@ -80,10 +94,6 @@ export default new GraphQLObjectType({
 
     insights: UserThemeInsightsConnectionField,
 
-    collections: UserCollectionsConnection,
-
-    topics: UserTopicsConnection,
-
     questionnaire: {
       type: UserQuestionnaireType,
       resolve: (user) => user
@@ -93,8 +103,6 @@ export default new GraphQLObjectType({
       type: UserNotificationsSettingsType,
       resolve: (user) => UserNotificationsSettingsStorage.load(user.id).catch(error => null)
     },
-
-    roles: UserRolesConnection,
 
   })
 

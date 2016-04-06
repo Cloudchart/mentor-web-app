@@ -601,16 +601,16 @@ type UpdateUserNotificationsSettingsPayload {
 type User implements Node {
   id: ID!
   name: String
+  topics(after: String, first: Int, before: String, last: Int, filter: UserTopicsConnectionFilter = all): UserTopicsConnectionConnection
+  collections(after: String, first: Int, before: String, last: Int): UserCollectionsConnectionConnection
+  roles(after: String, first: Int, before: String, last: Int): UserRolesConnection
   isActive: Boolean
   pushToken: String
   themes(after: String, first: Int, before: String, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection
   theme(id: ID!): UserTheme!
   insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
-  collections(after: String, first: Int, before: String, last: Int): UserCollectionsConnectionConnection
-  topics(after: String, first: Int, before: String, last: Int, filter: UserTopicsConnectionFilter = all): UserTopicsConnectionConnection
   questionnaire: UserQuestionnaire
   notificationsSettings: UserNotificationsSettings
-  roles(after: String, first: Int, before: String, last: Int): UserRolesConnection
 }
 
 type UserCollection implements Node {
