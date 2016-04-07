@@ -21,7 +21,10 @@ import TopicType from '../types/TopicType'
 import InsightType from '../types/InsightsType'
 
 import SynchronizeThemeInsightsJob from '../../workers/jobs/SynchronizeThemeInsightsJob'
-import SynchronizeUserThemeInsightsJob from '../../workers/jobs/SynchronizeUserThemeInsightsJob'
+// import SynchronizeUserThemeInsightsJob from '../../workers/jobs/SynchronizeUserThemeInsightsJob'
+import {
+  UpdateUserInsightsQueue
+} from '../../Tasks'
 
 
 export const TopicInsightsConnectionFilterEnum = new GraphQLEnumType({
@@ -87,7 +90,7 @@ export default {
     await SynchronizeThemeInsightsJob.perform({ themeID: topic.id })
 
     if (filter !== 'admin')
-      await SynchronizeUserThemeInsightsJob.perform({ userID: viewer.id, themeID: topic.id })
+      await UpdateUserInsightsQueue.perform({ user_id: viewer.id })
 
     let insights = await InsightStorage.loadAll(queryName, { userID: viewer.id, topicID: topic.id })
 

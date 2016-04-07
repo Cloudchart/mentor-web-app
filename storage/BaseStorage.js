@@ -30,6 +30,7 @@ let createStorage = (storageName, options = {}) => {
       }, {}
     )
 
+  let queriesMethods      = {}
 
   let loadAllIDs = (key, replacements) =>
     options.idsQueries && options.idsQueries[key]
@@ -78,6 +79,8 @@ let createStorage = (storageName, options = {}) => {
   return {
 
     ...loaderMethods,
+
+    ...queriesMethods,
 
     loader,
 

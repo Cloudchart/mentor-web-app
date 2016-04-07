@@ -56,7 +56,7 @@ const Storage = BaseStorage('Topic', {
     'all': AllTopicsQuery,
     'default': DefaultTopicsQuery,
     'subscribed': SubscribedTopicsQuery,
-  }
+  },
 })
 
 

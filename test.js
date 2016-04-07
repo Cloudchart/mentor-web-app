@@ -1,5 +1,11 @@
-import SynchronizeThemeInsightsJob from './workers/jobs/SynchronizeThemeInsightsJob'
+import {
+  UpdateUserInsightsQueue
+} from './Tasks'
 
-// SynchronizeUserFollowUpsJob.perform({ userID: '08d44dcb-e19c-407c-a45f-4e8203edb773' })
+(async () => {
 
-SynchronizeThemeInsightsJob.perform({ themeID: '6d784650-b1b5-4f07-ad65-87bd6c730f79' })
+  await UpdateUserInsightsQueue.perform({ user_id: '522ba9ae-873e-4702-8bd1-254b0056a139' })
+
+  process.exit()
+
+})()
