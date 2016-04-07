@@ -23,6 +23,7 @@ import {
 import {
   LikeInsightInTopicMutation,
   DislikeInsightInTopicMutation,
+  PostponeInsightInTopicMutation,
   AddInsightToCollectionMutation,
   MarkInsightUsefulInCollectionMutation,
   MarkInsightUselessInCollectionMutation,
@@ -78,6 +79,7 @@ export default new GraphQLObjectType({
     unsubscribeFromTopic:             UnsubscribeFromTopicMutation,
     likeInsightInTopic:               LikeInsightInTopicMutation,
     dislikeInsightInTopic:            DislikeInsightInTopicMutation,
+    postponeInsightInTopic:           PostponeInsightInTopicMutation,
     addInsightToCollection:           AddInsightToCollectionMutation,
     markInsightUsefulInCollection:    MarkInsightUsefulInCollectionMutation,
     markInsightUselessInCollection:   MarkInsightUselessInCollectionMutation,

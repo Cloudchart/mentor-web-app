@@ -176,6 +176,23 @@ export const DislikeInsightInTopicMutation = mutationWithClientMutationId({
 })
 
 
+// Dislike Insight in Topic
+//
+export const PostponeInsightInTopicMutation = mutationWithClientMutationId({
+  name: 'PostponeInsightInTopicMutation',
+
+  inputFields: {
+    ...TopicMutationsInputFields,
+  },
+
+  outputFields: {
+    ...TopicMutationsOutputFields,
+  },
+
+  mutateAndGetPayload: mutateAndGetPayloadForTopicMutation(0)
+})
+
+
 // Add Insight to Collection
 //
 export const AddInsightToCollectionMutation = mutationWithClientMutationId({
