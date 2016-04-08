@@ -54,12 +54,27 @@ const RatedForUserQuery = `
     updated_at desc
 `
 
+const PostponedForUserQuery = `
+  select
+    id
+  from
+    ${TableName}
+  where
+    user_id = :user_id
+    and
+    rate = 0
+  order by
+    updated_at desc
+`
+
+
 const Storage = BaseStorage('UserTopicInsight', {
   modelName: 'UserThemeInsight',
   idsQueries: {
     'unique':           UniqueQuery,
     'ratedForUser':     RatedForUserQuery,
     'unratedForUser':   UnratedForUserQuery,
+    'postponedForUser': PostponedForUserQuery,
     'lastRatedForUser': RatedForUserQuery + ' limit 1'
   }
 })

@@ -55,8 +55,6 @@ let perform = async ({ user_id }) => {
     lastUnratedInsight ? lastUnratedInsight.created_at : 0
   )
 
-  console.log(lastActivityDate * QueueFillRate)
-
   count = Math.min(
     count,
     Math.floor(lastActivityDate * QueueFillRate)

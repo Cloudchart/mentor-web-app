@@ -623,7 +623,7 @@ type User implements Node {
   pushToken: String
   themes(after: String, first: Int, before: String, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection
   theme(id: ID!): UserTheme!
-  insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
+  insights(after: String, first: Int, before: String, last: Int, filter: UserInsightFilter = unratedForUser): UserInsightsConnection
   questionnaire: UserQuestionnaire
   notificationsSettings: UserNotificationsSettings
 }
@@ -662,6 +662,23 @@ type UserCollectionsConnectionConnection {
 type UserCollectionsConnectionEdge {
   node: UserCollection
   cursor: String!
+}
+
+enum UserInsightFilter {
+  RATED
+  UNRATED
+  POSTPONED
+}
+
+type UserInsightsConnection {
+  pageInfo: PageInfo!
+  edges: [UserInsightsEdge]
+}
+
+type UserInsightsEdge {
+  node: Insight
+  cursor: String!
+  topic: Topic!
 }
 
 type UserNotificationsSettings {
