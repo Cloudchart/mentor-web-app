@@ -509,6 +509,7 @@ enum TopicInsightsFilterEnum {
   LIKED
   DISLIKED
   ADMIN
+  PREVIEW
 }
 
 type TopicLink implements Node {

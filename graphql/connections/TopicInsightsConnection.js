@@ -37,6 +37,7 @@ export const TopicInsightsConnectionFilterEnum = new GraphQLEnumType({
     LIKED:    { value: 'liked'    },
     DISLIKED: { value: 'disliked' },
     ADMIN:    { value: 'admin'    },
+    PREVIEW:  { value: 'preview'  },
   }
 })
 
@@ -82,15 +83,14 @@ export default {
   },
 
   resolve: async (topic, { filter, ...args }, { rootValue: { viewer } }) => {
-    let queryName = filter === 'admin' ? 'admin' : filter + 'ForTopicAndUser'
+    let queryName = filter + 'ForTopicAndUser'
+    if (filter === 'admin') queryName = 'admin'
+    if (filter === 'preview') queryName = 'preview'
 
     if (filter === 'admin' && !viewer.isAdmin)
       return new Error('Not authorized.')
 
     await SynchronizeThemeInsightsJob.perform({ themeID: topic.id })
-
-    if (filter !== 'admin')
-      await UpdateUserInsightsQueue.perform({ user_id: viewer.id })
 
     let insights = await InsightStorage.loadAll(queryName, { userID: viewer.id, topicID: topic.id })
 

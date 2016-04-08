@@ -7,7 +7,7 @@ const UserThemeInsightTableName = models.UserThemeInsight.tableName
 const UserCollectionInsightTableName = models.UserCollectionInsight.tableName
 
 
-const AllForAdminQuery = `
+const AllForAdminQuery = (options = {}) => `
   select
     t.id as id,
     @row := @row + 1 as row
@@ -22,8 +22,8 @@ const AllForAdminQuery = `
     tit.theme_id = :topicID
   order by
     tit.created_at asc
+  ${ options.limit ? 'limit ' + options.limit : '' }
 `
-
 
 let TopicQueryBuilder = (options = {}) => `
   select
@@ -66,7 +66,8 @@ let UserCollectionQueryBuilder = (options = {}) => `
 
 export default BaseStorage('Insight', {
   idsQueries: {
-    'admin': AllForAdminQuery,
+    'admin': AllForAdminQuery(),
+    'preview': AllForAdminQuery({ limit: 10 }),
 
     'allForTopicAndUser': TopicQueryBuilder(),
     'ratedForTopicAndUser': TopicQueryBuilder({ where: `utit.rate is not null`, order: `utit.updated_at desc` }),
