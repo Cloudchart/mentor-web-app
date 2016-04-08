@@ -1,4 +1,3 @@
-import AnswerStorage from './AnswerStorage'
 import AuthTokenStorage from './AuthTokenStorage'
 import DeviceStorage from './DeviceStorage'
 import InsightStorage from './InsightStorage'
@@ -27,8 +26,9 @@ import AdminStorage from './admin/AdminStorage'
 import AdminInsightStorage from './admin/AdminInsightStorage'
 import AdminThemeStorage from './admin/AdminThemeStorage'
 
+import QuestionStorage from './QuestionStorage'
+
 export default {
-  AnswerStorage,
   AuthTokenStorage,
   DeviceStorage,
   InsightStorage,
@@ -55,4 +55,6 @@ export default {
   UserTopicInsightStorage,
   BotReactionStorage,
   UserTopicLinkStorage,
+
+  QuestionStorage,
 }

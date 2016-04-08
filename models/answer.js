@@ -10,20 +10,13 @@ module.exports = function(sequelize, DataTypes) {
       type:           DataTypes.UUID,
       allowNull:      false,
     },
-    position: {
-      type:           DataTypes.INTEGER.UNSIGNED,
-      allowNull:      false,
-    },
-    name: {
-      type:           DataTypes.STRING,
-      allowNull:      false,
-    },
     content: {
       type:           DataTypes.TEXT,
       allowNull:      false,
     },
-    outro: {
-      type:           DataTypes.TEXT,
+    position: {
+      type:           DataTypes.INTEGER.UNSIGNED,
+      allowNull:      false,
     },
 
   }, {

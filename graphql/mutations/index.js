@@ -55,6 +55,14 @@ import RevokeRoleFromUserMutation from './RevokeRoleFromUser'
 import MarkTopicLinkAsReadMutation from './MarkTopicLinkAsRead'
 
 
+import CreateQuestionMutation from './CreateQuestion'
+
+import {
+  PublishQuestionMutation,
+  UnpublishQuestionMutation,
+} from './UpdateQuestionPublishedStatus'
+
+
 export default new GraphQLObjectType({
   name: 'Mutation',
 
@@ -93,5 +101,9 @@ export default new GraphQLObjectType({
     revokeRoleFromUser:               RevokeRoleFromUserMutation,
 
     markTopicLinkAsRead:              MarkTopicLinkAsReadMutation,
+
+    createQuestion:                   CreateQuestionMutation,
+    publishQuestion:                  PublishQuestionMutation,
+    unpublishQuestion:                UnpublishQuestionMutation,
   }
 })

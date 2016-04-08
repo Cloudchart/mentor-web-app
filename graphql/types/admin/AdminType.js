@@ -15,6 +15,8 @@ import AdminInsightsConnection from '../../connections/admin/AdminInsightsConnec
 import { Field as AdminThemesConnection } from '../../connections/admin/AdminThemesConnection'
 import AdminTopicsConnection from '../../connections/admin/AdminTopicsConnection'
 
+import QuestionsConnection from '../../connections/Questions'
+
 
 export default new GraphQLObjectType({
 
@@ -35,6 +37,8 @@ export default new GraphQLObjectType({
     themes: AdminThemesConnection,
 
     topics: AdminTopicsConnection,
+
+    questions: QuestionsConnection,
 
   })
 })

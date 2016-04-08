@@ -94,11 +94,6 @@ export default new GraphQLObjectType({
 
     insights: UserThemeInsightsConnectionField,
 
-    questionnaire: {
-      type: UserQuestionnaireType,
-      resolve: (user) => user
-    },
-
     notificationsSettings: {
       type: UserNotificationsSettingsType,
       resolve: (user) => UserNotificationsSettingsStorage.load(user.id).catch(error => null)
@@ -109,5 +104,4 @@ export default new GraphQLObjectType({
 })
 
 import UserThemeType from './UserThemeType'
-import UserQuestionnaireType from './UserQuestionnaireType'
 import UserNotificationsSettingsType from './UserNotificationsSettingsType'
