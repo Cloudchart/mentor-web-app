@@ -317,6 +317,7 @@ type Mutation {
   unsubscribeFromTopic(input: UnsubscribeFromTopicMutationInput!): UnsubscribeFromTopicMutationPayload
   likeInsightInTopic(input: LikeInsightInTopicMutationInput!): LikeInsightInTopicMutationPayload
   dislikeInsightInTopic(input: DislikeInsightInTopicMutationInput!): DislikeInsightInTopicMutationPayload
+  postponeInsightInTopic(input: PostponeInsightInTopicMutationInput!): PostponeInsightInTopicMutationPayload
   addInsightToCollection(input: AddInsightToCollectionMutationInput!): AddInsightToCollectionMutationPayload
   markInsightUsefulInCollection(input: MarkInsightUsefulInCollectionMutationInput!): MarkInsightUsefulInCollectionMutationPayload
   markInsightUselessInCollection(input: MarkInsightUselessInCollectionMutationInput!): MarkInsightUselessInCollectionMutationPayload
@@ -338,6 +339,20 @@ type PageInfo {
   hasPreviousPage: Boolean!
   startCursor: String
   endCursor: String
+}
+
+input PostponeInsightInTopicMutationInput {
+  insightID: ID!
+  topicID: ID!
+  clientMutationId: String!
+}
+
+type PostponeInsightInTopicMutationPayload {
+  insight: Insight!
+  insightID: ID!
+  topic: Topic!
+  insightEdge: TopicInsightsEdge!
+  clientMutationId: String!
 }
 
 type Query {
