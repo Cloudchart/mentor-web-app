@@ -90,19 +90,26 @@ const UserCollectionMutationsOutputFields = {
 
 let mutateAndGetPayloadForTopicMutation = (rate) =>
   async ({ insightID, topicID, shouldAddToUserCollectionWithTopicName }, { rootValue: { viewer } }) => {
-    let link = await UserTopicInsightStorage.loadOne('unique', {
-      user_id:    viewer.id,
-      topic_id:   fromGlobalId(topicID).id,
-      insight_id: fromGlobalId(insightID).id
-    }).catch(error => null)
-
-    if (!link)
-      return new Error('Not found.')
-
-    await UserTopicInsightStorage.update(link.id, { rate })
-
     let topic = await TopicStorage.load(fromGlobalId(topicID).id)
     let insight = await InsightStorage.load(fromGlobalId(insightID).id)
+
+    let link = await UserTopicInsightStorage.loadOne('unique', {
+      user_id:    viewer.id,
+      topic_id:   topic.id,
+      insight_id: insight.id
+    }).catch(error => null)
+
+    if (!link) {
+      link = await UserTopicInsightStorage.create({
+        user_id:    viewer.id,
+        theme_id:   topic.id,
+        insight_id: insight.id,
+        rate:       rate,
+      })
+    } else {
+      if (link.rate === null || rate !== 0)
+        await UserTopicInsightStorage.update(link.id, { rate })
+    }
 
     if (shouldAddToUserCollectionWithTopicName) {
       let userCollection = await UserCollectionStorage.loadOrCreateBy({ name: topic.name, user_id: viewer.id })
