@@ -25,6 +25,7 @@ import { Field as UserThemeInsightsConnectionField } from '../connections/UserTh
 import UserTopicsConnection from '../connections/UserTopicsConnection'
 import UserCollectionsConnection from '../connections/UserCollectionsConnection'
 import UserRolesConnection from '../connections/UserRoles'
+import UserInsightsConnection from '../connections/UserInsights'
 
 
 export const Fields = () => ({
@@ -92,7 +93,9 @@ export default new GraphQLObjectType({
       }
     },
 
-    insights: UserThemeInsightsConnectionField,
+    // insights: UserThemeInsightsConnectionField,
+
+    insights: UserInsightsConnection,
 
     questionnaire: {
       type: UserQuestionnaireType,

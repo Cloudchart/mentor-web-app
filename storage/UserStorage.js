@@ -24,5 +24,5 @@ const Storage = BaseStorage('User', {
 
 
 export default {
-  ...Storage
+  ...Storage,
 }
