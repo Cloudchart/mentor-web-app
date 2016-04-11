@@ -13,6 +13,7 @@ import {
 
 
 import CreateQuestionMutation from '../../../mutations/CreateQuestion'
+import SetBotReactionToOwnerMutation from '../../../mutations/SetBotReactionToOwner'
 
 const ContentField = ({ value, onChange }) =>
   <TextField
@@ -89,9 +90,21 @@ class NewQuestionForm extends React.Component {
     })
   }
 
-  _addBotReaction = () => {
+  _addBotReaction = (response) => {
     if (!this.state.botReactionContent) return this.props.onDone()
+    let questionID = response.createQuestion.questionEdge.node.id
+    let mutation = new SetBotReactionToOwnerMutation({
+      ownerID:  questionID,
+      content:  this.state.botReactionContent,
+      mood:     null
+    })
 
+    Relay.Store.commitUpdate(mutation, {
+      onSuccess: this.props.onDone,
+      onFailure: (transaction) => {
+        alert(transaction.getError())
+      }
+    })
   }
 
 

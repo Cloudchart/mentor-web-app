@@ -56,6 +56,7 @@ import MarkTopicLinkAsReadMutation from './MarkTopicLinkAsRead'
 
 
 import CreateQuestionMutation from './CreateQuestion'
+import RemoveQuestionMutation from './RemoveQuestion'
 
 import {
   PublishQuestionMutation,
@@ -63,7 +64,8 @@ import {
 } from './UpdateQuestionPublishedStatus'
 
 import {
-  AddBotReactionToOwnerMutation
+  SetBotReactionToOwnerMutation,
+  AddBotReactionToOwnerMutation,
 } from './BotReactionMutations'
 
 
@@ -107,9 +109,11 @@ export default new GraphQLObjectType({
     markTopicLinkAsRead:              MarkTopicLinkAsReadMutation,
 
     createQuestion:                   CreateQuestionMutation,
+    removeQuestion:                   RemoveQuestionMutation,
     publishQuestion:                  PublishQuestionMutation,
     unpublishQuestion:                UnpublishQuestionMutation,
 
+    setBotReactionToOwner:            SetBotReactionToOwnerMutation,
     addBotReactionToOwner:            AddBotReactionToOwnerMutation,
   }
 })

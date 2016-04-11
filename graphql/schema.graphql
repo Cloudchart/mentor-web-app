@@ -17,8 +17,8 @@ input AddBotReactionToOwnerMutationInput {
 
 type AddBotReactionToOwnerMutationPayload {
   reaction: BotReaction!
-  reactionEdge: String!
   owner: BotReactionOwner!
+  reactionEdge: String!
   clientMutationId: String!
 }
 
@@ -141,6 +141,7 @@ type BotReaction implements Node {
 }
 
 interface BotReactionOwner {
+  id: ID!
   reaction: BotReaction
 }
 
@@ -367,8 +368,10 @@ type Mutation {
   revokeRoleFromUser(input: RevokeRoleFromUserInput!): RevokeRoleFromUserPayload
   markTopicLinkAsRead(input: MarkTopicLinkAsReadInput!): MarkTopicLinkAsReadPayload
   createQuestion(input: CreateQuestionMutationInput!): CreateQuestionMutationPayload
+  removeQuestion(input: RemoveQuestionMutationInput!): RemoveQuestionMutationPayload
   publishQuestion(input: PublishQuestionMutationInput!): PublishQuestionMutationPayload
   unpublishQuestion(input: UnpublishQuestionMutationInput!): UnpublishQuestionMutationPayload
+  setBotReactionToOwner(input: SetBotReactionToOwnerMutationInput!): SetBotReactionToOwnerMutationPayload
   addBotReactionToOwner(input: AddBotReactionToOwnerMutationInput!): AddBotReactionToOwnerMutationPayload
 }
 
@@ -466,6 +469,18 @@ type RemoveCollectionFromUserMutationPayload {
   clientMutationId: String!
 }
 
+input RemoveQuestionMutationInput {
+  questionID: ID!
+  clientMutationId: String!
+}
+
+type RemoveQuestionMutationPayload {
+  question: Question!
+  questionID: ID!
+  admin: Admin!
+  clientMutationId: String!
+}
+
 input RemoveTopicLinkInput {
   linkID: ID!
   clientMutationId: String!
@@ -517,6 +532,19 @@ type RevokeRoleFromUserPayload {
 type Role implements Node {
   id: ID!
   name: String!
+}
+
+input SetBotReactionToOwnerMutationInput {
+  ownerID: ID!
+  content: String!
+  mood: String = "positive"
+  clientMutationId: String!
+}
+
+type SetBotReactionToOwnerMutationPayload {
+  reaction: BotReaction!
+  owner: BotReactionOwner!
+  clientMutationId: String!
 }
 
 input SetUserPushTokenInput {

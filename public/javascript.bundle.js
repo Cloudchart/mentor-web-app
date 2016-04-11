@@ -87,7 +87,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(397)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(650)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(652)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -42380,8 +42380,8 @@
 		"./admin/TopicsApp.js": 412,
 		"./admin/UsersApp": 639,
 		"./admin/UsersApp.js": 639,
-		"./admin/_TopicApp": 648,
-		"./admin/_TopicApp.js": 648,
+		"./admin/_TopicApp": 650,
+		"./admin/_TopicApp.js": 650,
 		"./admin/forms/InsightChooser": 633,
 		"./admin/forms/InsightChooser.js": 633,
 		"./admin/forms/NewQuestionForm": 645,
@@ -42390,8 +42390,8 @@
 		"./admin/forms/RolesForm.js": 641,
 		"./admin/forms/TopicLinkForm": 631,
 		"./admin/forms/TopicLinkForm.js": 631,
-		"./admin/forms/_TopicLinkForm": 649,
-		"./admin/forms/_TopicLinkForm.js": 649
+		"./admin/forms/_TopicLinkForm": 651,
+		"./admin/forms/_TopicLinkForm.js": 651
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -81761,13 +81761,32 @@
 
 	var _materialUi = __webpack_require__(413);
 
+	var _materialUiLibSvgIconsNavigationClose = __webpack_require__(630);
+
+	var _materialUiLibSvgIconsNavigationClose2 = _interopRequireDefault(_materialUiLibSvgIconsNavigationClose);
+
 	var _formsNewQuestionForm = __webpack_require__(645);
 
 	var _formsNewQuestionForm2 = _interopRequireDefault(_formsNewQuestionForm);
 
-	var _mutationsUpdateQuestionPublishedStatus = __webpack_require__(647);
+	var _mutationsRemoveQuestion = __webpack_require__(648);
+
+	var _mutationsRemoveQuestion2 = _interopRequireDefault(_mutationsRemoveQuestion);
+
+	var _mutationsUpdateQuestionPublishedStatus = __webpack_require__(649);
 
 	var _mutationsUpdateQuestionPublishedStatus2 = _interopRequireDefault(_mutationsUpdateQuestionPublishedStatus);
+
+	var RemoveQuestionButton = function RemoveQuestionButton(_ref) {
+	  var callback = _ref.callback;
+	  return _react2['default'].createElement(
+	    _materialUi.IconButton,
+	    { onTouchTap: function () {
+	        if (confirm('Are you sure?')) callback();
+	      } },
+	    _react2['default'].createElement(_materialUiLibSvgIconsNavigationClose2['default'], { color: 'red' })
+	  );
+	};
 
 	var QuestionsApp = (function (_React$Component) {
 	  _inherits(QuestionsApp, _React$Component);
@@ -81778,6 +81797,19 @@
 	    _classCallCheck(this, QuestionsApp);
 
 	    _get(Object.getPrototypeOf(QuestionsApp.prototype), 'constructor', this).call(this, props);
+
+	    this._handleRemoveQuestionRequest = function (question) {
+	      var mutation = new _mutationsRemoveQuestion2['default']({
+	        questionID: question.id,
+	        adminID: _this.props.admin.id
+	      });
+
+	      _reactRelay2['default'].Store.commitUpdate(mutation, {
+	        onFailure: function onFailure(transaction) {
+	          alert(transaction.getError());
+	        }
+	      });
+	    };
 
 	    this._handlePublishedStatusToggle = function (event, status, questionID) {
 	      if (_this.state.questionsIDsInTransition.indexOf(questionID) !== -1) return;
@@ -81831,7 +81863,8 @@
 	                _materialUi.TableHeaderColumn,
 	                null,
 	                'Published'
-	              )
+	              ),
+	              _react2['default'].createElement(_materialUi.TableHeaderColumn, null)
 	            )
 	          ),
 	          _react2['default'].createElement(
@@ -81879,6 +81912,13 @@
 	            },
 	            disabled: question.answers.count == 0
 	          })
+	        ),
+	        _react2['default'].createElement(
+	          _materialUi.TableRowColumn,
+	          { style: { textAlign: 'right' } },
+	          _react2['default'].createElement(RemoveQuestionButton, { callback: function () {
+	              return _this._handleRemoveQuestionRequest(question);
+	            } })
 	        )
 	      );
 	    };
@@ -81961,6 +82001,29 @@
 	                    isConnection: true
 	                  },
 	                  type: 'QuestionAnswersConnection'
+	                }, {
+	                  children: [{
+	                    fieldName: 'content',
+	                    kind: 'Field',
+	                    metadata: {},
+	                    type: 'String'
+	                  }, {
+	                    fieldName: 'id',
+	                    kind: 'Field',
+	                    metadata: {
+	                      isGenerated: true,
+	                      isRequisite: true
+	                    },
+	                    type: 'ID'
+	                  }],
+	                  fieldName: 'reaction',
+	                  kind: 'Field',
+	                  metadata: {
+	                    canHaveSubselections: true,
+	                    inferredRootCallName: 'node',
+	                    inferredPrimaryKey: 'id'
+	                  },
+	                  type: 'BotReaction'
 	                }],
 	                fieldName: 'node',
 	                kind: 'Field',
@@ -82067,6 +82130,10 @@
 
 	var _mutationsCreateQuestion2 = _interopRequireDefault(_mutationsCreateQuestion);
 
+	var _mutationsSetBotReactionToOwner = __webpack_require__(647);
+
+	var _mutationsSetBotReactionToOwner2 = _interopRequireDefault(_mutationsSetBotReactionToOwner);
+
 	var ContentField = function ContentField(_ref) {
 	  var value = _ref.value;
 	  var onChange = _ref.onChange;
@@ -82149,8 +82216,21 @@
 	      });
 	    };
 
-	    this._addBotReaction = function () {
+	    this._addBotReaction = function (response) {
 	      if (!_this.state.botReactionContent) return _this.props.onDone();
+	      var questionID = response.createQuestion.questionEdge.node.id;
+	      var mutation = new _mutationsSetBotReactionToOwner2['default']({
+	        ownerID: questionID,
+	        content: _this.state.botReactionContent,
+	        mood: null
+	      });
+
+	      _reactRelay2['default'].Store.commitUpdate(mutation, {
+	        onSuccess: _this.props.onDone,
+	        onFailure: function onFailure(transaction) {
+	          alert(transaction.getError());
+	        }
+	      });
 	    };
 
 	    this.render = function () {
@@ -82386,6 +82466,271 @@
 	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
 
 	    this.getMutation = function () {
+	      return (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'setBotReactionToOwner',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'SetBotReactionToOwnerMutationInput!'
+	          },
+	          name: 'SetBotReactionToOwner',
+	          responseType: 'SetBotReactionToOwnerMutationPayload'
+	        };
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        return {
+	          children: [{
+	            children: [{
+	              children: [{
+	                fieldName: 'id',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'ID'
+	              }],
+	              fieldName: 'reaction',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                inferredRootCallName: 'node',
+	                inferredPrimaryKey: 'id'
+	              },
+	              type: 'BotReaction'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }, {
+	              fieldName: '__typename',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'String'
+	            }],
+	            fieldName: 'owner',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id',
+	              isAbstract: true
+	            },
+	            type: 'BotReactionOwner'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'SetBotReactionToOwnerRelayQL',
+	          type: 'SetBotReactionToOwnerMutationPayload'
+	        };
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        ownerID: _this.props.ownerID,
+	        content: _this.props.content,
+	        mood: _this.props.mood
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: { owner: _this.props.ownerID }
+	      }];
+	    };
+	  }
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 648 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'removeQuestion',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'RemoveQuestionMutationInput!'
+	          },
+	          name: 'RemoveQuestion',
+	          responseType: 'RemoveQuestionMutationPayload'
+	        };
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'admin',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Admin'
+	          }, {
+	            fieldName: 'questionID',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'ID'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'RemoveQuestionRelayQL',
+	          type: 'RemoveQuestionMutationPayload'
+	        };
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        questionID: _this.props.questionID
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'NODE_DELETE',
+	        parentName: 'admin',
+	        parentID: _this.props.adminID,
+	        connectionName: 'questions',
+	        deletedIDFieldName: 'questionID'
+	      }];
+	    };
+	  }
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 649 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
 	      return _this.props.status ? (function () {
 	        return {
 	          calls: [{
@@ -82532,7 +82877,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 648 */
+/* 650 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82815,7 +83160,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 649 */
+/* 651 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -83106,18 +83451,18 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 650 */
+/* 652 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
 		"./NodeRoute": 627,
 		"./NodeRoute.js": 627,
-		"./ThemeAppRoute": 651,
-		"./ThemeAppRoute.js": 651,
-		"./ThemesRoute": 652,
-		"./ThemesRoute.js": 652,
-		"./ViewerRoute": 653,
-		"./ViewerRoute.js": 653,
+		"./ThemeAppRoute": 653,
+		"./ThemeAppRoute.js": 653,
+		"./ThemesRoute": 654,
+		"./ThemesRoute.js": 654,
+		"./ViewerRoute": 655,
+		"./ViewerRoute.js": 655,
 		"./admin/AdminRoute": 411,
 		"./admin/AdminRoute.js": 411
 	};
@@ -83132,11 +83477,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 650;
+	webpackContext.id = 652;
 
 
 /***/ },
-/* 651 */
+/* 653 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -83214,7 +83559,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 652 */
+/* 654 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -83290,7 +83635,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 653 */
+/* 655 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

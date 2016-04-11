@@ -9,6 +9,10 @@ import {
   mutationWithClientMutationId,
 } from 'graphql-relay'
 
+import Storages, {
+  BotReactionStorage,
+} from '../../storage'
+
 import BotReactionType from '../types/BotReaction'
 import BotReactionOwnerInterface from '../interfaces/BotReactionOwner'
 
@@ -36,14 +40,41 @@ const OutputFields = {
     type: new GraphQLNonNull(BotReactionType),
   },
 
-  reactionEdge: {
-    type: new GraphQLNonNull(GraphQLString),
-  },
-
   owner: {
     type: new GraphQLNonNull(BotReactionOwnerInterface),
   },
 }
+
+
+export const SetBotReactionToOwnerMutation = mutationWithClientMutationId({
+
+  name: 'SetBotReactionToOwnerMutation',
+
+  inputFields: InputFields,
+
+  outputFields: OutputFields,
+
+  mutateAndGetPayload: async ({ ownerID, content, mood }, { rootValue: { viewer } }) => {
+    let {
+      id: owner_id,
+      type: owner_type,
+    } = fromGlobalId(ownerID)
+
+    const Storage = Storages[owner_type + 'Storage']
+    let owner = await Storage.load(owner_id)
+    if (!owner)
+      return new Error('Owner not found.')
+
+    let reaction = await BotReactionStorage.loadOne('forOwner', { owner_id, owner_type }).catch(() => null)
+
+    reaction = reaction
+      ? await BotReactionStorage.update(reaction.id, { content, mood })
+      : await BotReactionStorage.create({ owner_id, owner_type, content, mood })
+
+    return { reaction, owner }
+  }
+
+})
 
 
 export const AddBotReactionToOwnerMutation = mutationWithClientMutationId({
@@ -52,9 +83,25 @@ export const AddBotReactionToOwnerMutation = mutationWithClientMutationId({
 
   inputFields: InputFields,
 
-  outputFields: OutputFields,
+  outputFields: {
+    ...OutputFields,
+
+    reactionEdge: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+  },
 
   mutateAndGetPayload: async ({ ownerID, content, mood }, { rootValue: { viewer } }) => {
+    let {
+      id: owner_id,
+      type: owner_type
+    } = fromGlobalId(ownerID)
+
+    const Storage = Storages[owner_type + 'Storage']
+    let owner = await Storage.load(owner_id)
+    if (!owner)
+      return new Error('Owner not found.')
+
     return { reaction, owner }
   }
 

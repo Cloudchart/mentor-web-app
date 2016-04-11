@@ -4,6 +4,7 @@ import Relay from 'react-relay'
 import {
   Dialog,
   FlatButton,
+  IconButton,
   Snackbar,
   Table,
   TableHeader,
@@ -15,9 +16,18 @@ import {
   Toggle,
 } from 'material-ui'
 
+import Close from 'material-ui/lib/svg-icons/navigation/close'
+
 import NewQuestionForm from './forms/NewQuestionForm'
 
+import RemoveQuestionMutation from '../../mutations/RemoveQuestion'
 import UpdateQuestionPublishedStatus from '../../mutations/UpdateQuestionPublishedStatus'
+
+
+const RemoveQuestionButton = ({ callback }) =>
+  <IconButton onTouchTap={ () => { if (confirm('Are you sure?')) callback() } }>
+    <Close color="red" />
+  </IconButton>
 
 
 class QuestionsApp extends React.Component {
@@ -30,6 +40,19 @@ class QuestionsApp extends React.Component {
       questionsIDsInTransition: [],
       questionID: null
     }
+  }
+
+  _handleRemoveQuestionRequest = (question) => {
+    let mutation = new RemoveQuestionMutation({
+      questionID: question.id,
+      adminID:    this.props.admin.id,
+    })
+
+    Relay.Store.commitUpdate(mutation, {
+      onFailure: (transaction) => {
+        alert(transaction.getError())
+      }
+    })
   }
 
 
@@ -67,6 +90,7 @@ class QuestionsApp extends React.Component {
             <TableHeaderColumn>Content</TableHeaderColumn>
             <TableHeaderColumn>Answers</TableHeaderColumn>
             <TableHeaderColumn>Published</TableHeaderColumn>
+            <TableHeaderColumn />
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={ false }>
@@ -94,6 +118,9 @@ class QuestionsApp extends React.Component {
             onToggle  = { (event, status) => this._handlePublishedStatusToggle(event, status, question.id) }
             disabled  = { question.answers.count == 0 }
           />
+        </TableRowColumn>
+        <TableRowColumn style={{ textAlign: 'right' }}>
+          <RemoveQuestionButton callback={ () => this._handleRemoveQuestionRequest(question) } />
         </TableRowColumn>
       </TableRow>
     )
@@ -127,6 +154,9 @@ export default Relay.createContainer(QuestionsApp, {
               isPublished
               answers {
                 count
+              }
+              reaction {
+                content
               }
             }
           }

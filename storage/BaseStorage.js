@@ -107,10 +107,14 @@ let createStorage = (storageName, options = {}) => {
         .then(record => loader.clear(id).load(id))
     ,
 
-    destroy: (id) =>
-      destroy(id)
+    destroy: async (id) => {
+      let record = await loader.load(id)
+      await destroy(record.id)
         .then(() => loader.clear(id))
         .then(() => null)
+      await options.afterDestroy && options.afterDestroy(record)
+      return null
+    }
 
   }
 }
