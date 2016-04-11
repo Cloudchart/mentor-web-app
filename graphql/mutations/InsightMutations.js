@@ -90,8 +90,11 @@ const UserCollectionMutationsOutputFields = {
 
 let mutateAndGetPayloadForTopicMutation = (rate) =>
   async ({ insightID, topicID, shouldAddToUserCollectionWithTopicName }, { rootValue: { viewer } }) => {
-    let topic = await TopicStorage.load(fromGlobalId(topicID).id)
-    let insight = await InsightStorage.load(fromGlobalId(insightID).id)
+    let topic = await TopicStorage.load(fromGlobalId(topicID).id).catch(() => null)
+    if (!topic) return new Error('Topic not found.')
+
+    let insight = await InsightStorage.load(fromGlobalId(insightID).id).catch(() => null)
+    if (!insight) return new Error('Insight not found.')
 
     let link = await UserTopicInsightStorage.loadOne('unique', {
       user_id:    viewer.id,
