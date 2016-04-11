@@ -31,6 +31,7 @@ let addInsight = async ({ user_id, topic_ids }) => {
 
 let perform = async ({ user_id }) => {
 
+  let slackChannel = await SlackChannelStorage.loadOne('forUser', { user_id }).catch(() => null)
   let subscribedTopicsIDs = await TopicStorage.loadAllIDs('subscribed', { userID: user_id })
 
   let unratedInsights = await UserTopicInsightStorage.loadAll('unratedForUser', { user_id })
@@ -43,7 +44,7 @@ let perform = async ({ user_id }) => {
     InitialQueueSize,
     MaxQueueSize,
     QueueFillRate
-  } = Data['user']
+  } = Data[slackChannel ? 'slackChannel' : 'user']
 
   let count = lastRatedInsight || lastUnratedInsight
     ? MaxQueueSize - Math.min(MaxQueueSize, unratedInsightsCount)
