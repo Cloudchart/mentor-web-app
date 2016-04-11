@@ -21,6 +21,7 @@ import {
 } from '../connections/arrayconnection'
 
 import {
+  AdminStorage,
   QuestionStorage
 } from '../../storage'
 
@@ -60,8 +61,9 @@ export default mutationWithClientMutationId({
     if (!viewer.isAdmin) return new Error('Not authorized.')
 
     let question = await QuestionStorage.create({ content, severity })
+    let admin = await AdminStorage.load(viewer.id)
 
-    return { question, admin: viewer }
+    return { question, admin }
   }
 
 })

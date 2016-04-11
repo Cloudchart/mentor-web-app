@@ -9,6 +9,7 @@ import {
 } from 'graphql-relay'
 
 import {
+  AdminStorage,
   QuestionStorage,
   BotReactionStorage,
 } from '../../storage'
@@ -46,13 +47,15 @@ export default mutationWithClientMutationId({
     if (!viewer.isAdmin)
       return new Error('Not authorized.')
 
+    let admin = await AdminStorage.load(viewer.id)
+
     let question = await QuestionStorage.load(fromGlobalId(questionID).id).catch(() => null)
     if (!question)
       return new Error('Question not found.')
 
     await QuestionStorage.destroy(question.id)
 
-    return { question, questionID, admin: viewer }
+    return { question, questionID, admin }
   }
 
 })

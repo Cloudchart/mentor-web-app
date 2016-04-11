@@ -9,14 +9,14 @@ import Storages from '../../storage'
 
 export default nodeDefinitions(
 
-  (globalId) => {
+  async (globalId) => {
     let { type, id } = fromGlobalId(globalId)
 
     let Storage = Storages[type + 'Storage']
     if (!Storage)
       return new Error(`${type} storage not found.`)
 
-    return Storage.load(id)
+    return await Storage.load(id)
   },
 
 )
