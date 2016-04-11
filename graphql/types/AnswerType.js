@@ -12,6 +12,10 @@ import {
 
 import { nodeInterface } from './Node'
 
+import BotReactionOwnerInterface, {
+  Resolve as resolveReaction
+} from '../interfaces/BotReactionOwner'
+
 
 export default new GraphQLObjectType({
 
@@ -33,6 +37,14 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLInt),
     },
 
+    reaction: {
+      type: BotReactionType,
+      resolve: resolveReaction,
+    }
+
   })
 
 })
+
+
+import BotReactionType from './BotReaction'

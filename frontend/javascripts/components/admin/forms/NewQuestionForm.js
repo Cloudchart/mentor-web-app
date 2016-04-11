@@ -15,7 +15,7 @@ import {
 import CreateQuestionMutation from '../../../mutations/CreateQuestion'
 import SetBotReactionToOwnerMutation from '../../../mutations/SetBotReactionToOwner'
 
-const ContentField = ({ value, onChange }) =>
+export const ContentField = ({ value, onChange }) =>
   <TextField
     floatingLabelText = "Question"
     value             = { value }
@@ -25,7 +25,7 @@ const ContentField = ({ value, onChange }) =>
     onChange          = { onChange }
   />
 
-const BotReactionContentField = ({ value, onChange }) =>
+export const BotReactionContentField = ({ value, onChange }) =>
   <TextField
     floatingLabelText = "Boris will say"
     value             = { value }
@@ -34,15 +34,15 @@ const BotReactionContentField = ({ value, onChange }) =>
     onChange          = { onChange }
   />
 
-const SeverityField = ({ value, onChange }) =>
+export const SeverityField = ({ value, onChange }) =>
   <SelectField
     floatingLabelText = "Severity"
     value             = { value }
     onChange          = { onChange }
   >
-    <MenuItem value={ "-1" } primaryText="Low" />
-    <MenuItem value={  "0" } primaryText="Normal" />
-    <MenuItem value={  "1" } primaryText="High" />
+    <MenuItem value={ -1 } primaryText="Low" />
+    <MenuItem value={  0 } primaryText="Normal" />
+    <MenuItem value={  1 } primaryText="High" />
   </SelectField>
 
 
@@ -53,7 +53,7 @@ class NewQuestionForm extends React.Component {
 
     this.state = {
       content:            '',
-      severity:           "0",
+      severity:           0,
       botReactionContent: ''
     }
 

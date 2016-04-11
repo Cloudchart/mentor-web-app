@@ -15,9 +15,10 @@ const GenericQuery = (options = {}) => `
   ${ options.limit ? ' limit ' + options.limit : '' }
 `
 
-const Storage = BaseStorage('Question', {
+const Storage = BaseStorage('Answer', {
   idsQueries: {
-    'allForQuestion': GenericQuery({ where: 'question_id = :question_id', order: 'position' })
+    'allForQuestion': GenericQuery({ where: 'question_id = :question_id', order: 'position' }),
+    'lastForQuestion': GenericQuery({ where: 'question_id = :question_id', order: 'position desc', limit: 1 }),
   }
 })
 

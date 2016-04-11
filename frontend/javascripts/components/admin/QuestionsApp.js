@@ -23,6 +23,8 @@ import NewQuestionForm from './forms/NewQuestionForm'
 import RemoveQuestionMutation from '../../mutations/RemoveQuestion'
 import UpdateQuestionPublishedStatus from '../../mutations/UpdateQuestionPublishedStatus'
 
+import QuestionApp from './QuestionApp'
+
 
 const RemoveQuestionButton = ({ callback }) =>
   <IconButton onTouchTap={ () => { if (confirm('Are you sure?')) callback() } }>
@@ -83,6 +85,15 @@ class QuestionsApp extends React.Component {
   }
 
   render = () =>
+    this.state.questionID && this.state.questionID !== 'new'
+      ? <QuestionApp
+          question  = { this.props.admin.questions.edges.find(edge => edge.node.id === this.state.questionID ).node }
+          onCancel  = { () => this.setState({ questionID: null }) }
+          onDone    = { () => this.setState({ questionID: null }) }
+        />
+      : this._renderList()
+
+  _renderList = () =>
     <div style={{ margin: 20 }}>
       <Table selectable={ false }>
         <TableHeader adjustForCheckbox={ false } displaySelectAll={ false }>
@@ -105,7 +116,7 @@ class QuestionsApp extends React.Component {
     return (
       <TableRow key={ question.id }>
         <TableRowColumn>
-          <a href="#" onClick={ event => event.preventDefault() }>
+          <a href="#" onClick={ event =>  { event.preventDefault() ; this.setState({ questionID: question.id }) } }>
             { question.content }
           </a>
         </TableRowColumn>
@@ -149,6 +160,7 @@ export default Relay.createContainer(QuestionsApp, {
         questions(first: 100) {
           edges {
             node {
+              ${QuestionApp.getFragment('question')}
               id
               content
               isPublished

@@ -7,8 +7,11 @@ import {
 import {
   connectionArgs,
   connectionDefinitions,
-  connectionFromArray
 } from 'graphql-relay'
+
+import {
+  connectionFromArray
+} from './arrayconnection'
 
 import {
   AnswerStorage

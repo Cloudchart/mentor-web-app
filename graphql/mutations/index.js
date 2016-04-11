@@ -63,6 +63,10 @@ import {
   UnpublishQuestionMutation,
 } from './UpdateQuestionPublishedStatus'
 
+import IntroduceAnswerMutation from './IntroduceAnswer'
+import UpdateAnswerMutation from './UpdateAnswer'
+import RemoveAnswerMutation from './RemoveAnswer'
+
 import {
   SetBotReactionToOwnerMutation,
   AddBotReactionToOwnerMutation,
@@ -112,6 +116,10 @@ export default new GraphQLObjectType({
     removeQuestion:                   RemoveQuestionMutation,
     publishQuestion:                  PublishQuestionMutation,
     unpublishQuestion:                UnpublishQuestionMutation,
+
+    introduceAnswer:                  IntroduceAnswerMutation,
+    updateAnswer:                     UpdateAnswerMutation,
+    removeAnswer:                     RemoveAnswerMutation,
 
     setBotReactionToOwner:            SetBotReactionToOwnerMutation,
     addBotReactionToOwner:            AddBotReactionToOwnerMutation,

@@ -132,6 +132,7 @@ type Answer implements Node {
   id: ID!
   content: String!
   position: Int!
+  reaction: BotReaction
 }
 
 type BotReaction implements Node {
@@ -222,6 +223,19 @@ type InsightOrigin {
   url: String!
   title: String!
   duration: Int!
+}
+
+input IntroduceAnswerInput {
+  questionID: ID!
+  content: String!
+  clientMutationId: String!
+}
+
+type IntroduceAnswerPayload {
+  answer: Answer!
+  question: Question!
+  answerEdge: QuestionAnswersEdge!
+  clientMutationId: String!
 }
 
 input IntroduceLinkToTopicInput {
@@ -371,6 +385,9 @@ type Mutation {
   removeQuestion(input: RemoveQuestionMutationInput!): RemoveQuestionMutationPayload
   publishQuestion(input: PublishQuestionMutationInput!): PublishQuestionMutationPayload
   unpublishQuestion(input: UnpublishQuestionMutationInput!): UnpublishQuestionMutationPayload
+  introduceAnswer(input: IntroduceAnswerInput!): IntroduceAnswerPayload
+  updateAnswer(input: UpdateAnswerInput!): UpdateAnswerPayload
+  removeAnswer(input: RemoveAnswerInput!): RemoveAnswerPayload
   setBotReactionToOwner(input: SetBotReactionToOwnerMutationInput!): SetBotReactionToOwnerMutationPayload
   addBotReactionToOwner(input: AddBotReactionToOwnerMutationInput!): AddBotReactionToOwnerMutationPayload
 }
@@ -455,6 +472,17 @@ type RejectThemePayload {
   user: User!
   theme: UserTheme!
   themeID: ID!
+  clientMutationId: String!
+}
+
+input RemoveAnswerInput {
+  answerID: ID!
+  clientMutationId: String!
+}
+
+type RemoveAnswerPayload {
+  answerID: ID!
+  question: Question!
   clientMutationId: String!
 }
 
@@ -688,6 +716,17 @@ type UnsubscribeFromTopicMutationPayload {
   topicID: ID!
   topicEdge: UserTopicsConnectionEdge
   user: User
+  clientMutationId: String!
+}
+
+input UpdateAnswerInput {
+  answerID: ID!
+  content: String!
+  clientMutationId: String!
+}
+
+type UpdateAnswerPayload {
+  answer: Answer!
   clientMutationId: String!
 }
 
