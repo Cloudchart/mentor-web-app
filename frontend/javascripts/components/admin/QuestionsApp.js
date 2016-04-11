@@ -2,6 +2,7 @@ import React from 'react'
 import Relay from 'react-relay'
 
 import {
+  Dialog,
   FlatButton,
   Snackbar,
   Table,
@@ -14,6 +15,7 @@ import {
   Toggle,
 } from 'material-ui'
 
+import NewQuestionForm from './forms/NewQuestionForm'
 
 import UpdateQuestionPublishedStatus from '../../mutations/UpdateQuestionPublishedStatus'
 
@@ -25,7 +27,8 @@ class QuestionsApp extends React.Component {
     super(props)
 
     this.state = {
-      questionsIDsInTransition: []
+      questionsIDsInTransition: [],
+      questionID: null
     }
   }
 
@@ -70,7 +73,8 @@ class QuestionsApp extends React.Component {
           { this.props.admin.questions.edges.map(edge => this._renderQuestion(edge.node)) }
         </TableBody>
       </Table>
-      <FlatButton label="Add a question" secondary={ true } />
+      <FlatButton label="Add a question" secondary={ true } onTouchTap={ () => this.setState({ questionID: 'new' }) } />
+      { this._renderNewQuestionForm() }
     </div>
 
   _renderQuestion = (question) => {
@@ -95,6 +99,17 @@ class QuestionsApp extends React.Component {
     )
   }
 
+  _renderNewQuestionForm = () => {
+    if (this.state.questionID !== 'new') return null
+    return (
+      <NewQuestionForm
+        adminID       = { this.props.admin.id }
+        onDone        = { () => this.setState({ questionID: null }) }
+        onCancel      = { () => this.setState({ questionID: null }) }
+      />
+    )
+  }
+
 }
 
 
@@ -103,6 +118,7 @@ export default Relay.createContainer(QuestionsApp, {
   fragments: {
     admin: () => Relay.QL`
       fragment on Admin {
+        id
         questions(first: 100) {
           edges {
             node {

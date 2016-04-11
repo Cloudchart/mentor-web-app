@@ -62,6 +62,10 @@ import {
   UnpublishQuestionMutation,
 } from './UpdateQuestionPublishedStatus'
 
+import {
+  AddBotReactionToOwnerMutation
+} from './BotReactionMutations'
+
 
 export default new GraphQLObjectType({
   name: 'Mutation',
@@ -105,5 +109,7 @@ export default new GraphQLObjectType({
     createQuestion:                   CreateQuestionMutation,
     publishQuestion:                  PublishQuestionMutation,
     unpublishQuestion:                UnpublishQuestionMutation,
+
+    addBotReactionToOwner:            AddBotReactionToOwnerMutation,
   }
 })

@@ -8,6 +8,20 @@ type ActivateUserPayload {
   clientMutationId: String!
 }
 
+input AddBotReactionToOwnerMutationInput {
+  ownerID: ID!
+  content: String!
+  mood: String = "positive"
+  clientMutationId: String!
+}
+
+type AddBotReactionToOwnerMutationPayload {
+  reaction: BotReaction!
+  reactionEdge: String!
+  owner: BotReactionOwner!
+  clientMutationId: String!
+}
+
 input AddCollectionToUserMutationInput {
   name: String!
   clientMutationId: String!
@@ -126,6 +140,10 @@ type BotReaction implements Node {
   content: String!
 }
 
+interface BotReactionOwner {
+  reaction: BotReaction
+}
+
 input CreateQuestionMutationInput {
   content: String!
   severity: Int!
@@ -135,6 +153,7 @@ input CreateQuestionMutationInput {
 type CreateQuestionMutationPayload {
   question: Question!
   questionEdge: QuestionsEdge!
+  admin: Admin!
   clientMutationId: String!
 }
 
@@ -350,6 +369,7 @@ type Mutation {
   createQuestion(input: CreateQuestionMutationInput!): CreateQuestionMutationPayload
   publishQuestion(input: PublishQuestionMutationInput!): PublishQuestionMutationPayload
   unpublishQuestion(input: UnpublishQuestionMutationInput!): UnpublishQuestionMutationPayload
+  addBotReactionToOwner(input: AddBotReactionToOwnerMutationInput!): AddBotReactionToOwnerMutationPayload
 }
 
 interface Node {
@@ -393,12 +413,13 @@ type Query {
   admin: Admin
 }
 
-type Question implements Node {
+type Question implements Node, BotReactionOwner {
   id: ID!
   content: String!
   isPublished: Boolean!
   severity: Int!
   answers(after: String, first: Int, before: String, last: Int): QuestionAnswersConnection
+  reaction: BotReaction
 }
 
 type QuestionAnswersConnection {

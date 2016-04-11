@@ -10,6 +10,7 @@ import {
 } from 'graphql-relay'
 
 import QuestionType from '../types/QuestionType'
+import AdminType from '../types/admin/AdminType'
 
 import {
   EdgeType
@@ -48,6 +49,10 @@ export default mutationWithClientMutationId({
     questionEdge: {
       type: new GraphQLNonNull(EdgeType),
       resolve: ({ question }) => nodeToEdge(question)
+    },
+
+    admin: {
+      type: new GraphQLNonNull(AdminType)
     }
   },
 
@@ -56,7 +61,7 @@ export default mutationWithClientMutationId({
 
     let question = await QuestionStorage.create({ content, severity })
 
-    return { question }
+    return { question, admin: viewer }
   }
 
 })

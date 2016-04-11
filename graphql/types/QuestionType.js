@@ -12,6 +12,10 @@ import {
 
 import { nodeInterface } from './Node'
 
+import botReactionOwnerInterface, {
+  Resolve as resolveReaction
+} from '../interfaces/BotReactionOwner'
+
 import QuestionAnswersConnection from '../connections/QuestionAnswers'
 
 
@@ -19,7 +23,7 @@ export default new GraphQLObjectType({
 
   name: 'Question',
 
-  interfaces: [nodeInterface],
+  interfaces: [nodeInterface, botReactionOwnerInterface],
 
   fields: () => ({
 
@@ -40,6 +44,14 @@ export default new GraphQLObjectType({
 
     answers: QuestionAnswersConnection,
 
+    reaction: {
+      type: BotReactionType,
+      resolve: resolveReaction,
+    }
+
   })
 
 })
+
+
+import BotReactionType from './BotReaction'
