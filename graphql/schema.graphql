@@ -114,6 +114,12 @@ type AdminUsersEdge {
   cursor: String!
 }
 
+type Answer implements Node {
+  id: ID!
+  content: String!
+  position: Int!
+}
+
 type BotReaction implements Node {
   id: ID!
   mood: String!
@@ -392,6 +398,18 @@ type Question implements Node {
   content: String!
   isPublished: Boolean!
   severity: Int!
+  answers(after: String, first: Int, before: String, last: Int): QuestionAnswersConnection
+}
+
+type QuestionAnswersConnection {
+  pageInfo: PageInfo!
+  edges: [QuestionAnswersEdge]
+  count: Int!
+}
+
+type QuestionAnswersEdge {
+  node: Answer
+  cursor: String!
 }
 
 type QuestionsConnection {

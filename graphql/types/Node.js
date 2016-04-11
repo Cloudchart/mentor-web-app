@@ -16,6 +16,8 @@ import {
   UserThemeInsightStorage,
   RoleStorage,
   AdminStorage,
+  QuestionStorage,
+  AnswerStorage,
 } from '../../storage'
 
 
@@ -46,6 +48,10 @@ export default nodeDefinitions(
         return RoleStorage.load(id)
       case 'Admin':
         return AdminStorage.load(id)
+      case 'Question':
+        return QuestionStorage.load(id)
+      case 'Answer':
+        return AnswerStorage.load(id)
     }
   },
 
@@ -73,6 +79,10 @@ export default nodeDefinitions(
         return require('./RoleType')
       case 'Admin':
         return require('./admin/AdminType')
+      case 'Question':
+        return require('./QuestionType')
+      case 'Answer':
+        return require('./AnswerType')
     }
   }
 

@@ -7,6 +7,7 @@ import Navigator from '../Navigator'
 import AdminRoute from '../../routes/admin/AdminRoute'
 import TopicsApp from './TopicsApp'
 import UsersApp from './UsersApp'
+import QuestionsApp from './QuestionsApp'
 
 import {
   AppBar,
@@ -33,6 +34,10 @@ const RootRoutes = [
   }, {
     title:      'Users',
     Component:  UsersApp,
+    Route:      AdminRoute,
+  }, {
+    title:      'Questions',
+    Component:  QuestionsApp,
     Route:      AdminRoute,
   }
 ]
@@ -92,7 +97,7 @@ export default class extends React.Component {
   renderScene(route, navigator) {
     let { Component, Route, props, title } = route
     return Route
-      ? <RootContainer Component={ Component } route={ new Route({ ...props, navigator }) } />
+      ? <Relay.RootContainer Component={ Component } route={ new Route({ ...props, navigator }) } />
       : <Component { ...props } navigator={ navigator } />
   }
 

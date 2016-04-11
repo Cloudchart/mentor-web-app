@@ -12,33 +12,24 @@ import {
 
 import { nodeInterface } from './Node'
 
-import QuestionAnswersConnection from '../connections/QuestionAnswers'
-
 
 export default new GraphQLObjectType({
 
-  name: 'Question',
+  name: 'Answer',
 
   interfaces: [nodeInterface],
 
   fields: () => ({
 
-    id: globalIdField('Question'),
+    id: globalIdField('Answer'),
 
     content: {
       type: new GraphQLNonNull(GraphQLString)
     },
 
-    isPublished: {
-      type: new GraphQLNonNull(GraphQLBoolean),
-      resolve: ({ is_published }) => is_published
+    position: {
+      type: new GraphQLNonNull(GraphQLInt),
     },
-
-    severity: {
-      type: new GraphQLNonNull(GraphQLInt)
-    },
-
-    answers: QuestionAnswersConnection,
 
   })
 

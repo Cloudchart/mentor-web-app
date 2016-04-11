@@ -27,6 +27,7 @@ import AdminInsightStorage from './admin/AdminInsightStorage'
 import AdminThemeStorage from './admin/AdminThemeStorage'
 
 import QuestionStorage from './QuestionStorage'
+import AnswerStorage from './AnswerStorage'
 
 export default {
   AuthTokenStorage,
@@ -57,4 +58,5 @@ export default {
   UserTopicLinkStorage,
 
   QuestionStorage,
+  AnswerStorage,
 }

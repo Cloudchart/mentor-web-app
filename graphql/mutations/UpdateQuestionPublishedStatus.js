@@ -19,7 +19,8 @@ import {
 } from '../connections/arrayconnection'
 
 import {
-  QuestionStorage
+  QuestionStorage,
+  AnswerStorage,
 } from '../../storage'
 
 
@@ -46,6 +47,12 @@ const MutatePublishedStatus = (is_published) =>
 
     let question = await QuestionStorage.load(fromGlobalId(questionID).id).catch(error => null)
     if (!question) return new Error('Not found.')
+
+    if (is_published) {
+      let answersCount = await AnswerStorage.count('allForQuestion', { question_id: question.id })
+      if (answersCount == 0)
+        return new Error('Cannot publish question without answers.')
+    }
 
     question = QuestionStorage.update(question.id, { is_published })
 

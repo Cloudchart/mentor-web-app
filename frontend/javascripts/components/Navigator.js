@@ -8,11 +8,13 @@ class Navigator extends React.Component {
     renderScene:  React.PropTypes.func.isRequired,
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  shouldComponentUpdate(nextProps, nextState) {
     let lastItem = this.state.stack[this.state.stack.length - 1]
-    let prevLastItem = prevState.stack[prevState.stack.length - 1]
-    if (lastItem !== prevLastItem)
-      this.props.onChange && this.props.onChange(lastItem)
+    let nextLastItem = nextState.stack[nextState.stack.length - 1]
+    let shouldUpdate = lastItem !== nextLastItem
+    if (shouldUpdate)
+      this.props.onChange && this.props.onChange(nextLastItem)
+    return shouldUpdate
   }
 
   constructor(props) {
