@@ -18,6 +18,8 @@ export default new GraphQLObjectType({
 
   interfaces: [nodeInterface],
 
+  isTypeOf: ({ __type }) => __type === 'AdminTheme',
+
   fields: () => ({
 
     id: globalIdField('AdminTheme'),

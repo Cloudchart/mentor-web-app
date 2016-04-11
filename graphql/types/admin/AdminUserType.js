@@ -21,6 +21,8 @@ export default new GraphQLObjectType({
 
   interfaces: [nodeInterface],
 
+  isTypeOf: ({ __type }) => __type === 'AdminUser',
+
   fields: () => ({
 
     id: globalIdField('AdminUser'),

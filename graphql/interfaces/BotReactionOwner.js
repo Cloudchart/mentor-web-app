@@ -19,12 +19,12 @@ export const Resolve = async (owner) => {
 export default new GraphQLInterfaceType({
   name: 'BotReactionOwner',
 
-  resolveType: ({ __type }) => {
-    switch(__type) {
-      case 'Question':
-        return require('../types/QuestionType')
-    }
-  },
+  // resolveType: ({ __type }) => {
+  //   switch(__type) {
+  //     case 'Question':
+  //       return require('../types/QuestionType')
+  //   }
+  // },
 
   fields: () => ({
 

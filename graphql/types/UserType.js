@@ -48,6 +48,8 @@ export default new GraphQLObjectType({
 
   interfaces: () => [nodeInterface],
 
+  isTypeOf: ({ __type }) => __type === 'User',
+
   fields: () => ({
 
     id: globalIdField('User'),
