@@ -56,6 +56,7 @@ import MarkTopicLinkAsReadMutation from './MarkTopicLinkAsRead'
 
 
 import CreateQuestionMutation from './CreateQuestion'
+import UpdateQuestionMutation from './UpdateQuestion'
 import RemoveQuestionMutation from './RemoveQuestion'
 
 import {
@@ -113,6 +114,7 @@ export default new GraphQLObjectType({
     markTopicLinkAsRead:              MarkTopicLinkAsReadMutation,
 
     createQuestion:                   CreateQuestionMutation,
+    updateQuestion:                   UpdateQuestionMutation,
     removeQuestion:                   RemoveQuestionMutation,
     publishQuestion:                  PublishQuestionMutation,
     unpublishQuestion:                UnpublishQuestionMutation,

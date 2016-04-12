@@ -382,6 +382,7 @@ type Mutation {
   revokeRoleFromUser(input: RevokeRoleFromUserInput!): RevokeRoleFromUserPayload
   markTopicLinkAsRead(input: MarkTopicLinkAsReadInput!): MarkTopicLinkAsReadPayload
   createQuestion(input: CreateQuestionMutationInput!): CreateQuestionMutationPayload
+  updateQuestion(input: UpdateQuestionInput!): UpdateQuestionPayload
   removeQuestion(input: RemoveQuestionMutationInput!): RemoveQuestionMutationPayload
   publishQuestion(input: PublishQuestionMutationInput!): PublishQuestionMutationPayload
   unpublishQuestion(input: UnpublishQuestionMutationInput!): UnpublishQuestionMutationPayload
@@ -727,6 +728,18 @@ input UpdateAnswerInput {
 
 type UpdateAnswerPayload {
   answer: Answer!
+  clientMutationId: String!
+}
+
+input UpdateQuestionInput {
+  questionID: ID!
+  content: String!
+  severity: Int!
+  clientMutationId: String!
+}
+
+type UpdateQuestionPayload {
+  question: Question!
   clientMutationId: String!
 }
 
