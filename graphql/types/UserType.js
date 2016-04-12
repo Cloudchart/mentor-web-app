@@ -34,6 +34,10 @@ export const Fields = () => ({
     type: GraphQLString,
   },
 
+  email: {
+    type: GraphQLString,
+  },
+
   topics:  UserTopicsConnection,
 
   collections: UserCollectionsConnection,
