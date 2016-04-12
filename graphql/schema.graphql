@@ -128,7 +128,7 @@ type AdminUsersEdge {
   cursor: String!
 }
 
-type Answer implements Node {
+type Answer implements Node, BotReactionOwner {
   id: ID!
   content: String!
   position: Int!

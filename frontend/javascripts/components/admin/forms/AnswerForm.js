@@ -9,6 +9,7 @@ import {
 
 import IntroduceAnswerMutation from '../../../mutations/IntroduceAnswer'
 import UpdateAnswerMutation from '../../../mutations/UpdateAnswer'
+import SetBotReactionToOwnerMutation from '../../../mutations/SetBotReactionToOwner'
 
 export const ContentField = (props) =>
   <TextField
@@ -32,14 +33,18 @@ class AnswerForm extends React.Component {
   constructor(props) {
     super(props)
 
+    this._content = props.answer && props.answer.content || ''
+    this._reactionContent = props.answer && props.answer.reaction && props.answer.reaction.content || ''
+
     this.state = {
-      content: props.answer && props.answer.content || '',
-      reactionContent: props.answer && props.answer.reaction && props.answer.reaction.content || ''
+      content: this._content,
+      reactionContent: this._reactionContent,
     }
   }
 
   _handleSave = () => {
     if (!this._isValid()) return
+    if (!this._isChanged()) return this.props.onDone()
     this.props.answer
       ? this._update()
       : this._create()
@@ -54,20 +59,41 @@ class AnswerForm extends React.Component {
   }
 
   _update = () => {
-    let mutation = new UpdateAnswerMutation({ answerID: this.props.answer.id, content: this.state.content })
-    Relay.Store.commitUpdate(mutation, {
-      onSuccess: this._setBotReaction,
-      onFailure: (transaction) => alert(transaction.getError())
-    })
+    if (this._isAnswerChanged()) {
+      let mutation = new UpdateAnswerMutation({ answerID: this.props.answer.id, content: this.state.content })
+      Relay.Store.commitUpdate(mutation, {
+        onSuccess: this._setBotReaction,
+        onFailure: (transaction) => alert(transaction.getError())
+      })
+    } else {
+      this._setBotReaction({})
+    }
   }
 
-  _setBotReaction = () => {
-    let prevReactionContent = this.props.answer && this.props.answer.reaction && this.props.answer.reaction.content
-    this.props.onDone()
+  _setBotReaction = (response) => {
+    if (this._isReactionChanged()) {
+      let answerID = this.props.answer ? this.props.answer.id : response.introduceAnswer.answerEdge.node.id
+      let mutation = new SetBotReactionToOwnerMutation({ ownerID: answerID, content: this.state.reactionContent })
+      Relay.Store.commitUpdate(mutation, {
+        onSuccess: this.props.onDone,
+        onFailure: (transaction) => alert(transaction.getError())
+      })
+    } else {
+      this.props.onDone()
+    }
   }
 
   _isValid = () =>
     this.state.content.trim().length > 0
+
+  _isChanged = () =>
+    this._isAnswerChanged() || this._isReactionChanged()
+
+  _isAnswerChanged = () =>
+    this._content !== this.state.content
+
+  _isReactionChanged = () =>
+    this._reactionContent !== this.state.reactionContent
 
   render = () =>
     <Dialog
@@ -89,7 +115,7 @@ class AnswerForm extends React.Component {
   _renderActions = () => [
     <FlatButton label="Cancel" secondary onTouchTap={ this.props.onCancel } />,
     <FlatButton
-      label       = "Save"
+      label       = { !this.props.answer || this._isChanged() ? 'Save' : 'Done' }
       disabled    = { !this._isValid() }
       onTouchTap  = { () => this._handleSave() }
       primary

@@ -21,7 +21,7 @@ export default new GraphQLObjectType({
 
   name: 'Answer',
 
-  interfaces: [nodeInterface],
+  interfaces: [nodeInterface, BotReactionOwnerInterface],
 
   isTypeOf: ({ __type }) => __type === 'Answer',
 

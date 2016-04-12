@@ -60,6 +60,7 @@ class AnswerItem extends React.Component {
         key             = { this.props.answer.id }
         onTouchTap      = { this._showForm }
         rightIconButton = { <RemoveButton onTouchTap={ this._showDialog } /> }
+        secondaryText   = { this.props.answer.reaction && this.props.answer.reaction.content }
       >
         { this.props.answer.content }
       </ListItem>
@@ -97,6 +98,7 @@ export default Relay.createContainer(AnswerItem, {
   fragments: {
     answer: () => Relay.QL`
       fragment on Answer {
+        ${ AnswerForm.getFragment('answer') }
         id
         content
         reaction {

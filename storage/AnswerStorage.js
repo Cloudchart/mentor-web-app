@@ -19,6 +19,14 @@ const Storage = BaseStorage('Answer', {
   idsQueries: {
     'allForQuestion': GenericQuery({ where: 'question_id = :question_id', order: 'position' }),
     'lastForQuestion': GenericQuery({ where: 'question_id = :question_id', order: 'position desc', limit: 1 }),
+  },
+
+  afterDestroy: async (answer) => {
+    let answers = await Storage.loadAll('allForQuestion', { question_id: answer.question_id })
+    answers.forEach(async (answer, ii) => {
+      if (answer.position !== ii)
+        await Storage.update(answer.id, { position: ii })
+    })
   }
 })
 
