@@ -15,10 +15,14 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, './public')
   },
-  module: {
-    resolve: {
-      extensions: ['', '.js', '.scss']
+  resolve: {
+    alias: {
+      'components': path.resolve(__dirname, './frontend/javascripts/components'),
+      'mutations': path.resolve(__dirname, './frontend/javascripts/mutations'),
     },
+    extensions: ['', '.js', '.scss']
+  },
+  module: {
     loaders: [
       {
         test: /\.js$/,

@@ -45714,7 +45714,12 @@
 	            key: _this.props.answer.id,
 	            onTouchTap: _this._showForm,
 	            rightIconButton: _react2['default'].createElement(RemoveButton, { onTouchTap: _this._showDialog }),
-	            secondaryText: _this.props.answer.reaction && _this.props.answer.reaction.content
+	            secondaryTextLines: 3,
+	            secondaryText: _react2['default'].createElement(
+	              'p',
+	              { style: { whiteSpace: 'pre-wrap' } },
+	              _this.props.answer.reaction && _this.props.answer.reaction.content
+	            )
 	          },
 	          _this.props.answer.content
 	        ),
@@ -84201,11 +84206,6 @@
 	            metadata: {},
 	            type: 'String'
 	          }, {
-	            fieldName: 'position',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'Int'
-	          }, {
 	            children: [{
 	              fieldName: 'content',
 	              kind: 'Field',
@@ -89216,8 +89216,8 @@
 	          null,
 	          'Answers'
 	        ),
-	        _this.props.question.answers.edges.map(function (edge) {
-	          return _this._renderAnswer(edge.node);
+	        _this.props.question.answers.edges.map(function (edge, ii) {
+	          return _this._renderAnswer(edge.node, ii);
 	        })
 	      ) : _react2['default'].createElement(
 	        'div',
@@ -89226,15 +89226,15 @@
 	      );
 	    };
 
-	    this._renderAnswer = function (answer) {
-	      return _react2['default'].createElement(_AnswerItem2['default'], {
+	    this._renderAnswer = function (answer, ii) {
+	      return [ii == 0 ? null : _react2['default'].createElement(_materialUi.Divider, null), _react2['default'].createElement(_AnswerItem2['default'], {
 	        key: answer.id,
 	        answer: answer,
 	        questionID: _this.props.question.id,
 	        onSelect: function () {
 	          return _this.setState({ answer: answer });
 	        }
-	      });
+	      })];
 	    };
 
 	    this._renderAnswerForm = function () {

@@ -72,17 +72,19 @@ class QuestionApp extends React.Component {
     this.props.question.answers.edges.length > 0
       ? <List>
           <Subheader>Answers</Subheader>
-          { this.props.question.answers.edges.map(edge => this._renderAnswer(edge.node)) }
+          { this.props.question.answers.edges.map((edge, ii) => this._renderAnswer(edge.node, ii)) }
         </List>
       : <div>No answers</div>
 
-  _renderAnswer = (answer) =>
+  _renderAnswer = (answer, ii) => [
+    ii == 0 ? null : <Divider />,
     <AnswerItem
       key         = { answer.id }
       answer      = { answer }
       questionID  = { this.props.question.id }
       onSelect    = { () => this.setState({ answer }) }
-    />
+    />,
+  ]
 
   _renderAnswerForm = () =>
     this.state.answer === undefined

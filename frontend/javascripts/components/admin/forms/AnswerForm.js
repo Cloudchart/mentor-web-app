@@ -7,9 +7,9 @@ import {
   TextField,
 } from 'material-ui'
 
-import IntroduceAnswerMutation from '../../../mutations/IntroduceAnswer'
-import UpdateAnswerMutation from '../../../mutations/UpdateAnswer'
-import SetBotReactionToOwnerMutation from '../../../mutations/SetBotReactionToOwner'
+import IntroduceAnswerMutation from 'mutations/IntroduceAnswer'
+import UpdateAnswerMutation from 'mutations/UpdateAnswer'
+import SetBotReactionToOwnerMutation from 'mutations/SetBotReactionToOwner'
 
 export const ContentField = (props) =>
   <TextField
@@ -132,7 +132,6 @@ export default Relay.createContainer(AnswerForm, {
       fragment on Answer {
         id
         content
-        position
         reaction {
           content
         }

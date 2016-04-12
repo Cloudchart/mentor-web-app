@@ -57,10 +57,11 @@ class AnswerItem extends React.Component {
   render = () =>
     <div>
       <ListItem
-        key             = { this.props.answer.id }
-        onTouchTap      = { this._showForm }
-        rightIconButton = { <RemoveButton onTouchTap={ this._showDialog } /> }
-        secondaryText   = { this.props.answer.reaction && this.props.answer.reaction.content }
+        key                 = { this.props.answer.id }
+        onTouchTap          = { this._showForm }
+        rightIconButton     = { <RemoveButton onTouchTap={ this._showDialog } /> }
+        secondaryTextLines  = { 3 }
+        secondaryText       = { <p style={{ whiteSpace: 'pre-wrap' }}>{ this.props.answer.reaction && this.props.answer.reaction.content }</p> }
       >
         { this.props.answer.content }
       </ListItem>
