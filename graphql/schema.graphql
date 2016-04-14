@@ -350,6 +350,7 @@ type MarkTopicLinkAsReadPayload {
 }
 
 type Mutation {
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
   activateUser(input: ActivateUserInput!): ActivateUserPayload
   resetUser(input: ResetUserInput!): ResetUserPayload
   setUserPushToken(input: SetUserPushTokenInput!): SetUserPushTokenPayload
@@ -648,6 +649,7 @@ enum TopicInsightsFilterEnum {
   LIKED
   DISLIKED
   ADMIN
+  PREVIEW
 }
 
 type TopicLink implements Node {
@@ -772,6 +774,12 @@ type UpdateTopicLinkPayload {
   clientMutationId: String!
 }
 
+input UpdateUserInput {
+  email: String
+  name: String
+  clientMutationId: String!
+}
+
 input UpdateUserNotificationsSettingsInput {
   startAt: String
   finishAt: String
@@ -785,9 +793,15 @@ type UpdateUserNotificationsSettingsPayload {
   clientMutationId: String!
 }
 
+type UpdateUserPayload {
+  user: User!
+  clientMutationId: String!
+}
+
 type User implements Node {
   id: ID!
   name: String
+  email: String
   topics(after: String, first: Int, before: String, last: Int, filter: UserTopicsConnectionFilter = all): UserTopicsConnectionConnection
   collections(after: String, first: Int, before: String, last: Int): UserCollectionsConnectionConnection
   roles(after: String, first: Int, before: String, last: Int): UserRolesConnection
@@ -795,7 +809,7 @@ type User implements Node {
   pushToken: String
   themes(after: String, first: Int, before: String, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection
   theme(id: ID!): UserTheme!
-  insights(after: String, first: Int, before: String, last: Int, themeId: ID, userId: ID, filter: UserThemeInsightsFilterEnum): UserThemeInsightsConnection
+  insights(after: String, first: Int, before: String, last: Int, filter: UserInsightFilter = unratedForUser): UserInsightsConnection
   notificationsSettings: UserNotificationsSettings
 }
 
@@ -833,6 +847,23 @@ type UserCollectionsConnectionConnection {
 type UserCollectionsConnectionEdge {
   node: UserCollection
   cursor: String!
+}
+
+enum UserInsightFilter {
+  RATED
+  UNRATED
+  POSTPONED
+}
+
+type UserInsightsConnection {
+  pageInfo: PageInfo!
+  edges: [UserInsightsEdge]
+}
+
+type UserInsightsEdge {
+  node: Insight
+  cursor: String!
+  topic: Topic!
 }
 
 type UserNotificationsSettings {

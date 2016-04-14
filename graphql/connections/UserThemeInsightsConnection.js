@@ -21,7 +21,10 @@ import {
 } from '../../storage'
 
 import SynchronizeThemeInsightsJob from '../../workers/jobs/SynchronizeThemeInsightsJob'
-import SynchronizeUserThemeInsightsJob from '../../workers/jobs/SynchronizeUserThemeInsightsJob'
+// import SynchronizeUserThemeInsightsJob from '../../workers/jobs/SynchronizeUserThemeInsightsJob'
+import {
+  UpdateUserInsightsQueue
+} from '../../Tasks'
 
 
 export const UserThemeInsightsConnectionFilterEnum = new GraphQLEnumType({
@@ -65,7 +68,7 @@ export async function UserThemeInsightsConnectionResolve(root, args, { rootValue
 
   if (themeID) {
     await SynchronizeThemeInsightsJob.perform({ themeID })
-    await SynchronizeUserThemeInsightsJob.perform({ userID, themeID })
+    await UpdateUserInsightsQueue.perform({ user_id: userID })
   }
 
   let insights = await UserThemeInsightStorage.loadAll(filter + (themeID ? 'ForTheme' : ''), { userID, themeID })

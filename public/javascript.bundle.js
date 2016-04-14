@@ -87,7 +87,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(407)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(727)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(728)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -42970,8 +42970,8 @@
 		"./admin/ChooserApp.js": 698,
 		"./admin/LandingApp": 711,
 		"./admin/LandingApp.js": 711,
-		"./admin/QuestionApp": 722,
-		"./admin/QuestionApp.js": 722,
+		"./admin/QuestionApp": 724,
+		"./admin/QuestionApp.js": 724,
 		"./admin/QuestionsApp": 717,
 		"./admin/QuestionsApp.js": 717,
 		"./admin/TopicApp": 702,
@@ -42984,22 +42984,22 @@
 		"./admin/TopicsApp.js": 700,
 		"./admin/UsersApp": 712,
 		"./admin/UsersApp.js": 712,
-		"./admin/_TopicApp": 723,
-		"./admin/_TopicApp.js": 723,
+		"./admin/_TopicApp": 725,
+		"./admin/_TopicApp.js": 725,
 		"./admin/forms/AnswerForm": 693,
 		"./admin/forms/AnswerForm.js": 693,
 		"./admin/forms/InsightChooser": 706,
 		"./admin/forms/InsightChooser.js": 706,
-		"./admin/forms/NewQuestionForm": 718,
-		"./admin/forms/NewQuestionForm.js": 718,
-		"./admin/forms/QuestionForm": 724,
-		"./admin/forms/QuestionForm.js": 724,
+		"./admin/forms/NewQuestionForm": 726,
+		"./admin/forms/NewQuestionForm.js": 726,
+		"./admin/forms/QuestionForm": 719,
+		"./admin/forms/QuestionForm.js": 719,
 		"./admin/forms/RolesForm": 714,
 		"./admin/forms/RolesForm.js": 714,
 		"./admin/forms/TopicLinkForm": 704,
 		"./admin/forms/TopicLinkForm.js": 704,
-		"./admin/forms/_TopicLinkForm": 726,
-		"./admin/forms/_TopicLinkForm.js": 726
+		"./admin/forms/_TopicLinkForm": 727,
+		"./admin/forms/_TopicLinkForm.js": 727
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -44784,7 +44784,7 @@
 	                    canHaveSubselections: true,
 	                    isConnection: true
 	                  },
-	                  type: 'UserThemeInsightsConnection'
+	                  type: 'UserInsightsConnection'
 	                }, {
 	                  fieldName: 'id',
 	                  kind: 'Field',
@@ -44870,7 +44870,7 @@
 	                    canHaveSubselections: true,
 	                    isConnection: true
 	                  },
-	                  type: 'UserThemeInsightsConnection'
+	                  type: 'UserInsightsConnection'
 	                }, {
 	                  fieldName: 'id',
 	                  kind: 'Field',
@@ -44956,7 +44956,7 @@
 	                    canHaveSubselections: true,
 	                    isConnection: true
 	                  },
-	                  type: 'UserThemeInsightsConnection'
+	                  type: 'UserInsightsConnection'
 	                }, {
 	                  fieldName: 'id',
 	                  kind: 'Field',
@@ -88125,23 +88125,23 @@
 
 	var _materialUiLibSvgIconsNavigationClose2 = _interopRequireDefault(_materialUiLibSvgIconsNavigationClose);
 
-	var _materialUiLibSvgIconsContentAdd = __webpack_require__(731);
+	var _materialUiLibSvgIconsContentAdd = __webpack_require__(718);
 
 	var _materialUiLibSvgIconsContentAdd2 = _interopRequireDefault(_materialUiLibSvgIconsContentAdd);
 
-	var _formsQuestionForm = __webpack_require__(724);
+	var _formsQuestionForm = __webpack_require__(719);
 
 	var _formsQuestionForm2 = _interopRequireDefault(_formsQuestionForm);
 
-	var _mutationsRemoveQuestion = __webpack_require__(720);
+	var _mutationsRemoveQuestion = __webpack_require__(722);
 
 	var _mutationsRemoveQuestion2 = _interopRequireDefault(_mutationsRemoveQuestion);
 
-	var _mutationsUpdateQuestionPublishedStatus = __webpack_require__(721);
+	var _mutationsUpdateQuestionPublishedStatus = __webpack_require__(723);
 
 	var _mutationsUpdateQuestionPublishedStatus2 = _interopRequireDefault(_mutationsUpdateQuestionPublishedStatus);
 
-	var _QuestionApp = __webpack_require__(722);
+	var _QuestionApp = __webpack_require__(724);
 
 	var _QuestionApp2 = _interopRequireDefault(_QuestionApp);
 
@@ -88505,172 +88505,35 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRelay = __webpack_require__(160);
+	var _pure = __webpack_require__(504);
 
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+	var _pure2 = _interopRequireDefault(_pure);
 
-	var _materialUi = __webpack_require__(421);
+	var _svgIcon = __webpack_require__(561);
 
-	var _mutationsCreateQuestion = __webpack_require__(719);
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
 
-	var _mutationsCreateQuestion2 = _interopRequireDefault(_mutationsCreateQuestion);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _mutationsSetBotReactionToOwner = __webpack_require__(696);
-
-	var _mutationsSetBotReactionToOwner2 = _interopRequireDefault(_mutationsSetBotReactionToOwner);
-
-	var ContentField = function ContentField(_ref) {
-	  var value = _ref.value;
-	  var onChange = _ref.onChange;
-	  return _react2['default'].createElement(_materialUi.TextField, {
-	    floatingLabelText: 'Question',
-	    value: value,
-	    autoFocus: true,
-	    fullWidth: true,
-	    multiLine: true,
-	    onChange: onChange
-	  });
-	};
-
-	exports.ContentField = ContentField;
-	var BotReactionContentField = function BotReactionContentField(_ref2) {
-	  var value = _ref2.value;
-	  var onChange = _ref2.onChange;
-	  return _react2['default'].createElement(_materialUi.TextField, {
-	    floatingLabelText: 'Boris will say',
-	    value: value,
-	    fullWidth: true,
-	    multiLine: true,
-	    onChange: onChange
-	  });
-	};
-
-	exports.BotReactionContentField = BotReactionContentField;
-	var SeverityField = function SeverityField(_ref3) {
-	  var value = _ref3.value;
-	  var onChange = _ref3.onChange;
-	  return _react2['default'].createElement(
-	    _materialUi.SelectField,
-	    {
-	      floatingLabelText: 'Severity',
-	      value: value,
-	      onChange: onChange
-	    },
-	    _react2['default'].createElement(_materialUi.MenuItem, { value: -1, primaryText: 'Low' }),
-	    _react2['default'].createElement(_materialUi.MenuItem, { value: 0, primaryText: 'Normal' }),
-	    _react2['default'].createElement(_materialUi.MenuItem, { value: 1, primaryText: 'High' })
+	var ContentAdd = function ContentAdd(props) {
+	  return _react2.default.createElement(
+	    _svgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' })
 	  );
 	};
+	ContentAdd = (0, _pure2.default)(ContentAdd);
+	ContentAdd.displayName = 'ContentAdd';
 
-	exports.SeverityField = SeverityField;
-
-	var NewQuestionForm = (function (_React$Component) {
-	  _inherits(NewQuestionForm, _React$Component);
-
-	  function NewQuestionForm(props) {
-	    var _this = this;
-
-	    _classCallCheck(this, NewQuestionForm);
-
-	    _get(Object.getPrototypeOf(NewQuestionForm.prototype), 'constructor', this).call(this, props);
-
-	    this._handleInputChange = function (field, event) {
-	      var newFieldState = {};
-	      newFieldState[field] = event.target.value;
-	      _this.setState(newFieldState);
-	    };
-
-	    this._handleSeverityChange = function (event, index, value) {
-	      return _this.setState({ severity: value });
-	    };
-
-	    this._isValid = function () {
-	      return _this.state.content.trim().length > 0;
-	    };
-
-	    this._handleCreate = function () {
-	      if (!_this._isValid()) return;
-
-	      var mutation = new _mutationsCreateQuestion2['default']({
-	        adminID: _this.props.adminID,
-	        content: _this.state.content,
-	        severity: _this.state.severity
-	      });
-
-	      _reactRelay2['default'].Store.commitUpdate(mutation, {
-	        onSuccess: _this._addBotReaction,
-	        onFailure: function onFailure(transaction) {
-	          alert(transaction.getError());
-	        }
-	      });
-	    };
-
-	    this._addBotReaction = function (response) {
-	      if (!_this.state.botReactionContent) return _this.props.onDone();
-	      var questionID = response.createQuestion.questionEdge.node.id;
-	      var mutation = new _mutationsSetBotReactionToOwner2['default']({
-	        ownerID: questionID,
-	        content: _this.state.botReactionContent,
-	        mood: null
-	      });
-
-	      _reactRelay2['default'].Store.commitUpdate(mutation, {
-	        onSuccess: _this.props.onDone,
-	        onFailure: function onFailure(transaction) {
-	          alert(transaction.getError());
-	        }
-	      });
-	    };
-
-	    this.render = function () {
-	      return _react2['default'].createElement(
-	        _materialUi.Dialog,
-	        {
-	          title: 'Add new question',
-	          open: true,
-	          actions: _this._renderActions(),
-	          onRequestClose: _this.props.onCancel
-	        },
-	        _react2['default'].createElement(ContentField, { value: _this.state.content, onChange: _this._handleContentChange }),
-	        _react2['default'].createElement(SeverityField, { value: _this.state.severity, onChange: _this._handleSeverityChange }),
-	        _react2['default'].createElement(BotReactionContentField, { value: _this.state.botReactionContent, onChange: _this._handleBotReactionContentChange })
-	      );
-	    };
-
-	    this._renderActions = function () {
-	      return [_react2['default'].createElement(_materialUi.FlatButton, { label: 'Cancel', secondary: true, onTouchTap: _this.props.onCancel }), _react2['default'].createElement(_materialUi.FlatButton, { label: 'Create', primary: true, disabled: !_this._isValid(), onTouchTap: _this._handleCreate })];
-	    };
-
-	    this.state = {
-	      content: '',
-	      severity: 0,
-	      botReactionContent: ''
-	    };
-
-	    this._handleContentChange = this._handleInputChange.bind(this, 'content');
-	    this._handleBotReactionContentChange = this._handleInputChange.bind(this, 'botReactionContent');
-	  }
-
-	  return NewQuestionForm;
-	})(_react2['default'].Component);
-
-	exports['default'] = NewQuestionForm;
+	exports.default = ContentAdd;
 
 /***/ },
 /* 719 */
@@ -88692,499 +88555,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _reactRelay = __webpack_require__(160);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _default = (function (_Relay$Mutation) {
-	  _inherits(_default, _Relay$Mutation);
-
-	  function _default() {
-	    var _this = this;
-
-	    _classCallCheck(this, _default);
-
-	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.getMutation = function () {
-	      return (function () {
-	        return {
-	          calls: [{
-	            kind: 'Call',
-	            metadata: {},
-	            name: 'createQuestion',
-	            value: {
-	              kind: 'CallVariable',
-	              callVariableName: 'input'
-	            }
-	          }],
-	          children: [{
-	            fieldName: 'clientMutationId',
-	            kind: 'Field',
-	            metadata: {
-	              isGenerated: true,
-	              isRequisite: true
-	            },
-	            type: 'String'
-	          }],
-	          kind: 'Mutation',
-	          metadata: {
-	            inputType: 'CreateQuestionMutationInput!'
-	          },
-	          name: 'CreateQuestion',
-	          responseType: 'CreateQuestionMutationPayload'
-	        };
-	      })();
-	    };
-
-	    this.getFatQuery = function () {
-	      return (function () {
-	        return {
-	          children: [{
-	            children: [{
-	              fieldName: 'questions',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isConnection: true
-	              },
-	              type: 'QuestionsConnection'
-	            }, {
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'admin',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'Admin'
-	          }, {
-	            children: [{
-	              fieldName: 'cursor',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'String'
-	            }, {
-	              children: [{
-	                fieldName: 'id',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'ID'
-	              }],
-	              fieldName: 'node',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                inferredRootCallName: 'node',
-	                inferredPrimaryKey: 'id',
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'Question'
-	            }],
-	            fieldName: 'questionEdge',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true
-	            },
-	            type: 'QuestionsEdge'
-	          }],
-	          id: _reactRelay2['default'].QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'CreateQuestionRelayQL',
-	          type: 'CreateQuestionMutationPayload'
-	        };
-	      })();
-	    };
-
-	    this.getVariables = function () {
-	      return {
-	        content: _this.props.content,
-	        severity: _this.props.severity
-	      };
-	    };
-
-	    this.getConfigs = function () {
-	      return [{
-	        type: 'RANGE_ADD',
-	        parentName: 'admin',
-	        parentID: _this.props.admin.id,
-	        connectionName: 'questions',
-	        edgeName: 'questionEdge',
-	        rangeBehaviors: {
-	          '': 'prepend'
-	        }
-	      }];
-	    };
-	  }
-
-	  _createClass(_default, null, [{
-	    key: 'fragments',
-	    value: {
-	      admin: function admin() {
-	        return (function () {
-	          return {
-	            children: [{
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            id: _reactRelay2['default'].QL.__id(),
-	            kind: 'Fragment',
-	            metadata: {},
-	            name: 'CreateQuestionRelayQL',
-	            type: 'Admin'
-	          };
-	        })();
-	      }
-	    },
-	    enumerable: true
-	  }]);
-
-	  return _default;
-	})(_reactRelay2['default'].Mutation);
-
-	exports['default'] = _default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 720 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _reactRelay = __webpack_require__(160);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _default = (function (_Relay$Mutation) {
-	  _inherits(_default, _Relay$Mutation);
-
-	  function _default() {
-	    var _this = this;
-
-	    _classCallCheck(this, _default);
-
-	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.getMutation = function () {
-	      return (function () {
-	        return {
-	          calls: [{
-	            kind: 'Call',
-	            metadata: {},
-	            name: 'removeQuestion',
-	            value: {
-	              kind: 'CallVariable',
-	              callVariableName: 'input'
-	            }
-	          }],
-	          children: [{
-	            fieldName: 'clientMutationId',
-	            kind: 'Field',
-	            metadata: {
-	              isGenerated: true,
-	              isRequisite: true
-	            },
-	            type: 'String'
-	          }],
-	          kind: 'Mutation',
-	          metadata: {
-	            inputType: 'RemoveQuestionMutationInput!'
-	          },
-	          name: 'RemoveQuestion',
-	          responseType: 'RemoveQuestionMutationPayload'
-	        };
-	      })();
-	    };
-
-	    this.getFatQuery = function () {
-	      return (function () {
-	        return {
-	          children: [{
-	            children: [{
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'admin',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'Admin'
-	          }, {
-	            fieldName: 'questionID',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'ID'
-	          }],
-	          id: _reactRelay2['default'].QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'RemoveQuestionRelayQL',
-	          type: 'RemoveQuestionMutationPayload'
-	        };
-	      })();
-	    };
-
-	    this.getVariables = function () {
-	      return {
-	        questionID: _this.props.questionID
-	      };
-	    };
-
-	    this.getConfigs = function () {
-	      return [{
-	        type: 'NODE_DELETE',
-	        parentName: 'admin',
-	        parentID: _this.props.adminID,
-	        connectionName: 'questions',
-	        deletedIDFieldName: 'questionID'
-	      }];
-	    };
-	  }
-
-	  return _default;
-	})(_reactRelay2['default'].Mutation);
-
-	exports['default'] = _default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 721 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _reactRelay = __webpack_require__(160);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _default = (function (_Relay$Mutation) {
-	  _inherits(_default, _Relay$Mutation);
-
-	  function _default() {
-	    var _this = this;
-
-	    _classCallCheck(this, _default);
-
-	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.getMutation = function () {
-	      return _this.props.status ? (function () {
-	        return {
-	          calls: [{
-	            kind: 'Call',
-	            metadata: {},
-	            name: 'publishQuestion',
-	            value: {
-	              kind: 'CallVariable',
-	              callVariableName: 'input'
-	            }
-	          }],
-	          children: [{
-	            fieldName: 'clientMutationId',
-	            kind: 'Field',
-	            metadata: {
-	              isGenerated: true,
-	              isRequisite: true
-	            },
-	            type: 'String'
-	          }],
-	          kind: 'Mutation',
-	          metadata: {
-	            inputType: 'PublishQuestionMutationInput!'
-	          },
-	          name: 'UpdateQuestionPublishedStatus',
-	          responseType: 'PublishQuestionMutationPayload'
-	        };
-	      })() : (function () {
-	        return {
-	          calls: [{
-	            kind: 'Call',
-	            metadata: {},
-	            name: 'unpublishQuestion',
-	            value: {
-	              kind: 'CallVariable',
-	              callVariableName: 'input'
-	            }
-	          }],
-	          children: [{
-	            fieldName: 'clientMutationId',
-	            kind: 'Field',
-	            metadata: {
-	              isGenerated: true,
-	              isRequisite: true
-	            },
-	            type: 'String'
-	          }],
-	          kind: 'Mutation',
-	          metadata: {
-	            inputType: 'UnpublishQuestionMutationInput!'
-	          },
-	          name: 'UpdateQuestionPublishedStatus',
-	          responseType: 'UnpublishQuestionMutationPayload'
-	        };
-	      })();
-	    };
-
-	    this.getFatQuery = function () {
-	      return _this.props.status ? (function () {
-	        return {
-	          children: [{
-	            children: [{
-	              fieldName: 'isPublished',
-	              kind: 'Field',
-	              metadata: {},
-	              type: 'Boolean'
-	            }, {
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'question',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'Question'
-	          }],
-	          id: _reactRelay2['default'].QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'UpdateQuestionPublishedStatusRelayQL',
-	          type: 'PublishQuestionMutationPayload'
-	        };
-	      })() : (function () {
-	        return {
-	          children: [{
-	            children: [{
-	              fieldName: 'isPublished',
-	              kind: 'Field',
-	              metadata: {},
-	              type: 'Boolean'
-	            }, {
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'question',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'Question'
-	          }],
-	          id: _reactRelay2['default'].QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'UpdateQuestionPublishedStatusRelayQL',
-	          type: 'UnpublishQuestionMutationPayload'
-	        };
-	      })();
-	    };
-
-	    this.getVariables = function () {
-	      return {
-	        questionID: _this.props.questionID
-	      };
-	    };
-
-	    this.getConfigs = function () {
-	      return [{
-	        type: 'FIELDS_CHANGE',
-	        fieldIDs: { question: _this.props.questionID }
-	      }];
-	    };
-	  }
-
-	  return _default;
-	})(_reactRelay2['default'].Mutation);
-
-	exports['default'] = _default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 722 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -89195,638 +88565,11 @@
 
 	var _materialUi = __webpack_require__(421);
 
-	var _materialUiLibStylesColors = __webpack_require__(454);
-
-	var _AnswerItem = __webpack_require__(420);
-
-	var _AnswerItem2 = _interopRequireDefault(_AnswerItem);
-
-	var _formsAnswerForm = __webpack_require__(693);
-
-	var _formsAnswerForm2 = _interopRequireDefault(_formsAnswerForm);
-
-	var _formsQuestionForm = __webpack_require__(724);
-
-	var _formsQuestionForm2 = _interopRequireDefault(_formsQuestionForm);
-
-	var Severity = ['Low', 'Normal', 'High'];
-	var SeverityColors = [_materialUiLibStylesColors.grey500, _materialUiLibStylesColors.indigo500, _materialUiLibStylesColors.red500];
-
-	var QuestionApp = (function (_React$Component) {
-	  _inherits(QuestionApp, _React$Component);
-
-	  function QuestionApp(props) {
-	    var _this = this;
-
-	    _classCallCheck(this, QuestionApp);
-
-	    _get(Object.getPrototypeOf(QuestionApp.prototype), 'constructor', this).call(this, props);
-
-	    this._showQuestionForm = function () {
-	      return _this.setState({ shouldRenderQuestionForm: true });
-	    };
-
-	    this._hideQuestionForm = function () {
-	      return _this.setState({ shouldRenderQuestionForm: false });
-	    };
-
-	    this.render = function () {
-	      return _react2['default'].createElement(
-	        _materialUi.Card,
-	        { style: { margin: 20 } },
-	        _react2['default'].createElement(_materialUi.CardTitle, {
-	          title: _this.props.question.content,
-	          subtitle: _this.props.question.reaction && _this.props.question.reaction.content
-	        }),
-	        _react2['default'].createElement(_materialUi.Divider, null),
-	        _react2['default'].createElement(
-	          _materialUi.CardText,
-	          null,
-	          'asd;l'
-	        ),
-	        _this._renderQuestionForm()
-	      );
-	    };
-
-	    this.__render = function () {
-	      _react2['default'].createElement(
-	        _materialUi.Card,
-	        { style: { margin: 20 } },
-	        _react2['default'].createElement(_materialUi.CardTitle, { style: { backgroundColor: '#eee' }, title: _this.props.question.content }),
-	        _react2['default'].createElement(
-	          _materialUi.CardText,
-	          null,
-	          _this._renderQuestion(),
-	          _this._renderAnswers()
-	        ),
-	        _react2['default'].createElement(
-	          _materialUi.CardActions,
-	          { style: { display: 'flex' } },
-	          _react2['default'].createElement(_materialUi.FlatButton, { label: 'Add an answer', secondary: true, onTouchTap: function () {
-	              return _this.setState({ answer: null });
-	            } }),
-	          _react2['default'].createElement('div', { style: { flex: 1 } }),
-	          _react2['default'].createElement(_materialUi.FlatButton, { label: 'Cancel', secondary: true, onTouchTap: _this.props.onCancel }),
-	          _react2['default'].createElement(_materialUi.FlatButton, { label: 'Done', primary: true, onTouchTap: _this.props.onDone })
-	        ),
-	        _this._renderAnswerForm()
-	      );
-	    };
-
-	    this._renderQuestion = function () {
-	      return _react2['default'].createElement(
-	        _materialUi.ListItem,
-	        {
-	          secondaryText: _this.props.question.reaction && _this.props.question.reaction.content,
-	          onTouchTap: _this._showQuestionForm
-	        },
-	        _this.props.question.content,
-	        _react2['default'].createElement('br', null),
-	        _this._renderQuestionSeverity()
-	      );
-	    };
-
-	    this._renderQuestionSeverity = function () {
-	      return _react2['default'].createElement(
-	        'span',
-	        {
-	          style: _extends({}, Style.questionSeverity, { color: SeverityColors[_this.props.question.severity + 1] })
-	        },
-	        Severity[_this.props.question.severity + 1]
-	      );
-	    };
-
-	    this._renderQuestionForm = function () {
-	      return _this.state.shouldRenderQuestionForm ? _react2['default'].createElement(_formsQuestionForm2['default'], {
-	        question: _this.props.question,
-	        onCancel: _this._hideQuestionForm,
-	        onDone: _this._hideQuestionForm
-	      }) : null;
-	    };
-
-	    this._renderAnswers = function () {
-	      return _this.props.question.answers.edges.length > 0 ? _react2['default'].createElement(
-	        _materialUi.List,
-	        null,
-	        _react2['default'].createElement(
-	          _materialUi.Subheader,
-	          null,
-	          'Answers'
-	        ),
-	        _this.props.question.answers.edges.map(function (edge, ii) {
-	          return _this._renderAnswer(edge.node, ii);
-	        })
-	      ) : _react2['default'].createElement(
-	        'div',
-	        null,
-	        'No answers'
-	      );
-	    };
-
-	    this._renderAnswer = function (answer, ii) {
-	      return [ii == 0 ? null : _react2['default'].createElement(_materialUi.Divider, null), _react2['default'].createElement(_AnswerItem2['default'], {
-	        key: answer.id,
-	        answer: answer,
-	        questionID: _this.props.question.id,
-	        onSelect: function () {
-	          return _this.setState({ answer: answer });
-	        }
-	      })];
-	    };
-
-	    this._renderAnswerForm = function () {
-	      return _this.state.answer === undefined ? null : _react2['default'].createElement(_formsAnswerForm2['default'], {
-	        questionID: _this.props.question.id,
-	        answer: _this.state.answer,
-	        onCancel: function () {
-	          return _this.setState({ answer: undefined });
-	        },
-	        onDone: function () {
-	          return _this.setState({ answer: undefined });
-	        }
-	      });
-	    };
-
-	    this.state = {
-	      answer: undefined,
-	      shouldRenderQuestionForm: false
-	    };
-	  }
-
-	  return QuestionApp;
-	})(_react2['default'].Component);
-
-	var Style = {
-	  questionSeverity: {
-	    fontSize: '.75em',
-	    fontWeight: 'bold'
-	  }
-	};
-
-	exports['default'] = _reactRelay2['default'].createContainer(QuestionApp, {
-
-	  fragments: {
-
-	    question: function question() {
-	      return (function (RQL_0, RQL_1, RQL_2) {
-	        return {
-	          children: [].concat.apply([], [{
-	            fieldName: 'id',
-	            kind: 'Field',
-	            metadata: {
-	              isRequisite: true
-	            },
-	            type: 'ID'
-	          }, {
-	            fieldName: 'content',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'String'
-	          }, {
-	            fieldName: 'severity',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'Int'
-	          }, {
-	            children: [{
-	              fieldName: 'content',
-	              kind: 'Field',
-	              metadata: {},
-	              type: 'String'
-	            }, {
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'reaction',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'BotReaction'
-	          }, {
-	            calls: [{
-	              kind: 'Call',
-	              metadata: {},
-	              name: 'first',
-	              value: {
-	                kind: 'CallValue',
-	                callValue: 100
-	              }
-	            }],
-	            children: [{
-	              children: [{
-	                children: [].concat.apply([], [{
-	                  fieldName: 'id',
-	                  kind: 'Field',
-	                  metadata: {
-	                    isRequisite: true
-	                  },
-	                  type: 'ID'
-	                }, {
-	                  fieldName: 'content',
-	                  kind: 'Field',
-	                  metadata: {},
-	                  type: 'String'
-	                }, _reactRelay2['default'].QL.__frag(RQL_1), _reactRelay2['default'].QL.__frag(RQL_2)]),
-	                fieldName: 'node',
-	                kind: 'Field',
-	                metadata: {
-	                  canHaveSubselections: true,
-	                  inferredRootCallName: 'node',
-	                  inferredPrimaryKey: 'id',
-	                  isRequisite: true
-	                },
-	                type: 'Answer'
-	              }, {
-	                fieldName: 'cursor',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'String'
-	              }],
-	              fieldName: 'edges',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isPlural: true
-	              },
-	              type: 'QuestionAnswersEdge'
-	            }, {
-	              children: [{
-	                fieldName: 'hasNextPage',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'Boolean'
-	              }, {
-	                fieldName: 'hasPreviousPage',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'Boolean'
-	              }],
-	              fieldName: 'pageInfo',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'PageInfo'
-	            }],
-	            fieldName: 'answers',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              isConnection: true
-	            },
-	            type: 'QuestionAnswersConnection'
-	          }, _reactRelay2['default'].QL.__frag(RQL_0)]),
-	          id: _reactRelay2['default'].QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'QuestionAppRelayQL',
-	          type: 'Question'
-	        };
-	      })(_formsQuestionForm2['default'].getFragment('question'), _AnswerItem2['default'].getFragment('answer'), _formsAnswerForm2['default'].getFragment('answer'));
-	    }
-
-	  }
-
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 723 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRelay = __webpack_require__(160);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _mutationsAdminRemoveTopicLink = __webpack_require__(709);
-
-	var _mutationsAdminRemoveTopicLink2 = _interopRequireDefault(_mutationsAdminRemoveTopicLink);
-
-	var _formsTopicLinkForm = __webpack_require__(704);
-
-	var _formsTopicLinkForm2 = _interopRequireDefault(_formsTopicLinkForm);
-
-	var TopicsApp = (function (_React$Component) {
-	  _inherits(TopicsApp, _React$Component);
-
-	  function TopicsApp() {
-	    _classCallCheck(this, TopicsApp);
-
-	    _get(Object.getPrototypeOf(TopicsApp.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.state = {
-	      inAddLinkMode: false
-	    };
-	  }
-
-	  _createClass(TopicsApp, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2['default'].createElement(
-	        'div',
-	        null,
-	        this.props.node.name,
-	        _react2['default'].createElement(
-	          'ul',
-	          null,
-	          this._renderLinks(),
-	          this._renderAddLinkButton(),
-	          this._renderTopicLinkForm()
-	        )
-	      );
-	    }
-	  }, {
-	    key: '_renderLinks',
-	    value: function _renderLinks() {
-	      var _this = this;
-
-	      if (this.state.inAddLinkMode) return null;
-
-	      return this.props.node.links.edges.length > 0 ? this.props.node.links.edges.map(function (edge) {
-	        return _this._renderLink(edge.node);
-	      }) : _react2['default'].createElement(
-	        'li',
-	        null,
-	        'no links'
-	      );
-	    }
-	  }, {
-	    key: '_renderLink',
-	    value: function _renderLink(link) {
-	      var _this2 = this;
-
-	      return _react2['default'].createElement(
-	        'li',
-	        { key: link.id },
-	        link.title,
-	        _react2['default'].createElement(
-	          'span',
-	          null,
-	          ' '
-	        ),
-	        _react2['default'].createElement(
-	          'a',
-	          { href: '#', onClick: function (event) {
-	              return _this2._handleRemoveLink(event, link.id);
-	            } },
-	          '[x]'
-	        )
-	      );
-	    }
-	  }, {
-	    key: '_renderAddLinkButton',
-	    value: function _renderAddLinkButton() {
-	      var _this3 = this;
-
-	      if (this.state.inAddLinkMode) return null;
-
-	      return _react2['default'].createElement(
-	        'li',
-	        null,
-	        _react2['default'].createElement(
-	          'button',
-	          { onClick: function (event) {
-	              return _this3.setState({ inAddLinkMode: true });
-	            } },
-	          'Add link'
-	        )
-	      );
-	    }
-	  }, {
-	    key: '_renderTopicLinkForm',
-	    value: function _renderTopicLinkForm() {
-	      var _this4 = this;
-
-	      if (!this.state.inAddLinkMode) return null;
-
-	      return _react2['default'].createElement(_formsTopicLinkForm2['default'], {
-	        topicID: this.props.node.id,
-	        onDone: function () {
-	          return _this4.setState({ inAddLinkMode: false });
-	        },
-	        onCancel: function () {
-	          return _this4.setState({ inAddLinkMode: false });
-	        }
-	      });
-	    }
-	  }, {
-	    key: '_handleRemoveLink',
-	    value: function _handleRemoveLink(event, linkID) {
-	      event.preventDefault();
-	      if (!confirm('Are you sure?')) return;
-	      _reactRelay2['default'].Store.update(new _mutationsAdminRemoveTopicLink2['default']({
-	        linkID: linkID,
-	        topicID: this.props.node.id
-	      }), {
-	        onFailure: function onFailure() {
-	          return alert('Shit happens :)');
-	        }
-	      });
-	    }
-	  }]);
-
-	  return TopicsApp;
-	})(_react2['default'].Component);
-
-	exports['default'] = _reactRelay2['default'].createContainer(TopicsApp, {
-
-	  initialVariables: {
-	    firstLinks: 10
-	  },
-
-	  fragments: {
-	    node: function node() {
-	      return (function () {
-	        return {
-	          children: [{
-	            fieldName: 'id',
-	            kind: 'Field',
-	            metadata: {
-	              isRequisite: true
-	            },
-	            type: 'ID'
-	          }, {
-	            fieldName: 'name',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'String'
-	          }, {
-	            calls: [{
-	              kind: 'Call',
-	              metadata: {},
-	              name: 'first',
-	              value: {
-	                kind: 'CallVariable',
-	                callVariableName: 'firstLinks'
-	              }
-	            }],
-	            children: [{
-	              children: [{
-	                children: [{
-	                  fieldName: 'id',
-	                  kind: 'Field',
-	                  metadata: {
-	                    isRequisite: true
-	                  },
-	                  type: 'ID'
-	                }, {
-	                  fieldName: 'url',
-	                  kind: 'Field',
-	                  metadata: {},
-	                  type: 'String'
-	                }, {
-	                  fieldName: 'title',
-	                  kind: 'Field',
-	                  metadata: {},
-	                  type: 'String'
-	                }],
-	                fieldName: 'node',
-	                kind: 'Field',
-	                metadata: {
-	                  canHaveSubselections: true,
-	                  inferredRootCallName: 'node',
-	                  inferredPrimaryKey: 'id',
-	                  isRequisite: true
-	                },
-	                type: 'TopicLink'
-	              }, {
-	                fieldName: 'cursor',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'String'
-	              }],
-	              fieldName: 'edges',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isPlural: true
-	              },
-	              type: 'TopicLinksEdge'
-	            }, {
-	              children: [{
-	                fieldName: 'hasNextPage',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'Boolean'
-	              }, {
-	                fieldName: 'hasPreviousPage',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'Boolean'
-	              }],
-	              fieldName: 'pageInfo',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'PageInfo'
-	            }],
-	            fieldName: 'links',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              isConnection: true
-	            },
-	            type: 'TopicLinksConnection'
-	          }],
-	          id: _reactRelay2['default'].QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: '_TopicAppRelayQL',
-	          type: 'Topic'
-	        };
-	      })();
-	    }
-	  }
-
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 724 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRelay = __webpack_require__(160);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _materialUi = __webpack_require__(421);
-
-	var _mutationsCreateQuestion = __webpack_require__(719);
+	var _mutationsCreateQuestion = __webpack_require__(720);
 
 	var _mutationsCreateQuestion2 = _interopRequireDefault(_mutationsCreateQuestion);
 
-	var _mutationsUpdateQuestion = __webpack_require__(725);
+	var _mutationsUpdateQuestion = __webpack_require__(721);
 
 	var _mutationsUpdateQuestion2 = _interopRequireDefault(_mutationsUpdateQuestion);
 
@@ -90140,7 +88883,200 @@
 	});
 
 /***/ },
-/* 725 */
+/* 720 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'createQuestion',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'CreateQuestionMutationInput!'
+	          },
+	          name: 'CreateQuestion',
+	          responseType: 'CreateQuestionMutationPayload'
+	        };
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'questions',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isConnection: true
+	              },
+	              type: 'QuestionsConnection'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'admin',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Admin'
+	          }, {
+	            children: [{
+	              fieldName: 'cursor',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'String'
+	            }, {
+	              children: [{
+	                fieldName: 'id',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'ID'
+	              }],
+	              fieldName: 'node',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                inferredRootCallName: 'node',
+	                inferredPrimaryKey: 'id',
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'Question'
+	            }],
+	            fieldName: 'questionEdge',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true
+	            },
+	            type: 'QuestionsEdge'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'CreateQuestionRelayQL',
+	          type: 'CreateQuestionMutationPayload'
+	        };
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        content: _this.props.content,
+	        severity: _this.props.severity
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'RANGE_ADD',
+	        parentName: 'admin',
+	        parentID: _this.props.admin.id,
+	        connectionName: 'questions',
+	        edgeName: 'questionEdge',
+	        rangeBehaviors: {
+	          '': 'prepend'
+	        }
+	      }];
+	    };
+	  }
+
+	  _createClass(_default, null, [{
+	    key: 'fragments',
+	    value: {
+	      admin: function admin() {
+	        return (function () {
+	          return {
+	            children: [{
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            id: _reactRelay2['default'].QL.__id(),
+	            kind: 'Fragment',
+	            metadata: {},
+	            name: 'CreateQuestionRelayQL',
+	            type: 'Admin'
+	          };
+	        })();
+	      }
+	    },
+	    enumerable: true
+	  }]);
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 721 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90294,7 +89230,1107 @@
 	module.exports = exports['default'];
 
 /***/ },
+/* 722 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'removeQuestion',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'RemoveQuestionMutationInput!'
+	          },
+	          name: 'RemoveQuestion',
+	          responseType: 'RemoveQuestionMutationPayload'
+	        };
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'admin',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Admin'
+	          }, {
+	            fieldName: 'questionID',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'ID'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'RemoveQuestionRelayQL',
+	          type: 'RemoveQuestionMutationPayload'
+	        };
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        questionID: _this.props.questionID
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'NODE_DELETE',
+	        parentName: 'admin',
+	        parentID: _this.props.adminID,
+	        connectionName: 'questions',
+	        deletedIDFieldName: 'questionID'
+	      }];
+	    };
+	  }
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 723 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return _this.props.status ? (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'publishQuestion',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'PublishQuestionMutationInput!'
+	          },
+	          name: 'UpdateQuestionPublishedStatus',
+	          responseType: 'PublishQuestionMutationPayload'
+	        };
+	      })() : (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'unpublishQuestion',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'UnpublishQuestionMutationInput!'
+	          },
+	          name: 'UpdateQuestionPublishedStatus',
+	          responseType: 'UnpublishQuestionMutationPayload'
+	        };
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return _this.props.status ? (function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'isPublished',
+	              kind: 'Field',
+	              metadata: {},
+	              type: 'Boolean'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'question',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Question'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'UpdateQuestionPublishedStatusRelayQL',
+	          type: 'PublishQuestionMutationPayload'
+	        };
+	      })() : (function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'isPublished',
+	              kind: 'Field',
+	              metadata: {},
+	              type: 'Boolean'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'question',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Question'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'UpdateQuestionPublishedStatusRelayQL',
+	          type: 'UnpublishQuestionMutationPayload'
+	        };
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        questionID: _this.props.questionID
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: { question: _this.props.questionID }
+	      }];
+	    };
+	  }
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 724 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _materialUi = __webpack_require__(421);
+
+	var _materialUiLibStylesColors = __webpack_require__(454);
+
+	var _AnswerItem = __webpack_require__(420);
+
+	var _AnswerItem2 = _interopRequireDefault(_AnswerItem);
+
+	var _formsAnswerForm = __webpack_require__(693);
+
+	var _formsAnswerForm2 = _interopRequireDefault(_formsAnswerForm);
+
+	var _formsQuestionForm = __webpack_require__(719);
+
+	var _formsQuestionForm2 = _interopRequireDefault(_formsQuestionForm);
+
+	var Severity = ['Low', 'Normal', 'High'];
+	var SeverityColors = [_materialUiLibStylesColors.grey500, _materialUiLibStylesColors.indigo500, _materialUiLibStylesColors.red500];
+
+	var QuestionApp = (function (_React$Component) {
+	  _inherits(QuestionApp, _React$Component);
+
+	  function QuestionApp(props) {
+	    var _this = this;
+
+	    _classCallCheck(this, QuestionApp);
+
+	    _get(Object.getPrototypeOf(QuestionApp.prototype), 'constructor', this).call(this, props);
+
+	    this._showQuestionForm = function () {
+	      return _this.setState({ shouldRenderQuestionForm: true });
+	    };
+
+	    this._hideQuestionForm = function () {
+	      return _this.setState({ shouldRenderQuestionForm: false });
+	    };
+
+	    this.render = function () {
+	      return _react2['default'].createElement(
+	        _materialUi.Card,
+	        { style: { margin: 20 } },
+	        _react2['default'].createElement(_materialUi.CardTitle, {
+	          title: _this.props.question.content,
+	          subtitle: _this.props.question.reaction && _this.props.question.reaction.content
+	        }),
+	        _react2['default'].createElement(_materialUi.Divider, null),
+	        _react2['default'].createElement(
+	          _materialUi.CardText,
+	          null,
+	          'asd;l'
+	        ),
+	        _this._renderQuestionForm()
+	      );
+	    };
+
+	    this.__render = function () {
+	      _react2['default'].createElement(
+	        _materialUi.Card,
+	        { style: { margin: 20 } },
+	        _react2['default'].createElement(_materialUi.CardTitle, { style: { backgroundColor: '#eee' }, title: _this.props.question.content }),
+	        _react2['default'].createElement(
+	          _materialUi.CardText,
+	          null,
+	          _this._renderQuestion(),
+	          _this._renderAnswers()
+	        ),
+	        _react2['default'].createElement(
+	          _materialUi.CardActions,
+	          { style: { display: 'flex' } },
+	          _react2['default'].createElement(_materialUi.FlatButton, { label: 'Add an answer', secondary: true, onTouchTap: function () {
+	              return _this.setState({ answer: null });
+	            } }),
+	          _react2['default'].createElement('div', { style: { flex: 1 } }),
+	          _react2['default'].createElement(_materialUi.FlatButton, { label: 'Cancel', secondary: true, onTouchTap: _this.props.onCancel }),
+	          _react2['default'].createElement(_materialUi.FlatButton, { label: 'Done', primary: true, onTouchTap: _this.props.onDone })
+	        ),
+	        _this._renderAnswerForm()
+	      );
+	    };
+
+	    this._renderQuestion = function () {
+	      return _react2['default'].createElement(
+	        _materialUi.ListItem,
+	        {
+	          secondaryText: _this.props.question.reaction && _this.props.question.reaction.content,
+	          onTouchTap: _this._showQuestionForm
+	        },
+	        _this.props.question.content,
+	        _react2['default'].createElement('br', null),
+	        _this._renderQuestionSeverity()
+	      );
+	    };
+
+	    this._renderQuestionSeverity = function () {
+	      return _react2['default'].createElement(
+	        'span',
+	        {
+	          style: _extends({}, Style.questionSeverity, { color: SeverityColors[_this.props.question.severity + 1] })
+	        },
+	        Severity[_this.props.question.severity + 1]
+	      );
+	    };
+
+	    this._renderQuestionForm = function () {
+	      return _this.state.shouldRenderQuestionForm ? _react2['default'].createElement(_formsQuestionForm2['default'], {
+	        question: _this.props.question,
+	        onCancel: _this._hideQuestionForm,
+	        onDone: _this._hideQuestionForm
+	      }) : null;
+	    };
+
+	    this._renderAnswers = function () {
+	      return _this.props.question.answers.edges.length > 0 ? _react2['default'].createElement(
+	        _materialUi.List,
+	        null,
+	        _react2['default'].createElement(
+	          _materialUi.Subheader,
+	          null,
+	          'Answers'
+	        ),
+	        _this.props.question.answers.edges.map(function (edge, ii) {
+	          return _this._renderAnswer(edge.node, ii);
+	        })
+	      ) : _react2['default'].createElement(
+	        'div',
+	        null,
+	        'No answers'
+	      );
+	    };
+
+	    this._renderAnswer = function (answer, ii) {
+	      return [ii == 0 ? null : _react2['default'].createElement(_materialUi.Divider, null), _react2['default'].createElement(_AnswerItem2['default'], {
+	        key: answer.id,
+	        answer: answer,
+	        questionID: _this.props.question.id,
+	        onSelect: function () {
+	          return _this.setState({ answer: answer });
+	        }
+	      })];
+	    };
+
+	    this._renderAnswerForm = function () {
+	      return _this.state.answer === undefined ? null : _react2['default'].createElement(_formsAnswerForm2['default'], {
+	        questionID: _this.props.question.id,
+	        answer: _this.state.answer,
+	        onCancel: function () {
+	          return _this.setState({ answer: undefined });
+	        },
+	        onDone: function () {
+	          return _this.setState({ answer: undefined });
+	        }
+	      });
+	    };
+
+	    this.state = {
+	      answer: undefined,
+	      shouldRenderQuestionForm: false
+	    };
+	  }
+
+	  return QuestionApp;
+	})(_react2['default'].Component);
+
+	var Style = {
+	  questionSeverity: {
+	    fontSize: '.75em',
+	    fontWeight: 'bold'
+	  }
+	};
+
+	exports['default'] = _reactRelay2['default'].createContainer(QuestionApp, {
+
+	  fragments: {
+
+	    question: function question() {
+	      return (function (RQL_0, RQL_1, RQL_2) {
+	        return {
+	          children: [].concat.apply([], [{
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }, {
+	            fieldName: 'content',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, {
+	            fieldName: 'severity',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'Int'
+	          }, {
+	            children: [{
+	              fieldName: 'content',
+	              kind: 'Field',
+	              metadata: {},
+	              type: 'String'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'reaction',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'BotReaction'
+	          }, {
+	            calls: [{
+	              kind: 'Call',
+	              metadata: {},
+	              name: 'first',
+	              value: {
+	                kind: 'CallValue',
+	                callValue: 100
+	              }
+	            }],
+	            children: [{
+	              children: [{
+	                children: [].concat.apply([], [{
+	                  fieldName: 'id',
+	                  kind: 'Field',
+	                  metadata: {
+	                    isRequisite: true
+	                  },
+	                  type: 'ID'
+	                }, {
+	                  fieldName: 'content',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, _reactRelay2['default'].QL.__frag(RQL_1), _reactRelay2['default'].QL.__frag(RQL_2)]),
+	                fieldName: 'node',
+	                kind: 'Field',
+	                metadata: {
+	                  canHaveSubselections: true,
+	                  inferredRootCallName: 'node',
+	                  inferredPrimaryKey: 'id',
+	                  isRequisite: true
+	                },
+	                type: 'Answer'
+	              }, {
+	                fieldName: 'cursor',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'String'
+	              }],
+	              fieldName: 'edges',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isPlural: true
+	              },
+	              type: 'QuestionAnswersEdge'
+	            }, {
+	              children: [{
+	                fieldName: 'hasNextPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }, {
+	                fieldName: 'hasPreviousPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }],
+	              fieldName: 'pageInfo',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'PageInfo'
+	            }],
+	            fieldName: 'answers',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              isConnection: true
+	            },
+	            type: 'QuestionAnswersConnection'
+	          }, _reactRelay2['default'].QL.__frag(RQL_0)]),
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'QuestionAppRelayQL',
+	          type: 'Question'
+	        };
+	      })(_formsQuestionForm2['default'].getFragment('question'), _AnswerItem2['default'].getFragment('answer'), _formsAnswerForm2['default'].getFragment('answer'));
+	    }
+
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 725 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _mutationsAdminRemoveTopicLink = __webpack_require__(709);
+
+	var _mutationsAdminRemoveTopicLink2 = _interopRequireDefault(_mutationsAdminRemoveTopicLink);
+
+	var _formsTopicLinkForm = __webpack_require__(704);
+
+	var _formsTopicLinkForm2 = _interopRequireDefault(_formsTopicLinkForm);
+
+	var TopicsApp = (function (_React$Component) {
+	  _inherits(TopicsApp, _React$Component);
+
+	  function TopicsApp() {
+	    _classCallCheck(this, TopicsApp);
+
+	    _get(Object.getPrototypeOf(TopicsApp.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.state = {
+	      inAddLinkMode: false
+	    };
+	  }
+
+	  _createClass(TopicsApp, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        this.props.node.name,
+	        _react2['default'].createElement(
+	          'ul',
+	          null,
+	          this._renderLinks(),
+	          this._renderAddLinkButton(),
+	          this._renderTopicLinkForm()
+	        )
+	      );
+	    }
+	  }, {
+	    key: '_renderLinks',
+	    value: function _renderLinks() {
+	      var _this = this;
+
+	      if (this.state.inAddLinkMode) return null;
+
+	      return this.props.node.links.edges.length > 0 ? this.props.node.links.edges.map(function (edge) {
+	        return _this._renderLink(edge.node);
+	      }) : _react2['default'].createElement(
+	        'li',
+	        null,
+	        'no links'
+	      );
+	    }
+	  }, {
+	    key: '_renderLink',
+	    value: function _renderLink(link) {
+	      var _this2 = this;
+
+	      return _react2['default'].createElement(
+	        'li',
+	        { key: link.id },
+	        link.title,
+	        _react2['default'].createElement(
+	          'span',
+	          null,
+	          ' '
+	        ),
+	        _react2['default'].createElement(
+	          'a',
+	          { href: '#', onClick: function (event) {
+	              return _this2._handleRemoveLink(event, link.id);
+	            } },
+	          '[x]'
+	        )
+	      );
+	    }
+	  }, {
+	    key: '_renderAddLinkButton',
+	    value: function _renderAddLinkButton() {
+	      var _this3 = this;
+
+	      if (this.state.inAddLinkMode) return null;
+
+	      return _react2['default'].createElement(
+	        'li',
+	        null,
+	        _react2['default'].createElement(
+	          'button',
+	          { onClick: function (event) {
+	              return _this3.setState({ inAddLinkMode: true });
+	            } },
+	          'Add link'
+	        )
+	      );
+	    }
+	  }, {
+	    key: '_renderTopicLinkForm',
+	    value: function _renderTopicLinkForm() {
+	      var _this4 = this;
+
+	      if (!this.state.inAddLinkMode) return null;
+
+	      return _react2['default'].createElement(_formsTopicLinkForm2['default'], {
+	        topicID: this.props.node.id,
+	        onDone: function () {
+	          return _this4.setState({ inAddLinkMode: false });
+	        },
+	        onCancel: function () {
+	          return _this4.setState({ inAddLinkMode: false });
+	        }
+	      });
+	    }
+	  }, {
+	    key: '_handleRemoveLink',
+	    value: function _handleRemoveLink(event, linkID) {
+	      event.preventDefault();
+	      if (!confirm('Are you sure?')) return;
+	      _reactRelay2['default'].Store.update(new _mutationsAdminRemoveTopicLink2['default']({
+	        linkID: linkID,
+	        topicID: this.props.node.id
+	      }), {
+	        onFailure: function onFailure() {
+	          return alert('Shit happens :)');
+	        }
+	      });
+	    }
+	  }]);
+
+	  return TopicsApp;
+	})(_react2['default'].Component);
+
+	exports['default'] = _reactRelay2['default'].createContainer(TopicsApp, {
+
+	  initialVariables: {
+	    firstLinks: 10
+	  },
+
+	  fragments: {
+	    node: function node() {
+	      return (function () {
+	        return {
+	          children: [{
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }, {
+	            fieldName: 'name',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, {
+	            calls: [{
+	              kind: 'Call',
+	              metadata: {},
+	              name: 'first',
+	              value: {
+	                kind: 'CallVariable',
+	                callVariableName: 'firstLinks'
+	              }
+	            }],
+	            children: [{
+	              children: [{
+	                children: [{
+	                  fieldName: 'id',
+	                  kind: 'Field',
+	                  metadata: {
+	                    isRequisite: true
+	                  },
+	                  type: 'ID'
+	                }, {
+	                  fieldName: 'url',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  fieldName: 'title',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }],
+	                fieldName: 'node',
+	                kind: 'Field',
+	                metadata: {
+	                  canHaveSubselections: true,
+	                  inferredRootCallName: 'node',
+	                  inferredPrimaryKey: 'id',
+	                  isRequisite: true
+	                },
+	                type: 'TopicLink'
+	              }, {
+	                fieldName: 'cursor',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'String'
+	              }],
+	              fieldName: 'edges',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isPlural: true
+	              },
+	              type: 'TopicLinksEdge'
+	            }, {
+	              children: [{
+	                fieldName: 'hasNextPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }, {
+	                fieldName: 'hasPreviousPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }],
+	              fieldName: 'pageInfo',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'PageInfo'
+	            }],
+	            fieldName: 'links',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              isConnection: true
+	            },
+	            type: 'TopicLinksConnection'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: '_TopicAppRelayQL',
+	          type: 'Topic'
+	        };
+	      })();
+	    }
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
 /* 726 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _materialUi = __webpack_require__(421);
+
+	var _mutationsCreateQuestion = __webpack_require__(720);
+
+	var _mutationsCreateQuestion2 = _interopRequireDefault(_mutationsCreateQuestion);
+
+	var _mutationsSetBotReactionToOwner = __webpack_require__(696);
+
+	var _mutationsSetBotReactionToOwner2 = _interopRequireDefault(_mutationsSetBotReactionToOwner);
+
+	var ContentField = function ContentField(_ref) {
+	  var value = _ref.value;
+	  var onChange = _ref.onChange;
+	  return _react2['default'].createElement(_materialUi.TextField, {
+	    floatingLabelText: 'Question',
+	    value: value,
+	    autoFocus: true,
+	    fullWidth: true,
+	    multiLine: true,
+	    onChange: onChange
+	  });
+	};
+
+	exports.ContentField = ContentField;
+	var BotReactionContentField = function BotReactionContentField(_ref2) {
+	  var value = _ref2.value;
+	  var onChange = _ref2.onChange;
+	  return _react2['default'].createElement(_materialUi.TextField, {
+	    floatingLabelText: 'Boris will say',
+	    value: value,
+	    fullWidth: true,
+	    multiLine: true,
+	    onChange: onChange
+	  });
+	};
+
+	exports.BotReactionContentField = BotReactionContentField;
+	var SeverityField = function SeverityField(_ref3) {
+	  var value = _ref3.value;
+	  var onChange = _ref3.onChange;
+	  return _react2['default'].createElement(
+	    _materialUi.SelectField,
+	    {
+	      floatingLabelText: 'Severity',
+	      value: value,
+	      onChange: onChange
+	    },
+	    _react2['default'].createElement(_materialUi.MenuItem, { value: -1, primaryText: 'Low' }),
+	    _react2['default'].createElement(_materialUi.MenuItem, { value: 0, primaryText: 'Normal' }),
+	    _react2['default'].createElement(_materialUi.MenuItem, { value: 1, primaryText: 'High' })
+	  );
+	};
+
+	exports.SeverityField = SeverityField;
+
+	var NewQuestionForm = (function (_React$Component) {
+	  _inherits(NewQuestionForm, _React$Component);
+
+	  function NewQuestionForm(props) {
+	    var _this = this;
+
+	    _classCallCheck(this, NewQuestionForm);
+
+	    _get(Object.getPrototypeOf(NewQuestionForm.prototype), 'constructor', this).call(this, props);
+
+	    this._handleInputChange = function (field, event) {
+	      var newFieldState = {};
+	      newFieldState[field] = event.target.value;
+	      _this.setState(newFieldState);
+	    };
+
+	    this._handleSeverityChange = function (event, index, value) {
+	      return _this.setState({ severity: value });
+	    };
+
+	    this._isValid = function () {
+	      return _this.state.content.trim().length > 0;
+	    };
+
+	    this._handleCreate = function () {
+	      if (!_this._isValid()) return;
+
+	      var mutation = new _mutationsCreateQuestion2['default']({
+	        adminID: _this.props.adminID,
+	        content: _this.state.content,
+	        severity: _this.state.severity
+	      });
+
+	      _reactRelay2['default'].Store.commitUpdate(mutation, {
+	        onSuccess: _this._addBotReaction,
+	        onFailure: function onFailure(transaction) {
+	          alert(transaction.getError());
+	        }
+	      });
+	    };
+
+	    this._addBotReaction = function (response) {
+	      if (!_this.state.botReactionContent) return _this.props.onDone();
+	      var questionID = response.createQuestion.questionEdge.node.id;
+	      var mutation = new _mutationsSetBotReactionToOwner2['default']({
+	        ownerID: questionID,
+	        content: _this.state.botReactionContent,
+	        mood: null
+	      });
+
+	      _reactRelay2['default'].Store.commitUpdate(mutation, {
+	        onSuccess: _this.props.onDone,
+	        onFailure: function onFailure(transaction) {
+	          alert(transaction.getError());
+	        }
+	      });
+	    };
+
+	    this.render = function () {
+	      return _react2['default'].createElement(
+	        _materialUi.Dialog,
+	        {
+	          title: 'Add new question',
+	          open: true,
+	          actions: _this._renderActions(),
+	          onRequestClose: _this.props.onCancel
+	        },
+	        _react2['default'].createElement(ContentField, { value: _this.state.content, onChange: _this._handleContentChange }),
+	        _react2['default'].createElement(SeverityField, { value: _this.state.severity, onChange: _this._handleSeverityChange }),
+	        _react2['default'].createElement(BotReactionContentField, { value: _this.state.botReactionContent, onChange: _this._handleBotReactionContentChange })
+	      );
+	    };
+
+	    this._renderActions = function () {
+	      return [_react2['default'].createElement(_materialUi.FlatButton, { label: 'Cancel', secondary: true, onTouchTap: _this.props.onCancel }), _react2['default'].createElement(_materialUi.FlatButton, { label: 'Create', primary: true, disabled: !_this._isValid(), onTouchTap: _this._handleCreate })];
+	    };
+
+	    this.state = {
+	      content: '',
+	      severity: 0,
+	      botReactionContent: ''
+	    };
+
+	    this._handleContentChange = this._handleInputChange.bind(this, 'content');
+	    this._handleBotReactionContentChange = this._handleInputChange.bind(this, 'botReactionContent');
+	  }
+
+	  return NewQuestionForm;
+	})(_react2['default'].Component);
+
+	exports['default'] = NewQuestionForm;
+
+/***/ },
+/* 727 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90585,18 +90621,18 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 727 */
+/* 728 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
 		"./NodeRoute": 701,
 		"./NodeRoute.js": 701,
-		"./ThemeAppRoute": 728,
-		"./ThemeAppRoute.js": 728,
-		"./ThemesRoute": 729,
-		"./ThemesRoute.js": 729,
-		"./ViewerRoute": 730,
-		"./ViewerRoute.js": 730,
+		"./ThemeAppRoute": 729,
+		"./ThemeAppRoute.js": 729,
+		"./ThemesRoute": 730,
+		"./ThemesRoute.js": 730,
+		"./ViewerRoute": 731,
+		"./ViewerRoute.js": 731,
 		"./admin/AdminRoute": 699,
 		"./admin/AdminRoute.js": 699
 	};
@@ -90611,11 +90647,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 727;
+	webpackContext.id = 728;
 
 
 /***/ },
-/* 728 */
+/* 729 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90693,7 +90729,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 729 */
+/* 730 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90769,7 +90805,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 730 */
+/* 731 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90837,42 +90873,6 @@
 
 	exports['default'] = _default;
 	module.exports = exports['default'];
-
-/***/ },
-/* 731 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _pure = __webpack_require__(504);
-
-	var _pure2 = _interopRequireDefault(_pure);
-
-	var _svgIcon = __webpack_require__(561);
-
-	var _svgIcon2 = _interopRequireDefault(_svgIcon);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var ContentAdd = function ContentAdd(props) {
-	  return _react2.default.createElement(
-	    _svgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' })
-	  );
-	};
-	ContentAdd = (0, _pure2.default)(ContentAdd);
-	ContentAdd.displayName = 'ContentAdd';
-
-	exports.default = ContentAdd;
 
 /***/ }
 /******/ ]);

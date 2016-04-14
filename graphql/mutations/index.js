@@ -2,6 +2,7 @@ import {
   GraphQLObjectType
 } from 'graphql'
 
+import UpdateUserMutation from './UpdateUser'
 import ActivateUserMutation from './ActivateUserMutation'
 import ResetUserMutation from './ResetUserMutation'
 import SetUserPushTokenMutation from './SetUserPushTokenMutation'
@@ -78,6 +79,7 @@ export default new GraphQLObjectType({
   name: 'Mutation',
 
   fields: {
+    updateUser:                       UpdateUserMutation,
     activateUser:                     ActivateUserMutation,
     resetUser:                        ResetUserMutation,
     setUserPushToken:                 SetUserPushTokenMutation,

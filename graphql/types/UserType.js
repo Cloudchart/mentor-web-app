@@ -25,11 +25,16 @@ import { Field as UserThemeInsightsConnectionField } from '../connections/UserTh
 import UserTopicsConnection from '../connections/UserTopicsConnection'
 import UserCollectionsConnection from '../connections/UserCollectionsConnection'
 import UserRolesConnection from '../connections/UserRoles'
+import UserInsightsConnection from '../connections/UserInsights'
 
 
 export const Fields = () => ({
 
   name: {
+    type: GraphQLString,
+  },
+
+  email: {
     type: GraphQLString,
   },
 
@@ -94,7 +99,9 @@ export default new GraphQLObjectType({
       }
     },
 
-    insights: UserThemeInsightsConnectionField,
+    // insights: UserThemeInsightsConnectionField,
+
+    insights: UserInsightsConnection,
 
     notificationsSettings: {
       type: UserNotificationsSettingsType,
