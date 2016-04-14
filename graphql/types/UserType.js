@@ -53,6 +53,8 @@ export default new GraphQLObjectType({
 
   interfaces: () => [nodeInterface],
 
+  isTypeOf: ({ __type }) => __type === 'User',
+
   fields: () => ({
 
     id: globalIdField('User'),
@@ -101,11 +103,6 @@ export default new GraphQLObjectType({
 
     insights: UserInsightsConnection,
 
-    questionnaire: {
-      type: UserQuestionnaireType,
-      resolve: (user) => user
-    },
-
     notificationsSettings: {
       type: UserNotificationsSettingsType,
       resolve: (user) => UserNotificationsSettingsStorage.load(user.id).catch(error => null)
@@ -116,5 +113,4 @@ export default new GraphQLObjectType({
 })
 
 import UserThemeType from './UserThemeType'
-import UserQuestionnaireType from './UserQuestionnaireType'
 import UserNotificationsSettingsType from './UserNotificationsSettingsType'

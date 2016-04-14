@@ -56,6 +56,25 @@ import RevokeRoleFromUserMutation from './RevokeRoleFromUser'
 import MarkTopicLinkAsReadMutation from './MarkTopicLinkAsRead'
 
 
+import CreateQuestionMutation from './CreateQuestion'
+import UpdateQuestionMutation from './UpdateQuestion'
+import RemoveQuestionMutation from './RemoveQuestion'
+
+import {
+  PublishQuestionMutation,
+  UnpublishQuestionMutation,
+} from './UpdateQuestionPublishedStatus'
+
+import IntroduceAnswerMutation from './IntroduceAnswer'
+import UpdateAnswerMutation from './UpdateAnswer'
+import RemoveAnswerMutation from './RemoveAnswer'
+
+import {
+  SetBotReactionToOwnerMutation,
+  AddBotReactionToOwnerMutation,
+} from './BotReactionMutations'
+
+
 export default new GraphQLObjectType({
   name: 'Mutation',
 
@@ -95,5 +114,18 @@ export default new GraphQLObjectType({
     revokeRoleFromUser:               RevokeRoleFromUserMutation,
 
     markTopicLinkAsRead:              MarkTopicLinkAsReadMutation,
+
+    createQuestion:                   CreateQuestionMutation,
+    updateQuestion:                   UpdateQuestionMutation,
+    removeQuestion:                   RemoveQuestionMutation,
+    publishQuestion:                  PublishQuestionMutation,
+    unpublishQuestion:                UnpublishQuestionMutation,
+
+    introduceAnswer:                  IntroduceAnswerMutation,
+    updateAnswer:                     UpdateAnswerMutation,
+    removeAnswer:                     RemoveAnswerMutation,
+
+    setBotReactionToOwner:            SetBotReactionToOwnerMutation,
+    addBotReactionToOwner:            AddBotReactionToOwnerMutation,
   }
 })

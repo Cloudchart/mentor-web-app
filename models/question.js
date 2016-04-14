@@ -6,25 +6,17 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey:     true,
       defaultValue:   DataTypes.UUIDV4
     },
-    questionnaire_id: {
-      type:           DataTypes.UUID,
-      allowNull:      false,
-    },
-    position: {
-      type:           DataTypes.INTEGER.UNSIGNED,
-      allowNull:      false,
-    },
-    name: {
-      type:           DataTypes.STRING,
-      allowNull:      false,
-    },
-    intro: {
+    content: {
       type:           DataTypes.TEXT,
       allowNull:      false,
     },
-    outro: {
-      type:           DataTypes.TEXT,
-      allowNull:      false,
+    severity: {
+      type:           DataTypes.INTEGER,
+      defaultValue:   0,
+    },
+    is_published: {
+      type:           DataTypes.BOOLEAN,
+      defaultValue:   false
     }
 
   }, {
@@ -32,12 +24,16 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'questions',
     underscored: true,
 
-    indexes: [{
-      fields: ['questionnaire_id'],
-    }],
-
     classMethods: {
       associate: function(models) {
+        models.Question.hasMany(models.BotReaction, {
+          foreignKey:   'owner_id',
+          constraints:  'false',
+          onDelete:     'CASCADE',
+          scope: {
+            owner_type: 'Question'
+          }
+        })
       }
     }
   });

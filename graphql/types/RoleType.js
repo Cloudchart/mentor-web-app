@@ -18,6 +18,8 @@ export default new GraphQLObjectType({
 
   interfaces: [nodeInterface],
 
+  isTypeOf: ({ __type }) => __type === 'Role',
+
   fields: () => ({
 
     id: globalIdField('Role'),

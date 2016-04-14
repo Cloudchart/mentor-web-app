@@ -27,6 +27,8 @@ export default new GraphQLObjectType({
 
   interfaces: [nodeInterface],
 
+  isTypeOf: ({ __type }) => __type === 'UserThemeInsight',
+
   fields: () => ({
 
     id: globalIdField('UserThemeInsight'),

@@ -8,6 +8,20 @@ type ActivateUserPayload {
   clientMutationId: String!
 }
 
+input AddBotReactionToOwnerMutationInput {
+  ownerID: ID!
+  content: String!
+  mood: String = "positive"
+  clientMutationId: String!
+}
+
+type AddBotReactionToOwnerMutationPayload {
+  reaction: BotReaction!
+  owner: BotReactionOwner!
+  reactionEdge: String!
+  clientMutationId: String!
+}
+
 input AddCollectionToUserMutationInput {
   name: String!
   clientMutationId: String!
@@ -54,6 +68,7 @@ type Admin implements Node {
   insights(after: String, first: Int, before: String, last: Int, query: String): AdminInsightsConnection
   themes(after: String, first: Int, before: String, last: Int, query: String, filter: String, order: String): AdminThemesConnection
   topics(after: String, first: Int, before: String, last: Int): AdminTopicsConnection
+  questions(after: String, first: Int, before: String, last: Int): QuestionsConnection
 }
 
 type AdminInsight implements Node {
@@ -113,10 +128,35 @@ type AdminUsersEdge {
   cursor: String!
 }
 
+type Answer implements Node, BotReactionOwner {
+  id: ID!
+  content: String!
+  position: Int!
+  reaction: BotReaction
+}
+
 type BotReaction implements Node {
   id: ID!
   mood: String!
   content: String!
+}
+
+interface BotReactionOwner {
+  id: ID!
+  reaction: BotReaction
+}
+
+input CreateQuestionMutationInput {
+  content: String!
+  severity: Int!
+  clientMutationId: String!
+}
+
+type CreateQuestionMutationPayload {
+  question: Question!
+  questionEdge: QuestionsEdge!
+  admin: Admin!
+  clientMutationId: String!
 }
 
 input CreateThemeInput {
@@ -183,6 +223,19 @@ type InsightOrigin {
   url: String!
   title: String!
   duration: Int!
+}
+
+input IntroduceAnswerInput {
+  questionID: ID!
+  content: String!
+  clientMutationId: String!
+}
+
+type IntroduceAnswerPayload {
+  answer: Answer!
+  question: Question!
+  answerEdge: QuestionAnswersEdge!
+  clientMutationId: String!
 }
 
 input IntroduceLinkToTopicInput {
@@ -329,6 +382,16 @@ type Mutation {
   grantRoleToUser(input: GrantRoleToUserInput!): GrantRoleToUserPayload
   revokeRoleFromUser(input: RevokeRoleFromUserInput!): RevokeRoleFromUserPayload
   markTopicLinkAsRead(input: MarkTopicLinkAsReadInput!): MarkTopicLinkAsReadPayload
+  createQuestion(input: CreateQuestionMutationInput!): CreateQuestionMutationPayload
+  updateQuestion(input: UpdateQuestionInput!): UpdateQuestionPayload
+  removeQuestion(input: RemoveQuestionMutationInput!): RemoveQuestionMutationPayload
+  publishQuestion(input: PublishQuestionMutationInput!): PublishQuestionMutationPayload
+  unpublishQuestion(input: UnpublishQuestionMutationInput!): UnpublishQuestionMutationPayload
+  introduceAnswer(input: IntroduceAnswerInput!): IntroduceAnswerPayload
+  updateAnswer(input: UpdateAnswerInput!): UpdateAnswerPayload
+  removeAnswer(input: RemoveAnswerInput!): RemoveAnswerPayload
+  setBotReactionToOwner(input: SetBotReactionToOwnerMutationInput!): SetBotReactionToOwnerMutationPayload
+  addBotReactionToOwner(input: AddBotReactionToOwnerMutationInput!): AddBotReactionToOwnerMutationPayload
 }
 
 interface Node {
@@ -356,10 +419,50 @@ type PostponeInsightInTopicMutationPayload {
   clientMutationId: String!
 }
 
+input PublishQuestionMutationInput {
+  questionID: ID!
+  clientMutationId: String!
+}
+
+type PublishQuestionMutationPayload {
+  question: Question!
+  clientMutationId: String!
+}
+
 type Query {
   viewer: User
   node(id: ID!): Node
   admin: Admin
+}
+
+type Question implements Node, BotReactionOwner {
+  id: ID!
+  content: String!
+  isPublished: Boolean!
+  severity: Int!
+  answers(after: String, first: Int, before: String, last: Int): QuestionAnswersConnection
+  reaction: BotReaction
+}
+
+type QuestionAnswersConnection {
+  pageInfo: PageInfo!
+  edges: [QuestionAnswersEdge]
+  count: Int!
+}
+
+type QuestionAnswersEdge {
+  node: Answer
+  cursor: String!
+}
+
+type QuestionsConnection {
+  pageInfo: PageInfo!
+  edges: [QuestionsEdge]
+}
+
+type QuestionsEdge {
+  node: Question
+  cursor: String!
 }
 
 input RejectThemeInput {
@@ -374,6 +477,17 @@ type RejectThemePayload {
   clientMutationId: String!
 }
 
+input RemoveAnswerInput {
+  answerID: ID!
+  clientMutationId: String!
+}
+
+type RemoveAnswerPayload {
+  answerID: ID!
+  question: Question!
+  clientMutationId: String!
+}
+
 input RemoveCollectionFromUserMutationInput {
   collectionID: ID!
   clientMutationId: String!
@@ -382,6 +496,18 @@ input RemoveCollectionFromUserMutationInput {
 type RemoveCollectionFromUserMutationPayload {
   collection: UserCollection!
   collectionID: ID!
+  clientMutationId: String!
+}
+
+input RemoveQuestionMutationInput {
+  questionID: ID!
+  clientMutationId: String!
+}
+
+type RemoveQuestionMutationPayload {
+  question: Question!
+  questionID: ID!
+  admin: Admin!
   clientMutationId: String!
 }
 
@@ -436,6 +562,19 @@ type RevokeRoleFromUserPayload {
 type Role implements Node {
   id: ID!
   name: String!
+}
+
+input SetBotReactionToOwnerMutationInput {
+  ownerID: ID!
+  content: String!
+  mood: String = "positive"
+  clientMutationId: String!
+}
+
+type SetBotReactionToOwnerMutationPayload {
+  reaction: BotReaction!
+  owner: BotReactionOwner!
+  clientMutationId: String!
 }
 
 input SetUserPushTokenInput {
@@ -548,6 +687,16 @@ type TopicLinksEdge {
   cursor: String!
 }
 
+input UnpublishQuestionMutationInput {
+  questionID: ID!
+  clientMutationId: String!
+}
+
+type UnpublishQuestionMutationPayload {
+  question: Question!
+  clientMutationId: String!
+}
+
 input UnsubscribeFromThemeInput {
   id: ID!
   clientMutationId: String!
@@ -570,6 +719,29 @@ type UnsubscribeFromTopicMutationPayload {
   topicID: ID!
   topicEdge: UserTopicsConnectionEdge
   user: User
+  clientMutationId: String!
+}
+
+input UpdateAnswerInput {
+  answerID: ID!
+  content: String!
+  clientMutationId: String!
+}
+
+type UpdateAnswerPayload {
+  answer: Answer!
+  clientMutationId: String!
+}
+
+input UpdateQuestionInput {
+  questionID: ID!
+  content: String!
+  severity: Int!
+  clientMutationId: String!
+}
+
+type UpdateQuestionPayload {
+  question: Question!
   clientMutationId: String!
 }
 
@@ -638,7 +810,6 @@ type User implements Node {
   themes(after: String, first: Int, before: String, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection
   theme(id: ID!): UserTheme!
   insights(after: String, first: Int, before: String, last: Int, filter: UserInsightFilter = unratedForUser): UserInsightsConnection
-  questionnaire: UserQuestionnaire
   notificationsSettings: UserNotificationsSettings
 }
 
@@ -700,10 +871,6 @@ type UserNotificationsSettings {
   finishAt: String!
   utcOffset: Int!
   timesToSend: Int!
-}
-
-type UserQuestionnaire {
-  questions: [String]
 }
 
 type UserRolesConnection {
