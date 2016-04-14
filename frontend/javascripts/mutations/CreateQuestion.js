@@ -2,6 +2,12 @@ import Relay from 'react-relay'
 
 export default class extends Relay.Mutation {
 
+  static fragments = {
+    admin: () => Relay.QL`
+      fragment on Admin { id }
+    `
+  }
+
   getMutation = () => Relay.QL`
     mutation { createQuestion }
   `
@@ -22,7 +28,7 @@ export default class extends Relay.Mutation {
   getConfigs = () => [{
     type: 'RANGE_ADD',
     parentName: 'admin',
-    parentID: this.props.adminID,
+    parentID: this.props.admin.id,
     connectionName: 'questions',
     edgeName: 'questionEdge',
     rangeBehaviors: {

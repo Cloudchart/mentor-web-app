@@ -4,6 +4,7 @@ import Relay from 'react-relay'
 import {
   Dialog,
   FlatButton,
+  FloatingActionButton,
   IconButton,
   Snackbar,
   Table,
@@ -17,11 +18,12 @@ import {
 } from 'material-ui'
 
 import Close from 'material-ui/lib/svg-icons/navigation/close'
+import ContentAdd from 'material-ui/lib/svg-icons/content/add'
 
-import NewQuestionForm from './forms/NewQuestionForm'
+import QuestionForm from './forms/QuestionForm'
 
-import RemoveQuestionMutation from '../../mutations/RemoveQuestion'
-import UpdateQuestionPublishedStatus from '../../mutations/UpdateQuestionPublishedStatus'
+import RemoveQuestionMutation from 'mutations/RemoveQuestion'
+import UpdateQuestionPublishedStatus from 'mutations/UpdateQuestionPublishedStatus'
 
 import QuestionApp from './QuestionApp'
 
@@ -40,9 +42,18 @@ class QuestionsApp extends React.Component {
 
     this.state = {
       questionsIDsInTransition: [],
-      questionID: null
+      questionID: null,
+      shouldRenderQuestionForm: false,
     }
   }
+
+
+  _showQuestionForm = () =>
+    this.setState({ shouldRenderQuestionForm: true })
+
+  _hideQuestionForm = () =>
+    this.setState({ shouldRenderQuestionForm: false })
+
 
   _handleRemoveQuestionRequest = (question) => {
     let mutation = new RemoveQuestionMutation({
@@ -109,8 +120,30 @@ class QuestionsApp extends React.Component {
         </TableBody>
       </Table>
       <FlatButton label="Add a question" secondary={ true } onTouchTap={ () => this.setState({ questionID: 'new' }) } />
-      { this._renderNewQuestionForm() }
+      { this._renderQuestionForm() }
+      { this._renderNewQuestionButton() }
     </div>
+
+
+  _renderNewQuestionButton = () =>
+    <FloatingActionButton
+      style       = {{ position: 'fixed', right: 20, bottom: 20 }}
+      onTouchTap  = { this._showQuestionForm }
+      secondary
+    >
+      <ContentAdd />
+    </FloatingActionButton>
+
+  _renderQuestionForm = () =>
+    this.state.shouldRenderQuestionForm
+      ? <QuestionForm
+          admin     = { this.props.admin }
+          question  = { null }
+          onDone    = { this._hideQuestionForm }
+          onCancel  = { this._hideQuestionForm }
+        />
+      : null
+
 
   _renderQuestion = (question) => {
     return (
@@ -137,17 +170,6 @@ class QuestionsApp extends React.Component {
     )
   }
 
-  _renderNewQuestionForm = () => {
-    if (this.state.questionID !== 'new') return null
-    return (
-      <NewQuestionForm
-        adminID       = { this.props.admin.id }
-        onDone        = { () => this.setState({ questionID: null }) }
-        onCancel      = { () => this.setState({ questionID: null }) }
-      />
-    )
-  }
-
 }
 
 
@@ -156,11 +178,11 @@ export default Relay.createContainer(QuestionsApp, {
   fragments: {
     admin: () => Relay.QL`
       fragment on Admin {
-        id
+        ${ QuestionForm.getFragment('admin') }
         questions(first: 100) {
           edges {
             node {
-              ${QuestionApp.getFragment('question')}
+              ${ QuestionApp.getFragment('question') }
               id
               content
               isPublished

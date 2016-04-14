@@ -11,18 +11,23 @@ import {
   IconButton,
   List,
   ListItem,
+  Paper,
   Subheader,
   TextField,
 } from 'material-ui'
 
+import {
+  red500,
+  indigo500,
+  grey500,
+} from 'material-ui/lib/styles/colors'
+
 import AnswerItem from './AnswerItem'
 import AnswerForm from './forms/AnswerForm'
+import QuestionForm from './forms/QuestionForm'
 
-import {
-  ContentField,
-  SeverityField,
-  BotReactionContentField
-} from './forms/NewQuestionForm'
+const Severity = ['Low', 'Normal', 'High']
+const SeverityColors = [grey500, indigo500, red500]
 
 
 class QuestionApp extends React.Component {
@@ -31,30 +36,35 @@ class QuestionApp extends React.Component {
     super(props)
 
     this.state = {
-      answer:   undefined,
-      content:  this.props.question.content,
-      severity: this.props.question.severity,
-      reactionContent: this.props.question.reaction && this.props.question.reaction.content
+      answer: undefined,
+      shouldRenderQuestionForm: false
     }
   }
 
+  _showQuestionForm = () =>
+    this.setState({ shouldRenderQuestionForm: true })
+
+  _hideQuestionForm = () =>
+    this.setState({ shouldRenderQuestionForm: false })
+
   render = () =>
+    <Card style={{ margin: 20 }}>
+      <CardTitle
+        title       = { this.props.question.content }
+        subtitle    = { this.props.question.reaction && this.props.question.reaction.content }
+      />
+      <Divider />
+      <CardText>
+        asd;l
+      </CardText>
+      { this._renderQuestionForm() }
+    </Card>
+
+  __render = () => {
     <Card style={{ margin: 20 }}>
       <CardTitle style={{ backgroundColor: '#eee' }} title={ this.props.question.content } />
       <CardText>
-        <ContentField
-          value     = { this.state.content }
-          onChange  = { event => this.setState({ content: event.target.value }) }
-        />
-        <SeverityField
-          value     = { this.state.severity }
-          onChange  = { (event, ii, value) => this.setState({ severity: value })}
-        />
-        <BotReactionContentField
-          value     = { this.state.reactionContent }
-          onChange  = { event => this.setState({ reactionContent: event.target.value }) }
-        />
-
+        { this._renderQuestion() }
         { this._renderAnswers() }
       </CardText>
 
@@ -67,6 +77,34 @@ class QuestionApp extends React.Component {
 
       { this._renderAnswerForm() }
     </Card>
+  }
+
+  _renderQuestion = () =>
+    <ListItem
+      secondaryText = { this.props.question.reaction && this.props.question.reaction.content }
+      onTouchTap    = { this._showQuestionForm }
+    >
+      { this.props.question.content }
+      <br />
+      { this._renderQuestionSeverity() }
+    </ListItem>
+
+  _renderQuestionSeverity = () =>
+    <span
+      style = {{ ...Style.questionSeverity, color: SeverityColors[this.props.question.severity + 1] }}
+    >
+      { Severity[this.props.question.severity + 1] }
+    </span>
+
+  _renderQuestionForm = () =>
+    this.state.shouldRenderQuestionForm
+      ?
+        <QuestionForm
+          question  = { this.props.question }
+          onCancel  = { this._hideQuestionForm }
+          onDone    = { this._hideQuestionForm }
+        />
+      : null
 
   _renderAnswers = () =>
     this.props.question.answers.edges.length > 0
@@ -99,12 +137,21 @@ class QuestionApp extends React.Component {
 }
 
 
+const Style = {
+  questionSeverity: {
+    fontSize: '.75em',
+    fontWeight: 'bold'
+  }
+}
+
+
 export default Relay.createContainer(QuestionApp, {
 
   fragments: {
 
     question: () => Relay.QL`
       fragment on Question {
+        ${ QuestionForm.getFragment('question') }
         id
         content
         severity

@@ -87,7 +87,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(407)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(725)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(727)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -42992,12 +42992,14 @@
 		"./admin/forms/InsightChooser.js": 706,
 		"./admin/forms/NewQuestionForm": 718,
 		"./admin/forms/NewQuestionForm.js": 718,
+		"./admin/forms/QuestionForm": 724,
+		"./admin/forms/QuestionForm.js": 724,
 		"./admin/forms/RolesForm": 714,
 		"./admin/forms/RolesForm.js": 714,
 		"./admin/forms/TopicLinkForm": 704,
 		"./admin/forms/TopicLinkForm.js": 704,
-		"./admin/forms/_TopicLinkForm": 724,
-		"./admin/forms/_TopicLinkForm.js": 724
+		"./admin/forms/_TopicLinkForm": 726,
+		"./admin/forms/_TopicLinkForm.js": 726
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -45714,12 +45716,7 @@
 	            key: _this.props.answer.id,
 	            onTouchTap: _this._showForm,
 	            rightIconButton: _react2['default'].createElement(RemoveButton, { onTouchTap: _this._showDialog }),
-	            secondaryTextLines: 3,
-	            secondaryText: _react2['default'].createElement(
-	              'p',
-	              { style: { whiteSpace: 'pre-wrap' } },
-	              _this.props.answer.reaction && _this.props.answer.reaction.content
-	            )
+	            secondaryText: _this.props.answer.reaction && _this.props.answer.reaction.content
 	          },
 	          _this.props.answer.content
 	        ),
@@ -88128,9 +88125,13 @@
 
 	var _materialUiLibSvgIconsNavigationClose2 = _interopRequireDefault(_materialUiLibSvgIconsNavigationClose);
 
-	var _formsNewQuestionForm = __webpack_require__(718);
+	var _materialUiLibSvgIconsContentAdd = __webpack_require__(731);
 
-	var _formsNewQuestionForm2 = _interopRequireDefault(_formsNewQuestionForm);
+	var _materialUiLibSvgIconsContentAdd2 = _interopRequireDefault(_materialUiLibSvgIconsContentAdd);
+
+	var _formsQuestionForm = __webpack_require__(724);
+
+	var _formsQuestionForm2 = _interopRequireDefault(_formsQuestionForm);
 
 	var _mutationsRemoveQuestion = __webpack_require__(720);
 
@@ -88164,6 +88165,14 @@
 	    _classCallCheck(this, QuestionsApp);
 
 	    _get(Object.getPrototypeOf(QuestionsApp.prototype), 'constructor', this).call(this, props);
+
+	    this._showQuestionForm = function () {
+	      return _this.setState({ shouldRenderQuestionForm: true });
+	    };
+
+	    this._hideQuestionForm = function () {
+	      return _this.setState({ shouldRenderQuestionForm: false });
+	    };
 
 	    this._handleRemoveQuestionRequest = function (question) {
 	      var mutation = new _mutationsRemoveQuestion2['default']({
@@ -88259,8 +88268,30 @@
 	        _react2['default'].createElement(_materialUi.FlatButton, { label: 'Add a question', secondary: true, onTouchTap: function () {
 	            return _this.setState({ questionID: 'new' });
 	          } }),
-	        _this._renderNewQuestionForm()
+	        _this._renderQuestionForm(),
+	        _this._renderNewQuestionButton()
 	      );
+	    };
+
+	    this._renderNewQuestionButton = function () {
+	      return _react2['default'].createElement(
+	        _materialUi.FloatingActionButton,
+	        {
+	          style: { position: 'fixed', right: 20, bottom: 20 },
+	          onTouchTap: _this._showQuestionForm,
+	          secondary: true
+	        },
+	        _react2['default'].createElement(_materialUiLibSvgIconsContentAdd2['default'], null)
+	      );
+	    };
+
+	    this._renderQuestionForm = function () {
+	      return _this.state.shouldRenderQuestionForm ? _react2['default'].createElement(_formsQuestionForm2['default'], {
+	        admin: _this.props.admin,
+	        question: null,
+	        onDone: _this._hideQuestionForm,
+	        onCancel: _this._hideQuestionForm
+	      }) : null;
 	    };
 
 	    this._renderQuestion = function (question) {
@@ -88304,22 +88335,10 @@
 	      );
 	    };
 
-	    this._renderNewQuestionForm = function () {
-	      if (_this.state.questionID !== 'new') return null;
-	      return _react2['default'].createElement(_formsNewQuestionForm2['default'], {
-	        adminID: _this.props.admin.id,
-	        onDone: function () {
-	          return _this.setState({ questionID: null });
-	        },
-	        onCancel: function () {
-	          return _this.setState({ questionID: null });
-	        }
-	      });
-	    };
-
 	    this.state = {
 	      questionsIDsInTransition: [],
-	      questionID: null
+	      questionID: null,
+	      shouldRenderQuestionForm: false
 	    };
 	  }
 
@@ -88330,16 +88349,9 @@
 
 	  fragments: {
 	    admin: function admin() {
-	      return (function (RQL_0) {
+	      return (function (RQL_0, RQL_1) {
 	        return {
-	          children: [{
-	            fieldName: 'id',
-	            kind: 'Field',
-	            metadata: {
-	              isRequisite: true
-	            },
-	            type: 'ID'
-	          }, {
+	          children: [].concat.apply([], [{
 	            calls: [{
 	              kind: 'Call',
 	              metadata: {},
@@ -88405,7 +88417,7 @@
 	                    inferredPrimaryKey: 'id'
 	                  },
 	                  type: 'BotReaction'
-	                }, _reactRelay2['default'].QL.__frag(RQL_0)]),
+	                }, _reactRelay2['default'].QL.__frag(RQL_1)]),
 	                fieldName: 'node',
 	                kind: 'Field',
 	                metadata: {
@@ -88465,14 +88477,22 @@
 	              isConnection: true
 	            },
 	            type: 'QuestionsConnection'
-	          }],
+	          }, {
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }, _reactRelay2['default'].QL.__frag(RQL_0)]),
 	          id: _reactRelay2['default'].QL.__id(),
 	          kind: 'Fragment',
 	          metadata: {},
 	          name: 'QuestionsAppRelayQL',
 	          type: 'Admin'
 	        };
-	      })(_QuestionApp2['default'].getFragment('question'));
+	      })(_formsQuestionForm2['default'].getFragment('admin'), _QuestionApp2['default'].getFragment('question'));
 	    }
 	  }
 
@@ -88662,6 +88682,8 @@
 	  value: true
 	});
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -88801,7 +88823,7 @@
 	      return [{
 	        type: 'RANGE_ADD',
 	        parentName: 'admin',
-	        parentID: _this.props.adminID,
+	        parentID: _this.props.admin.id,
 	        connectionName: 'questions',
 	        edgeName: 'questionEdge',
 	        rangeBehaviors: {
@@ -88810,6 +88832,32 @@
 	      }];
 	    };
 	  }
+
+	  _createClass(_default, null, [{
+	    key: 'fragments',
+	    value: {
+	      admin: function admin() {
+	        return (function () {
+	          return {
+	            children: [{
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            id: _reactRelay2['default'].QL.__id(),
+	            kind: 'Fragment',
+	            metadata: {},
+	            name: 'CreateQuestionRelayQL',
+	            type: 'Admin'
+	          };
+	        })();
+	      }
+	    },
+	    enumerable: true
+	  }]);
 
 	  return _default;
 	})(_reactRelay2['default'].Mutation);
@@ -89127,6 +89175,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -89145,6 +89195,8 @@
 
 	var _materialUi = __webpack_require__(421);
 
+	var _materialUiLibStylesColors = __webpack_require__(454);
+
 	var _AnswerItem = __webpack_require__(420);
 
 	var _AnswerItem2 = _interopRequireDefault(_AnswerItem);
@@ -89153,7 +89205,12 @@
 
 	var _formsAnswerForm2 = _interopRequireDefault(_formsAnswerForm);
 
-	var _formsNewQuestionForm = __webpack_require__(718);
+	var _formsQuestionForm = __webpack_require__(724);
+
+	var _formsQuestionForm2 = _interopRequireDefault(_formsQuestionForm);
+
+	var Severity = ['Low', 'Normal', 'High'];
+	var SeverityColors = [_materialUiLibStylesColors.grey500, _materialUiLibStylesColors.indigo500, _materialUiLibStylesColors.red500];
 
 	var QuestionApp = (function (_React$Component) {
 	  _inherits(QuestionApp, _React$Component);
@@ -89165,32 +89222,41 @@
 
 	    _get(Object.getPrototypeOf(QuestionApp.prototype), 'constructor', this).call(this, props);
 
+	    this._showQuestionForm = function () {
+	      return _this.setState({ shouldRenderQuestionForm: true });
+	    };
+
+	    this._hideQuestionForm = function () {
+	      return _this.setState({ shouldRenderQuestionForm: false });
+	    };
+
 	    this.render = function () {
 	      return _react2['default'].createElement(
+	        _materialUi.Card,
+	        { style: { margin: 20 } },
+	        _react2['default'].createElement(_materialUi.CardTitle, {
+	          title: _this.props.question.content,
+	          subtitle: _this.props.question.reaction && _this.props.question.reaction.content
+	        }),
+	        _react2['default'].createElement(_materialUi.Divider, null),
+	        _react2['default'].createElement(
+	          _materialUi.CardText,
+	          null,
+	          'asd;l'
+	        ),
+	        _this._renderQuestionForm()
+	      );
+	    };
+
+	    this.__render = function () {
+	      _react2['default'].createElement(
 	        _materialUi.Card,
 	        { style: { margin: 20 } },
 	        _react2['default'].createElement(_materialUi.CardTitle, { style: { backgroundColor: '#eee' }, title: _this.props.question.content }),
 	        _react2['default'].createElement(
 	          _materialUi.CardText,
 	          null,
-	          _react2['default'].createElement(_formsNewQuestionForm.ContentField, {
-	            value: _this.state.content,
-	            onChange: function (event) {
-	              return _this.setState({ content: event.target.value });
-	            }
-	          }),
-	          _react2['default'].createElement(_formsNewQuestionForm.SeverityField, {
-	            value: _this.state.severity,
-	            onChange: function (event, ii, value) {
-	              return _this.setState({ severity: value });
-	            }
-	          }),
-	          _react2['default'].createElement(_formsNewQuestionForm.BotReactionContentField, {
-	            value: _this.state.reactionContent,
-	            onChange: function (event) {
-	              return _this.setState({ reactionContent: event.target.value });
-	            }
-	          }),
+	          _this._renderQuestion(),
 	          _this._renderAnswers()
 	        ),
 	        _react2['default'].createElement(
@@ -89205,6 +89271,37 @@
 	        ),
 	        _this._renderAnswerForm()
 	      );
+	    };
+
+	    this._renderQuestion = function () {
+	      return _react2['default'].createElement(
+	        _materialUi.ListItem,
+	        {
+	          secondaryText: _this.props.question.reaction && _this.props.question.reaction.content,
+	          onTouchTap: _this._showQuestionForm
+	        },
+	        _this.props.question.content,
+	        _react2['default'].createElement('br', null),
+	        _this._renderQuestionSeverity()
+	      );
+	    };
+
+	    this._renderQuestionSeverity = function () {
+	      return _react2['default'].createElement(
+	        'span',
+	        {
+	          style: _extends({}, Style.questionSeverity, { color: SeverityColors[_this.props.question.severity + 1] })
+	        },
+	        Severity[_this.props.question.severity + 1]
+	      );
+	    };
+
+	    this._renderQuestionForm = function () {
+	      return _this.state.shouldRenderQuestionForm ? _react2['default'].createElement(_formsQuestionForm2['default'], {
+	        question: _this.props.question,
+	        onCancel: _this._hideQuestionForm,
+	        onDone: _this._hideQuestionForm
+	      }) : null;
 	    };
 
 	    this._renderAnswers = function () {
@@ -89252,23 +89349,28 @@
 
 	    this.state = {
 	      answer: undefined,
-	      content: this.props.question.content,
-	      severity: this.props.question.severity,
-	      reactionContent: this.props.question.reaction && this.props.question.reaction.content
+	      shouldRenderQuestionForm: false
 	    };
 	  }
 
 	  return QuestionApp;
 	})(_react2['default'].Component);
 
+	var Style = {
+	  questionSeverity: {
+	    fontSize: '.75em',
+	    fontWeight: 'bold'
+	  }
+	};
+
 	exports['default'] = _reactRelay2['default'].createContainer(QuestionApp, {
 
 	  fragments: {
 
 	    question: function question() {
-	      return (function (RQL_0, RQL_1) {
+	      return (function (RQL_0, RQL_1, RQL_2) {
 	        return {
-	          children: [{
+	          children: [].concat.apply([], [{
 	            fieldName: 'id',
 	            kind: 'Field',
 	            metadata: {
@@ -89332,7 +89434,7 @@
 	                  kind: 'Field',
 	                  metadata: {},
 	                  type: 'String'
-	                }, _reactRelay2['default'].QL.__frag(RQL_0), _reactRelay2['default'].QL.__frag(RQL_1)]),
+	                }, _reactRelay2['default'].QL.__frag(RQL_1), _reactRelay2['default'].QL.__frag(RQL_2)]),
 	                fieldName: 'node',
 	                kind: 'Field',
 	                metadata: {
@@ -89392,14 +89494,14 @@
 	              isConnection: true
 	            },
 	            type: 'QuestionAnswersConnection'
-	          }],
+	          }, _reactRelay2['default'].QL.__frag(RQL_0)]),
 	          id: _reactRelay2['default'].QL.__id(),
 	          kind: 'Fragment',
 	          metadata: {},
 	          name: 'QuestionAppRelayQL',
 	          type: 'Question'
 	        };
-	      })(_AnswerItem2['default'].getFragment('answer'), _formsAnswerForm2['default'].getFragment('answer'));
+	      })(_formsQuestionForm2['default'].getFragment('question'), _AnswerItem2['default'].getFragment('answer'), _formsAnswerForm2['default'].getFragment('answer'));
 	    }
 
 	  }
@@ -89700,6 +89802,507 @@
 	  value: true
 	});
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _materialUi = __webpack_require__(421);
+
+	var _mutationsCreateQuestion = __webpack_require__(719);
+
+	var _mutationsCreateQuestion2 = _interopRequireDefault(_mutationsCreateQuestion);
+
+	var _mutationsUpdateQuestion = __webpack_require__(725);
+
+	var _mutationsUpdateQuestion2 = _interopRequireDefault(_mutationsUpdateQuestion);
+
+	var _mutationsSetBotReactionToOwner = __webpack_require__(696);
+
+	var _mutationsSetBotReactionToOwner2 = _interopRequireDefault(_mutationsSetBotReactionToOwner);
+
+	var Actions = function Actions(_ref) {
+	  var onCancel = _ref.onCancel;
+	  var onDone = _ref.onDone;
+	  var isChanged = _ref.isChanged;
+	  var isValid = _ref.isValid;
+	  return _react2['default'].createElement(
+	    'div',
+	    null,
+	    _react2['default'].createElement(_materialUi.FlatButton, { label: 'Cancel', secondary: true, onTouchTap: onCancel }),
+	    _react2['default'].createElement(_materialUi.FlatButton, { label: isChanged ? 'Save' : 'Done', primary: true, disabled: !isValid, onTouchTap: onDone })
+	  );
+	};
+
+	var ContentField = function ContentField(_ref2) {
+	  var value = _ref2.value;
+	  var onChange = _ref2.onChange;
+	  return _react2['default'].createElement(_materialUi.TextField, {
+	    floatingLabelText: 'Question',
+	    autoFocus: true,
+	    fullWidth: true,
+	    multiLine: true,
+	    value: value,
+	    onChange: onChange
+	  });
+	};
+
+	var SeverityField = function SeverityField(_ref3) {
+	  var value = _ref3.value;
+	  var onChange = _ref3.onChange;
+	  return _react2['default'].createElement(
+	    _materialUi.SelectField,
+	    {
+	      floatingLabelText: 'Severity',
+	      value: value,
+	      onChange: onChange
+	    },
+	    _react2['default'].createElement(_materialUi.MenuItem, { value: -1, primaryText: 'Low' }),
+	    _react2['default'].createElement(_materialUi.MenuItem, { value: 0, primaryText: 'Normal' }),
+	    _react2['default'].createElement(_materialUi.MenuItem, { value: 1, primaryText: 'High' })
+	  );
+	};
+
+	exports.SeverityField = SeverityField;
+	var ReactionContentField = function ReactionContentField(_ref4) {
+	  var value = _ref4.value;
+	  var onChange = _ref4.onChange;
+	  return _react2['default'].createElement(_materialUi.TextField, {
+	    floatingLabelText: 'Boris will say',
+	    fullWidth: true,
+	    multiLine: true,
+	    value: value,
+	    onChange: onChange
+	  });
+	};
+
+	var QuestionForm = (function (_React$Component) {
+	  _inherits(QuestionForm, _React$Component);
+
+	  _createClass(QuestionForm, null, [{
+	    key: 'propTypes',
+	    value: {
+	      onDone: _react2['default'].PropTypes.func.isRequired,
+	      onCancel: _react2['default'].PropTypes.func.isRequired
+	    },
+	    enumerable: true
+	  }]);
+
+	  function QuestionForm(props) {
+	    var _this = this;
+
+	    _classCallCheck(this, QuestionForm);
+
+	    _get(Object.getPrototypeOf(QuestionForm.prototype), 'constructor', this).call(this, props);
+
+	    this._submit = function () {
+	      return _this.props.question ? _this._update() : _this._create();
+	    };
+
+	    this._create = function () {
+	      if (!_this._isValid()) return;
+
+	      var mutation = new _mutationsCreateQuestion2['default']({
+	        admin: _this.props.admin,
+	        severity: _this.state.severity,
+	        content: _this.state.content
+	      });
+
+	      _reactRelay2['default'].Store.commitUpdate(mutation, {
+	        onSuccess: _this._commitReaction,
+	        onFailure: _this._handleError
+	      });
+	    };
+
+	    this._update = function () {
+	      if (!_this._isValid()) return;
+
+	      if (!_this._isQuestionChanged()) return _this._commitReaction();
+
+	      var mutation = new _mutationsUpdateQuestion2['default']({
+	        question: _this.props.question,
+	        severity: _this.state.severity,
+	        content: _this.state.content
+	      });
+
+	      _reactRelay2['default'].Store.commitUpdate(mutation, {
+	        onSuccess: _this._commitReaction,
+	        onFailure: _this._handleError
+	      });
+	    };
+
+	    this._commitReaction = function (createResponse) {
+	      if (!_this._isReactionChanged()) return _this.props.onDone();
+
+	      var ownerID = _this.props.question ? _this.props.question.id : createResponse.createQuestion.questionEdge.node.id;
+
+	      var mutation = new _mutationsSetBotReactionToOwner2['default']({
+	        content: _this.state.reactionContent,
+	        ownerID: ownerID
+	      });
+
+	      _reactRelay2['default'].Store.commitUpdate(mutation, {
+	        onSuccess: _this.props.onDone,
+	        onFailure: _this._handleError
+	      });
+	    };
+
+	    this._handleError = function (transaction) {
+	      return null;
+	    };
+
+	    this._showError = function (errorMessage) {
+	      return _this.setState({ errorMessage: errorMessage });
+	    };
+
+	    this._hideError = function () {
+	      return _this.setState({ errorMessage: false });
+	    };
+
+	    this._handleTextFieldChange = function (field, _ref5) {
+	      var value = _ref5.target.value;
+
+	      var nextState = {};
+	      nextState[field] = value;
+	      _this.setState(nextState);
+	    };
+
+	    this._handleSelectChange = function (field, event, index, value) {
+	      var nextState = {};
+	      nextState[field] = value;
+	      _this.setState(nextState);
+	    };
+
+	    this._isValid = function () {
+	      return _this.state.content.trim().length !== 0;
+	    };
+
+	    this._isChanged = function () {
+	      return _this._isQuestionChanged() || _this._isReactionChanged();
+	    };
+
+	    this._isQuestionChanged = function () {
+	      return _this._content !== _this.state.content || _this._severity !== _this.state.severity;
+	    };
+
+	    this._isReactionChanged = function () {
+	      return _this._reactionContent !== _this.state.reactionContent;
+	    };
+
+	    this.render = function () {
+	      return _react2['default'].createElement(
+	        _materialUi.Paper,
+	        null,
+	        _react2['default'].createElement(
+	          _materialUi.Dialog,
+	          {
+	            open: true,
+	            title: _this.props.question ? "Update a question" : "Create a question",
+	            actions: _this._renderActions(),
+	            onRequestClose: _this.props.onCancel
+	          },
+	          _react2['default'].createElement(ContentField, { value: _this.state.content, onChange: _this._handleContentChange }),
+	          _react2['default'].createElement(SeverityField, { value: _this.state.severity, onChange: _this._handleSeverityChange }),
+	          _react2['default'].createElement(ReactionContentField, { value: _this.state.reactionContent, onChange: _this._handleReactionContentChange })
+	        ),
+	        _this._renderSnackBar()
+	      );
+	    };
+
+	    this._renderActions = function () {
+	      return _react2['default'].createElement(Actions, {
+	        onDone: _this._submit,
+	        onCancel: _this.props.onCancel,
+	        isChanged: _this._isChanged(),
+	        isValid: _this._isValid()
+	      });
+	    };
+
+	    this._renderSnackBar = function () {
+	      return _react2['default'].createElement(_materialUi.Snackbar, {
+	        action: 'OK',
+	        message: _this.state.errorMessage || '',
+	        open: !!_this.state.errorMessage,
+	        onRequestClose: _this._hideError,
+	        onActionTouchTap: _this._hideError
+	      });
+	    };
+
+	    this._content = this.props.question && this.props.question.content || '';
+	    this._severity = this.props.question && this.props.question.severity || 0;
+	    this._reactionContent = this.props.question && this.props.question.reaction && this.props.question.reaction.content || '';
+
+	    this.state = {
+	      content: this._content,
+	      severity: this._severity,
+	      reactionContent: this._reactionContent
+	    };
+
+	    this._handleContentChange = this._handleTextFieldChange.bind(this, 'content');
+	    this._handleSeverityChange = this._handleSelectChange.bind(this, 'severity');
+	    this._handleReactionContentChange = this._handleTextFieldChange.bind(this, 'reactionContent');
+	  }
+
+	  return QuestionForm;
+	})(_react2['default'].Component);
+
+	exports['default'] = _reactRelay2['default'].createContainer(QuestionForm, {
+
+	  fragments: {
+	    admin: function admin() {
+	      return (function (RQL_0) {
+	        return {
+	          children: [].concat.apply([], [{
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }, _reactRelay2['default'].QL.__frag(RQL_0)]),
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'QuestionFormRelayQL',
+	          type: 'Admin'
+	        };
+	      })(_mutationsCreateQuestion2['default'].getFragment('admin'));
+	    },
+
+	    question: function question() {
+	      return (function (RQL_0) {
+	        return {
+	          children: [].concat.apply([], [{
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }, {
+	            fieldName: 'content',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, {
+	            fieldName: 'severity',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'Int'
+	          }, {
+	            children: [{
+	              fieldName: 'content',
+	              kind: 'Field',
+	              metadata: {},
+	              type: 'String'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'reaction',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'BotReaction'
+	          }, _reactRelay2['default'].QL.__frag(RQL_0)]),
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'QuestionFormRelayQL',
+	          type: 'Question'
+	        };
+	      })(_mutationsUpdateQuestion2['default'].getFragment('question'));
+	    }
+	  }
+
+	});
+
+/***/ },
+/* 725 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'updateQuestion',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'UpdateQuestionInput!'
+	          },
+	          name: 'UpdateQuestion',
+	          responseType: 'UpdateQuestionPayload'
+	        };
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'content',
+	              kind: 'Field',
+	              metadata: {},
+	              type: 'String'
+	            }, {
+	              fieldName: 'severity',
+	              kind: 'Field',
+	              metadata: {},
+	              type: 'Int'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'question',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Question'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'UpdateQuestionRelayQL',
+	          type: 'UpdateQuestionPayload'
+	        };
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        questionID: _this.props.question.id,
+	        content: _this.props.content,
+	        severity: _this.props.severity
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: { question: _this.props.question.id }
+	      }];
+	    };
+	  }
+
+	  _createClass(_default, null, [{
+	    key: 'fragments',
+	    value: {
+	      question: function question() {
+	        return (function () {
+	          return {
+	            children: [{
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            id: _reactRelay2['default'].QL.__id(),
+	            kind: 'Fragment',
+	            metadata: {},
+	            name: 'UpdateQuestionRelayQL',
+	            type: 'Question'
+	          };
+	        })();
+	      }
+	    },
+	    enumerable: true
+	  }]);
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 726 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -89982,18 +90585,18 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 725 */
+/* 727 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
 		"./NodeRoute": 701,
 		"./NodeRoute.js": 701,
-		"./ThemeAppRoute": 726,
-		"./ThemeAppRoute.js": 726,
-		"./ThemesRoute": 727,
-		"./ThemesRoute.js": 727,
-		"./ViewerRoute": 728,
-		"./ViewerRoute.js": 728,
+		"./ThemeAppRoute": 728,
+		"./ThemeAppRoute.js": 728,
+		"./ThemesRoute": 729,
+		"./ThemesRoute.js": 729,
+		"./ViewerRoute": 730,
+		"./ViewerRoute.js": 730,
 		"./admin/AdminRoute": 699,
 		"./admin/AdminRoute.js": 699
 	};
@@ -90008,11 +90611,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 725;
+	webpackContext.id = 727;
 
 
 /***/ },
-/* 726 */
+/* 728 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90090,7 +90693,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 727 */
+/* 729 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90166,7 +90769,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 728 */
+/* 730 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90234,6 +90837,42 @@
 
 	exports['default'] = _default;
 	module.exports = exports['default'];
+
+/***/ },
+/* 731 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(504);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _svgIcon = __webpack_require__(561);
+
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ContentAdd = function ContentAdd(props) {
+	  return _react2.default.createElement(
+	    _svgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' })
+	  );
+	};
+	ContentAdd = (0, _pure2.default)(ContentAdd);
+	ContentAdd.displayName = 'ContentAdd';
+
+	exports.default = ContentAdd;
 
 /***/ }
 /******/ ]);
