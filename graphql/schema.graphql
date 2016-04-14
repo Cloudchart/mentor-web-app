@@ -640,6 +640,7 @@ type Topic implements Node {
   isDefault: Boolean!
   isPaid: Boolean!
   isSubscribedByViewer: Boolean!
+  isFinishedByViewer: Boolean!
   insights(after: String, first: Int, before: String, last: Int, filter: TopicInsightsFilterEnum = unrated): TopicInsightsConnection
   links(after: String, first: Int, before: String, last: Int, filter: TopicLinkFilter = default): TopicLinksConnection
 }

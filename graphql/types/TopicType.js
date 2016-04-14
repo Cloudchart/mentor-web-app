@@ -12,7 +12,8 @@ import {
 import { nodeInterface } from './Node'
 
 import {
-  UserThemeStorage
+  UserThemeStorage,
+  ThemeInsightStorage,
 } from '../../storage'
 
 import TopicInsightsConnection from '../connections/TopicInsightsConnection'
@@ -51,6 +52,12 @@ export default new GraphQLObjectType({
         let link = await UserThemeStorage.loadOne('unique', { userID: viewer.id, themeID: id })
         return link && link.status === 'subscribed'
       }
+    },
+
+    isFinishedByViewer: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      resolve: async ({ id }, args, { rootValue: { viewer } }) =>
+        await ThemeInsightStorage.count('newForUserTheme', { userID: viewer.id, themeID: id, limit: 1 }) == 0
     },
 
     insights: TopicInsightsConnection,
