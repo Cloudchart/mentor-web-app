@@ -10,6 +10,8 @@ import {
   globalIdField
 } from 'graphql-relay'
 
+import moment from 'moment'
+
 import {
   InsightOriginStorage,
 } from '../../storage'
@@ -36,7 +38,12 @@ export default new GraphQLObjectType({
     origin: {
       type: InsightOriginType,
       resolve: ({ id }) => InsightOriginStorage.load(id).catch(() => null)
-    }
+    },
+
+    createdAt: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: ({ created_at }) => moment(created_at).format('YYYY-MM-DD hh:mm:ss')
+    },
 
   })
 

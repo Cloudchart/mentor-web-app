@@ -217,6 +217,7 @@ export default Relay.createContainer(TopicLinkForm, {
             node {
               id
               content
+              createdAt
             }
           }
         }

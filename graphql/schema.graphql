@@ -216,6 +216,7 @@ type Insight implements Node {
   id: ID!
   content: String!
   origin: InsightOrigin
+  createdAt: String!
 }
 
 type InsightOrigin {

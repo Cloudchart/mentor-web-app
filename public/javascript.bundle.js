@@ -87,7 +87,7 @@
 
 	forEach.call(document.querySelectorAll('[data-relay-class]'), function (node) {
 	  var Component = __webpack_require__(407)("./" + node.dataset.relayClass);
-	  var Router = __webpack_require__(729)("./" + node.dataset.relayRoute);
+	  var Router = __webpack_require__(730)("./" + node.dataset.relayRoute);
 
 	  var RouterProps = {};
 	  try {
@@ -42968,38 +42968,38 @@
 		"./admin/AnswerItem.js": 420,
 		"./admin/ChooserApp": 698,
 		"./admin/ChooserApp.js": 698,
-		"./admin/LandingApp": 712,
-		"./admin/LandingApp.js": 712,
-		"./admin/QuestionApp": 725,
-		"./admin/QuestionApp.js": 725,
-		"./admin/QuestionsApp": 718,
-		"./admin/QuestionsApp.js": 718,
+		"./admin/LandingApp": 713,
+		"./admin/LandingApp.js": 713,
+		"./admin/QuestionApp": 726,
+		"./admin/QuestionApp.js": 726,
+		"./admin/QuestionsApp": 719,
+		"./admin/QuestionsApp.js": 719,
 		"./admin/TopicApp": 702,
 		"./admin/TopicApp.js": 702,
-		"./admin/TopicInsightsTable": 711,
-		"./admin/TopicInsightsTable.js": 711,
-		"./admin/TopicLinksCard": 704,
-		"./admin/TopicLinksCard.js": 704,
+		"./admin/TopicInsightsTable": 712,
+		"./admin/TopicInsightsTable.js": 712,
+		"./admin/TopicLinksCard": 705,
+		"./admin/TopicLinksCard.js": 705,
 		"./admin/TopicsApp": 700,
 		"./admin/TopicsApp.js": 700,
-		"./admin/UsersApp": 713,
-		"./admin/UsersApp.js": 713,
-		"./admin/_TopicApp": 726,
-		"./admin/_TopicApp.js": 726,
+		"./admin/UsersApp": 714,
+		"./admin/UsersApp.js": 714,
+		"./admin/_TopicApp": 727,
+		"./admin/_TopicApp.js": 727,
 		"./admin/forms/AnswerForm": 693,
 		"./admin/forms/AnswerForm.js": 693,
-		"./admin/forms/InsightChooser": 707,
-		"./admin/forms/InsightChooser.js": 707,
-		"./admin/forms/NewQuestionForm": 727,
-		"./admin/forms/NewQuestionForm.js": 727,
-		"./admin/forms/QuestionForm": 720,
-		"./admin/forms/QuestionForm.js": 720,
-		"./admin/forms/RolesForm": 715,
-		"./admin/forms/RolesForm.js": 715,
-		"./admin/forms/TopicLinkForm": 705,
-		"./admin/forms/TopicLinkForm.js": 705,
-		"./admin/forms/_TopicLinkForm": 728,
-		"./admin/forms/_TopicLinkForm.js": 728
+		"./admin/forms/InsightChooser": 708,
+		"./admin/forms/InsightChooser.js": 708,
+		"./admin/forms/NewQuestionForm": 728,
+		"./admin/forms/NewQuestionForm.js": 728,
+		"./admin/forms/QuestionForm": 721,
+		"./admin/forms/QuestionForm.js": 721,
+		"./admin/forms/RolesForm": 716,
+		"./admin/forms/RolesForm.js": 716,
+		"./admin/forms/TopicLinkForm": 706,
+		"./admin/forms/TopicLinkForm.js": 706,
+		"./admin/forms/_TopicLinkForm": 729,
+		"./admin/forms/_TopicLinkForm.js": 729
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -85296,15 +85296,15 @@
 
 	var _materialUiLibSvgIconsNavigationRefresh2 = _interopRequireDefault(_materialUiLibSvgIconsNavigationRefresh);
 
-	var _mutationsRefreshTopic = __webpack_require__(733);
+	var _mutationsRefreshTopic = __webpack_require__(704);
 
 	var _mutationsRefreshTopic2 = _interopRequireDefault(_mutationsRefreshTopic);
 
-	var _TopicLinksCard = __webpack_require__(704);
+	var _TopicLinksCard = __webpack_require__(705);
 
 	var _TopicLinksCard2 = _interopRequireDefault(_TopicLinksCard);
 
-	var _TopicInsightsTable = __webpack_require__(711);
+	var _TopicInsightsTable = __webpack_require__(712);
 
 	var _TopicInsightsTable2 = _interopRequireDefault(_TopicInsightsTable);
 
@@ -85477,6 +85477,156 @@
 	  value: true
 	});
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _reactRelay = __webpack_require__(160);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _default = (function (_Relay$Mutation) {
+	  _inherits(_default, _Relay$Mutation);
+
+	  function _default() {
+	    var _this = this;
+
+	    _classCallCheck(this, _default);
+
+	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
+
+	    this.getMutation = function () {
+	      return (function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'refreshTopic',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'RefreshTopicInput!'
+	          },
+	          name: 'RefreshTopic',
+	          responseType: 'RefreshTopicPayload'
+	        };
+	      })();
+	    };
+
+	    this.getFatQuery = function () {
+	      return (function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'insights',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isConnection: true
+	              },
+	              type: 'TopicInsightsConnection'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'topic',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Topic'
+	          }],
+	          id: _reactRelay2['default'].QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'RefreshTopicRelayQL',
+	          type: 'RefreshTopicPayload'
+	        };
+	      })();
+	    };
+
+	    this.getVariables = function () {
+	      return {
+	        topicID: _this.props.topic.id
+	      };
+	    };
+
+	    this.getConfigs = function () {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: { topic: _this.props.topic.id }
+	      }];
+	    };
+	  }
+
+	  _createClass(_default, null, [{
+	    key: 'fragments',
+	    value: {
+	      topic: function topic() {
+	        return (function () {
+	          return {
+	            children: [{
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            id: _reactRelay2['default'].QL.__id(),
+	            kind: 'Fragment',
+	            metadata: {},
+	            name: 'RefreshTopicRelayQL',
+	            type: 'Topic'
+	          };
+	        })();
+	      }
+	    },
+	    enumerable: true
+	  }]);
+
+	  return _default;
+	})(_reactRelay2['default'].Mutation);
+
+	exports['default'] = _default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 705 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -85499,11 +85649,11 @@
 
 	var _materialUiLibSvgIconsNavigationClose2 = _interopRequireDefault(_materialUiLibSvgIconsNavigationClose);
 
-	var _formsTopicLinkForm = __webpack_require__(705);
+	var _formsTopicLinkForm = __webpack_require__(706);
 
 	var _formsTopicLinkForm2 = _interopRequireDefault(_formsTopicLinkForm);
 
-	var _mutationsAdminRemoveTopicLink = __webpack_require__(710);
+	var _mutationsAdminRemoveTopicLink = __webpack_require__(711);
 
 	var _mutationsAdminRemoveTopicLink2 = _interopRequireDefault(_mutationsAdminRemoveTopicLink);
 
@@ -85710,6 +85860,11 @@
 	                        kind: 'Field',
 	                        metadata: {},
 	                        type: 'String'
+	                      }, {
+	                        fieldName: 'createdAt',
+	                        kind: 'Field',
+	                        metadata: {},
+	                        type: 'String'
 	                      }],
 	                      fieldName: 'node',
 	                      kind: 'Field',
@@ -85845,7 +86000,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 705 */
+/* 706 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -85876,19 +86031,19 @@
 
 	var _materialUi = __webpack_require__(421);
 
-	var _materialUiLibSvgIconsNavigationCancel = __webpack_require__(706);
+	var _materialUiLibSvgIconsNavigationCancel = __webpack_require__(707);
 
 	var _materialUiLibSvgIconsNavigationCancel2 = _interopRequireDefault(_materialUiLibSvgIconsNavigationCancel);
 
-	var _InsightChooser = __webpack_require__(707);
+	var _InsightChooser = __webpack_require__(708);
 
 	var _InsightChooser2 = _interopRequireDefault(_InsightChooser);
 
-	var _mutationsAdminIntroduceLinkToTopic = __webpack_require__(708);
+	var _mutationsAdminIntroduceLinkToTopic = __webpack_require__(709);
 
 	var _mutationsAdminIntroduceLinkToTopic2 = _interopRequireDefault(_mutationsAdminIntroduceLinkToTopic);
 
-	var _mutationsAdminUpdateTopicLink = __webpack_require__(709);
+	var _mutationsAdminUpdateTopicLink = __webpack_require__(710);
 
 	var _mutationsAdminUpdateTopicLink2 = _interopRequireDefault(_mutationsAdminUpdateTopicLink);
 
@@ -86258,6 +86413,11 @@
 	                  kind: 'Field',
 	                  metadata: {},
 	                  type: 'String'
+	                }, {
+	                  fieldName: 'createdAt',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
 	                }],
 	                fieldName: 'node',
 	                kind: 'Field',
@@ -86333,7 +86493,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 706 */
+/* 707 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86369,7 +86529,7 @@
 	exports.default = NavigationCancel;
 
 /***/ },
-/* 707 */
+/* 708 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86413,6 +86573,8 @@
 	      _this.setState({
 	        dataSource: _this.props.insights.filter(function (insight) {
 	          return _this.props.selectedInsights.indexOf(insight.id) == -1 && insight.content.toLowerCase().indexOf(filter) >= 0;
+	        }).sort(function (a, b) {
+	          return a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0;
 	        })
 	      });
 	    };
@@ -86480,7 +86642,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 708 */
+/* 709 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86648,7 +86810,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 709 */
+/* 710 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86766,7 +86928,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 710 */
+/* 711 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86896,7 +87058,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 711 */
+/* 712 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86937,7 +87099,9 @@
 	      return _react2['default'].createElement(
 	        _materialUi.List,
 	        null,
-	        _this.props.topic.insights.edges.map(function (edge) {
+	        _this.props.topic.insights.edges.sort(function (a, b) {
+	          return a.node.createdAt < b.node.createdAt ? 1 : a.node.createdAt > b.node.createdAt ? -1 : 0;
+	        }).map(function (edge) {
 	          return _this._renderInsightTableRow(edge.node);
 	        })
 	      );
@@ -87002,6 +87166,11 @@
 	                  type: 'ID'
 	                }, {
 	                  fieldName: 'content',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  fieldName: 'createdAt',
 	                  kind: 'Field',
 	                  metadata: {},
 	                  type: 'String'
@@ -87081,7 +87250,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 712 */
+/* 713 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87122,11 +87291,11 @@
 
 	var _TopicsApp2 = _interopRequireDefault(_TopicsApp);
 
-	var _UsersApp = __webpack_require__(713);
+	var _UsersApp = __webpack_require__(714);
 
 	var _UsersApp2 = _interopRequireDefault(_UsersApp);
 
-	var _QuestionsApp = __webpack_require__(718);
+	var _QuestionsApp = __webpack_require__(719);
 
 	var _QuestionsApp2 = _interopRequireDefault(_QuestionsApp);
 
@@ -87259,7 +87428,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 713 */
+/* 714 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87288,11 +87457,11 @@
 
 	var _materialUiLibStylesColors = __webpack_require__(454);
 
-	var _materialUiLibSvgIconsEditorModeEdit = __webpack_require__(714);
+	var _materialUiLibSvgIconsEditorModeEdit = __webpack_require__(715);
 
 	var _materialUiLibSvgIconsEditorModeEdit2 = _interopRequireDefault(_materialUiLibSvgIconsEditorModeEdit);
 
-	var _formsRolesForm = __webpack_require__(715);
+	var _formsRolesForm = __webpack_require__(716);
 
 	var _formsRolesForm2 = _interopRequireDefault(_formsRolesForm);
 
@@ -87611,7 +87780,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 714 */
+/* 715 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87647,7 +87816,7 @@
 	exports.default = EditorModeEdit;
 
 /***/ },
-/* 715 */
+/* 716 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87674,11 +87843,11 @@
 
 	var _materialUi = __webpack_require__(421);
 
-	var _mutationsGrantRoleToUser = __webpack_require__(716);
+	var _mutationsGrantRoleToUser = __webpack_require__(717);
 
 	var _mutationsGrantRoleToUser2 = _interopRequireDefault(_mutationsGrantRoleToUser);
 
-	var _mutationsRevokeRoleFromUser = __webpack_require__(717);
+	var _mutationsRevokeRoleFromUser = __webpack_require__(718);
 
 	var _mutationsRevokeRoleFromUser2 = _interopRequireDefault(_mutationsRevokeRoleFromUser);
 
@@ -87884,7 +88053,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 716 */
+/* 717 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88049,7 +88218,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 717 */
+/* 718 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88180,7 +88349,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 718 */
+/* 719 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88211,23 +88380,23 @@
 
 	var _materialUiLibSvgIconsNavigationClose2 = _interopRequireDefault(_materialUiLibSvgIconsNavigationClose);
 
-	var _materialUiLibSvgIconsContentAdd = __webpack_require__(719);
+	var _materialUiLibSvgIconsContentAdd = __webpack_require__(720);
 
 	var _materialUiLibSvgIconsContentAdd2 = _interopRequireDefault(_materialUiLibSvgIconsContentAdd);
 
-	var _formsQuestionForm = __webpack_require__(720);
+	var _formsQuestionForm = __webpack_require__(721);
 
 	var _formsQuestionForm2 = _interopRequireDefault(_formsQuestionForm);
 
-	var _mutationsRemoveQuestion = __webpack_require__(723);
+	var _mutationsRemoveQuestion = __webpack_require__(724);
 
 	var _mutationsRemoveQuestion2 = _interopRequireDefault(_mutationsRemoveQuestion);
 
-	var _mutationsUpdateQuestionPublishedStatus = __webpack_require__(724);
+	var _mutationsUpdateQuestionPublishedStatus = __webpack_require__(725);
 
 	var _mutationsUpdateQuestionPublishedStatus2 = _interopRequireDefault(_mutationsUpdateQuestionPublishedStatus);
 
-	var _QuestionApp = __webpack_require__(725);
+	var _QuestionApp = __webpack_require__(726);
 
 	var _QuestionApp2 = _interopRequireDefault(_QuestionApp);
 
@@ -88586,7 +88755,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 719 */
+/* 720 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88622,7 +88791,7 @@
 	exports.default = ContentAdd;
 
 /***/ },
-/* 720 */
+/* 721 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88651,11 +88820,11 @@
 
 	var _materialUi = __webpack_require__(421);
 
-	var _mutationsCreateQuestion = __webpack_require__(721);
+	var _mutationsCreateQuestion = __webpack_require__(722);
 
 	var _mutationsCreateQuestion2 = _interopRequireDefault(_mutationsCreateQuestion);
 
-	var _mutationsUpdateQuestion = __webpack_require__(722);
+	var _mutationsUpdateQuestion = __webpack_require__(723);
 
 	var _mutationsUpdateQuestion2 = _interopRequireDefault(_mutationsUpdateQuestion);
 
@@ -88969,7 +89138,7 @@
 	});
 
 /***/ },
-/* 721 */
+/* 722 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89162,7 +89331,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 722 */
+/* 723 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89316,7 +89485,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 723 */
+/* 724 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89438,7 +89607,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 724 */
+/* 725 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89616,7 +89785,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 725 */
+/* 726 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89655,7 +89824,7 @@
 
 	var _formsAnswerForm2 = _interopRequireDefault(_formsAnswerForm);
 
-	var _formsQuestionForm = __webpack_require__(720);
+	var _formsQuestionForm = __webpack_require__(721);
 
 	var _formsQuestionForm2 = _interopRequireDefault(_formsQuestionForm);
 
@@ -89960,7 +90129,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 726 */
+/* 727 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89987,11 +90156,11 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _mutationsAdminRemoveTopicLink = __webpack_require__(710);
+	var _mutationsAdminRemoveTopicLink = __webpack_require__(711);
 
 	var _mutationsAdminRemoveTopicLink2 = _interopRequireDefault(_mutationsAdminRemoveTopicLink);
 
-	var _formsTopicLinkForm = __webpack_require__(705);
+	var _formsTopicLinkForm = __webpack_require__(706);
 
 	var _formsTopicLinkForm2 = _interopRequireDefault(_formsTopicLinkForm);
 
@@ -90243,7 +90412,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 727 */
+/* 728 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90270,7 +90439,7 @@
 
 	var _materialUi = __webpack_require__(421);
 
-	var _mutationsCreateQuestion = __webpack_require__(721);
+	var _mutationsCreateQuestion = __webpack_require__(722);
 
 	var _mutationsCreateQuestion2 = _interopRequireDefault(_mutationsCreateQuestion);
 
@@ -90416,7 +90585,7 @@
 	exports['default'] = NewQuestionForm;
 
 /***/ },
-/* 728 */
+/* 729 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90445,11 +90614,11 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _mutationsAdminIntroduceLinkToTopic = __webpack_require__(708);
+	var _mutationsAdminIntroduceLinkToTopic = __webpack_require__(709);
 
 	var _mutationsAdminIntroduceLinkToTopic2 = _interopRequireDefault(_mutationsAdminIntroduceLinkToTopic);
 
-	var _InsightChooser = __webpack_require__(707);
+	var _InsightChooser = __webpack_require__(708);
 
 	var _InsightChooser2 = _interopRequireDefault(_InsightChooser);
 
@@ -90707,18 +90876,18 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 729 */
+/* 730 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
 		"./NodeRoute": 701,
 		"./NodeRoute.js": 701,
-		"./ThemeAppRoute": 730,
-		"./ThemeAppRoute.js": 730,
-		"./ThemesRoute": 731,
-		"./ThemesRoute.js": 731,
-		"./ViewerRoute": 732,
-		"./ViewerRoute.js": 732,
+		"./ThemeAppRoute": 731,
+		"./ThemeAppRoute.js": 731,
+		"./ThemesRoute": 732,
+		"./ThemesRoute.js": 732,
+		"./ViewerRoute": 733,
+		"./ViewerRoute.js": 733,
 		"./admin/AdminRoute": 699,
 		"./admin/AdminRoute.js": 699
 	};
@@ -90733,11 +90902,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 729;
+	webpackContext.id = 730;
 
 
 /***/ },
-/* 730 */
+/* 731 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90815,7 +90984,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 731 */
+/* 732 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90891,7 +91060,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 732 */
+/* 733 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90956,156 +91125,6 @@
 
 	  return _default;
 	})(_reactRelay2['default'].Route);
-
-	exports['default'] = _default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 733 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _reactRelay = __webpack_require__(160);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _default = (function (_Relay$Mutation) {
-	  _inherits(_default, _Relay$Mutation);
-
-	  function _default() {
-	    var _this = this;
-
-	    _classCallCheck(this, _default);
-
-	    _get(Object.getPrototypeOf(_default.prototype), 'constructor', this).apply(this, arguments);
-
-	    this.getMutation = function () {
-	      return (function () {
-	        return {
-	          calls: [{
-	            kind: 'Call',
-	            metadata: {},
-	            name: 'refreshTopic',
-	            value: {
-	              kind: 'CallVariable',
-	              callVariableName: 'input'
-	            }
-	          }],
-	          children: [{
-	            fieldName: 'clientMutationId',
-	            kind: 'Field',
-	            metadata: {
-	              isGenerated: true,
-	              isRequisite: true
-	            },
-	            type: 'String'
-	          }],
-	          kind: 'Mutation',
-	          metadata: {
-	            inputType: 'RefreshTopicInput!'
-	          },
-	          name: 'RefreshTopic',
-	          responseType: 'RefreshTopicPayload'
-	        };
-	      })();
-	    };
-
-	    this.getFatQuery = function () {
-	      return (function () {
-	        return {
-	          children: [{
-	            children: [{
-	              fieldName: 'insights',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isConnection: true
-	              },
-	              type: 'TopicInsightsConnection'
-	            }, {
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'topic',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'Topic'
-	          }],
-	          id: _reactRelay2['default'].QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'RefreshTopicRelayQL',
-	          type: 'RefreshTopicPayload'
-	        };
-	      })();
-	    };
-
-	    this.getVariables = function () {
-	      return {
-	        topicID: _this.props.topic.id
-	      };
-	    };
-
-	    this.getConfigs = function () {
-	      return [{
-	        type: 'FIELDS_CHANGE',
-	        fieldIDs: { topic: _this.props.topic.id }
-	      }];
-	    };
-	  }
-
-	  _createClass(_default, null, [{
-	    key: 'fragments',
-	    value: {
-	      topic: function topic() {
-	        return (function () {
-	          return {
-	            children: [{
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            id: _reactRelay2['default'].QL.__id(),
-	            kind: 'Fragment',
-	            metadata: {},
-	            name: 'RefreshTopicRelayQL',
-	            type: 'Topic'
-	          };
-	        })();
-	      }
-	    },
-	    enumerable: true
-	  }]);
-
-	  return _default;
-	})(_reactRelay2['default'].Mutation);
 
 	exports['default'] = _default;
 	module.exports = exports['default'];

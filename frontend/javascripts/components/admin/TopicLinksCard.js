@@ -120,6 +120,7 @@ export default Relay.createContainer(TopicLinksCard, {
                   node {
                     id
                     content
+                    createdAt
                   }
                 }
               }

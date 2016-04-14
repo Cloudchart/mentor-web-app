@@ -19,7 +19,11 @@ class TopicInsightsTable extends React.Component {
 
   render = () =>
     <List>
-      { this.props.topic.insights.edges.map(edge => this._renderInsightTableRow(edge.node) ) }
+      {
+        this.props.topic.insights.edges
+          .sort((a, b) => a.node.createdAt < b.node.createdAt ? 1 : a.node.createdAt > b.node.createdAt ? -1 : 0)
+          .map(edge => this._renderInsightTableRow(edge.node) )
+      }
     </List>
 
 
@@ -49,6 +53,7 @@ export default Relay.createContainer(TopicInsightsTable, {
             node {
               id
               content
+              createdAt
             }
           }
         }

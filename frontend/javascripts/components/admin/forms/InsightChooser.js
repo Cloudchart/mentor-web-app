@@ -35,7 +35,9 @@ class InsightChooser extends React.Component {
   _filterInsights = () => {
     let filter = this.state.filter.toLowerCase()
     this.setState({
-      dataSource: this.props.insights.filter(insight => this.props.selectedInsights.indexOf(insight.id) == -1 && insight.content.toLowerCase().indexOf(filter) >= 0)
+      dataSource: this.props.insights
+        .filter(insight => this.props.selectedInsights.indexOf(insight.id) == -1 && insight.content.toLowerCase().indexOf(filter) >= 0)
+        .sort((a, b) => a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0)
     })
   }
 
