@@ -16,7 +16,7 @@ import {
   TextField,
 } from 'material-ui'
 
-import CancelIcon from 'material-ui/lib/svg-icons/navigation/cancel'
+import CancelIcon from 'material-ui/svg-icons/navigation/cancel'
 
 import InsightChooser from './InsightChooser'
 

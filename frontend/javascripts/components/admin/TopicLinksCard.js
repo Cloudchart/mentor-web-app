@@ -16,7 +16,7 @@ import {
   Subheader,
 } from 'material-ui'
 
-import Close from 'material-ui/lib/svg-icons/navigation/close'
+import Close from 'material-ui/svg-icons/navigation/close'
 
 import TopicLinkForm from './forms/TopicLinkForm'
 

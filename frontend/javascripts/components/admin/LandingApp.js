@@ -9,13 +9,25 @@ import TopicsApp from './TopicsApp'
 import UsersApp from './UsersApp'
 import QuestionsApp from './QuestionsApp'
 
+// import {
+//   AppBar,
+//   LeftNav,
+//   List,
+//   ListItem,
+//   Paper
+// } from 'material-ui'
+
+import AppBar from 'material-ui/AppBar'
+import Paper from 'material-ui/Paper'
+import Drawer from 'material-ui/Drawer'
 import {
-  AppBar,
-  LeftNav,
   List,
-  ListItem,
-  Paper
-} from 'material-ui'
+  ListItem
+} from 'material-ui/List'
+
+import {
+  getMuiTheme
+} from 'material-ui/styles'
 
 
 // const RootRoutes = {
@@ -50,6 +62,16 @@ const InitialRoute = {
 
 export default class extends React.Component {
 
+  static childContextTypes = {
+    muiTheme: React.PropTypes.object
+  }
+
+  getChildContext = () => {
+    return {
+        muiTheme: getMuiTheme()
+    };
+  }
+
   constructor(props, context) {
     super(props, context)
 
@@ -69,7 +91,7 @@ export default class extends React.Component {
       <div>
         <AppBar title={ this.state.route.title } onLeftIconButtonTouchTap={ this.toggleLeftNav } />
         <Navigator ref="navigator" initialRoute={ InitialRoute } renderScene={ this.renderScene } onChange={ this.handleNavigatorChange } />
-        <LeftNav
+        <Drawer
           open            = { this.state.isLeftNavOpen }
           docked          = { false }
           onRequestChange = { isLeftNavOpen => this.setState({ isLeftNavOpen })}
@@ -77,7 +99,7 @@ export default class extends React.Component {
           <List>
             { RootRoutes.map((route, index) => this.renderRootRoute(route, index)) }
           </List>
-        </LeftNav>
+        </Drawer>
       </div>
     )
   }

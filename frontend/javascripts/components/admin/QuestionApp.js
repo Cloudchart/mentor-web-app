@@ -20,7 +20,7 @@ import {
   red500,
   indigo500,
   grey500,
-} from 'material-ui/lib/styles/colors'
+} from 'material-ui/styles/colors'
 
 import AnswerItem from './AnswerItem'
 import AnswerForm from './forms/AnswerForm'

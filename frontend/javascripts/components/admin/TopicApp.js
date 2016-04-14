@@ -14,7 +14,7 @@ import {
   Tabs,
 } from 'material-ui'
 
-import Refresh from 'material-ui/lib/svg-icons/navigation/refresh'
+import Refresh from 'material-ui/svg-icons/navigation/refresh'
 
 import RefreshTopicMutation from 'mutations/RefreshTopic'
 

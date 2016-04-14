@@ -18,7 +18,8 @@ module.exports = {
   resolve: {
     alias: {
       'components': path.resolve(__dirname, './frontend/javascripts/components'),
-      'mutations': path.resolve(__dirname, './frontend/javascripts/mutations'),
+      'mutations':  path.resolve(__dirname, './frontend/javascripts/mutations'),
+      'routes':     path.resolve(__dirname, './frontend/javascripts/routes'),
     },
     extensions: ['', '.js', '.scss']
   },
@@ -29,8 +30,9 @@ module.exports = {
         include: /frontend/,
         loader: 'babel',
         query: {
-          stage: '0',
+          presets: ['react', 'es2015', 'stage-0'],
           plugins: [
+            "add-module-exports",
             path.resolve(__dirname, './frontend/babel-relay-plugin')
           ]
         }
