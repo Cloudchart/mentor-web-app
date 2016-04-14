@@ -85292,6 +85292,10 @@
 
 	var _materialUi = __webpack_require__(421);
 
+	var _materialUiLibSvgIconsNavigationRefresh = __webpack_require__(732);
+
+	var _materialUiLibSvgIconsNavigationRefresh2 = _interopRequireDefault(_materialUiLibSvgIconsNavigationRefresh);
+
 	var _TopicLinksCard = __webpack_require__(703);
 
 	var _TopicLinksCard2 = _interopRequireDefault(_TopicLinksCard);
@@ -85304,9 +85308,38 @@
 	  _inherits(TopicApp, _React$Component);
 
 	  function TopicApp(props) {
+	    var _this = this;
+
 	    _classCallCheck(this, TopicApp);
 
 	    _get(Object.getPrototypeOf(TopicApp.prototype), 'constructor', this).call(this, props);
+
+	    this._handleReloadRequest = function () {
+	      _this.setState({ reloading: true });
+	    };
+
+	    this._renderRefreshIndicator = function () {
+	      return _react2['default'].createElement(
+	        'div',
+	        { style: { position: 'fixed', right: 20, bottom: 20, width: 40, height: 40 } },
+	        _this.state.reloading ? _react2['default'].createElement(_materialUi.RefreshIndicator, {
+	          percentage: 50,
+	          status: 'loading',
+	          size: 40,
+	          left: 0,
+	          top: 0,
+	          style: { position: 'relative' }
+	        }) : _react2['default'].createElement(
+	          _materialUi.FloatingActionButton,
+	          {
+	            onTouchTap: _this._handleReloadRequest,
+	            secondary: true,
+	            mini: true
+	          },
+	          _react2['default'].createElement(_materialUiLibSvgIconsNavigationRefresh2['default'], null)
+	        )
+	      );
+	    };
 
 	    this.state = {
 	      shouldRenderInsights: false
@@ -85316,7 +85349,7 @@
 	  _createClass(TopicApp, [{
 	    key: 'render',
 	    value: function render() {
-	      var _this = this;
+	      var _this2 = this;
 
 	      return _react2['default'].createElement(
 	        'div',
@@ -85332,9 +85365,10 @@
 	          _react2['default'].createElement(
 	            _materialUi.Tab,
 	            { label: 'Insights', onActive: function () {
-	                return _this.setState({ shouldRenderInsights: true });
+	                return _this2.setState({ shouldRenderInsights: true });
 	              } },
-	            this._renderTopicInsights()
+	            this._renderTopicInsights(),
+	            this._renderRefreshIndicator()
 	          )
 	        )
 	      );
@@ -90873,6 +90907,42 @@
 
 	exports['default'] = _default;
 	module.exports = exports['default'];
+
+/***/ },
+/* 732 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(504);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _svgIcon = __webpack_require__(561);
+
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var NavigationRefresh = function NavigationRefresh(props) {
+	  return _react2.default.createElement(
+	    _svgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z' })
+	  );
+	};
+	NavigationRefresh = (0, _pure2.default)(NavigationRefresh);
+	NavigationRefresh.displayName = 'NavigationRefresh';
+
+	exports.default = NavigationRefresh;
 
 /***/ }
 /******/ ]);

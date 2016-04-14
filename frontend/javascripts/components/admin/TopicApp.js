@@ -8,10 +8,13 @@ import {
   CardTitle,
   CardActions,
   FlatButton,
+  FloatingActionButton,
+  RefreshIndicator,
   Tab,
   Tabs,
 } from 'material-ui'
 
+import Refresh from 'material-ui/lib/svg-icons/navigation/refresh'
 
 import TopicLinksCard from './TopicLinksCard'
 import TopicInsightsTable from './TopicInsightsTable'
@@ -27,6 +30,12 @@ class TopicApp extends React.Component {
     }
   }
 
+
+  _handleReloadRequest = () => {
+    this.setState({ reloading: true })
+  }
+
+
   render() {
     return (
       <div>
@@ -36,6 +45,7 @@ class TopicApp extends React.Component {
           </Tab>
           <Tab label="Insights" onActive={ () => this.setState({ shouldRenderInsights: true }) }>
             { this._renderTopicInsights() }
+            { this._renderRefreshIndicator() }
           </Tab>
         </Tabs>
       </div>
@@ -47,6 +57,28 @@ class TopicApp extends React.Component {
       ? <TopicInsightsTable topic={ this.props.node } />
       : null
   }
+
+  _renderRefreshIndicator = () =>
+    <div style = {{ position: 'fixed', right: 20, bottom: 20, width: 40, height: 40 }}>
+      {
+        this.state.reloading
+          ? <RefreshIndicator
+              percentage  = { 50 }
+              status      = "loading"
+              size        = { 40 }
+              left        = { 0 }
+              top         = { 0 }
+              style       = {{ position: 'relative' }}
+            />
+          : <FloatingActionButton
+              onTouchTap  = { this._handleReloadRequest }
+              secondary
+              mini
+            >
+              <Refresh />
+            </FloatingActionButton>
+      }
+    </div>
 
 }
 
