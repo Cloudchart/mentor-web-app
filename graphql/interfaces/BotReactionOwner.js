@@ -15,16 +15,14 @@ export const Resolve = async (owner) => {
   return await BotReactionStorage.loadOne('forOwner', { owner_id, owner_type })
 }
 
+export const ResolveWithScope = async (owner, scope) => {
+  let { id: owner_id, __type: owner_type } = owner
+  return await BotReactionStorage.loadOne('forOwnerWithScope', { owner_id, owner_type, scope })
+}
+
 
 export default new GraphQLInterfaceType({
   name: 'BotReactionOwner',
-
-  // resolveType: ({ __type }) => {
-  //   switch(__type) {
-  //     case 'Question':
-  //       return require('../types/QuestionType')
-  //   }
-  // },
 
   fields: () => ({
 

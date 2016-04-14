@@ -217,6 +217,8 @@ type Insight implements Node {
   content: String!
   origin: InsightOrigin
   createdAt: String!
+  likeReaction: BotReaction
+  dislikeReaction: BotReaction
 }
 
 type InsightOrigin {

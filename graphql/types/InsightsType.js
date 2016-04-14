@@ -18,6 +18,10 @@ import {
 
 import { nodeInterface } from './Node'
 
+import botReactionOwnerInterface, {
+  ResolveWithScope as resolveReaction
+} from '../interfaces/BotReactionOwner'
+
 
 export default new GraphQLObjectType({
 
@@ -45,9 +49,21 @@ export default new GraphQLObjectType({
       resolve: ({ created_at }) => moment(created_at).format('YYYY-MM-DD hh:mm:ss')
     },
 
+    likeReaction: {
+      type: BotReactionType,
+      resolve: ({ owner }) => resolveReaction(owner, 'like')
+    },
+
+    dislikeReaction: {
+      type: BotReactionType,
+      resolve: ({ owner }) => resolveReaction(owner, 'dislike')
+    },
+
   })
 
 })
 
 
 import InsightOriginType from './InsightOriginType'
+
+import BotReactionType from './BotReaction'
