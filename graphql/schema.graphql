@@ -356,6 +356,7 @@ type Mutation {
   setUserPushToken(input: SetUserPushTokenInput!): SetUserPushTokenPayload
   subscribeOnTheme(input: SubscribeOnThemeInput!): SubscribeOnThemePayload
   unsubscribeFromTheme(input: UnsubscribeFromThemeInput!): UnsubscribeFromThemePayload
+  refreshTopic(input: RefreshTopicInput!): RefreshTopicPayload
   rejectTheme(input: RejectThemeInput!): RejectThemePayload
   likeInsight(input: LikeInsightInput!): LikeInsightPayload
   markInsightUseful(input: MarkInsightUsefulInput!): MarkInsightUsefulPayload
@@ -463,6 +464,16 @@ type QuestionsConnection {
 type QuestionsEdge {
   node: Question
   cursor: String!
+}
+
+input RefreshTopicInput {
+  topicID: ID!
+  clientMutationId: String!
+}
+
+type RefreshTopicPayload {
+  topic: Topic!
+  clientMutationId: String!
 }
 
 input RejectThemeInput {

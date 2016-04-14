@@ -18,11 +18,11 @@ let filterHits = (query) =>
     hits.filter(hit => hit.pinboard_tags && hit.pinboard_tags.indexOf(query) >= 0)
 
 
-let perform = async ({ themeID }, callback) => {
+let perform = async ({ themeID, force }, callback) => {
   let now   = new Date
   let theme = await ThemeStorage.load(themeID)
 
-  if (theme.last_fetched_at && (now - theme.last_fetched_at) < FetchDelay )
+  if (force !== true && theme.last_fetched_at && (now - theme.last_fetched_at) < FetchDelay )
     return callback()
 
   let query = theme.name.toLowerCase()

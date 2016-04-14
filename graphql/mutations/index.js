@@ -20,6 +20,7 @@ import {
   UnsubscribeFromTopicMutation,
 } from './UserTopicMutations'
 
+import RefreshTopicMutation from './topic/refresh'
 
 import {
   LikeInsightInTopicMutation,
@@ -85,6 +86,9 @@ export default new GraphQLObjectType({
     setUserPushToken:                 SetUserPushTokenMutation,
     subscribeOnTheme:                 SubscribeOnThemeMutation,
     unsubscribeFromTheme:             UnsubscribeFromThemeMutation,
+
+    refreshTopic:                     RefreshTopicMutation,
+
     rejectTheme:                      RejectThemeMutation,
     likeInsight:                      LikeInsightMutation,
     markInsightUseful:                MarkInsightUsefulMutation,

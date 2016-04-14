@@ -16,6 +16,8 @@ import {
 
 import Refresh from 'material-ui/lib/svg-icons/navigation/refresh'
 
+import RefreshTopicMutation from 'mutations/RefreshTopic'
+
 import TopicLinksCard from './TopicLinksCard'
 import TopicInsightsTable from './TopicInsightsTable'
 
@@ -32,7 +34,16 @@ class TopicApp extends React.Component {
 
 
   _handleReloadRequest = () => {
+    if (this.state.reloading)
+      return
+
     this.setState({ reloading: true })
+
+    let mutation = new RefreshTopicMutation({ topic: this.props.node })
+    Relay.Store.commitUpdate(mutation, {
+      onSuccess: () => { this.setState({ reloading: false }) },
+      onFailure: () => { this.setState({ reloading: false }) },
+    })
   }
 
 
@@ -90,8 +101,9 @@ export default Relay.createContainer(TopicApp, {
       fragment on Topic {
         id
         name
-        ${TopicLinksCard.getFragment('topic')}
-        ${TopicInsightsTable.getFragment('topic')}
+        ${ RefreshTopicMutation.getFragment('topic') }
+        ${ TopicLinksCard.getFragment('topic') }
+        ${ TopicInsightsTable.getFragment('topic') }
       }
     `
   }
