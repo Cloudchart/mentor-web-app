@@ -6,11 +6,51 @@ import {
   ThemeStorage,
   InsightStorage,
   InsightOriginStorage,
-  ThemeInsightStorage
+  ThemeInsightStorage,
+  BotReactionStorage,
 } from '../../storage'
 
 
 const FetchDelay = 24 * 60 * 60 * 1000
+
+
+let updateReaction = async (mood, insight) => {
+  try {
+
+  let attributes = {
+    owner_id:   insight.objectID,
+    owner_type: 'Insight',
+    content:    insight[mood + '_reaction'],
+    scope:      mood === 'positive' ? 'like' : 'dislike',
+    mood
+  }
+
+    let reaction = await BotReactionStorage
+      .loadOne('forOwnerWithMood', attributes)
+      .catch(() => null)
+
+    await reaction
+      ? BotReactionStorage.update(reaction.id, attributes)
+      : BotReactionStorage.create(attributes)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+let removeReaction = async (mood, insight) => {
+  let attributes = {
+    owner_id:   insight.objectID,
+    owner_type: 'Insight',
+    scope:      mood === 'positive' ? 'like' : 'dislike'
+  }
+
+  let reaction = await BotReactionStorage
+    .loadOne('forOwnerWithMood', attributes)
+    .catch(error => console.log(error))
+
+  if (reaction)
+    await BotReactionStorage.destroy(reaction.id)
+}
 
 
 let filterHits = (query) =>
@@ -47,6 +87,16 @@ let perform = async ({ themeID, force }, callback) => {
       author: hit.user.name,
     }))
   )
+
+  hits.forEach(async hit => {
+    await hit.positive_reaction
+      ? updateReaction('positive', hit)
+      : removeReaction('positive', hit)
+
+    await hit.negative_reaction
+      ? updateReaction('negative', hit)
+      : removeReaction('negative', hit)
+  })
 
   await ThemeInsightStorage.destroyAllForTheme(themeID)
   await ThemeInsightStorage.createMany(hits.map(hit => ({ insight_id: hit.objectID, theme_id: themeID })))

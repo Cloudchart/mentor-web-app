@@ -51,12 +51,12 @@ export default new GraphQLObjectType({
 
     likeReaction: {
       type: BotReactionType,
-      resolve: ({ owner }) => resolveReaction(owner, 'like')
+      resolve: (owner) => resolveReaction(owner, 'like')
     },
 
     dislikeReaction: {
       type: BotReactionType,
-      resolve: ({ owner }) => resolveReaction(owner, 'dislike')
+      resolve: (owner) => resolveReaction(owner, 'dislike')
     },
 
   })

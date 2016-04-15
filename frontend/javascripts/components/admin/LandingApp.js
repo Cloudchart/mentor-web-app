@@ -8,6 +8,7 @@ import AdminRoute from '../../routes/admin/AdminRoute'
 import TopicsApp from './TopicsApp'
 import UsersApp from './UsersApp'
 import QuestionsApp from './QuestionsApp'
+import UnchainedReactionsApp from './UnchainedReactionsApp'
 
 // import {
 //   AppBar,
@@ -50,6 +51,10 @@ const RootRoutes = [
   }, {
     title:      'Questions',
     Component:  QuestionsApp,
+    Route:      AdminRoute,
+  }, {
+    title:      'Unchained Boris',
+    Component:  UnchainedReactionsApp,
     Route:      AdminRoute,
   }
 ]

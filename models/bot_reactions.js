@@ -8,12 +8,17 @@ export default function(sequelize, DataTypes) {
 
     owner_id: {
       type:           DataTypes.UUID,
-      allowNull:      false,
+      allowNull:      true,
     },
 
     owner_type: {
       type:           DataTypes.STRING,
-      allowNull:      false,
+      allowNull:      true,
+    },
+
+    scope: {
+      type:           DataTypes.STRING,
+      allowNull:      true,
     },
 
     mood: {

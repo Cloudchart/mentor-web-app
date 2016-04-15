@@ -28,6 +28,10 @@ export default new GraphQLObjectType({
 
     id: globalIdField('BotReaction'),
 
+    scope: {
+      type: GraphQLString,
+    },
+
     mood: {
       type: new GraphQLNonNull(GraphQLString)
     },

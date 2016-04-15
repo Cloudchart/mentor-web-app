@@ -5,7 +5,7 @@ let searchIndex = algoliasearch(configuration.clientId, configuration.clientSecr
 
 let searchConfiguration = {
   hitsPerPage:            configuration.hitsPerPage,
-  attributesToRetrieve:   'objectID,content,pinboard_tags,origin,user',
+  attributesToRetrieve:   'objectID,content,pinboard_tags,origin,user,positive_reaction,negative_reaction',
   attributesToHighlight:  'none'
 }
 
