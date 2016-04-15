@@ -14,13 +14,14 @@ Relay.injectNetworkLayer(
 )
 
 forEach.call(document.querySelectorAll('[data-react-class]'), node => {
-  let Component = require('./components/' + node.dataset.reactClass)
+  let Component = require('components/' + node.dataset.reactClass)
+
   ReactDOM.render(<Component />, node)
 })
 
 forEach.call(document.querySelectorAll('[data-relay-class]'), node => {
-  let Component = require('./components/' + node.dataset.relayClass)
-  let Router    = require('./routes/' + node.dataset.relayRoute)
+  let Component = require('components/' + node.dataset.relayClass)
+  let Router    = require('routes/' + node.dataset.relayRoute)
 
   let RouterProps = {}
   try { RouterProps = JSON.parse(node.dataset.routeProps) } catch(e) {}

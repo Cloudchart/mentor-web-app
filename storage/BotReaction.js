@@ -26,6 +26,18 @@ const Storage = BaseStorage('BotReaction', {
       where: `owner_id = :owner_id and owner_type = :owner_type and scope = :scope`,
       order: 'created_at'
     }),
+    forOwnerWithMood: GenericQuery({
+      where: `owner_id = :owner_id and owner_type = :owner_type and mood = :mood`,
+      order: 'created_at'
+    }),
+    unchained: GenericQuery({
+      where: `owner_id is null and owner_type is null`,
+      order: `created_at`
+    }),
+    unchainedWithScope: GenericQuery({
+      where: `owner_id is null and owner_type is null and scope = :scope`,
+      order: `created_at`
+    })
   }
 })
 

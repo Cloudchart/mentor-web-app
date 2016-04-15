@@ -1,3 +1,8 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
 input ActivateUserInput {
   userId: ID
   clientMutationId: String!
@@ -9,9 +14,10 @@ type ActivateUserPayload {
 }
 
 input AddBotReactionToOwnerMutationInput {
-  ownerID: ID!
-  content: String!
+  ownerID: ID
+  scope: String
   mood: String = "positive"
+  content: String!
   clientMutationId: String!
 }
 
@@ -69,6 +75,7 @@ type Admin implements Node {
   themes(after: String, first: Int, before: String, last: Int, query: String, filter: String, order: String): AdminThemesConnection
   topics(after: String, first: Int, before: String, last: Int): AdminTopicsConnection
   questions(after: String, first: Int, before: String, last: Int): QuestionsConnection
+  reactions(after: String, first: Int, before: String, last: Int): UnchainedBotReactionsConnection
 }
 
 type AdminInsight implements Node {
@@ -137,6 +144,7 @@ type Answer implements Node, BotReactionOwner {
 
 type BotReaction implements Node {
   id: ID!
+  scope: String
   mood: String!
   content: String!
 }
@@ -579,9 +587,10 @@ type Role implements Node {
 }
 
 input SetBotReactionToOwnerMutationInput {
-  ownerID: ID!
-  content: String!
+  ownerID: ID
+  scope: String
   mood: String = "positive"
+  content: String!
   clientMutationId: String!
 }
 
@@ -699,6 +708,16 @@ type TopicLinksConnection {
 
 type TopicLinksEdge {
   node: TopicLink
+  cursor: String!
+}
+
+type UnchainedBotReactionsConnection {
+  pageInfo: PageInfo!
+  edges: [UnchainedBotReactionsEdge]
+}
+
+type UnchainedBotReactionsEdge {
+  node: BotReaction
   cursor: String!
 }
 
@@ -820,6 +839,7 @@ type User implements Node {
   topics(after: String, first: Int, before: String, last: Int, filter: UserTopicsConnectionFilter = all): UserTopicsConnectionConnection
   collections(after: String, first: Int, before: String, last: Int): UserCollectionsConnectionConnection
   roles(after: String, first: Int, before: String, last: Int): UserRolesConnection
+  reactions(after: String, first: Int, before: String, last: Int): UnchainedBotReactionsConnection
   isActive: Boolean
   pushToken: String
   themes(after: String, first: Int, before: String, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection

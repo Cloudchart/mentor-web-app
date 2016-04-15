@@ -16,6 +16,7 @@ import { Field as AdminThemesConnection } from '../../connections/admin/AdminThe
 import AdminTopicsConnection from '../../connections/admin/AdminTopicsConnection'
 
 import QuestionsConnection from '../../connections/Questions'
+import UnchainedBotReactionsConnection from '../../connections/UnchainedBotReactions'
 
 
 export default new GraphQLObjectType({
@@ -41,6 +42,8 @@ export default new GraphQLObjectType({
     topics: AdminTopicsConnection,
 
     questions: QuestionsConnection,
+
+    reactions: UnchainedBotReactionsConnection,
 
   })
 })

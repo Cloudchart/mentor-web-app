@@ -8,7 +8,7 @@ import {
   ListItem,
 } from 'material-ui'
 
-import Close from 'material-ui/lib/svg-icons/navigation/close'
+import Close from 'material-ui/svg-icons/navigation/close'
 
 import AnswerForm from './forms/AnswerForm'
 

@@ -20,17 +20,21 @@ import BotReactionOwnerInterface from '../interfaces/BotReactionOwner'
 const InputFields = {
 
   ownerID: {
-    type: new GraphQLNonNull(GraphQLID)
+    type: GraphQLID
   },
 
-  content: {
-    type: new GraphQLNonNull(GraphQLString)
+  scope: {
+    type: GraphQLString,
   },
 
   mood: {
     type: GraphQLString,
     defaultValue: 'positive',
-  }
+  },
+
+  content: {
+    type: new GraphQLNonNull(GraphQLString)
+  },
 
 }
 
@@ -54,7 +58,7 @@ export const SetBotReactionToOwnerMutation = mutationWithClientMutationId({
 
   outputFields: OutputFields,
 
-  mutateAndGetPayload: async ({ ownerID, content, mood }, { rootValue: { viewer } }) => {
+  mutateAndGetPayload: async ({ ownerID, scope, mood, content }, { rootValue: { viewer } }) => {
     let {
       id: owner_id,
       type: owner_type,
@@ -91,7 +95,7 @@ export const AddBotReactionToOwnerMutation = mutationWithClientMutationId({
     },
   },
 
-  mutateAndGetPayload: async ({ ownerID, content, mood }, { rootValue: { viewer } }) => {
+  mutateAndGetPayload: async ({ ownerID, scope, mood, content }, { rootValue: { viewer } }) => {
     let {
       id: owner_id,
       type: owner_type

@@ -17,8 +17,8 @@ import {
   Toggle,
 } from 'material-ui'
 
-import Close from 'material-ui/lib/svg-icons/navigation/close'
-import ContentAdd from 'material-ui/lib/svg-icons/content/add'
+import Close from 'material-ui/svg-icons/navigation/close'
+import ContentAdd from 'material-ui/svg-icons/content/add'
 
 import QuestionForm from './forms/QuestionForm'
 

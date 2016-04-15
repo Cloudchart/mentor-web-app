@@ -91,6 +91,12 @@ router.use('/',
   cors({ origin: checkCorsOrigins, credentials: true },
 ), graphqlHTTP(req => ({
   schema: GraphQLSchema,
+  context: {
+    viewer: req.user,
+    rootValue: {
+      viewer: req.user
+    }
+  },
   rootValue: {
     viewer: req.user
   },

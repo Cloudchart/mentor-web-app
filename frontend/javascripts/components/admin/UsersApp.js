@@ -19,9 +19,9 @@ import {
 
 import {
   blueGrey500
-} from 'material-ui/lib/styles/colors'
+} from 'material-ui/styles/colors'
 
-import EditMode from 'material-ui/lib/svg-icons/editor/mode-edit'
+import EditMode from 'material-ui/svg-icons/editor/mode-edit'
 
 import RolesForm from './forms/RolesForm'
 

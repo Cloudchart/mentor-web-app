@@ -26,6 +26,7 @@ import UserTopicsConnection from '../connections/UserTopicsConnection'
 import UserCollectionsConnection from '../connections/UserCollectionsConnection'
 import UserRolesConnection from '../connections/UserRoles'
 import UserInsightsConnection from '../connections/UserInsights'
+import UnchainedBotReactionsConnection from '../connections/UnchainedBotReactions'
 
 
 export const Fields = () => ({
@@ -43,6 +44,8 @@ export const Fields = () => ({
   collections: UserCollectionsConnection,
 
   roles: UserRolesConnection,
+
+  reactions: UnchainedBotReactionsConnection,
 
 })
 
