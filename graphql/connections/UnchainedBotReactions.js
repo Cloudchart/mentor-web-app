@@ -1,4 +1,9 @@
 import {
+  GraphQLString,
+  GraphQLNonNull,
+} from 'graphql'
+
+import {
   connectionArgs,
   connectionDefinitions
 } from 'graphql-relay'
@@ -33,10 +38,13 @@ export default {
 
   args: {
     ...connectionArgs,
+    scope: {
+      type: GraphQLString
+    }
   },
 
-  resolve: async (root, { ...args }, { viewer }) => {
-    let reactions = await BotReactionStorage.loadAll('unchained')
+  resolve: async (root, { scope, ...args }, { viewer }) => {
+    let reactions = []
     return {
       ...connectionFromArray(reactions, args)
     }

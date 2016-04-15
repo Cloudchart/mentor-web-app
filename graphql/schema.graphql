@@ -74,8 +74,8 @@ type Admin implements Node {
   insights(after: String, first: Int, before: String, last: Int, query: String): AdminInsightsConnection
   themes(after: String, first: Int, before: String, last: Int, query: String, filter: String, order: String): AdminThemesConnection
   topics(after: String, first: Int, before: String, last: Int): AdminTopicsConnection
-  questions(after: String, first: Int, before: String, last: Int): QuestionsConnection
-  reactions(after: String, first: Int, before: String, last: Int): UnchainedBotReactionsConnection
+  questions(after: String, first: Int, before: String, last: Int, filter: QuestionFilter = unansweredForUser): QuestionsConnection
+  reactions(after: String, first: Int, before: String, last: Int, scope: String): UnchainedBotReactionsConnection
 }
 
 type AdminInsight implements Node {
@@ -142,11 +142,24 @@ type Answer implements Node, BotReactionOwner {
   reaction: BotReaction
 }
 
+input AnswerTheQuestionInput {
+  questionID: ID!
+  answerID: ID!
+  clientMutationId: String!
+}
+
+type AnswerTheQuestionPayload {
+  question: Question!
+  answerEdge: QuestionAnswersEdge!
+  clientMutationId: String!
+}
+
 type BotReaction implements Node {
   id: ID!
   scope: String
   mood: String!
   content: String!
+  weight: Int!
 }
 
 interface BotReactionOwner {
@@ -402,6 +415,7 @@ type Mutation {
   introduceAnswer(input: IntroduceAnswerInput!): IntroduceAnswerPayload
   updateAnswer(input: UpdateAnswerInput!): UpdateAnswerPayload
   removeAnswer(input: RemoveAnswerInput!): RemoveAnswerPayload
+  answerTheQuestion(input: AnswerTheQuestionInput!): AnswerTheQuestionPayload
   setBotReactionToOwner(input: SetBotReactionToOwnerMutationInput!): SetBotReactionToOwnerMutationPayload
   addBotReactionToOwner(input: AddBotReactionToOwnerMutationInput!): AddBotReactionToOwnerMutationPayload
 }
@@ -465,6 +479,12 @@ type QuestionAnswersConnection {
 type QuestionAnswersEdge {
   node: Answer
   cursor: String!
+}
+
+enum QuestionFilter {
+  ALL
+  ANSWERED
+  UNANSWERED
 }
 
 type QuestionsConnection {
@@ -839,7 +859,8 @@ type User implements Node {
   topics(after: String, first: Int, before: String, last: Int, filter: UserTopicsConnectionFilter = all): UserTopicsConnectionConnection
   collections(after: String, first: Int, before: String, last: Int): UserCollectionsConnectionConnection
   roles(after: String, first: Int, before: String, last: Int): UserRolesConnection
-  reactions(after: String, first: Int, before: String, last: Int): UnchainedBotReactionsConnection
+  reactions(after: String, first: Int, before: String, last: Int, scope: String): UnchainedBotReactionsConnection
+  questions(after: String, first: Int, before: String, last: Int, filter: QuestionFilter = unansweredForUser): QuestionsConnection
   isActive: Boolean
   pushToken: String
   themes(after: String, first: Int, before: String, last: Int, filter: UserThemeFilterEnum = default): UserThemesConnection

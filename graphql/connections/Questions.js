@@ -22,6 +22,16 @@ import {
 import QuestionType from '../types/QuestionType'
 
 
+export const QuestionsFilter = new GraphQLEnumType({
+  name: 'QuestionFilter',
+
+  values: {
+    ALL:        { value: 'all'               },
+    ANSWERED:   { value: 'answeredForUser'   },
+    UNANSWERED: { value: 'unansweredForUser' },
+  }
+})
+
 export const Connection = connectionDefinitions({
 
   name: 'Questions',
@@ -39,10 +49,18 @@ export default {
 
   args: {
     ...connectionArgs,
+    filter: {
+      type: QuestionsFilter,
+      defaultValue: 'unansweredForUser',
+    }
   },
 
-  resolve: async (root, { ...args }, { rootValue: { viewer } }) => {
-    let questions = await QuestionStorage.loadAll('all')
+  resolve: async (root, { filter, ...args }, { rootValue: { viewer } }) => {
+    if (filter === 'all' && !viewer.isAdmin)
+      return new Error('Not authorized.')
+
+    let questions = await QuestionStorage.loadAll(filter, { user_id: viewer.id })
+
     return {
       ...connectionFromArray(questions, args),
     }

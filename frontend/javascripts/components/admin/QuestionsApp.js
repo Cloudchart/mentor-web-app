@@ -179,7 +179,7 @@ export default Relay.createContainer(QuestionsApp, {
     admin: () => Relay.QL`
       fragment on Admin {
         ${ QuestionForm.getFragment('admin') }
-        questions(first: 100) {
+        questions(first: 100, filter: ALL) {
           edges {
             node {
               ${ QuestionApp.getFragment('question') }

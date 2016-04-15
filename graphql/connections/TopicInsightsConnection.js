@@ -84,6 +84,7 @@ export default {
 
   resolve: async (topic, { filter, ...args }, { rootValue: { viewer } }) => {
     let queryName = filter + 'ForTopicAndUser'
+
     if (filter === 'admin') queryName = 'admin'
     if (filter === 'preview') queryName = 'preview'
 

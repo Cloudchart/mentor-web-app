@@ -1,4 +1,5 @@
 import {
+  GraphQLInt,
   GraphQLString,
   GraphQLBoolean,
   GraphQLNonNull,
@@ -38,6 +39,10 @@ export default new GraphQLObjectType({
 
     content: {
       type: new GraphQLNonNull(GraphQLString)
+    },
+
+    weight: {
+      type: new GraphQLNonNull(GraphQLInt)
     }
 
   })
