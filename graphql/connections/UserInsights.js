@@ -34,6 +34,7 @@ export const UserInsightFilter = new GraphQLEnumType({
     RATED:      { value: 'ratedForUser'     },
     UNRATED:    { value: 'unratedForUser'   },
     POSTPONED:  { value: 'postponedForUser' },
+    FOLLOWUPS:  { value: 'followUpsForUser' },
   }
 })
 

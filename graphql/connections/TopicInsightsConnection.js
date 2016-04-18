@@ -31,13 +31,13 @@ export const TopicInsightsConnectionFilterEnum = new GraphQLEnumType({
   name: 'TopicInsightsFilterEnum',
 
   values: {
-    ALL:      { value: 'all'      },
-    RATED:    { value: 'rated'    },
-    UNRATED:  { value: 'unrated'  },
-    LIKED:    { value: 'liked'    },
-    DISLIKED: { value: 'disliked' },
-    ADMIN:    { value: 'admin'    },
-    PREVIEW:  { value: 'preview'  },
+    ALL:        { value: 'all'       },
+    RATED:      { value: 'rated'     },
+    UNRATED:    { value: 'unrated'   },
+    LIKED:      { value: 'liked'     },
+    DISLIKED:   { value: 'disliked'  },
+    ADMIN:      { value: 'admin'     },
+    PREVIEW:    { value: 'preview'   },
   }
 })
 

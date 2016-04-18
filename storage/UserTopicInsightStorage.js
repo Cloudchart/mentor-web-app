@@ -28,6 +28,19 @@ const UniqueQuery = `
 `
 
 
+const FollowUpsForUserQuery = `
+  select
+    id
+  from
+    ${TableName}
+  where
+    rate = 1
+    and
+    updated_at < NOW() - INTERVAL 5 DAY
+  order by
+    updated_at desc
+`
+
 const UnratedForUserQuery = `
   select
     id
@@ -75,7 +88,8 @@ const Storage = BaseStorage('UserTopicInsight', {
     'ratedForUser':     RatedForUserQuery,
     'unratedForUser':   UnratedForUserQuery,
     'postponedForUser': PostponedForUserQuery,
-    'lastRatedForUser': RatedForUserQuery + ' limit 1'
+    'lastRatedForUser': RatedForUserQuery + ' limit 1',
+    'followUpsForUser': FollowUpsForUserQuery
   }
 })
 

@@ -909,6 +909,7 @@ enum UserInsightFilter {
   RATED
   UNRATED
   POSTPONED
+  FOLLOWUPS
 }
 
 type UserInsightsConnection {
