@@ -380,6 +380,7 @@ type Mutation {
   setUserPushToken(input: SetUserPushTokenInput!): SetUserPushTokenPayload
   subscribeOnTheme(input: SubscribeOnThemeInput!): SubscribeOnThemePayload
   unsubscribeFromTheme(input: UnsubscribeFromThemeInput!): UnsubscribeFromThemePayload
+  updateTopic(input: UpdateTopicInput!): UpdateTopicPayload
   refreshTopic(input: RefreshTopicInput!): RefreshTopicPayload
   rejectTheme(input: RejectThemeInput!): RejectThemePayload
   likeInsight(input: LikeInsightInput!): LikeInsightPayload
@@ -814,6 +815,13 @@ type UpdateThemePayload {
   clientMutationId: String!
 }
 
+input UpdateTopicInput {
+  topicID: ID!
+  name: String!
+  description: String
+  clientMutationId: String!
+}
+
 input UpdateTopicLinkInput {
   linkID: ID!
   linkURL: String!
@@ -826,6 +834,11 @@ input UpdateTopicLinkInput {
 type UpdateTopicLinkPayload {
   link: TopicLink!
   linkID: ID!
+  clientMutationId: String!
+}
+
+type UpdateTopicPayload {
+  topic: Topic!
   clientMutationId: String!
 }
 

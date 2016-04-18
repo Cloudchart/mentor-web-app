@@ -16,6 +16,7 @@ import Edit from 'material-ui/svg-icons/editor/mode-edit'
 
 import NodeRoute from '../../routes/NodeRoute'
 import TopicApp from './TopicApp'
+import TopicForm from './forms/TopicForm'
 
 
 const EditTopicButton = ({ onTouchTap }) =>
@@ -37,11 +38,13 @@ class TopicsApp extends React.Component {
     }
   }
 
+  _hideTopicForm = () =>
+    this.setState({ topic: null })
+
   render = () =>
     <Paper style={{ margin: 20 }}>
-      <List>
-        { this.props.admin.topics.edges.map(this._renderTopic)}
-      </List>
+      { this.props.admin.topics.edges.map(this._renderTopic)}
+      { this._renderTopicForm() }
     </Paper>
 
 
@@ -52,6 +55,11 @@ class TopicsApp extends React.Component {
       onTouchTap      = { () => this._handleTopicSelect(topicEdge.node) }
       rightIconButton = { <EditTopicButton onTouchTap={ () => this.setState({ topic: topicEdge.node }) } /> }
     />
+
+  _renderTopicForm = () =>
+    this.state.topic
+      ? <TopicForm topic={ this.state.topic } onCancel={ this._hideTopicForm } onDone={ this._hideTopicForm } />
+      : null
 
   _handleTopicSelect = (node) =>
     this.props.navigator.push({ Component: TopicApp, Route: NodeRoute, props: { id: node.id }, title: `Topics / ${node.name}` })
@@ -75,6 +83,7 @@ export default Relay.createContainer(TopicsApp, {
           }
           edges {
             node {
+              ${ TopicForm.getFragment('topic') }
               id
               name
             }

@@ -8,6 +8,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue:   DataTypes.UUIDV4
     },
     name:             DataTypes.STRING,
+    description:      DataTypes.TEXT,
     is_system:        DataTypes.BOOLEAN,
     is_default:       DataTypes.BOOLEAN,
     last_fetched_at:  DataTypes.DATE

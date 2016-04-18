@@ -20,6 +20,7 @@ import {
   UnsubscribeFromTopicMutation,
 } from './UserTopicMutations'
 
+import UpdateTopicMutation from './topic/update'
 import RefreshTopicMutation from './topic/refresh'
 
 import {
@@ -89,6 +90,7 @@ export default new GraphQLObjectType({
     subscribeOnTheme:                 SubscribeOnThemeMutation,
     unsubscribeFromTheme:             UnsubscribeFromThemeMutation,
 
+    updateTopic:                      UpdateTopicMutation,
     refreshTopic:                     RefreshTopicMutation,
 
     rejectTheme:                      RejectThemeMutation,
