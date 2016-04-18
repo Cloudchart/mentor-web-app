@@ -1,3 +1,4 @@
+import squel from 'squel'
 import BaseStorage from './BaseStorage'
 import models from '../models'
 
@@ -27,19 +28,31 @@ const UniqueQuery = `
     insight_id = :insight_id
 `
 
+const FollowUpsForUserQuery = squel.select()
+  .from(TableName)
+  .field('id')
+  .where(
+    squel.expr()
+      .and('rate = 1')
+      .and('updated_at < NOW() - INTERVAL 5 DAY')
+      .and('user_id = :user_id')
+  )
+  .order('updated_at', false)
+  .toString()
 
-const FollowUpsForUserQuery = `
-  select
-    id
-  from
-    ${TableName}
-  where
-    rate = 1
-    and
-    updated_at < NOW() - INTERVAL 5 DAY
-  order by
-    updated_at desc
-`
+
+// const FollowUpsForUserQuery = `
+//   select
+//     id
+//   from
+//     ${TableName}
+//   where
+//     rate = 1
+//     and
+//     updated_at < NOW() - INTERVAL 5 DAY
+//   order by
+//     updated_at desc
+// `
 
 const UnratedForUserQuery = `
   select
