@@ -43000,42 +43000,42 @@
 		"./admin/AnswerItem.js": 420,
 		"./admin/ChooserApp": 621,
 		"./admin/ChooserApp.js": 621,
-		"./admin/LandingApp": 636,
-		"./admin/LandingApp.js": 636,
-		"./admin/QuestionApp": 650,
-		"./admin/QuestionApp.js": 650,
-		"./admin/QuestionsApp": 643,
-		"./admin/QuestionsApp.js": 643,
-		"./admin/TopicApp": 625,
-		"./admin/TopicApp.js": 625,
-		"./admin/TopicInsightsTable": 635,
-		"./admin/TopicInsightsTable.js": 635,
-		"./admin/TopicLinksCard": 628,
-		"./admin/TopicLinksCard.js": 628,
+		"./admin/LandingApp": 624,
+		"./admin/LandingApp.js": 624,
+		"./admin/QuestionApp": 638,
+		"./admin/QuestionApp.js": 638,
+		"./admin/QuestionsApp": 631,
+		"./admin/QuestionsApp.js": 631,
+		"./admin/TopicApp": 733,
+		"./admin/TopicApp.js": 733,
+		"./admin/TopicInsightsTable": 743,
+		"./admin/TopicInsightsTable.js": 743,
+		"./admin/TopicLinksCard": 736,
+		"./admin/TopicLinksCard.js": 736,
 		"./admin/TopicsApp": 623,
 		"./admin/TopicsApp.js": 623,
-		"./admin/UnchainedReactionsApp": 651,
-		"./admin/UnchainedReactionsApp.js": 651,
-		"./admin/UsersApp": 637,
-		"./admin/UsersApp.js": 637,
-		"./admin/_TopicApp": 745,
-		"./admin/_TopicApp.js": 745,
+		"./admin/UnchainedReactionsApp": 639,
+		"./admin/UnchainedReactionsApp.js": 639,
+		"./admin/UsersApp": 625,
+		"./admin/UsersApp.js": 625,
+		"./admin/_TopicApp": 744,
+		"./admin/_TopicApp.js": 744,
 		"./admin/forms/AnswerForm": 616,
 		"./admin/forms/AnswerForm.js": 616,
-		"./admin/forms/BotReactionForm": 652,
-		"./admin/forms/BotReactionForm.js": 652,
-		"./admin/forms/InsightChooser": 631,
-		"./admin/forms/InsightChooser.js": 631,
-		"./admin/forms/NewQuestionForm": 746,
-		"./admin/forms/NewQuestionForm.js": 746,
-		"./admin/forms/QuestionForm": 645,
-		"./admin/forms/QuestionForm.js": 645,
-		"./admin/forms/RolesForm": 640,
-		"./admin/forms/RolesForm.js": 640,
-		"./admin/forms/TopicLinkForm": 629,
-		"./admin/forms/TopicLinkForm.js": 629,
-		"./admin/forms/_TopicLinkForm": 747,
-		"./admin/forms/_TopicLinkForm.js": 747
+		"./admin/forms/BotReactionForm": 640,
+		"./admin/forms/BotReactionForm.js": 640,
+		"./admin/forms/InsightChooser": 739,
+		"./admin/forms/InsightChooser.js": 739,
+		"./admin/forms/NewQuestionForm": 745,
+		"./admin/forms/NewQuestionForm.js": 745,
+		"./admin/forms/QuestionForm": 633,
+		"./admin/forms/QuestionForm.js": 633,
+		"./admin/forms/RolesForm": 628,
+		"./admin/forms/RolesForm.js": 628,
+		"./admin/forms/TopicLinkForm": 737,
+		"./admin/forms/TopicLinkForm.js": 737,
+		"./admin/forms/_TopicLinkForm": 746,
+		"./admin/forms/_TopicLinkForm.js": 746
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -76401,8 +76401,6 @@
 	  value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -76413,11 +76411,15 @@
 
 	var _materialUi = __webpack_require__(421);
 
-	var _NodeRoute = __webpack_require__(624);
+	var _modeEdit = __webpack_require__(627);
+
+	var _modeEdit2 = _interopRequireDefault(_modeEdit);
+
+	var _NodeRoute = __webpack_require__(747);
 
 	var _NodeRoute2 = _interopRequireDefault(_NodeRoute);
 
-	var _TopicApp = __webpack_require__(625);
+	var _TopicApp = __webpack_require__(733);
 
 	var _TopicApp2 = _interopRequireDefault(_TopicApp);
 
@@ -76429,56 +76431,60 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var EditTopicButton = function EditTopicButton(_ref) {
+	  var onTouchTap = _ref.onTouchTap;
+	  return _react2.default.createElement(
+	    _materialUi.IconButton,
+	    {
+	      onTouchTap: onTouchTap,
+	      style: { position: 'absolute', right: 20, top: 0 }
+	    },
+	    _react2.default.createElement(_modeEdit2.default, null)
+	  );
+	};
+
 	var TopicsApp = function (_React$Component) {
 	  _inherits(TopicsApp, _React$Component);
 
-	  function TopicsApp() {
-	    var _Object$getPrototypeO;
-
-	    var _temp, _this, _ret;
-
+	  function TopicsApp(props) {
 	    _classCallCheck(this, TopicsApp);
 
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TopicsApp).call(this, props));
 
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(TopicsApp)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.render = function () {
+	    _this.render = function () {
 	      return _react2.default.createElement(
-	        'div',
-	        null,
+	        _materialUi.Paper,
+	        { style: { margin: 20 } },
 	        _react2.default.createElement(
 	          _materialUi.List,
 	          null,
 	          _this.props.admin.topics.edges.map(_this._renderTopic)
 	        )
 	      );
-	    }, _this._renderTopic = function (topicEdge) {
-	      return [_react2.default.createElement(_materialUi.ListItem, {
+	    };
+
+	    _this._renderTopic = function (topicEdge) {
+	      return _react2.default.createElement(_materialUi.ListItem, {
+	        key: topicEdge.node.id,
 	        primaryText: topicEdge.node.name,
 	        onTouchTap: function onTouchTap() {
 	          return _this._handleTopicSelect(topicEdge.node);
-	        }
-	      }), _react2.default.createElement(_materialUi.Divider, null)];
-	    }, _this._handleTopicSelect = function (node) {
+	        },
+	        rightIconButton: _react2.default.createElement(EditTopicButton, { onTouchTap: function onTouchTap() {
+	            return _this.setState({ topic: topicEdge.node });
+	          } })
+	      });
+	    };
+
+	    _this._handleTopicSelect = function (node) {
 	      return _this.props.navigator.push({ Component: _TopicApp2.default, Route: _NodeRoute2.default, props: { id: node.id }, title: 'Topics / ' + node.name });
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    };
+
+	    _this.state = {
+	      topic: null
+	    };
+	    return _this;
 	  }
-
-	  _createClass(TopicsApp, [{
-	    key: '_renderTopics',
-	    value: function _renderTopics() {
-	      var _this2 = this;
-
-	      return _react2.default.createElement(
-	        'ul',
-	        null,
-	        this.props.admin.topics.edges.map(function (edge) {
-	          return _this2._renderTopic(edge.node);
-	        })
-	      );
-	    }
-	  }]);
 
 	  return TopicsApp;
 	}(_react2.default.Component);
@@ -76606,2056 +76612,6 @@
 	  value: true
 	});
 
-	var _reactRelay = __webpack_require__(167);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _class = function (_Relay$Route) {
-	  _inherits(_class, _Relay$Route);
-
-	  function _class() {
-	    _classCallCheck(this, _class);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(_class).apply(this, arguments));
-	  }
-
-	  return _class;
-	}(_reactRelay2.default.Route);
-
-	_class.queries = {
-	  node: function node() {
-	    return function () {
-	      return {
-	        calls: [{
-	          kind: 'Call',
-	          metadata: {
-	            type: 'ID!'
-	          },
-	          name: 'id',
-	          value: {
-	            kind: 'CallVariable',
-	            callVariableName: 'id'
-	          }
-	        }],
-	        children: [{
-	          fieldName: 'id',
-	          kind: 'Field',
-	          metadata: {
-	            isGenerated: true,
-	            isRequisite: true
-	          },
-	          type: 'ID'
-	        }, {
-	          fieldName: '__typename',
-	          kind: 'Field',
-	          metadata: {
-	            isGenerated: true,
-	            isRequisite: true
-	          },
-	          type: 'String'
-	        }],
-	        fieldName: 'node',
-	        kind: 'Query',
-	        metadata: {
-	          isAbstract: true,
-	          identifyingArgName: 'id',
-	          identifyingArgType: 'ID!'
-	        },
-	        name: 'NodeRoute',
-	        type: 'Node'
-	      };
-	    }();
-	  }
-	};
-	_class.routeName = 'Node';
-	exports.default = _class;
-	module.exports = exports['default'];
-
-/***/ },
-/* 625 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRelay = __webpack_require__(167);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _materialUi = __webpack_require__(421);
-
-	var _refresh = __webpack_require__(626);
-
-	var _refresh2 = _interopRequireDefault(_refresh);
-
-	var _RefreshTopic = __webpack_require__(627);
-
-	var _RefreshTopic2 = _interopRequireDefault(_RefreshTopic);
-
-	var _TopicLinksCard = __webpack_require__(628);
-
-	var _TopicLinksCard2 = _interopRequireDefault(_TopicLinksCard);
-
-	var _TopicInsightsTable = __webpack_require__(635);
-
-	var _TopicInsightsTable2 = _interopRequireDefault(_TopicInsightsTable);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var TopicApp = function (_React$Component) {
-	  _inherits(TopicApp, _React$Component);
-
-	  function TopicApp(props) {
-	    _classCallCheck(this, TopicApp);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TopicApp).call(this, props));
-
-	    _this._handleReloadRequest = function () {
-	      if (_this.state.reloading) return;
-
-	      _this.setState({ reloading: true });
-
-	      var mutation = new _RefreshTopic2.default({ topic: _this.props.node });
-	      _reactRelay2.default.Store.commitUpdate(mutation, {
-	        onSuccess: function onSuccess() {
-	          _this.setState({ reloading: false });
-	        },
-	        onFailure: function onFailure() {
-	          _this.setState({ reloading: false });
-	        }
-	      });
-	    };
-
-	    _this._renderRefreshIndicator = function () {
-	      return _react2.default.createElement(
-	        'div',
-	        { style: { position: 'fixed', right: 20, bottom: 20, width: 40, height: 40 } },
-	        _this.state.reloading ? _react2.default.createElement(_materialUi.RefreshIndicator, {
-	          percentage: 50,
-	          status: 'loading',
-	          size: 40,
-	          left: 0,
-	          top: 0,
-	          style: { position: 'relative' }
-	        }) : _react2.default.createElement(
-	          _materialUi.FloatingActionButton,
-	          {
-	            onTouchTap: _this._handleReloadRequest,
-	            secondary: true,
-	            mini: true
-	          },
-	          _react2.default.createElement(_refresh2.default, null)
-	        )
-	      );
-	    };
-
-	    _this.state = {
-	      shouldRenderInsights: false
-	    };
-	    return _this;
-	  }
-
-	  _createClass(TopicApp, [{
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _materialUi.Tabs,
-	          null,
-	          _react2.default.createElement(
-	            _materialUi.Tab,
-	            { label: 'Links' },
-	            _react2.default.createElement(_TopicLinksCard2.default, { topic: this.props.node })
-	          ),
-	          _react2.default.createElement(
-	            _materialUi.Tab,
-	            { label: 'Insights', onActive: function onActive() {
-	                return _this2.setState({ shouldRenderInsights: true });
-	              } },
-	            this._renderTopicInsights(),
-	            this._renderRefreshIndicator()
-	          )
-	        )
-	      );
-	    }
-	  }, {
-	    key: '_renderTopicInsights',
-	    value: function _renderTopicInsights() {
-	      return this.state.shouldRenderInsights ? _react2.default.createElement(_TopicInsightsTable2.default, { topic: this.props.node }) : null;
-	    }
-	  }]);
-
-	  return TopicApp;
-	}(_react2.default.Component);
-
-	exports.default = _reactRelay2.default.createContainer(TopicApp, {
-
-	  fragments: {
-	    node: function node() {
-	      return function (RQL_0, RQL_1, RQL_2) {
-	        return {
-	          children: [].concat.apply([], [{
-	            fieldName: 'id',
-	            kind: 'Field',
-	            metadata: {
-	              isRequisite: true
-	            },
-	            type: 'ID'
-	          }, {
-	            fieldName: 'name',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'String'
-	          }, _reactRelay2.default.QL.__frag(RQL_0), _reactRelay2.default.QL.__frag(RQL_1), _reactRelay2.default.QL.__frag(RQL_2)]),
-	          id: _reactRelay2.default.QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'TopicApp_NodeRelayQL',
-	          type: 'Topic'
-	        };
-	      }(_RefreshTopic2.default.getFragment('topic'), _TopicLinksCard2.default.getFragment('topic'), _TopicInsightsTable2.default.getFragment('topic'));
-	    }
-	  }
-
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 626 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _pure = __webpack_require__(452);
-
-	var _pure2 = _interopRequireDefault(_pure);
-
-	var _SvgIcon = __webpack_require__(460);
-
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var NavigationRefresh = function NavigationRefresh(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z' })
-	  );
-	};
-	NavigationRefresh = (0, _pure2.default)(NavigationRefresh);
-	NavigationRefresh.displayName = 'NavigationRefresh';
-
-	exports.default = NavigationRefresh;
-
-/***/ },
-/* 627 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactRelay = __webpack_require__(167);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _class = function (_Relay$Mutation) {
-	  _inherits(_class, _Relay$Mutation);
-
-	  function _class() {
-	    var _Object$getPrototypeO;
-
-	    var _temp, _this, _ret;
-
-	    _classCallCheck(this, _class);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.getMutation = function () {
-	      return function () {
-	        return {
-	          calls: [{
-	            kind: 'Call',
-	            metadata: {},
-	            name: 'refreshTopic',
-	            value: {
-	              kind: 'CallVariable',
-	              callVariableName: 'input'
-	            }
-	          }],
-	          children: [{
-	            fieldName: 'clientMutationId',
-	            kind: 'Field',
-	            metadata: {
-	              isGenerated: true,
-	              isRequisite: true
-	            },
-	            type: 'String'
-	          }],
-	          kind: 'Mutation',
-	          metadata: {
-	            inputType: 'RefreshTopicInput!'
-	          },
-	          name: 'RefreshTopic',
-	          responseType: 'RefreshTopicPayload'
-	        };
-	      }();
-	    }, _this.getFatQuery = function () {
-	      return function () {
-	        return {
-	          children: [{
-	            children: [{
-	              fieldName: 'insights',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isConnection: true
-	              },
-	              type: 'TopicInsightsConnection'
-	            }, {
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'topic',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'Topic'
-	          }],
-	          id: _reactRelay2.default.QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'RefreshTopicRelayQL',
-	          type: 'RefreshTopicPayload'
-	        };
-	      }();
-	    }, _this.getVariables = function () {
-	      return {
-	        topicID: _this.props.topic.id
-	      };
-	    }, _this.getConfigs = function () {
-	      return [{
-	        type: 'FIELDS_CHANGE',
-	        fieldIDs: { topic: _this.props.topic.id }
-	      }];
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-
-	  return _class;
-	}(_reactRelay2.default.Mutation);
-
-	_class.fragments = {
-	  topic: function topic() {
-	    return function () {
-	      return {
-	        children: [{
-	          fieldName: 'id',
-	          kind: 'Field',
-	          metadata: {
-	            isRequisite: true
-	          },
-	          type: 'ID'
-	        }],
-	        id: _reactRelay2.default.QL.__id(),
-	        kind: 'Fragment',
-	        metadata: {},
-	        name: 'RefreshTopic_TopicRelayQL',
-	        type: 'Topic'
-	      };
-	    }();
-	  }
-	};
-	exports.default = _class;
-	module.exports = exports['default'];
-
-/***/ },
-/* 628 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRelay = __webpack_require__(167);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _materialUi = __webpack_require__(421);
-
-	var _close = __webpack_require__(615);
-
-	var _close2 = _interopRequireDefault(_close);
-
-	var _TopicLinkForm = __webpack_require__(629);
-
-	var _TopicLinkForm2 = _interopRequireDefault(_TopicLinkForm);
-
-	var _RemoveTopicLink = __webpack_require__(634);
-
-	var _RemoveTopicLink2 = _interopRequireDefault(_RemoveTopicLink);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var RightIconButton = function RightIconButton(callback) {
-	  return _react2.default.createElement(
-	    _materialUi.IconButton,
-	    { onTouchTap: function onTouchTap() {
-	        if (confirm('Are you sure?')) {
-	          callback();
-	        }
-	      } },
-	    _react2.default.createElement(_close2.default, { color: 'red' })
-	  );
-	};
-
-	var TopicLinksCard = function (_React$Component) {
-	  _inherits(TopicLinksCard, _React$Component);
-
-	  function TopicLinksCard(props) {
-	    _classCallCheck(this, TopicLinksCard);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TopicLinksCard).call(this, props));
-
-	    _this._handleRemoveRequest = function (id) {
-	      _reactRelay2.default.Store.commitUpdate(new _RemoveTopicLink2.default({
-	        topicID: _this.props.topic.id,
-	        linkID: id
-	      }));
-	    };
-
-	    _this.render = function () {
-	      return _this.state.topicLink === undefined ? _this.renderList() : _this.renderForm();
-	    };
-
-	    _this.renderList = function () {
-	      return _react2.default.createElement(
-	        _materialUi.Card,
-	        { style: { margin: 20 } },
-	        _react2.default.createElement(
-	          _materialUi.List,
-	          null,
-	          _this.props.topic.links.edges.length > 0 ? _this.props.topic.links.edges.map(function (edge) {
-	            return _this._renderTopicLink(edge.node);
-	          }) : _this._renderEmptyTopicListItem()
-	        ),
-	        _react2.default.createElement(_materialUi.Divider, null),
-	        _react2.default.createElement(
-	          _materialUi.CardActions,
-	          null,
-	          _react2.default.createElement(_materialUi.FlatButton, { label: 'Add link', primary: true, onTouchTap: function onTouchTap() {
-	              return _this.setState({ topicLink: null });
-	            } })
-	        )
-	      );
-	    };
-
-	    _this.renderForm = function () {
-	      return _react2.default.createElement(_TopicLinkForm2.default, {
-	        topic: _this.props.topic,
-	        topicLink: _this.state.topicLink,
-	        onCancel: function onCancel() {
-	          return _this.setState({ topicLink: undefined });
-	        },
-	        onDone: function onDone() {
-	          return _this.setState({ topicLink: undefined });
-	        }
-	      });
-	    };
-
-	    _this._renderTopicLink = function (topicLink) {
-	      return _react2.default.createElement(
-	        _materialUi.ListItem,
-	        {
-	          key: topicLink.id,
-	          nestedItems: topicLink.insights.edges.map(function (edge) {
-	            return _this._renderInsight(edge.node);
-	          }),
-	          onTouchTap: function onTouchTap() {
-	            return _this.setState({ topicLink: topicLink });
-	          },
-	          secondaryText: topicLink.reaction && topicLink.reaction.content || '',
-	          rightIconButton: RightIconButton(_this._handleRemoveRequest.bind(_this, topicLink.id))
-	        },
-	        _react2.default.createElement(
-	          'a',
-	          { href: topicLink.url, target: '_blank' },
-	          topicLink.title
-	        )
-	      );
-	    };
-
-	    _this._renderEmptyTopicListItem = function () {
-	      return _react2.default.createElement(
-	        _materialUi.ListItem,
-	        { disabled: true },
-	        'No links'
-	      );
-	    };
-
-	    _this._renderInsight = function (insight) {
-	      return _react2.default.createElement(
-	        _materialUi.ListItem,
-	        { key: insight.id, disabled: true },
-	        insight.content
-	      );
-	    };
-
-	    _this.state = {
-	      topicLink: undefined
-	    };
-	    return _this;
-	  }
-
-	  return TopicLinksCard;
-	}(_react2.default.Component);
-
-	exports.default = _reactRelay2.default.createContainer(TopicLinksCard, {
-
-	  fragments: {
-	    topic: function topic() {
-	      return function (RQL_0, RQL_1) {
-	        return {
-	          children: [].concat.apply([], [{
-	            fieldName: 'id',
-	            kind: 'Field',
-	            metadata: {
-	              isRequisite: true
-	            },
-	            type: 'ID'
-	          }, {
-	            calls: [{
-	              kind: 'Call',
-	              metadata: {},
-	              name: 'first',
-	              value: {
-	                kind: 'CallValue',
-	                callValue: 100
-	              }
-	            }],
-	            children: [{
-	              children: [{
-	                children: [].concat.apply([], [{
-	                  fieldName: 'id',
-	                  kind: 'Field',
-	                  metadata: {
-	                    isRequisite: true
-	                  },
-	                  type: 'ID'
-	                }, {
-	                  fieldName: 'url',
-	                  kind: 'Field',
-	                  metadata: {},
-	                  type: 'String'
-	                }, {
-	                  fieldName: 'title',
-	                  kind: 'Field',
-	                  metadata: {},
-	                  type: 'String'
-	                }, {
-	                  children: [{
-	                    fieldName: 'content',
-	                    kind: 'Field',
-	                    metadata: {},
-	                    type: 'String'
-	                  }, {
-	                    fieldName: 'id',
-	                    kind: 'Field',
-	                    metadata: {
-	                      isGenerated: true,
-	                      isRequisite: true
-	                    },
-	                    type: 'ID'
-	                  }],
-	                  fieldName: 'reaction',
-	                  kind: 'Field',
-	                  metadata: {
-	                    canHaveSubselections: true,
-	                    inferredRootCallName: 'node',
-	                    inferredPrimaryKey: 'id'
-	                  },
-	                  type: 'BotReaction'
-	                }, {
-	                  calls: [{
-	                    kind: 'Call',
-	                    metadata: {},
-	                    name: 'first',
-	                    value: {
-	                      kind: 'CallValue',
-	                      callValue: 100
-	                    }
-	                  }],
-	                  children: [{
-	                    children: [{
-	                      children: [{
-	                        fieldName: 'id',
-	                        kind: 'Field',
-	                        metadata: {
-	                          isRequisite: true
-	                        },
-	                        type: 'ID'
-	                      }, {
-	                        fieldName: 'content',
-	                        kind: 'Field',
-	                        metadata: {},
-	                        type: 'String'
-	                      }, {
-	                        fieldName: 'createdAt',
-	                        kind: 'Field',
-	                        metadata: {},
-	                        type: 'String'
-	                      }],
-	                      fieldName: 'node',
-	                      kind: 'Field',
-	                      metadata: {
-	                        canHaveSubselections: true,
-	                        inferredRootCallName: 'node',
-	                        inferredPrimaryKey: 'id',
-	                        isRequisite: true
-	                      },
-	                      type: 'Insight'
-	                    }, {
-	                      fieldName: 'cursor',
-	                      kind: 'Field',
-	                      metadata: {
-	                        isGenerated: true,
-	                        isRequisite: true
-	                      },
-	                      type: 'String'
-	                    }],
-	                    fieldName: 'edges',
-	                    kind: 'Field',
-	                    metadata: {
-	                      canHaveSubselections: true,
-	                      isPlural: true
-	                    },
-	                    type: 'TopicLinkInsightsEdge'
-	                  }, {
-	                    children: [{
-	                      fieldName: 'hasNextPage',
-	                      kind: 'Field',
-	                      metadata: {
-	                        isGenerated: true,
-	                        isRequisite: true
-	                      },
-	                      type: 'Boolean'
-	                    }, {
-	                      fieldName: 'hasPreviousPage',
-	                      kind: 'Field',
-	                      metadata: {
-	                        isGenerated: true,
-	                        isRequisite: true
-	                      },
-	                      type: 'Boolean'
-	                    }],
-	                    fieldName: 'pageInfo',
-	                    kind: 'Field',
-	                    metadata: {
-	                      canHaveSubselections: true,
-	                      isGenerated: true,
-	                      isRequisite: true
-	                    },
-	                    type: 'PageInfo'
-	                  }],
-	                  fieldName: 'insights',
-	                  kind: 'Field',
-	                  metadata: {
-	                    canHaveSubselections: true,
-	                    isConnection: true
-	                  },
-	                  type: 'TopicLinkInsightsConnection'
-	                }, _reactRelay2.default.QL.__frag(RQL_1)]),
-	                fieldName: 'node',
-	                kind: 'Field',
-	                metadata: {
-	                  canHaveSubselections: true,
-	                  inferredRootCallName: 'node',
-	                  inferredPrimaryKey: 'id',
-	                  isRequisite: true
-	                },
-	                type: 'TopicLink'
-	              }, {
-	                fieldName: 'cursor',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'String'
-	              }],
-	              fieldName: 'edges',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isPlural: true
-	              },
-	              type: 'TopicLinksEdge'
-	            }, {
-	              children: [{
-	                fieldName: 'hasNextPage',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'Boolean'
-	              }, {
-	                fieldName: 'hasPreviousPage',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'Boolean'
-	              }],
-	              fieldName: 'pageInfo',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'PageInfo'
-	            }],
-	            fieldName: 'links',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              isConnection: true
-	            },
-	            type: 'TopicLinksConnection'
-	          }, _reactRelay2.default.QL.__frag(RQL_0)]),
-	          id: _reactRelay2.default.QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'TopicLinksCard_TopicRelayQL',
-	          type: 'Topic'
-	        };
-	      }(_TopicLinkForm2.default.getFragment('topic'), _TopicLinkForm2.default.getFragment('topicLink'));
-	    }
-	  }
-
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 629 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRelay = __webpack_require__(167);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _materialUi = __webpack_require__(421);
-
-	var _cancel = __webpack_require__(630);
-
-	var _cancel2 = _interopRequireDefault(_cancel);
-
-	var _InsightChooser = __webpack_require__(631);
-
-	var _InsightChooser2 = _interopRequireDefault(_InsightChooser);
-
-	var _IntroduceLinkToTopic = __webpack_require__(632);
-
-	var _IntroduceLinkToTopic2 = _interopRequireDefault(_IntroduceLinkToTopic);
-
-	var _UpdateTopicLink = __webpack_require__(633);
-
-	var _UpdateTopicLink2 = _interopRequireDefault(_UpdateTopicLink);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var TopicLinkForm = function (_React$Component) {
-	  _inherits(TopicLinkForm, _React$Component);
-
-	  function TopicLinkForm(props) {
-	    _classCallCheck(this, TopicLinkForm);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TopicLinkForm).call(this, props));
-
-	    _this._removeInsightAtIndex = function (ii) {
-	      _this.setState({
-	        linkInsightsIDs: _this.state.linkInsightsIDs.slice(0, ii).concat(_this.state.linkInsightsIDs.slice(ii + 1))
-	      });
-	    };
-
-	    _this._handleInsightSelect = function (id) {
-	      _this.setState({
-	        linkInsightsIDs: _this.state.linkInsightsIDs.concat(id)
-	      });
-	    };
-
-	    _this._showInsightChooser = function () {
-	      _this.setState({
-	        isInsightChooserOpen: true
-	      });
-	    };
-
-	    _this._hideInsightChooser = function () {
-	      _this.setState({
-	        isInsightChooserOpen: false
-	      });
-	    };
-
-	    _this._isValid = function () {
-	      return _this.state.linkURL.trim().length > 0 && _this.state.linkTitle.trim().length > 0 &&
-	      // this.state.reactionContent.trim().length > 0 &&
-	      _this.state.linkInsightsIDs.length > 0;
-	    };
-
-	    _this._submit = function () {
-	      if (_this.state.loading) return;
-	      _this.setState({ loading: true });
-	      _this.props.topicLink ? _this._update() : _this._create();
-	    };
-
-	    _this._create = function () {
-	      _reactRelay2.default.Store.commitUpdate(new _IntroduceLinkToTopic2.default(_extends({}, _this.state, {
-	        topicID: _this.props.topic.id
-	      })), {
-	        onSuccess: _this._handleSuccess,
-	        onFailure: _this._handleFailure
-	      });
-	    };
-
-	    _this._update = function () {
-	      var mutation = new _UpdateTopicLink2.default(_extends({}, _this.state, { linkID: _this.props.topicLink.id }));
-	      _reactRelay2.default.Store.commitUpdate(mutation, {
-	        onSuccess: _this._handleSuccess,
-	        onFailure: _this._handleFailure
-	      });
-	    };
-
-	    _this._handleSuccess = function (response) {
-	      _this.setState({ loading: false });
-	      _this.props.onDone && _this.props.onDone();
-	    };
-
-	    _this._handleFailure = function (transaction) {
-	      alert('Error!');
-	      _this.setState({ loading: false });
-	    };
-
-	    _this._insightChooserDialogActions = function () {
-	      return _react2.default.createElement(_materialUi.FlatButton, { label: 'Done', primary: true, onTouchTap: _this._hideInsightChooser });
-	    };
-
-	    _this.render = function () {
-	      return _react2.default.createElement(
-	        _materialUi.Card,
-	        { style: { margin: 20 } },
-	        _react2.default.createElement(_materialUi.CardTitle, { title: _this.props.topicLink ? 'Edit link' : 'Add link', subtitle: _this.props.topic.name }),
-	        _react2.default.createElement(
-	          _materialUi.CardText,
-	          null,
-	          _react2.default.createElement(_materialUi.TextField, { floatingLabelText: 'Link URL', value: _this.state.linkURL, autoFocus: true, onChange: _this._handleLinkURLChange }),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(_materialUi.TextField, { floatingLabelText: 'Link Title', value: _this.state.linkTitle, onChange: _this._handleLinkTitleChange }),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(_materialUi.TextField, { floatingLabelText: 'Boris said', value: _this.state.reactionContent, multiLine: true, fullWidth: true, onChange: _this._handleReactionContentChange }),
-	          _react2.default.createElement(
-	            _materialUi.List,
-	            null,
-	            _this.state.linkInsightsIDs.map(_this._renderInsight)
-	          ),
-	          _react2.default.createElement(
-	            _materialUi.Dialog,
-	            {
-	              autoDetectWindowHeight: false,
-	              actions: _this._insightChooserDialogActions(),
-	              open: _this.state.isInsightChooserOpen,
-	              onRequestClose: _this._hideInsightChooser
-	            },
-	            _react2.default.createElement(_InsightChooser2.default, {
-	              insights: _this.props.topic.insights.edges.map(function (edge) {
-	                return edge.node;
-	              }),
-	              selectedInsights: _this.state.linkInsightsIDs,
-	              onSelect: _this._handleInsightSelect
-	            })
-	          )
-	        ),
-	        _react2.default.createElement(_materialUi.Divider, null),
-	        _react2.default.createElement(
-	          _materialUi.CardActions,
-	          { style: { display: 'flex' } },
-	          _react2.default.createElement(_materialUi.FlatButton, { label: 'Add an insight', primary: true, onTouchTap: _this._showInsightChooser }),
-	          _react2.default.createElement('div', { style: { flex: 1 } }),
-	          _react2.default.createElement(_materialUi.FlatButton, { label: 'Cancel', secondary: true, onTouchTap: _this.props.onCancel }),
-	          _react2.default.createElement(_materialUi.FlatButton, { label: 'Save', primary: true, disabled: !_this._isValid(), onTouchTap: _this._submit })
-	        )
-	      );
-	    };
-
-	    _this._renderInsight = function (id, ii) {
-	      return _react2.default.createElement(
-	        _materialUi.ListItem,
-	        {
-	          key: id,
-	          rightIcon: _react2.default.createElement(_cancel2.default, null),
-	          onTouchTap: function onTouchTap() {
-	            return _this._removeInsightAtIndex(ii);
-	          }
-	        },
-	        _this.props.topic.insights.edges.find(function (edge) {
-	          return edge.node.id === id;
-	        }).node.content
-	      );
-	    };
-
-	    _this.state = {
-	      isInsightChooserOpen: false
-	    };
-
-	    _this._handleLinkURLChange = _this._handleInputChange.bind(_this, 'linkURL');
-	    _this._handleLinkTitleChange = _this._handleInputChange.bind(_this, 'linkTitle');
-	    _this._handleReactionContentChange = _this._handleInputChange.bind(_this, 'reactionContent');
-	    return _this;
-	  }
-
-	  _createClass(TopicLinkForm, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this._updateStateFromProps(this.props);
-	    }
-	  }, {
-	    key: '_updateStateFromProps',
-	    value: function _updateStateFromProps(props) {
-	      this.setState({
-	        linkURL: props.topicLink && props.topicLink.url || '',
-	        linkTitle: props.topicLink && props.topicLink.title || '',
-	        reactionContent: props.topicLink && props.topicLink.reaction && props.topicLink.reaction.content || '',
-	        linkInsightsIDs: props.topicLink && props.topicLink.insights.edges.map(function (edge) {
-	          return edge.node.id;
-	        }) || []
-	      });
-	    }
-	  }, {
-	    key: '_handleInputChange',
-	    value: function _handleInputChange(field, event) {
-	      var nextState = {};
-	      nextState[field] = event.target.value;
-	      this.setState(nextState);
-	    }
-	  }]);
-
-	  return TopicLinkForm;
-	}(_react2.default.Component);
-
-	exports.default = _reactRelay2.default.createContainer(TopicLinkForm, {
-
-	  initialVariables: {
-	    first: 1000
-	  },
-
-	  fragments: {
-	    topicLink: function topicLink() {
-	      return function () {
-	        return {
-	          children: [{
-	            fieldName: 'id',
-	            kind: 'Field',
-	            metadata: {
-	              isRequisite: true
-	            },
-	            type: 'ID'
-	          }, {
-	            fieldName: 'url',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'String'
-	          }, {
-	            fieldName: 'title',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'String'
-	          }, {
-	            children: [{
-	              fieldName: 'content',
-	              kind: 'Field',
-	              metadata: {},
-	              type: 'String'
-	            }, {
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'reaction',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'BotReaction'
-	          }, {
-	            calls: [{
-	              kind: 'Call',
-	              metadata: {},
-	              name: 'first',
-	              value: {
-	                kind: 'CallValue',
-	                callValue: 1000
-	              }
-	            }],
-	            children: [{
-	              children: [{
-	                children: [{
-	                  fieldName: 'id',
-	                  kind: 'Field',
-	                  metadata: {
-	                    isRequisite: true
-	                  },
-	                  type: 'ID'
-	                }],
-	                fieldName: 'node',
-	                kind: 'Field',
-	                metadata: {
-	                  canHaveSubselections: true,
-	                  inferredRootCallName: 'node',
-	                  inferredPrimaryKey: 'id',
-	                  isRequisite: true
-	                },
-	                type: 'Insight'
-	              }, {
-	                fieldName: 'cursor',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'String'
-	              }],
-	              fieldName: 'edges',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isPlural: true
-	              },
-	              type: 'TopicLinkInsightsEdge'
-	            }, {
-	              children: [{
-	                fieldName: 'hasNextPage',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'Boolean'
-	              }, {
-	                fieldName: 'hasPreviousPage',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'Boolean'
-	              }],
-	              fieldName: 'pageInfo',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'PageInfo'
-	            }],
-	            fieldName: 'insights',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              isConnection: true
-	            },
-	            type: 'TopicLinkInsightsConnection'
-	          }],
-	          id: _reactRelay2.default.QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'TopicLinkForm_TopicLinkRelayQL',
-	          type: 'TopicLink'
-	        };
-	      }();
-	    },
-
-	    topic: function topic() {
-	      return function () {
-	        return {
-	          children: [{
-	            fieldName: 'id',
-	            kind: 'Field',
-	            metadata: {
-	              isRequisite: true
-	            },
-	            type: 'ID'
-	          }, {
-	            fieldName: 'name',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'String'
-	          }, {
-	            calls: [{
-	              kind: 'Call',
-	              metadata: {
-	                type: 'TopicInsightsFilterEnum'
-	              },
-	              name: 'filter',
-	              value: {
-	                kind: 'CallValue',
-	                callValue: 'ADMIN'
-	              }
-	            }, {
-	              kind: 'Call',
-	              metadata: {},
-	              name: 'first',
-	              value: {
-	                kind: 'CallVariable',
-	                callVariableName: 'first'
-	              }
-	            }],
-	            children: [{
-	              children: [{
-	                children: [{
-	                  fieldName: 'id',
-	                  kind: 'Field',
-	                  metadata: {
-	                    isRequisite: true
-	                  },
-	                  type: 'ID'
-	                }, {
-	                  fieldName: 'content',
-	                  kind: 'Field',
-	                  metadata: {},
-	                  type: 'String'
-	                }, {
-	                  fieldName: 'createdAt',
-	                  kind: 'Field',
-	                  metadata: {},
-	                  type: 'String'
-	                }],
-	                fieldName: 'node',
-	                kind: 'Field',
-	                metadata: {
-	                  canHaveSubselections: true,
-	                  inferredRootCallName: 'node',
-	                  inferredPrimaryKey: 'id',
-	                  isRequisite: true
-	                },
-	                type: 'Insight'
-	              }, {
-	                fieldName: 'cursor',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'String'
-	              }],
-	              fieldName: 'edges',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isPlural: true
-	              },
-	              type: 'TopicInsightsEdge'
-	            }, {
-	              children: [{
-	                fieldName: 'hasNextPage',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'Boolean'
-	              }, {
-	                fieldName: 'hasPreviousPage',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'Boolean'
-	              }],
-	              fieldName: 'pageInfo',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'PageInfo'
-	            }],
-	            fieldName: 'insights',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              isConnection: true
-	            },
-	            type: 'TopicInsightsConnection'
-	          }],
-	          id: _reactRelay2.default.QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'TopicLinkForm_TopicRelayQL',
-	          type: 'Topic'
-	        };
-	      }();
-	    }
-	  }
-
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 630 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _pure = __webpack_require__(452);
-
-	var _pure2 = _interopRequireDefault(_pure);
-
-	var _SvgIcon = __webpack_require__(460);
-
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var NavigationCancel = function NavigationCancel(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z' })
-	  );
-	};
-	NavigationCancel = (0, _pure2.default)(NavigationCancel);
-	NavigationCancel.displayName = 'NavigationCancel';
-
-	exports.default = NavigationCancel;
-
-/***/ },
-/* 631 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRelay = __webpack_require__(167);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _materialUi = __webpack_require__(421);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var InsightChooser = function (_React$Component) {
-	  _inherits(InsightChooser, _React$Component);
-
-	  function InsightChooser(props) {
-	    _classCallCheck(this, InsightChooser);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InsightChooser).call(this, props));
-
-	    _this._filterInsights = function () {
-	      var filter = _this.state.filter.toLowerCase();
-	      _this.setState({
-	        dataSource: _this.props.insights.filter(function (insight) {
-	          return _this.props.selectedInsights.indexOf(insight.id) == -1 && insight.content.toLowerCase().indexOf(filter) >= 0;
-	        }).sort(function (a, b) {
-	          return a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0;
-	        })
-	      });
-	    };
-
-	    _this._handleFilterChange = function (event) {
-	      _this.setState({
-	        filter: event.target.value
-	      });
-	    };
-
-	    _this.render = function () {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_materialUi.TextField, {
-	          hintText: 'Start typing...',
-	          fullWidth: true,
-	          value: _this.state.filter,
-	          onChange: _this._handleFilterChange,
-	          autoFocus: true
-	        }),
-	        _react2.default.createElement(
-	          _materialUi.List,
-	          { style: { height: 400, overflowY: 'scroll' } },
-	          _this.state.dataSource.map(_this._renderInsight)
-	        )
-	      );
-	    };
-
-	    _this._renderInsight = function (insight) {
-	      return _react2.default.createElement(
-	        _materialUi.ListItem,
-	        { key: insight.id, onTouchTap: function onTouchTap() {
-	            return _this.props.onSelect && _this.props.onSelect(insight.id);
-	          } },
-	        insight.content
-	      );
-	    };
-
-	    _this.state = {
-	      filter: '',
-	      dataSource: []
-	    };
-	    return _this;
-	  }
-
-	  _createClass(InsightChooser, [{
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate(prevProps, prevState) {
-	      if (prevState.filter !== this.state.filter || this.props.selectedInsights !== prevProps.selectedInsights) {
-	        clearTimeout(this._filterInsightTimeout);
-	        this._filterInsightTimeout = setTimeout(this._filterInsights);
-	      }
-	    }
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this._filterInsights();
-	    }
-	  }]);
-
-	  return InsightChooser;
-	}(_react2.default.Component);
-
-	exports.default = InsightChooser;
-	module.exports = exports['default'];
-
-/***/ },
-/* 632 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactRelay = __webpack_require__(167);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _class = function (_Relay$Mutation) {
-	  _inherits(_class, _Relay$Mutation);
-
-	  function _class() {
-	    var _Object$getPrototypeO;
-
-	    var _temp, _this, _ret;
-
-	    _classCallCheck(this, _class);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.getMutation = function () {
-	      return function () {
-	        return {
-	          calls: [{
-	            kind: 'Call',
-	            metadata: {},
-	            name: 'introduceLinkToTopic',
-	            value: {
-	              kind: 'CallVariable',
-	              callVariableName: 'input'
-	            }
-	          }],
-	          children: [{
-	            fieldName: 'clientMutationId',
-	            kind: 'Field',
-	            metadata: {
-	              isGenerated: true,
-	              isRequisite: true
-	            },
-	            type: 'String'
-	          }],
-	          kind: 'Mutation',
-	          metadata: {
-	            inputType: 'IntroduceLinkToTopicInput!'
-	          },
-	          name: 'IntroduceLinkToTopic',
-	          responseType: 'IntroduceLinkToTopicPayload'
-	        };
-	      }();
-	    }, _this.getFatQuery = function () {
-	      return function () {
-	        return {
-	          children: [{
-	            children: [{
-	              fieldName: 'links',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isConnection: true
-	              },
-	              type: 'TopicLinksConnection'
-	            }, {
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'topic',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'Topic'
-	          }, {
-	            children: [{
-	              fieldName: 'cursor',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'String'
-	            }, {
-	              children: [{
-	                fieldName: 'id',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'ID'
-	              }],
-	              fieldName: 'node',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                inferredRootCallName: 'node',
-	                inferredPrimaryKey: 'id',
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'TopicLink'
-	            }],
-	            fieldName: 'linkEdge',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true
-	            },
-	            type: 'TopicLinksEdge'
-	          }],
-	          id: _reactRelay2.default.QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'IntroduceLinkToTopicRelayQL',
-	          type: 'IntroduceLinkToTopicPayload'
-	        };
-	      }();
-	    }, _this.getVariables = function () {
-	      return {
-	        topicID: _this.props.topicID,
-	        linkURL: _this.props.linkURL,
-	        linkTitle: _this.props.linkTitle,
-	        reactionContent: _this.props.reactionContent,
-	        linkInsightsIDs: _this.props.linkInsightsIDs
-	      };
-	    }, _this.getConfigs = function () {
-	      return [{
-	        type: 'RANGE_ADD',
-	        parentName: 'topic',
-	        parentID: _this.props.topicID,
-	        connectionName: 'links',
-	        edgeName: 'linkEdge',
-	        rangeBehaviors: {
-	          '': 'append'
-	        }
-	      }];
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-
-	  return _class;
-	}(_reactRelay2.default.Mutation);
-
-	exports.default = _class;
-	module.exports = exports['default'];
-
-/***/ },
-/* 633 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactRelay = __webpack_require__(167);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _class = function (_Relay$Mutation) {
-	  _inherits(_class, _Relay$Mutation);
-
-	  function _class() {
-	    var _Object$getPrototypeO;
-
-	    var _temp, _this, _ret;
-
-	    _classCallCheck(this, _class);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.getMutation = function () {
-	      return function () {
-	        return {
-	          calls: [{
-	            kind: 'Call',
-	            metadata: {},
-	            name: 'updateTopicLink',
-	            value: {
-	              kind: 'CallVariable',
-	              callVariableName: 'input'
-	            }
-	          }],
-	          children: [{
-	            fieldName: 'clientMutationId',
-	            kind: 'Field',
-	            metadata: {
-	              isGenerated: true,
-	              isRequisite: true
-	            },
-	            type: 'String'
-	          }],
-	          kind: 'Mutation',
-	          metadata: {
-	            inputType: 'UpdateTopicLinkInput!'
-	          },
-	          name: 'UpdateTopicLink',
-	          responseType: 'UpdateTopicLinkPayload'
-	        };
-	      }();
-	    }, _this.getFatQuery = function () {
-	      return function () {
-	        return {
-	          children: [{
-	            children: [{
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'link',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'TopicLink'
-	          }],
-	          id: _reactRelay2.default.QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'UpdateTopicLinkRelayQL',
-	          type: 'UpdateTopicLinkPayload'
-	        };
-	      }();
-	    }, _this.getVariables = function () {
-	      return {
-	        linkID: _this.props.linkID,
-	        linkURL: _this.props.linkURL,
-	        linkTitle: _this.props.linkTitle,
-	        reactionContent: _this.props.reactionContent,
-	        linkInsightsIDs: _this.props.linkInsightsIDs
-	      };
-	    }, _this.getConfigs = function () {
-	      return [{
-	        type: 'FIELDS_CHANGE',
-	        fieldIDs: { link: _this.props.linkID }
-	      }];
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-
-	  return _class;
-	}(_reactRelay2.default.Mutation);
-
-	exports.default = _class;
-	module.exports = exports['default'];
-
-/***/ },
-/* 634 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _reactRelay = __webpack_require__(167);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _class = function (_Relay$Mutation) {
-	  _inherits(_class, _Relay$Mutation);
-
-	  function _class() {
-	    var _Object$getPrototypeO;
-
-	    var _temp, _this, _ret;
-
-	    _classCallCheck(this, _class);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.getMutation = function () {
-	      return function () {
-	        return {
-	          calls: [{
-	            kind: 'Call',
-	            metadata: {},
-	            name: 'removeTopicLink',
-	            value: {
-	              kind: 'CallVariable',
-	              callVariableName: 'input'
-	            }
-	          }],
-	          children: [{
-	            fieldName: 'clientMutationId',
-	            kind: 'Field',
-	            metadata: {
-	              isGenerated: true,
-	              isRequisite: true
-	            },
-	            type: 'String'
-	          }],
-	          kind: 'Mutation',
-	          metadata: {
-	            inputType: 'RemoveTopicLinkInput!'
-	          },
-	          name: 'RemoveTopicLink',
-	          responseType: 'RemoveTopicLinkPayload'
-	        };
-	      }();
-	    }, _this.getFatQuery = function () {
-	      return function () {
-	        return {
-	          children: [{
-	            fieldName: 'linkID',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'ID'
-	          }, {
-	            children: [{
-	              fieldName: 'links',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isConnection: true
-	              },
-	              type: 'TopicLinksConnection'
-	            }, {
-	              fieldName: 'id',
-	              kind: 'Field',
-	              metadata: {
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'ID'
-	            }],
-	            fieldName: 'topic',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              inferredRootCallName: 'node',
-	              inferredPrimaryKey: 'id'
-	            },
-	            type: 'Topic'
-	          }],
-	          id: _reactRelay2.default.QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'RemoveTopicLinkRelayQL',
-	          type: 'RemoveTopicLinkPayload'
-	        };
-	      }();
-	    }, _this.getVariables = function () {
-	      return {
-	        linkID: _this.props.linkID
-	      };
-	    }, _this.getConfigs = function () {
-	      return [{
-	        type: 'NODE_DELETE',
-	        parentName: 'topic',
-	        parentID: _this.props.topicID,
-	        connectionName: 'links',
-	        deletedIDFieldName: 'linkID'
-	      }];
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-
-	  return _class;
-	}(_reactRelay2.default.Mutation);
-
-	exports.default = _class;
-	module.exports = exports['default'];
-
-/***/ },
-/* 635 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRelay = __webpack_require__(167);
-
-	var _reactRelay2 = _interopRequireDefault(_reactRelay);
-
-	var _materialUi = __webpack_require__(421);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var TopicInsightsTable = function (_React$Component) {
-	  _inherits(TopicInsightsTable, _React$Component);
-
-	  function TopicInsightsTable(props) {
-	    _classCallCheck(this, TopicInsightsTable);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TopicInsightsTable).call(this, props));
-
-	    _this.render = function () {
-	      return _react2.default.createElement(
-	        _materialUi.List,
-	        null,
-	        _this.props.topic.insights.edges.sort(function (a, b) {
-	          return a.node.createdAt < b.node.createdAt ? 1 : a.node.createdAt > b.node.createdAt ? -1 : 0;
-	        }).map(function (edge) {
-	          return _this._renderInsightTableRow(edge.node);
-	        })
-	      );
-	    };
-
-	    _this._renderInsightTableRow = function (insight) {
-	      return [_react2.default.createElement(_materialUi.ListItem, { primaryText: insight.content }), _react2.default.createElement(_materialUi.Divider, null)];
-	    };
-
-	    _this._renderInsightTableRow = _this._renderInsightTableRow.bind(_this);
-	    return _this;
-	  }
-
-	  return TopicInsightsTable;
-	}(_react2.default.Component);
-
-	exports.default = _reactRelay2.default.createContainer(TopicInsightsTable, {
-
-	  initialVariables: {
-	    first: 1000
-	  },
-
-	  fragments: {
-
-	    topic: function topic() {
-	      return function () {
-	        return {
-	          children: [{
-	            fieldName: 'id',
-	            kind: 'Field',
-	            metadata: {
-	              isRequisite: true
-	            },
-	            type: 'ID'
-	          }, {
-	            calls: [{
-	              kind: 'Call',
-	              metadata: {
-	                type: 'TopicInsightsFilterEnum'
-	              },
-	              name: 'filter',
-	              value: {
-	                kind: 'CallValue',
-	                callValue: 'ADMIN'
-	              }
-	            }, {
-	              kind: 'Call',
-	              metadata: {},
-	              name: 'first',
-	              value: {
-	                kind: 'CallVariable',
-	                callVariableName: 'first'
-	              }
-	            }],
-	            children: [{
-	              children: [{
-	                children: [{
-	                  fieldName: 'id',
-	                  kind: 'Field',
-	                  metadata: {
-	                    isRequisite: true
-	                  },
-	                  type: 'ID'
-	                }, {
-	                  fieldName: 'content',
-	                  kind: 'Field',
-	                  metadata: {},
-	                  type: 'String'
-	                }, {
-	                  fieldName: 'createdAt',
-	                  kind: 'Field',
-	                  metadata: {},
-	                  type: 'String'
-	                }],
-	                fieldName: 'node',
-	                kind: 'Field',
-	                metadata: {
-	                  canHaveSubselections: true,
-	                  inferredRootCallName: 'node',
-	                  inferredPrimaryKey: 'id',
-	                  isRequisite: true
-	                },
-	                type: 'Insight'
-	              }, {
-	                fieldName: 'cursor',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'String'
-	              }],
-	              fieldName: 'edges',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isPlural: true
-	              },
-	              type: 'TopicInsightsEdge'
-	            }, {
-	              children: [{
-	                fieldName: 'hasNextPage',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'Boolean'
-	              }, {
-	                fieldName: 'hasPreviousPage',
-	                kind: 'Field',
-	                metadata: {
-	                  isGenerated: true,
-	                  isRequisite: true
-	                },
-	                type: 'Boolean'
-	              }],
-	              fieldName: 'pageInfo',
-	              kind: 'Field',
-	              metadata: {
-	                canHaveSubselections: true,
-	                isGenerated: true,
-	                isRequisite: true
-	              },
-	              type: 'PageInfo'
-	            }],
-	            fieldName: 'insights',
-	            kind: 'Field',
-	            metadata: {
-	              canHaveSubselections: true,
-	              isConnection: true
-	            },
-	            type: 'TopicInsightsConnection'
-	          }],
-	          id: _reactRelay2.default.QL.__id(),
-	          kind: 'Fragment',
-	          metadata: {},
-	          name: 'TopicInsightsTable_TopicRelayQL',
-	          type: 'Topic'
-	        };
-	      }();
-	    }
-
-	  }
-
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 636 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -78680,15 +76636,15 @@
 
 	var _TopicsApp2 = _interopRequireDefault(_TopicsApp);
 
-	var _UsersApp = __webpack_require__(637);
+	var _UsersApp = __webpack_require__(625);
 
 	var _UsersApp2 = _interopRequireDefault(_UsersApp);
 
-	var _QuestionsApp = __webpack_require__(643);
+	var _QuestionsApp = __webpack_require__(631);
 
 	var _QuestionsApp2 = _interopRequireDefault(_QuestionsApp);
 
-	var _UnchainedReactionsApp = __webpack_require__(651);
+	var _UnchainedReactionsApp = __webpack_require__(639);
 
 	var _UnchainedReactionsApp2 = _interopRequireDefault(_UnchainedReactionsApp);
 
@@ -78706,7 +76662,7 @@
 
 	var _List = __webpack_require__(559);
 
-	var _styles = __webpack_require__(653);
+	var _styles = __webpack_require__(641);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -78863,7 +76819,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 637 */
+/* 625 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -78882,13 +76838,13 @@
 
 	var _materialUi = __webpack_require__(421);
 
-	var _colors = __webpack_require__(638);
+	var _colors = __webpack_require__(626);
 
-	var _modeEdit = __webpack_require__(639);
+	var _modeEdit = __webpack_require__(627);
 
 	var _modeEdit2 = _interopRequireDefault(_modeEdit);
 
-	var _RolesForm = __webpack_require__(640);
+	var _RolesForm = __webpack_require__(628);
 
 	var _RolesForm2 = _interopRequireDefault(_RolesForm);
 
@@ -79214,7 +77170,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 638 */
+/* 626 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -79509,7 +77465,7 @@
 	var lightWhite = exports.lightWhite = 'rgba(255, 255, 255, 0.54)';
 
 /***/ },
-/* 639 */
+/* 627 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79545,7 +77501,7 @@
 	exports.default = EditorModeEdit;
 
 /***/ },
-/* 640 */
+/* 628 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79564,11 +77520,11 @@
 
 	var _materialUi = __webpack_require__(421);
 
-	var _GrantRoleToUser = __webpack_require__(641);
+	var _GrantRoleToUser = __webpack_require__(629);
 
 	var _GrantRoleToUser2 = _interopRequireDefault(_GrantRoleToUser);
 
-	var _RevokeRoleFromUser = __webpack_require__(642);
+	var _RevokeRoleFromUser = __webpack_require__(630);
 
 	var _RevokeRoleFromUser2 = _interopRequireDefault(_RevokeRoleFromUser);
 
@@ -79781,7 +77737,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 641 */
+/* 629 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79944,7 +77900,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 642 */
+/* 630 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80073,7 +78029,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 643 */
+/* 631 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80096,23 +78052,23 @@
 
 	var _close2 = _interopRequireDefault(_close);
 
-	var _add = __webpack_require__(644);
+	var _add = __webpack_require__(632);
 
 	var _add2 = _interopRequireDefault(_add);
 
-	var _QuestionForm = __webpack_require__(645);
+	var _QuestionForm = __webpack_require__(633);
 
 	var _QuestionForm2 = _interopRequireDefault(_QuestionForm);
 
-	var _RemoveQuestion = __webpack_require__(648);
+	var _RemoveQuestion = __webpack_require__(636);
 
 	var _RemoveQuestion2 = _interopRequireDefault(_RemoveQuestion);
 
-	var _UpdateQuestionPublishedStatus = __webpack_require__(649);
+	var _UpdateQuestionPublishedStatus = __webpack_require__(637);
 
 	var _UpdateQuestionPublishedStatus2 = _interopRequireDefault(_UpdateQuestionPublishedStatus);
 
-	var _QuestionApp = __webpack_require__(650);
+	var _QuestionApp = __webpack_require__(638);
 
 	var _QuestionApp2 = _interopRequireDefault(_QuestionApp);
 
@@ -80488,7 +78444,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 644 */
+/* 632 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80524,7 +78480,7 @@
 	exports.default = ContentAdd;
 
 /***/ },
-/* 645 */
+/* 633 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80544,11 +78500,11 @@
 
 	var _materialUi = __webpack_require__(421);
 
-	var _CreateQuestion = __webpack_require__(646);
+	var _CreateQuestion = __webpack_require__(634);
 
 	var _CreateQuestion2 = _interopRequireDefault(_CreateQuestion);
 
-	var _UpdateQuestion = __webpack_require__(647);
+	var _UpdateQuestion = __webpack_require__(635);
 
 	var _UpdateQuestion2 = _interopRequireDefault(_UpdateQuestion);
 
@@ -80863,7 +78819,7 @@
 	});
 
 /***/ },
-/* 646 */
+/* 634 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81047,7 +79003,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 647 */
+/* 635 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81192,7 +79148,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 648 */
+/* 636 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81312,7 +79268,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 649 */
+/* 637 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81488,7 +79444,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 650 */
+/* 638 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81509,7 +79465,7 @@
 
 	var _materialUi = __webpack_require__(421);
 
-	var _colors = __webpack_require__(638);
+	var _colors = __webpack_require__(626);
 
 	var _AnswerItem = __webpack_require__(420);
 
@@ -81519,7 +79475,7 @@
 
 	var _AnswerForm2 = _interopRequireDefault(_AnswerForm);
 
-	var _QuestionForm = __webpack_require__(645);
+	var _QuestionForm = __webpack_require__(633);
 
 	var _QuestionForm2 = _interopRequireDefault(_QuestionForm);
 
@@ -81831,7 +79787,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 651 */
+/* 639 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81852,11 +79808,11 @@
 
 	var _materialUi = __webpack_require__(421);
 
-	var _add = __webpack_require__(644);
+	var _add = __webpack_require__(632);
 
 	var _add2 = _interopRequireDefault(_add);
 
-	var _BotReactionForm = __webpack_require__(652);
+	var _BotReactionForm = __webpack_require__(640);
 
 	var _BotReactionForm2 = _interopRequireDefault(_BotReactionForm);
 
@@ -82056,7 +80012,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 652 */
+/* 640 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82271,7 +80227,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 653 */
+/* 641 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82281,31 +80237,31 @@
 	});
 	exports.zIndex = exports.typography = exports.transitions = exports.themeManager = exports.spacing = exports.getMuiTheme = exports.LightRawTheme = exports.lightBaseTheme = exports.DarkRawTheme = exports.darkBaseTheme = exports.colors = exports.MuiThemeProvider = undefined;
 
-	var _MuiThemeProvider2 = __webpack_require__(654);
+	var _MuiThemeProvider2 = __webpack_require__(642);
 
 	var _MuiThemeProvider3 = _interopRequireDefault(_MuiThemeProvider2);
 
-	var _colors2 = __webpack_require__(638);
+	var _colors2 = __webpack_require__(626);
 
 	var _colors = _interopRequireWildcard(_colors2);
 
-	var _darkBaseTheme2 = __webpack_require__(743);
+	var _darkBaseTheme2 = __webpack_require__(731);
 
 	var _darkBaseTheme3 = _interopRequireDefault(_darkBaseTheme2);
 
-	var _lightBaseTheme2 = __webpack_require__(663);
+	var _lightBaseTheme2 = __webpack_require__(651);
 
 	var _lightBaseTheme3 = _interopRequireDefault(_lightBaseTheme2);
 
-	var _getMuiTheme2 = __webpack_require__(655);
+	var _getMuiTheme2 = __webpack_require__(643);
 
 	var _getMuiTheme3 = _interopRequireDefault(_getMuiTheme2);
 
-	var _spacing2 = __webpack_require__(664);
+	var _spacing2 = __webpack_require__(652);
 
 	var _spacing3 = _interopRequireDefault(_spacing2);
 
-	var _themeManager2 = __webpack_require__(744);
+	var _themeManager2 = __webpack_require__(732);
 
 	var _themeManager3 = _interopRequireDefault(_themeManager2);
 
@@ -82313,11 +80269,11 @@
 
 	var _transitions3 = _interopRequireDefault(_transitions2);
 
-	var _typography2 = __webpack_require__(742);
+	var _typography2 = __webpack_require__(730);
 
 	var _typography3 = _interopRequireDefault(_typography2);
 
-	var _zIndex2 = __webpack_require__(665);
+	var _zIndex2 = __webpack_require__(653);
 
 	var _zIndex3 = _interopRequireDefault(_zIndex2);
 
@@ -82339,7 +80295,7 @@
 	exports.zIndex = _zIndex3.default;
 
 /***/ },
-/* 654 */
+/* 642 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82352,7 +80308,7 @@
 
 	var _react = __webpack_require__(2);
 
-	var _getMuiTheme = __webpack_require__(655);
+	var _getMuiTheme = __webpack_require__(643);
 
 	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
 
@@ -82400,7 +80356,7 @@
 	exports.default = MuiThemeProvider;
 
 /***/ },
-/* 655 */
+/* 643 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82410,41 +80366,41 @@
 	});
 	exports.default = getMuiTheme;
 
-	var _lodash = __webpack_require__(656);
+	var _lodash = __webpack_require__(644);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
 	var _colorManipulator = __webpack_require__(469);
 
-	var _lightBaseTheme = __webpack_require__(663);
+	var _lightBaseTheme = __webpack_require__(651);
 
 	var _lightBaseTheme2 = _interopRequireDefault(_lightBaseTheme);
 
-	var _zIndex = __webpack_require__(665);
+	var _zIndex = __webpack_require__(653);
 
 	var _zIndex2 = _interopRequireDefault(_zIndex);
 
-	var _autoprefixer = __webpack_require__(666);
+	var _autoprefixer = __webpack_require__(654);
 
 	var _autoprefixer2 = _interopRequireDefault(_autoprefixer);
 
-	var _callOnce = __webpack_require__(699);
+	var _callOnce = __webpack_require__(687);
 
 	var _callOnce2 = _interopRequireDefault(_callOnce);
 
-	var _rtl = __webpack_require__(700);
+	var _rtl = __webpack_require__(688);
 
 	var _rtl2 = _interopRequireDefault(_rtl);
 
-	var _compose = __webpack_require__(701);
+	var _compose = __webpack_require__(689);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
-	var _typography = __webpack_require__(742);
+	var _typography = __webpack_require__(730);
 
 	var _typography2 = _interopRequireDefault(_typography);
 
-	var _colors = __webpack_require__(638);
+	var _colors = __webpack_require__(626);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82757,7 +80713,7 @@
 	}
 
 /***/ },
-/* 656 */
+/* 644 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -82768,11 +80724,11 @@
 	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
 	 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 */
-	var Stack = __webpack_require__(657),
-	    baseClone = __webpack_require__(659),
-	    isPlainObject = __webpack_require__(660),
-	    keysIn = __webpack_require__(661),
-	    rest = __webpack_require__(662);
+	var Stack = __webpack_require__(645),
+	    baseClone = __webpack_require__(647),
+	    isPlainObject = __webpack_require__(648),
+	    keysIn = __webpack_require__(649),
+	    rest = __webpack_require__(650);
 
 	/** Used as references for various `Number` constants. */
 	var MAX_SAFE_INTEGER = 9007199254740991;
@@ -83500,7 +81456,7 @@
 
 
 /***/ },
-/* 657 */
+/* 645 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -84166,10 +82122,10 @@
 
 	module.exports = Stack;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(658)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(646)(module), (function() { return this; }())))
 
 /***/ },
-/* 658 */
+/* 646 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -84185,7 +82141,7 @@
 
 
 /***/ },
-/* 659 */
+/* 647 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -85922,10 +83878,10 @@
 
 	module.exports = baseClone;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(658)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(646)(module), (function() { return this; }())))
 
 /***/ },
-/* 660 */
+/* 648 */
 /***/ function(module, exports) {
 
 	/**
@@ -86066,7 +84022,7 @@
 
 
 /***/ },
-/* 661 */
+/* 649 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -86562,10 +84518,10 @@
 
 	module.exports = keysIn;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(658)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(646)(module), (function() { return this; }())))
 
 /***/ },
-/* 662 */
+/* 650 */
 /***/ function(module, exports) {
 
 	/**
@@ -86885,7 +84841,7 @@
 
 
 /***/ },
-/* 663 */
+/* 651 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86894,11 +84850,11 @@
 	  value: true
 	});
 
-	var _colors = __webpack_require__(638);
+	var _colors = __webpack_require__(626);
 
 	var _colorManipulator = __webpack_require__(469);
 
-	var _spacing = __webpack_require__(664);
+	var _spacing = __webpack_require__(652);
 
 	var _spacing2 = _interopRequireDefault(_spacing);
 
@@ -86932,7 +84888,7 @@
 	};
 
 /***/ },
-/* 664 */
+/* 652 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -86956,7 +84912,7 @@
 	};
 
 /***/ },
-/* 665 */
+/* 653 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -86978,7 +84934,7 @@
 	};
 
 /***/ },
-/* 666 */
+/* 654 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -87027,7 +84983,7 @@
 	  }
 	};
 
-	var _inlineStylePrefixer = __webpack_require__(667);
+	var _inlineStylePrefixer = __webpack_require__(655);
 
 	var _inlineStylePrefixer2 = _interopRequireDefault(_inlineStylePrefixer);
 
@@ -87041,7 +84997,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 667 */
+/* 655 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87056,61 +85012,61 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _inlineStylePrefixAll = __webpack_require__(668);
+	var _inlineStylePrefixAll = __webpack_require__(656);
 
 	var _inlineStylePrefixAll2 = _interopRequireDefault(_inlineStylePrefixAll);
 
-	var _utilsGetBrowserInformation = __webpack_require__(683);
+	var _utilsGetBrowserInformation = __webpack_require__(671);
 
 	var _utilsGetBrowserInformation2 = _interopRequireDefault(_utilsGetBrowserInformation);
 
-	var _utilsGetPrefixedKeyframes = __webpack_require__(685);
+	var _utilsGetPrefixedKeyframes = __webpack_require__(673);
 
 	var _utilsGetPrefixedKeyframes2 = _interopRequireDefault(_utilsGetPrefixedKeyframes);
 
-	var _utilsCapitalizeString = __webpack_require__(686);
+	var _utilsCapitalizeString = __webpack_require__(674);
 
 	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
 
-	var _utilsAssign = __webpack_require__(687);
+	var _utilsAssign = __webpack_require__(675);
 
 	var _utilsAssign2 = _interopRequireDefault(_utilsAssign);
 
-	var _prefixProps = __webpack_require__(688);
+	var _prefixProps = __webpack_require__(676);
 
 	var _prefixProps2 = _interopRequireDefault(_prefixProps);
 
-	var _pluginsCalc = __webpack_require__(689);
+	var _pluginsCalc = __webpack_require__(677);
 
 	var _pluginsCalc2 = _interopRequireDefault(_pluginsCalc);
 
-	var _pluginsCursor = __webpack_require__(691);
+	var _pluginsCursor = __webpack_require__(679);
 
 	var _pluginsCursor2 = _interopRequireDefault(_pluginsCursor);
 
-	var _pluginsFlex = __webpack_require__(692);
+	var _pluginsFlex = __webpack_require__(680);
 
 	var _pluginsFlex2 = _interopRequireDefault(_pluginsFlex);
 
-	var _pluginsSizing = __webpack_require__(693);
+	var _pluginsSizing = __webpack_require__(681);
 
 	var _pluginsSizing2 = _interopRequireDefault(_pluginsSizing);
 
-	var _pluginsGradient = __webpack_require__(694);
+	var _pluginsGradient = __webpack_require__(682);
 
 	var _pluginsGradient2 = _interopRequireDefault(_pluginsGradient);
 
-	var _pluginsTransition = __webpack_require__(695);
+	var _pluginsTransition = __webpack_require__(683);
 
 	var _pluginsTransition2 = _interopRequireDefault(_pluginsTransition);
 
 	// special flexbox specifications
 
-	var _pluginsFlexboxIE = __webpack_require__(697);
+	var _pluginsFlexboxIE = __webpack_require__(685);
 
 	var _pluginsFlexboxIE2 = _interopRequireDefault(_pluginsFlexboxIE);
 
-	var _pluginsFlexboxOld = __webpack_require__(698);
+	var _pluginsFlexboxOld = __webpack_require__(686);
 
 	var _pluginsFlexboxOld2 = _interopRequireDefault(_pluginsFlexboxOld);
 
@@ -87244,7 +85200,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 668 */
+/* 656 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87256,49 +85212,49 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _prefixProps = __webpack_require__(669);
+	var _prefixProps = __webpack_require__(657);
 
 	var _prefixProps2 = _interopRequireDefault(_prefixProps);
 
-	var _utilsCapitalizeString = __webpack_require__(670);
+	var _utilsCapitalizeString = __webpack_require__(658);
 
 	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
 
-	var _utilsAssign = __webpack_require__(671);
+	var _utilsAssign = __webpack_require__(659);
 
 	var _utilsAssign2 = _interopRequireDefault(_utilsAssign);
 
-	var _pluginsCalc = __webpack_require__(672);
+	var _pluginsCalc = __webpack_require__(660);
 
 	var _pluginsCalc2 = _interopRequireDefault(_pluginsCalc);
 
-	var _pluginsCursor = __webpack_require__(675);
+	var _pluginsCursor = __webpack_require__(663);
 
 	var _pluginsCursor2 = _interopRequireDefault(_pluginsCursor);
 
-	var _pluginsFlex = __webpack_require__(676);
+	var _pluginsFlex = __webpack_require__(664);
 
 	var _pluginsFlex2 = _interopRequireDefault(_pluginsFlex);
 
-	var _pluginsSizing = __webpack_require__(677);
+	var _pluginsSizing = __webpack_require__(665);
 
 	var _pluginsSizing2 = _interopRequireDefault(_pluginsSizing);
 
-	var _pluginsGradient = __webpack_require__(678);
+	var _pluginsGradient = __webpack_require__(666);
 
 	var _pluginsGradient2 = _interopRequireDefault(_pluginsGradient);
 
-	var _pluginsTransition = __webpack_require__(679);
+	var _pluginsTransition = __webpack_require__(667);
 
 	var _pluginsTransition2 = _interopRequireDefault(_pluginsTransition);
 
 	// special flexbox specifications
 
-	var _pluginsFlexboxIE = __webpack_require__(681);
+	var _pluginsFlexboxIE = __webpack_require__(669);
 
 	var _pluginsFlexboxIE2 = _interopRequireDefault(_pluginsFlexboxIE);
 
-	var _pluginsFlexboxOld = __webpack_require__(682);
+	var _pluginsFlexboxOld = __webpack_require__(670);
 
 	var _pluginsFlexboxOld2 = _interopRequireDefault(_pluginsFlexboxOld);
 
@@ -87338,7 +85294,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 669 */
+/* 657 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -87350,7 +85306,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 670 */
+/* 658 */
 /***/ function(module, exports) {
 
 	// helper to capitalize strings
@@ -87367,7 +85323,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 671 */
+/* 659 */
 /***/ function(module, exports) {
 
 	// leight polyfill for Object.assign
@@ -87388,7 +85344,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 672 */
+/* 660 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87400,7 +85356,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsJoinPrefixedRules = __webpack_require__(673);
+	var _utilsJoinPrefixedRules = __webpack_require__(661);
 
 	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
@@ -87415,7 +85371,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 673 */
+/* 661 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87428,7 +85384,7 @@
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _camelToDashCase = __webpack_require__(674);
+	var _camelToDashCase = __webpack_require__(662);
 
 	var _camelToDashCase2 = _interopRequireDefault(_camelToDashCase);
 
@@ -87448,7 +85404,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 674 */
+/* 662 */
 /***/ function(module, exports) {
 
 	/**
@@ -87470,7 +85426,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 675 */
+/* 663 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87482,7 +85438,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsJoinPrefixedRules = __webpack_require__(673);
+	var _utilsJoinPrefixedRules = __webpack_require__(661);
 
 	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
@@ -87502,7 +85458,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 676 */
+/* 664 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87514,7 +85470,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsCamelToDashCase = __webpack_require__(674);
+	var _utilsCamelToDashCase = __webpack_require__(662);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -87534,7 +85490,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 677 */
+/* 665 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87546,7 +85502,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsJoinPrefixedRules = __webpack_require__(673);
+	var _utilsJoinPrefixedRules = __webpack_require__(661);
 
 	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
@@ -87576,7 +85532,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 678 */
+/* 666 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87588,7 +85544,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsJoinPrefixedRules = __webpack_require__(673);
+	var _utilsJoinPrefixedRules = __webpack_require__(661);
 
 	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
@@ -87603,7 +85559,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 679 */
+/* 667 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87617,19 +85573,19 @@
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _utilsCamelToDashCase = __webpack_require__(674);
+	var _utilsCamelToDashCase = __webpack_require__(662);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
-	var _utilsCapitalizeString = __webpack_require__(670);
+	var _utilsCapitalizeString = __webpack_require__(658);
 
 	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
 
-	var _utilsUnprefixProperty = __webpack_require__(680);
+	var _utilsUnprefixProperty = __webpack_require__(668);
 
 	var _utilsUnprefixProperty2 = _interopRequireDefault(_utilsUnprefixProperty);
 
-	var _prefixProps = __webpack_require__(669);
+	var _prefixProps = __webpack_require__(657);
 
 	var _prefixProps2 = _interopRequireDefault(_prefixProps);
 
@@ -87684,7 +85640,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 680 */
+/* 668 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -87701,7 +85657,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 681 */
+/* 669 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -87739,7 +85695,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 682 */
+/* 670 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87753,7 +85709,7 @@
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _utilsCamelToDashCase = __webpack_require__(674);
+	var _utilsCamelToDashCase = __webpack_require__(662);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -87787,7 +85743,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 683 */
+/* 671 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87798,7 +85754,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _bowser = __webpack_require__(684);
+	var _bowser = __webpack_require__(672);
 
 	var _bowser2 = _interopRequireDefault(_bowser);
 
@@ -87885,7 +85841,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 684 */
+/* 672 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -88182,7 +86138,7 @@
 
 
 /***/ },
-/* 685 */
+/* 673 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -88207,7 +86163,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 686 */
+/* 674 */
 /***/ function(module, exports) {
 
 	// helper to capitalize strings
@@ -88224,7 +86180,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 687 */
+/* 675 */
 /***/ function(module, exports) {
 
 	// leight polyfill for Object.assign
@@ -88246,7 +86202,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 688 */
+/* 676 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -88258,7 +86214,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 689 */
+/* 677 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88272,7 +86228,7 @@
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _utilsCamelToDashCase = __webpack_require__(690);
+	var _utilsCamelToDashCase = __webpack_require__(678);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -88293,7 +86249,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 690 */
+/* 678 */
 /***/ function(module, exports) {
 
 	/**
@@ -88315,7 +86271,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 691 */
+/* 679 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88327,7 +86283,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsCamelToDashCase = __webpack_require__(690);
+	var _utilsCamelToDashCase = __webpack_require__(678);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -88357,7 +86313,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 692 */
+/* 680 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88369,7 +86325,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsCamelToDashCase = __webpack_require__(690);
+	var _utilsCamelToDashCase = __webpack_require__(678);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -88397,7 +86353,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 693 */
+/* 681 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88411,7 +86367,7 @@
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _utilsCamelToDashCase = __webpack_require__(690);
+	var _utilsCamelToDashCase = __webpack_require__(678);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -88448,7 +86404,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 694 */
+/* 682 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88462,7 +86418,7 @@
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _utilsCamelToDashCase = __webpack_require__(690);
+	var _utilsCamelToDashCase = __webpack_require__(678);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -88485,7 +86441,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 695 */
+/* 683 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88499,15 +86455,15 @@
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _utilsCamelToDashCase = __webpack_require__(690);
+	var _utilsCamelToDashCase = __webpack_require__(678);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
-	var _utilsCapitalizeString = __webpack_require__(686);
+	var _utilsCapitalizeString = __webpack_require__(674);
 
 	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
 
-	var _utilsUnprefixProperty = __webpack_require__(696);
+	var _utilsUnprefixProperty = __webpack_require__(684);
 
 	var _utilsUnprefixProperty2 = _interopRequireDefault(_utilsUnprefixProperty);
 
@@ -88554,7 +86510,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 696 */
+/* 684 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -88571,7 +86527,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 697 */
+/* 685 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88585,7 +86541,7 @@
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _utilsCamelToDashCase = __webpack_require__(690);
+	var _utilsCamelToDashCase = __webpack_require__(678);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -88641,7 +86597,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 698 */
+/* 686 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88655,7 +86611,7 @@
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _utilsCamelToDashCase = __webpack_require__(690);
+	var _utilsCamelToDashCase = __webpack_require__(678);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -88717,7 +86673,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 699 */
+/* 687 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -88749,7 +86705,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 700 */
+/* 688 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -88837,7 +86793,7 @@
 	}
 
 /***/ },
-/* 701 */
+/* 689 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88846,7 +86802,7 @@
 	  value: true
 	});
 
-	var _flowRight = __webpack_require__(702);
+	var _flowRight = __webpack_require__(690);
 
 	var _flowRight2 = _interopRequireDefault(_flowRight);
 
@@ -88855,10 +86811,10 @@
 	exports.default = _flowRight2.default;
 
 /***/ },
-/* 702 */
+/* 690 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var createFlow = __webpack_require__(703);
+	var createFlow = __webpack_require__(691);
 
 	/**
 	 * This method is like `_.flow` except that it creates a function that
@@ -88886,16 +86842,16 @@
 
 
 /***/ },
-/* 703 */
+/* 691 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var LodashWrapper = __webpack_require__(704),
-	    baseFlatten = __webpack_require__(708),
-	    getData = __webpack_require__(720),
-	    getFuncName = __webpack_require__(730),
-	    isArray = __webpack_require__(719),
-	    isLaziable = __webpack_require__(732),
-	    rest = __webpack_require__(737);
+	var LodashWrapper = __webpack_require__(692),
+	    baseFlatten = __webpack_require__(696),
+	    getData = __webpack_require__(708),
+	    getFuncName = __webpack_require__(718),
+	    isArray = __webpack_require__(707),
+	    isLaziable = __webpack_require__(720),
+	    rest = __webpack_require__(725);
 
 	/** Used as the size to enable large array optimizations. */
 	var LARGE_ARRAY_SIZE = 200;
@@ -88977,11 +86933,11 @@
 
 
 /***/ },
-/* 704 */
+/* 692 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseCreate = __webpack_require__(705),
-	    baseLodash = __webpack_require__(707);
+	var baseCreate = __webpack_require__(693),
+	    baseLodash = __webpack_require__(695);
 
 	/**
 	 * The base constructor for creating `lodash` wrapper objects.
@@ -89005,10 +86961,10 @@
 
 
 /***/ },
-/* 705 */
+/* 693 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(706);
+	var isObject = __webpack_require__(694);
 
 	/** Built-in value references. */
 	var objectCreate = Object.create;
@@ -89029,7 +86985,7 @@
 
 
 /***/ },
-/* 706 */
+/* 694 */
 /***/ function(module, exports) {
 
 	/**
@@ -89066,7 +87022,7 @@
 
 
 /***/ },
-/* 707 */
+/* 695 */
 /***/ function(module, exports) {
 
 	/**
@@ -89082,11 +87038,11 @@
 
 
 /***/ },
-/* 708 */
+/* 696 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayPush = __webpack_require__(709),
-	    isFlattenable = __webpack_require__(710);
+	var arrayPush = __webpack_require__(697),
+	    isFlattenable = __webpack_require__(698);
 
 	/**
 	 * The base implementation of `_.flatten` with support for restricting flattening.
@@ -89126,7 +87082,7 @@
 
 
 /***/ },
-/* 709 */
+/* 697 */
 /***/ function(module, exports) {
 
 	/**
@@ -89152,12 +87108,12 @@
 
 
 /***/ },
-/* 710 */
+/* 698 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArguments = __webpack_require__(711),
-	    isArray = __webpack_require__(719),
-	    isArrayLikeObject = __webpack_require__(712);
+	var isArguments = __webpack_require__(699),
+	    isArray = __webpack_require__(707),
+	    isArrayLikeObject = __webpack_require__(700);
 
 	/**
 	 * Checks if `value` is a flattenable `arguments` object or array.
@@ -89174,10 +87130,10 @@
 
 
 /***/ },
-/* 711 */
+/* 699 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArrayLikeObject = __webpack_require__(712);
+	var isArrayLikeObject = __webpack_require__(700);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]';
@@ -89226,11 +87182,11 @@
 
 
 /***/ },
-/* 712 */
+/* 700 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(713),
-	    isObjectLike = __webpack_require__(718);
+	var isArrayLike = __webpack_require__(701),
+	    isObjectLike = __webpack_require__(706);
 
 	/**
 	 * This method is like `_.isArrayLike` except that it also checks if `value`
@@ -89265,12 +87221,12 @@
 
 
 /***/ },
-/* 713 */
+/* 701 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getLength = __webpack_require__(714),
-	    isFunction = __webpack_require__(716),
-	    isLength = __webpack_require__(717);
+	var getLength = __webpack_require__(702),
+	    isFunction = __webpack_require__(704),
+	    isLength = __webpack_require__(705);
 
 	/**
 	 * Checks if `value` is array-like. A value is considered array-like if it's
@@ -89305,10 +87261,10 @@
 
 
 /***/ },
-/* 714 */
+/* 702 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseProperty = __webpack_require__(715);
+	var baseProperty = __webpack_require__(703);
 
 	/**
 	 * Gets the "length" property value of `object`.
@@ -89327,7 +87283,7 @@
 
 
 /***/ },
-/* 715 */
+/* 703 */
 /***/ function(module, exports) {
 
 	/**
@@ -89347,10 +87303,10 @@
 
 
 /***/ },
-/* 716 */
+/* 704 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(706);
+	var isObject = __webpack_require__(694);
 
 	/** `Object#toString` result references. */
 	var funcTag = '[object Function]',
@@ -89396,7 +87352,7 @@
 
 
 /***/ },
-/* 717 */
+/* 705 */
 /***/ function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
@@ -89438,7 +87394,7 @@
 
 
 /***/ },
-/* 718 */
+/* 706 */
 /***/ function(module, exports) {
 
 	/**
@@ -89473,7 +87429,7 @@
 
 
 /***/ },
-/* 719 */
+/* 707 */
 /***/ function(module, exports) {
 
 	/**
@@ -89507,11 +87463,11 @@
 
 
 /***/ },
-/* 720 */
+/* 708 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var metaMap = __webpack_require__(721),
-	    noop = __webpack_require__(729);
+	var metaMap = __webpack_require__(709),
+	    noop = __webpack_require__(717);
 
 	/**
 	 * Gets metadata for `func`.
@@ -89528,10 +87484,10 @@
 
 
 /***/ },
-/* 721 */
+/* 709 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var WeakMap = __webpack_require__(722);
+	var WeakMap = __webpack_require__(710);
 
 	/** Used to store function metadata. */
 	var metaMap = WeakMap && new WeakMap;
@@ -89540,11 +87496,11 @@
 
 
 /***/ },
-/* 722 */
+/* 710 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(723),
-	    root = __webpack_require__(727);
+	var getNative = __webpack_require__(711),
+	    root = __webpack_require__(715);
 
 	/* Built-in method references that are verified to be native. */
 	var WeakMap = getNative(root, 'WeakMap');
@@ -89553,10 +87509,10 @@
 
 
 /***/ },
-/* 723 */
+/* 711 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isNative = __webpack_require__(724);
+	var isNative = __webpack_require__(712);
 
 	/**
 	 * Gets the native function at `key` of `object`.
@@ -89575,13 +87531,13 @@
 
 
 /***/ },
-/* 724 */
+/* 712 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(716),
-	    isHostObject = __webpack_require__(725),
-	    isObject = __webpack_require__(706),
-	    toSource = __webpack_require__(726);
+	var isFunction = __webpack_require__(704),
+	    isHostObject = __webpack_require__(713),
+	    isObject = __webpack_require__(694),
+	    toSource = __webpack_require__(714);
 
 	/**
 	 * Used to match `RegExp`
@@ -89637,7 +87593,7 @@
 
 
 /***/ },
-/* 725 */
+/* 713 */
 /***/ function(module, exports) {
 
 	/**
@@ -89663,7 +87619,7 @@
 
 
 /***/ },
-/* 726 */
+/* 714 */
 /***/ function(module, exports) {
 
 	/** Used to resolve the decompiled source of functions. */
@@ -89692,10 +87648,10 @@
 
 
 /***/ },
-/* 727 */
+/* 715 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module, global) {var checkGlobal = __webpack_require__(728);
+	/* WEBPACK VAR INJECTION */(function(module, global) {var checkGlobal = __webpack_require__(716);
 
 	/** Used to determine if values are of the language type `Object`. */
 	var objectTypes = {
@@ -89737,10 +87693,10 @@
 
 	module.exports = root;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(658)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(646)(module), (function() { return this; }())))
 
 /***/ },
-/* 728 */
+/* 716 */
 /***/ function(module, exports) {
 
 	/**
@@ -89758,7 +87714,7 @@
 
 
 /***/ },
-/* 729 */
+/* 717 */
 /***/ function(module, exports) {
 
 	/**
@@ -89784,10 +87740,10 @@
 
 
 /***/ },
-/* 730 */
+/* 718 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var realNames = __webpack_require__(731);
+	var realNames = __webpack_require__(719);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -89821,7 +87777,7 @@
 
 
 /***/ },
-/* 731 */
+/* 719 */
 /***/ function(module, exports) {
 
 	/** Used to lookup unminified function names. */
@@ -89831,13 +87787,13 @@
 
 
 /***/ },
-/* 732 */
+/* 720 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var LazyWrapper = __webpack_require__(733),
-	    getData = __webpack_require__(720),
-	    getFuncName = __webpack_require__(730),
-	    lodash = __webpack_require__(734);
+	var LazyWrapper = __webpack_require__(721),
+	    getData = __webpack_require__(708),
+	    getFuncName = __webpack_require__(718),
+	    lodash = __webpack_require__(722);
 
 	/**
 	 * Checks if `func` has a lazy counterpart.
@@ -89865,11 +87821,11 @@
 
 
 /***/ },
-/* 733 */
+/* 721 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseCreate = __webpack_require__(705),
-	    baseLodash = __webpack_require__(707);
+	var baseCreate = __webpack_require__(693),
+	    baseLodash = __webpack_require__(695);
 
 	/** Used as references for the maximum length and index of an array. */
 	var MAX_ARRAY_LENGTH = 4294967295;
@@ -89899,15 +87855,15 @@
 
 
 /***/ },
-/* 734 */
+/* 722 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var LazyWrapper = __webpack_require__(733),
-	    LodashWrapper = __webpack_require__(704),
-	    baseLodash = __webpack_require__(707),
-	    isArray = __webpack_require__(719),
-	    isObjectLike = __webpack_require__(718),
-	    wrapperClone = __webpack_require__(735);
+	var LazyWrapper = __webpack_require__(721),
+	    LodashWrapper = __webpack_require__(692),
+	    baseLodash = __webpack_require__(695),
+	    isArray = __webpack_require__(707),
+	    isObjectLike = __webpack_require__(706),
+	    wrapperClone = __webpack_require__(723);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -90050,12 +88006,12 @@
 
 
 /***/ },
-/* 735 */
+/* 723 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var LazyWrapper = __webpack_require__(733),
-	    LodashWrapper = __webpack_require__(704),
-	    copyArray = __webpack_require__(736);
+	var LazyWrapper = __webpack_require__(721),
+	    LodashWrapper = __webpack_require__(692),
+	    copyArray = __webpack_require__(724);
 
 	/**
 	 * Creates a clone of `wrapper`.
@@ -90079,7 +88035,7 @@
 
 
 /***/ },
-/* 736 */
+/* 724 */
 /***/ function(module, exports) {
 
 	/**
@@ -90105,11 +88061,11 @@
 
 
 /***/ },
-/* 737 */
+/* 725 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var apply = __webpack_require__(738),
-	    toInteger = __webpack_require__(739);
+	var apply = __webpack_require__(726),
+	    toInteger = __webpack_require__(727);
 
 	/** Used as the `TypeError` message for "Functions" methods. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -90175,7 +88131,7 @@
 
 
 /***/ },
-/* 738 */
+/* 726 */
 /***/ function(module, exports) {
 
 	/**
@@ -90203,10 +88159,10 @@
 
 
 /***/ },
-/* 739 */
+/* 727 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toNumber = __webpack_require__(740);
+	var toNumber = __webpack_require__(728);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0,
@@ -90255,12 +88211,12 @@
 
 
 /***/ },
-/* 740 */
+/* 728 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(716),
-	    isObject = __webpack_require__(706),
-	    isSymbol = __webpack_require__(741);
+	var isFunction = __webpack_require__(704),
+	    isObject = __webpack_require__(694),
+	    isSymbol = __webpack_require__(729);
 
 	/** Used as references for various `Number` constants. */
 	var NAN = 0 / 0;
@@ -90328,10 +88284,10 @@
 
 
 /***/ },
-/* 741 */
+/* 729 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObjectLike = __webpack_require__(718);
+	var isObjectLike = __webpack_require__(706);
 
 	/** `Object#toString` result references. */
 	var symbolTag = '[object Symbol]';
@@ -90373,7 +88329,7 @@
 
 
 /***/ },
-/* 742 */
+/* 730 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90382,7 +88338,7 @@
 	  value: true
 	});
 
-	var _colors = __webpack_require__(638);
+	var _colors = __webpack_require__(626);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -90409,7 +88365,7 @@
 	exports.default = new Typography();
 
 /***/ },
-/* 743 */
+/* 731 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90418,11 +88374,11 @@
 	  value: true
 	});
 
-	var _colors = __webpack_require__(638);
+	var _colors = __webpack_require__(626);
 
 	var _colorManipulator = __webpack_require__(469);
 
-	var _spacing = __webpack_require__(664);
+	var _spacing = __webpack_require__(652);
 
 	var _spacing2 = _interopRequireDefault(_spacing);
 
@@ -90449,7 +88405,7 @@
 	};
 
 /***/ },
-/* 744 */
+/* 732 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -90462,11 +88418,11 @@
 
 	var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
 
-	var _lodash = __webpack_require__(656);
+	var _lodash = __webpack_require__(644);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _getMuiTheme2 = __webpack_require__(655);
+	var _getMuiTheme2 = __webpack_require__(643);
 
 	var _getMuiTheme3 = _interopRequireDefault(_getMuiTheme2);
 
@@ -90498,7 +88454,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 745 */
+/* 733 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90517,11 +88473,1978 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _RemoveTopicLink = __webpack_require__(634);
+	var _materialUi = __webpack_require__(421);
+
+	var _refresh = __webpack_require__(734);
+
+	var _refresh2 = _interopRequireDefault(_refresh);
+
+	var _RefreshTopic = __webpack_require__(735);
+
+	var _RefreshTopic2 = _interopRequireDefault(_RefreshTopic);
+
+	var _TopicLinksCard = __webpack_require__(736);
+
+	var _TopicLinksCard2 = _interopRequireDefault(_TopicLinksCard);
+
+	var _TopicInsightsTable = __webpack_require__(743);
+
+	var _TopicInsightsTable2 = _interopRequireDefault(_TopicInsightsTable);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TopicApp = function (_React$Component) {
+	  _inherits(TopicApp, _React$Component);
+
+	  function TopicApp(props) {
+	    _classCallCheck(this, TopicApp);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TopicApp).call(this, props));
+
+	    _this._handleReloadRequest = function () {
+	      if (_this.state.reloading) return;
+
+	      _this.setState({ reloading: true });
+
+	      var mutation = new _RefreshTopic2.default({ topic: _this.props.node });
+	      _reactRelay2.default.Store.commitUpdate(mutation, {
+	        onSuccess: function onSuccess() {
+	          _this.setState({ reloading: false });
+	        },
+	        onFailure: function onFailure() {
+	          _this.setState({ reloading: false });
+	        }
+	      });
+	    };
+
+	    _this._renderRefreshIndicator = function () {
+	      return _react2.default.createElement(
+	        'div',
+	        { style: { position: 'fixed', right: 20, bottom: 20, width: 40, height: 40 } },
+	        _this.state.reloading ? _react2.default.createElement(_materialUi.RefreshIndicator, {
+	          percentage: 50,
+	          status: 'loading',
+	          size: 40,
+	          left: 0,
+	          top: 0,
+	          style: { position: 'relative' }
+	        }) : _react2.default.createElement(
+	          _materialUi.FloatingActionButton,
+	          {
+	            onTouchTap: _this._handleReloadRequest,
+	            secondary: true,
+	            mini: true
+	          },
+	          _react2.default.createElement(_refresh2.default, null)
+	        )
+	      );
+	    };
+
+	    _this.state = {
+	      shouldRenderInsights: false
+	    };
+	    return _this;
+	  }
+
+	  _createClass(TopicApp, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          _materialUi.Tabs,
+	          null,
+	          _react2.default.createElement(
+	            _materialUi.Tab,
+	            { label: 'Links' },
+	            _react2.default.createElement(_TopicLinksCard2.default, { topic: this.props.node })
+	          ),
+	          _react2.default.createElement(
+	            _materialUi.Tab,
+	            { label: 'Insights', onActive: function onActive() {
+	                return _this2.setState({ shouldRenderInsights: true });
+	              } },
+	            this._renderTopicInsights(),
+	            this._renderRefreshIndicator()
+	          )
+	        )
+	      );
+	    }
+	  }, {
+	    key: '_renderTopicInsights',
+	    value: function _renderTopicInsights() {
+	      return this.state.shouldRenderInsights ? _react2.default.createElement(_TopicInsightsTable2.default, { topic: this.props.node }) : null;
+	    }
+	  }]);
+
+	  return TopicApp;
+	}(_react2.default.Component);
+
+	exports.default = _reactRelay2.default.createContainer(TopicApp, {
+
+	  fragments: {
+	    node: function node() {
+	      return function (RQL_0, RQL_1, RQL_2) {
+	        return {
+	          children: [].concat.apply([], [{
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }, {
+	            fieldName: 'name',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, _reactRelay2.default.QL.__frag(RQL_0), _reactRelay2.default.QL.__frag(RQL_1), _reactRelay2.default.QL.__frag(RQL_2)]),
+	          id: _reactRelay2.default.QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'TopicApp_NodeRelayQL',
+	          type: 'Topic'
+	        };
+	      }(_RefreshTopic2.default.getFragment('topic'), _TopicLinksCard2.default.getFragment('topic'), _TopicInsightsTable2.default.getFragment('topic'));
+	    }
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 734 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(452);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(460);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var NavigationRefresh = function NavigationRefresh(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z' })
+	  );
+	};
+	NavigationRefresh = (0, _pure2.default)(NavigationRefresh);
+	NavigationRefresh.displayName = 'NavigationRefresh';
+
+	exports.default = NavigationRefresh;
+
+/***/ },
+/* 735 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactRelay = __webpack_require__(167);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _class = function (_Relay$Mutation) {
+	  _inherits(_class, _Relay$Mutation);
+
+	  function _class() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, _class);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.getMutation = function () {
+	      return function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'refreshTopic',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'RefreshTopicInput!'
+	          },
+	          name: 'RefreshTopic',
+	          responseType: 'RefreshTopicPayload'
+	        };
+	      }();
+	    }, _this.getFatQuery = function () {
+	      return function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'insights',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isConnection: true
+	              },
+	              type: 'TopicInsightsConnection'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'topic',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Topic'
+	          }],
+	          id: _reactRelay2.default.QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'RefreshTopicRelayQL',
+	          type: 'RefreshTopicPayload'
+	        };
+	      }();
+	    }, _this.getVariables = function () {
+	      return {
+	        topicID: _this.props.topic.id
+	      };
+	    }, _this.getConfigs = function () {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: { topic: _this.props.topic.id }
+	      }];
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  return _class;
+	}(_reactRelay2.default.Mutation);
+
+	_class.fragments = {
+	  topic: function topic() {
+	    return function () {
+	      return {
+	        children: [{
+	          fieldName: 'id',
+	          kind: 'Field',
+	          metadata: {
+	            isRequisite: true
+	          },
+	          type: 'ID'
+	        }],
+	        id: _reactRelay2.default.QL.__id(),
+	        kind: 'Fragment',
+	        metadata: {},
+	        name: 'RefreshTopic_TopicRelayQL',
+	        type: 'Topic'
+	      };
+	    }();
+	  }
+	};
+	exports.default = _class;
+	module.exports = exports['default'];
+
+/***/ },
+/* 736 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(167);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _materialUi = __webpack_require__(421);
+
+	var _close = __webpack_require__(615);
+
+	var _close2 = _interopRequireDefault(_close);
+
+	var _TopicLinkForm = __webpack_require__(737);
+
+	var _TopicLinkForm2 = _interopRequireDefault(_TopicLinkForm);
+
+	var _RemoveTopicLink = __webpack_require__(742);
 
 	var _RemoveTopicLink2 = _interopRequireDefault(_RemoveTopicLink);
 
-	var _TopicLinkForm = __webpack_require__(629);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var RightIconButton = function RightIconButton(callback) {
+	  return _react2.default.createElement(
+	    _materialUi.IconButton,
+	    { onTouchTap: function onTouchTap() {
+	        if (confirm('Are you sure?')) {
+	          callback();
+	        }
+	      } },
+	    _react2.default.createElement(_close2.default, { color: 'red' })
+	  );
+	};
+
+	var TopicLinksCard = function (_React$Component) {
+	  _inherits(TopicLinksCard, _React$Component);
+
+	  function TopicLinksCard(props) {
+	    _classCallCheck(this, TopicLinksCard);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TopicLinksCard).call(this, props));
+
+	    _this._handleRemoveRequest = function (id) {
+	      _reactRelay2.default.Store.commitUpdate(new _RemoveTopicLink2.default({
+	        topicID: _this.props.topic.id,
+	        linkID: id
+	      }));
+	    };
+
+	    _this.render = function () {
+	      return _this.state.topicLink === undefined ? _this.renderList() : _this.renderForm();
+	    };
+
+	    _this.renderList = function () {
+	      return _react2.default.createElement(
+	        _materialUi.Card,
+	        { style: { margin: 20 } },
+	        _react2.default.createElement(
+	          _materialUi.List,
+	          null,
+	          _this.props.topic.links.edges.length > 0 ? _this.props.topic.links.edges.map(function (edge) {
+	            return _this._renderTopicLink(edge.node);
+	          }) : _this._renderEmptyTopicListItem()
+	        ),
+	        _react2.default.createElement(_materialUi.Divider, null),
+	        _react2.default.createElement(
+	          _materialUi.CardActions,
+	          null,
+	          _react2.default.createElement(_materialUi.FlatButton, { label: 'Add link', primary: true, onTouchTap: function onTouchTap() {
+	              return _this.setState({ topicLink: null });
+	            } })
+	        )
+	      );
+	    };
+
+	    _this.renderForm = function () {
+	      return _react2.default.createElement(_TopicLinkForm2.default, {
+	        topic: _this.props.topic,
+	        topicLink: _this.state.topicLink,
+	        onCancel: function onCancel() {
+	          return _this.setState({ topicLink: undefined });
+	        },
+	        onDone: function onDone() {
+	          return _this.setState({ topicLink: undefined });
+	        }
+	      });
+	    };
+
+	    _this._renderTopicLink = function (topicLink) {
+	      return _react2.default.createElement(
+	        _materialUi.ListItem,
+	        {
+	          key: topicLink.id,
+	          nestedItems: topicLink.insights.edges.map(function (edge) {
+	            return _this._renderInsight(edge.node);
+	          }),
+	          onTouchTap: function onTouchTap() {
+	            return _this.setState({ topicLink: topicLink });
+	          },
+	          secondaryText: topicLink.reaction && topicLink.reaction.content || '',
+	          rightIconButton: RightIconButton(_this._handleRemoveRequest.bind(_this, topicLink.id))
+	        },
+	        _react2.default.createElement(
+	          'a',
+	          { href: topicLink.url, target: '_blank' },
+	          topicLink.title
+	        )
+	      );
+	    };
+
+	    _this._renderEmptyTopicListItem = function () {
+	      return _react2.default.createElement(
+	        _materialUi.ListItem,
+	        { disabled: true },
+	        'No links'
+	      );
+	    };
+
+	    _this._renderInsight = function (insight) {
+	      return _react2.default.createElement(
+	        _materialUi.ListItem,
+	        { key: insight.id, disabled: true },
+	        insight.content
+	      );
+	    };
+
+	    _this.state = {
+	      topicLink: undefined
+	    };
+	    return _this;
+	  }
+
+	  return TopicLinksCard;
+	}(_react2.default.Component);
+
+	exports.default = _reactRelay2.default.createContainer(TopicLinksCard, {
+
+	  fragments: {
+	    topic: function topic() {
+	      return function (RQL_0, RQL_1) {
+	        return {
+	          children: [].concat.apply([], [{
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }, {
+	            calls: [{
+	              kind: 'Call',
+	              metadata: {},
+	              name: 'first',
+	              value: {
+	                kind: 'CallValue',
+	                callValue: 100
+	              }
+	            }],
+	            children: [{
+	              children: [{
+	                children: [].concat.apply([], [{
+	                  fieldName: 'id',
+	                  kind: 'Field',
+	                  metadata: {
+	                    isRequisite: true
+	                  },
+	                  type: 'ID'
+	                }, {
+	                  fieldName: 'url',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  fieldName: 'title',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  children: [{
+	                    fieldName: 'content',
+	                    kind: 'Field',
+	                    metadata: {},
+	                    type: 'String'
+	                  }, {
+	                    fieldName: 'id',
+	                    kind: 'Field',
+	                    metadata: {
+	                      isGenerated: true,
+	                      isRequisite: true
+	                    },
+	                    type: 'ID'
+	                  }],
+	                  fieldName: 'reaction',
+	                  kind: 'Field',
+	                  metadata: {
+	                    canHaveSubselections: true,
+	                    inferredRootCallName: 'node',
+	                    inferredPrimaryKey: 'id'
+	                  },
+	                  type: 'BotReaction'
+	                }, {
+	                  calls: [{
+	                    kind: 'Call',
+	                    metadata: {},
+	                    name: 'first',
+	                    value: {
+	                      kind: 'CallValue',
+	                      callValue: 100
+	                    }
+	                  }],
+	                  children: [{
+	                    children: [{
+	                      children: [{
+	                        fieldName: 'id',
+	                        kind: 'Field',
+	                        metadata: {
+	                          isRequisite: true
+	                        },
+	                        type: 'ID'
+	                      }, {
+	                        fieldName: 'content',
+	                        kind: 'Field',
+	                        metadata: {},
+	                        type: 'String'
+	                      }, {
+	                        fieldName: 'createdAt',
+	                        kind: 'Field',
+	                        metadata: {},
+	                        type: 'String'
+	                      }],
+	                      fieldName: 'node',
+	                      kind: 'Field',
+	                      metadata: {
+	                        canHaveSubselections: true,
+	                        inferredRootCallName: 'node',
+	                        inferredPrimaryKey: 'id',
+	                        isRequisite: true
+	                      },
+	                      type: 'Insight'
+	                    }, {
+	                      fieldName: 'cursor',
+	                      kind: 'Field',
+	                      metadata: {
+	                        isGenerated: true,
+	                        isRequisite: true
+	                      },
+	                      type: 'String'
+	                    }],
+	                    fieldName: 'edges',
+	                    kind: 'Field',
+	                    metadata: {
+	                      canHaveSubselections: true,
+	                      isPlural: true
+	                    },
+	                    type: 'TopicLinkInsightsEdge'
+	                  }, {
+	                    children: [{
+	                      fieldName: 'hasNextPage',
+	                      kind: 'Field',
+	                      metadata: {
+	                        isGenerated: true,
+	                        isRequisite: true
+	                      },
+	                      type: 'Boolean'
+	                    }, {
+	                      fieldName: 'hasPreviousPage',
+	                      kind: 'Field',
+	                      metadata: {
+	                        isGenerated: true,
+	                        isRequisite: true
+	                      },
+	                      type: 'Boolean'
+	                    }],
+	                    fieldName: 'pageInfo',
+	                    kind: 'Field',
+	                    metadata: {
+	                      canHaveSubselections: true,
+	                      isGenerated: true,
+	                      isRequisite: true
+	                    },
+	                    type: 'PageInfo'
+	                  }],
+	                  fieldName: 'insights',
+	                  kind: 'Field',
+	                  metadata: {
+	                    canHaveSubselections: true,
+	                    isConnection: true
+	                  },
+	                  type: 'TopicLinkInsightsConnection'
+	                }, _reactRelay2.default.QL.__frag(RQL_1)]),
+	                fieldName: 'node',
+	                kind: 'Field',
+	                metadata: {
+	                  canHaveSubselections: true,
+	                  inferredRootCallName: 'node',
+	                  inferredPrimaryKey: 'id',
+	                  isRequisite: true
+	                },
+	                type: 'TopicLink'
+	              }, {
+	                fieldName: 'cursor',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'String'
+	              }],
+	              fieldName: 'edges',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isPlural: true
+	              },
+	              type: 'TopicLinksEdge'
+	            }, {
+	              children: [{
+	                fieldName: 'hasNextPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }, {
+	                fieldName: 'hasPreviousPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }],
+	              fieldName: 'pageInfo',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'PageInfo'
+	            }],
+	            fieldName: 'links',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              isConnection: true
+	            },
+	            type: 'TopicLinksConnection'
+	          }, _reactRelay2.default.QL.__frag(RQL_0)]),
+	          id: _reactRelay2.default.QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'TopicLinksCard_TopicRelayQL',
+	          type: 'Topic'
+	        };
+	      }(_TopicLinkForm2.default.getFragment('topic'), _TopicLinkForm2.default.getFragment('topicLink'));
+	    }
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 737 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(167);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _materialUi = __webpack_require__(421);
+
+	var _cancel = __webpack_require__(738);
+
+	var _cancel2 = _interopRequireDefault(_cancel);
+
+	var _InsightChooser = __webpack_require__(739);
+
+	var _InsightChooser2 = _interopRequireDefault(_InsightChooser);
+
+	var _IntroduceLinkToTopic = __webpack_require__(740);
+
+	var _IntroduceLinkToTopic2 = _interopRequireDefault(_IntroduceLinkToTopic);
+
+	var _UpdateTopicLink = __webpack_require__(741);
+
+	var _UpdateTopicLink2 = _interopRequireDefault(_UpdateTopicLink);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TopicLinkForm = function (_React$Component) {
+	  _inherits(TopicLinkForm, _React$Component);
+
+	  function TopicLinkForm(props) {
+	    _classCallCheck(this, TopicLinkForm);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TopicLinkForm).call(this, props));
+
+	    _this._removeInsightAtIndex = function (ii) {
+	      _this.setState({
+	        linkInsightsIDs: _this.state.linkInsightsIDs.slice(0, ii).concat(_this.state.linkInsightsIDs.slice(ii + 1))
+	      });
+	    };
+
+	    _this._handleInsightSelect = function (id) {
+	      _this.setState({
+	        linkInsightsIDs: _this.state.linkInsightsIDs.concat(id)
+	      });
+	    };
+
+	    _this._showInsightChooser = function () {
+	      _this.setState({
+	        isInsightChooserOpen: true
+	      });
+	    };
+
+	    _this._hideInsightChooser = function () {
+	      _this.setState({
+	        isInsightChooserOpen: false
+	      });
+	    };
+
+	    _this._isValid = function () {
+	      return _this.state.linkURL.trim().length > 0 && _this.state.linkTitle.trim().length > 0 &&
+	      // this.state.reactionContent.trim().length > 0 &&
+	      _this.state.linkInsightsIDs.length > 0;
+	    };
+
+	    _this._submit = function () {
+	      if (_this.state.loading) return;
+	      _this.setState({ loading: true });
+	      _this.props.topicLink ? _this._update() : _this._create();
+	    };
+
+	    _this._create = function () {
+	      _reactRelay2.default.Store.commitUpdate(new _IntroduceLinkToTopic2.default(_extends({}, _this.state, {
+	        topicID: _this.props.topic.id
+	      })), {
+	        onSuccess: _this._handleSuccess,
+	        onFailure: _this._handleFailure
+	      });
+	    };
+
+	    _this._update = function () {
+	      var mutation = new _UpdateTopicLink2.default(_extends({}, _this.state, { linkID: _this.props.topicLink.id }));
+	      _reactRelay2.default.Store.commitUpdate(mutation, {
+	        onSuccess: _this._handleSuccess,
+	        onFailure: _this._handleFailure
+	      });
+	    };
+
+	    _this._handleSuccess = function (response) {
+	      _this.setState({ loading: false });
+	      _this.props.onDone && _this.props.onDone();
+	    };
+
+	    _this._handleFailure = function (transaction) {
+	      alert('Error!');
+	      _this.setState({ loading: false });
+	    };
+
+	    _this._insightChooserDialogActions = function () {
+	      return _react2.default.createElement(_materialUi.FlatButton, { label: 'Done', primary: true, onTouchTap: _this._hideInsightChooser });
+	    };
+
+	    _this.render = function () {
+	      return _react2.default.createElement(
+	        _materialUi.Card,
+	        { style: { margin: 20 } },
+	        _react2.default.createElement(_materialUi.CardTitle, { title: _this.props.topicLink ? 'Edit link' : 'Add link', subtitle: _this.props.topic.name }),
+	        _react2.default.createElement(
+	          _materialUi.CardText,
+	          null,
+	          _react2.default.createElement(_materialUi.TextField, { floatingLabelText: 'Link URL', value: _this.state.linkURL, autoFocus: true, onChange: _this._handleLinkURLChange }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(_materialUi.TextField, { floatingLabelText: 'Link Title', value: _this.state.linkTitle, onChange: _this._handleLinkTitleChange }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(_materialUi.TextField, { floatingLabelText: 'Boris said', value: _this.state.reactionContent, multiLine: true, fullWidth: true, onChange: _this._handleReactionContentChange }),
+	          _react2.default.createElement(
+	            _materialUi.List,
+	            null,
+	            _this.state.linkInsightsIDs.map(_this._renderInsight)
+	          ),
+	          _react2.default.createElement(
+	            _materialUi.Dialog,
+	            {
+	              autoDetectWindowHeight: false,
+	              actions: _this._insightChooserDialogActions(),
+	              open: _this.state.isInsightChooserOpen,
+	              onRequestClose: _this._hideInsightChooser
+	            },
+	            _react2.default.createElement(_InsightChooser2.default, {
+	              insights: _this.props.topic.insights.edges.map(function (edge) {
+	                return edge.node;
+	              }),
+	              selectedInsights: _this.state.linkInsightsIDs,
+	              onSelect: _this._handleInsightSelect
+	            })
+	          )
+	        ),
+	        _react2.default.createElement(_materialUi.Divider, null),
+	        _react2.default.createElement(
+	          _materialUi.CardActions,
+	          { style: { display: 'flex' } },
+	          _react2.default.createElement(_materialUi.FlatButton, { label: 'Add an insight', primary: true, onTouchTap: _this._showInsightChooser }),
+	          _react2.default.createElement('div', { style: { flex: 1 } }),
+	          _react2.default.createElement(_materialUi.FlatButton, { label: 'Cancel', secondary: true, onTouchTap: _this.props.onCancel }),
+	          _react2.default.createElement(_materialUi.FlatButton, { label: 'Save', primary: true, disabled: !_this._isValid(), onTouchTap: _this._submit })
+	        )
+	      );
+	    };
+
+	    _this._renderInsight = function (id, ii) {
+	      return _react2.default.createElement(
+	        _materialUi.ListItem,
+	        {
+	          key: id,
+	          rightIcon: _react2.default.createElement(_cancel2.default, null),
+	          onTouchTap: function onTouchTap() {
+	            return _this._removeInsightAtIndex(ii);
+	          }
+	        },
+	        _this.props.topic.insights.edges.find(function (edge) {
+	          return edge.node.id === id;
+	        }).node.content
+	      );
+	    };
+
+	    _this.state = {
+	      isInsightChooserOpen: false
+	    };
+
+	    _this._handleLinkURLChange = _this._handleInputChange.bind(_this, 'linkURL');
+	    _this._handleLinkTitleChange = _this._handleInputChange.bind(_this, 'linkTitle');
+	    _this._handleReactionContentChange = _this._handleInputChange.bind(_this, 'reactionContent');
+	    return _this;
+	  }
+
+	  _createClass(TopicLinkForm, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this._updateStateFromProps(this.props);
+	    }
+	  }, {
+	    key: '_updateStateFromProps',
+	    value: function _updateStateFromProps(props) {
+	      this.setState({
+	        linkURL: props.topicLink && props.topicLink.url || '',
+	        linkTitle: props.topicLink && props.topicLink.title || '',
+	        reactionContent: props.topicLink && props.topicLink.reaction && props.topicLink.reaction.content || '',
+	        linkInsightsIDs: props.topicLink && props.topicLink.insights.edges.map(function (edge) {
+	          return edge.node.id;
+	        }) || []
+	      });
+	    }
+	  }, {
+	    key: '_handleInputChange',
+	    value: function _handleInputChange(field, event) {
+	      var nextState = {};
+	      nextState[field] = event.target.value;
+	      this.setState(nextState);
+	    }
+	  }]);
+
+	  return TopicLinkForm;
+	}(_react2.default.Component);
+
+	exports.default = _reactRelay2.default.createContainer(TopicLinkForm, {
+
+	  initialVariables: {
+	    first: 1000
+	  },
+
+	  fragments: {
+	    topicLink: function topicLink() {
+	      return function () {
+	        return {
+	          children: [{
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }, {
+	            fieldName: 'url',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, {
+	            fieldName: 'title',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, {
+	            children: [{
+	              fieldName: 'content',
+	              kind: 'Field',
+	              metadata: {},
+	              type: 'String'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'reaction',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'BotReaction'
+	          }, {
+	            calls: [{
+	              kind: 'Call',
+	              metadata: {},
+	              name: 'first',
+	              value: {
+	                kind: 'CallValue',
+	                callValue: 1000
+	              }
+	            }],
+	            children: [{
+	              children: [{
+	                children: [{
+	                  fieldName: 'id',
+	                  kind: 'Field',
+	                  metadata: {
+	                    isRequisite: true
+	                  },
+	                  type: 'ID'
+	                }],
+	                fieldName: 'node',
+	                kind: 'Field',
+	                metadata: {
+	                  canHaveSubselections: true,
+	                  inferredRootCallName: 'node',
+	                  inferredPrimaryKey: 'id',
+	                  isRequisite: true
+	                },
+	                type: 'Insight'
+	              }, {
+	                fieldName: 'cursor',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'String'
+	              }],
+	              fieldName: 'edges',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isPlural: true
+	              },
+	              type: 'TopicLinkInsightsEdge'
+	            }, {
+	              children: [{
+	                fieldName: 'hasNextPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }, {
+	                fieldName: 'hasPreviousPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }],
+	              fieldName: 'pageInfo',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'PageInfo'
+	            }],
+	            fieldName: 'insights',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              isConnection: true
+	            },
+	            type: 'TopicLinkInsightsConnection'
+	          }],
+	          id: _reactRelay2.default.QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'TopicLinkForm_TopicLinkRelayQL',
+	          type: 'TopicLink'
+	        };
+	      }();
+	    },
+
+	    topic: function topic() {
+	      return function () {
+	        return {
+	          children: [{
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }, {
+	            fieldName: 'name',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, {
+	            calls: [{
+	              kind: 'Call',
+	              metadata: {
+	                type: 'TopicInsightsFilterEnum'
+	              },
+	              name: 'filter',
+	              value: {
+	                kind: 'CallValue',
+	                callValue: 'ADMIN'
+	              }
+	            }, {
+	              kind: 'Call',
+	              metadata: {},
+	              name: 'first',
+	              value: {
+	                kind: 'CallVariable',
+	                callVariableName: 'first'
+	              }
+	            }],
+	            children: [{
+	              children: [{
+	                children: [{
+	                  fieldName: 'id',
+	                  kind: 'Field',
+	                  metadata: {
+	                    isRequisite: true
+	                  },
+	                  type: 'ID'
+	                }, {
+	                  fieldName: 'content',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  fieldName: 'createdAt',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }],
+	                fieldName: 'node',
+	                kind: 'Field',
+	                metadata: {
+	                  canHaveSubselections: true,
+	                  inferredRootCallName: 'node',
+	                  inferredPrimaryKey: 'id',
+	                  isRequisite: true
+	                },
+	                type: 'Insight'
+	              }, {
+	                fieldName: 'cursor',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'String'
+	              }],
+	              fieldName: 'edges',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isPlural: true
+	              },
+	              type: 'TopicInsightsEdge'
+	            }, {
+	              children: [{
+	                fieldName: 'hasNextPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }, {
+	                fieldName: 'hasPreviousPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }],
+	              fieldName: 'pageInfo',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'PageInfo'
+	            }],
+	            fieldName: 'insights',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              isConnection: true
+	            },
+	            type: 'TopicInsightsConnection'
+	          }],
+	          id: _reactRelay2.default.QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'TopicLinkForm_TopicRelayQL',
+	          type: 'Topic'
+	        };
+	      }();
+	    }
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 738 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(452);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(460);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var NavigationCancel = function NavigationCancel(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z' })
+	  );
+	};
+	NavigationCancel = (0, _pure2.default)(NavigationCancel);
+	NavigationCancel.displayName = 'NavigationCancel';
+
+	exports.default = NavigationCancel;
+
+/***/ },
+/* 739 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(167);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _materialUi = __webpack_require__(421);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var InsightChooser = function (_React$Component) {
+	  _inherits(InsightChooser, _React$Component);
+
+	  function InsightChooser(props) {
+	    _classCallCheck(this, InsightChooser);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InsightChooser).call(this, props));
+
+	    _this._filterInsights = function () {
+	      var filter = _this.state.filter.toLowerCase();
+	      _this.setState({
+	        dataSource: _this.props.insights.filter(function (insight) {
+	          return _this.props.selectedInsights.indexOf(insight.id) == -1 && insight.content.toLowerCase().indexOf(filter) >= 0;
+	        }).sort(function (a, b) {
+	          return a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0;
+	        })
+	      });
+	    };
+
+	    _this._handleFilterChange = function (event) {
+	      _this.setState({
+	        filter: event.target.value
+	      });
+	    };
+
+	    _this.render = function () {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_materialUi.TextField, {
+	          hintText: 'Start typing...',
+	          fullWidth: true,
+	          value: _this.state.filter,
+	          onChange: _this._handleFilterChange,
+	          autoFocus: true
+	        }),
+	        _react2.default.createElement(
+	          _materialUi.List,
+	          { style: { height: 400, overflowY: 'scroll' } },
+	          _this.state.dataSource.map(_this._renderInsight)
+	        )
+	      );
+	    };
+
+	    _this._renderInsight = function (insight) {
+	      return _react2.default.createElement(
+	        _materialUi.ListItem,
+	        { key: insight.id, onTouchTap: function onTouchTap() {
+	            return _this.props.onSelect && _this.props.onSelect(insight.id);
+	          } },
+	        insight.content
+	      );
+	    };
+
+	    _this.state = {
+	      filter: '',
+	      dataSource: []
+	    };
+	    return _this;
+	  }
+
+	  _createClass(InsightChooser, [{
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate(prevProps, prevState) {
+	      if (prevState.filter !== this.state.filter || this.props.selectedInsights !== prevProps.selectedInsights) {
+	        clearTimeout(this._filterInsightTimeout);
+	        this._filterInsightTimeout = setTimeout(this._filterInsights);
+	      }
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this._filterInsights();
+	    }
+	  }]);
+
+	  return InsightChooser;
+	}(_react2.default.Component);
+
+	exports.default = InsightChooser;
+	module.exports = exports['default'];
+
+/***/ },
+/* 740 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactRelay = __webpack_require__(167);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _class = function (_Relay$Mutation) {
+	  _inherits(_class, _Relay$Mutation);
+
+	  function _class() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, _class);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.getMutation = function () {
+	      return function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'introduceLinkToTopic',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'IntroduceLinkToTopicInput!'
+	          },
+	          name: 'IntroduceLinkToTopic',
+	          responseType: 'IntroduceLinkToTopicPayload'
+	        };
+	      }();
+	    }, _this.getFatQuery = function () {
+	      return function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'links',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isConnection: true
+	              },
+	              type: 'TopicLinksConnection'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'topic',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Topic'
+	          }, {
+	            children: [{
+	              fieldName: 'cursor',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'String'
+	            }, {
+	              children: [{
+	                fieldName: 'id',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'ID'
+	              }],
+	              fieldName: 'node',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                inferredRootCallName: 'node',
+	                inferredPrimaryKey: 'id',
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'TopicLink'
+	            }],
+	            fieldName: 'linkEdge',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true
+	            },
+	            type: 'TopicLinksEdge'
+	          }],
+	          id: _reactRelay2.default.QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'IntroduceLinkToTopicRelayQL',
+	          type: 'IntroduceLinkToTopicPayload'
+	        };
+	      }();
+	    }, _this.getVariables = function () {
+	      return {
+	        topicID: _this.props.topicID,
+	        linkURL: _this.props.linkURL,
+	        linkTitle: _this.props.linkTitle,
+	        reactionContent: _this.props.reactionContent,
+	        linkInsightsIDs: _this.props.linkInsightsIDs
+	      };
+	    }, _this.getConfigs = function () {
+	      return [{
+	        type: 'RANGE_ADD',
+	        parentName: 'topic',
+	        parentID: _this.props.topicID,
+	        connectionName: 'links',
+	        edgeName: 'linkEdge',
+	        rangeBehaviors: {
+	          '': 'append'
+	        }
+	      }];
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  return _class;
+	}(_reactRelay2.default.Mutation);
+
+	exports.default = _class;
+	module.exports = exports['default'];
+
+/***/ },
+/* 741 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactRelay = __webpack_require__(167);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _class = function (_Relay$Mutation) {
+	  _inherits(_class, _Relay$Mutation);
+
+	  function _class() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, _class);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.getMutation = function () {
+	      return function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'updateTopicLink',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'UpdateTopicLinkInput!'
+	          },
+	          name: 'UpdateTopicLink',
+	          responseType: 'UpdateTopicLinkPayload'
+	        };
+	      }();
+	    }, _this.getFatQuery = function () {
+	      return function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'link',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'TopicLink'
+	          }],
+	          id: _reactRelay2.default.QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'UpdateTopicLinkRelayQL',
+	          type: 'UpdateTopicLinkPayload'
+	        };
+	      }();
+	    }, _this.getVariables = function () {
+	      return {
+	        linkID: _this.props.linkID,
+	        linkURL: _this.props.linkURL,
+	        linkTitle: _this.props.linkTitle,
+	        reactionContent: _this.props.reactionContent,
+	        linkInsightsIDs: _this.props.linkInsightsIDs
+	      };
+	    }, _this.getConfigs = function () {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: { link: _this.props.linkID }
+	      }];
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  return _class;
+	}(_reactRelay2.default.Mutation);
+
+	exports.default = _class;
+	module.exports = exports['default'];
+
+/***/ },
+/* 742 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactRelay = __webpack_require__(167);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _class = function (_Relay$Mutation) {
+	  _inherits(_class, _Relay$Mutation);
+
+	  function _class() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, _class);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.getMutation = function () {
+	      return function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'removeTopicLink',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'RemoveTopicLinkInput!'
+	          },
+	          name: 'RemoveTopicLink',
+	          responseType: 'RemoveTopicLinkPayload'
+	        };
+	      }();
+	    }, _this.getFatQuery = function () {
+	      return function () {
+	        return {
+	          children: [{
+	            fieldName: 'linkID',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'ID'
+	          }, {
+	            children: [{
+	              fieldName: 'links',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isConnection: true
+	              },
+	              type: 'TopicLinksConnection'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'topic',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Topic'
+	          }],
+	          id: _reactRelay2.default.QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'RemoveTopicLinkRelayQL',
+	          type: 'RemoveTopicLinkPayload'
+	        };
+	      }();
+	    }, _this.getVariables = function () {
+	      return {
+	        linkID: _this.props.linkID
+	      };
+	    }, _this.getConfigs = function () {
+	      return [{
+	        type: 'NODE_DELETE',
+	        parentName: 'topic',
+	        parentID: _this.props.topicID,
+	        connectionName: 'links',
+	        deletedIDFieldName: 'linkID'
+	      }];
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  return _class;
+	}(_reactRelay2.default.Mutation);
+
+	exports.default = _class;
+	module.exports = exports['default'];
+
+/***/ },
+/* 743 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(167);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _materialUi = __webpack_require__(421);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TopicInsightsTable = function (_React$Component) {
+	  _inherits(TopicInsightsTable, _React$Component);
+
+	  function TopicInsightsTable(props) {
+	    _classCallCheck(this, TopicInsightsTable);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TopicInsightsTable).call(this, props));
+
+	    _this.render = function () {
+	      return _react2.default.createElement(
+	        _materialUi.List,
+	        null,
+	        _this.props.topic.insights.edges.sort(function (a, b) {
+	          return a.node.createdAt < b.node.createdAt ? 1 : a.node.createdAt > b.node.createdAt ? -1 : 0;
+	        }).map(function (edge) {
+	          return _this._renderInsightTableRow(edge.node);
+	        })
+	      );
+	    };
+
+	    _this._renderInsightTableRow = function (insight) {
+	      return [_react2.default.createElement(_materialUi.ListItem, { primaryText: insight.content }), _react2.default.createElement(_materialUi.Divider, null)];
+	    };
+
+	    _this._renderInsightTableRow = _this._renderInsightTableRow.bind(_this);
+	    return _this;
+	  }
+
+	  return TopicInsightsTable;
+	}(_react2.default.Component);
+
+	exports.default = _reactRelay2.default.createContainer(TopicInsightsTable, {
+
+	  initialVariables: {
+	    first: 1000
+	  },
+
+	  fragments: {
+
+	    topic: function topic() {
+	      return function () {
+	        return {
+	          children: [{
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }, {
+	            calls: [{
+	              kind: 'Call',
+	              metadata: {
+	                type: 'TopicInsightsFilterEnum'
+	              },
+	              name: 'filter',
+	              value: {
+	                kind: 'CallValue',
+	                callValue: 'ADMIN'
+	              }
+	            }, {
+	              kind: 'Call',
+	              metadata: {},
+	              name: 'first',
+	              value: {
+	                kind: 'CallVariable',
+	                callVariableName: 'first'
+	              }
+	            }],
+	            children: [{
+	              children: [{
+	                children: [{
+	                  fieldName: 'id',
+	                  kind: 'Field',
+	                  metadata: {
+	                    isRequisite: true
+	                  },
+	                  type: 'ID'
+	                }, {
+	                  fieldName: 'content',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  fieldName: 'createdAt',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }],
+	                fieldName: 'node',
+	                kind: 'Field',
+	                metadata: {
+	                  canHaveSubselections: true,
+	                  inferredRootCallName: 'node',
+	                  inferredPrimaryKey: 'id',
+	                  isRequisite: true
+	                },
+	                type: 'Insight'
+	              }, {
+	                fieldName: 'cursor',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'String'
+	              }],
+	              fieldName: 'edges',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isPlural: true
+	              },
+	              type: 'TopicInsightsEdge'
+	            }, {
+	              children: [{
+	                fieldName: 'hasNextPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }, {
+	                fieldName: 'hasPreviousPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }],
+	              fieldName: 'pageInfo',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'PageInfo'
+	            }],
+	            fieldName: 'insights',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              isConnection: true
+	            },
+	            type: 'TopicInsightsConnection'
+	          }],
+	          id: _reactRelay2.default.QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'TopicInsightsTable_TopicRelayQL',
+	          type: 'Topic'
+	        };
+	      }();
+	    }
+
+	  }
+
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 744 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRelay = __webpack_require__(167);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	var _RemoveTopicLink = __webpack_require__(742);
+
+	var _RemoveTopicLink2 = _interopRequireDefault(_RemoveTopicLink);
+
+	var _TopicLinkForm = __webpack_require__(737);
 
 	var _TopicLinkForm2 = _interopRequireDefault(_TopicLinkForm);
 
@@ -90787,7 +90710,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 746 */
+/* 745 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90807,7 +90730,7 @@
 
 	var _materialUi = __webpack_require__(421);
 
-	var _CreateQuestion = __webpack_require__(646);
+	var _CreateQuestion = __webpack_require__(634);
 
 	var _CreateQuestion2 = _interopRequireDefault(_CreateQuestion);
 
@@ -90956,7 +90879,7 @@
 	exports.default = NewQuestionForm;
 
 /***/ },
-/* 747 */
+/* 746 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90977,15 +90900,15 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _IntroduceLinkToTopic = __webpack_require__(632);
+	var _IntroduceLinkToTopic = __webpack_require__(740);
 
 	var _IntroduceLinkToTopic2 = _interopRequireDefault(_IntroduceLinkToTopic);
 
-	var _InsightChooser = __webpack_require__(631);
+	var _InsightChooser = __webpack_require__(739);
 
 	var _InsightChooser2 = _interopRequireDefault(_InsightChooser);
 
-	var _NodeRoute = __webpack_require__(624);
+	var _NodeRoute = __webpack_require__(747);
 
 	var _NodeRoute2 = _interopRequireDefault(_NodeRoute);
 
@@ -91248,12 +91171,95 @@
 	module.exports = exports['default'];
 
 /***/ },
+/* 747 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactRelay = __webpack_require__(167);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _class = function (_Relay$Route) {
+	  _inherits(_class, _Relay$Route);
+
+	  function _class() {
+	    _classCallCheck(this, _class);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(_class).apply(this, arguments));
+	  }
+
+	  return _class;
+	}(_reactRelay2.default.Route);
+
+	_class.queries = {
+	  node: function node() {
+	    return function () {
+	      return {
+	        calls: [{
+	          kind: 'Call',
+	          metadata: {
+	            type: 'ID!'
+	          },
+	          name: 'id',
+	          value: {
+	            kind: 'CallVariable',
+	            callVariableName: 'id'
+	          }
+	        }],
+	        children: [{
+	          fieldName: 'id',
+	          kind: 'Field',
+	          metadata: {
+	            isGenerated: true,
+	            isRequisite: true
+	          },
+	          type: 'ID'
+	        }, {
+	          fieldName: '__typename',
+	          kind: 'Field',
+	          metadata: {
+	            isGenerated: true,
+	            isRequisite: true
+	          },
+	          type: 'String'
+	        }],
+	        fieldName: 'node',
+	        kind: 'Query',
+	        metadata: {
+	          isAbstract: true,
+	          identifyingArgName: 'id',
+	          identifyingArgType: 'ID!'
+	        },
+	        name: 'NodeRoute',
+	        type: 'Node'
+	      };
+	    }();
+	  }
+	};
+	_class.routeName = 'Node';
+	exports.default = _class;
+	module.exports = exports['default'];
+
+/***/ },
 /* 748 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./NodeRoute": 624,
-		"./NodeRoute.js": 624,
+		"./NodeRoute": 747,
+		"./NodeRoute.js": 747,
 		"./ThemeAppRoute": 749,
 		"./ThemeAppRoute.js": 749,
 		"./ThemesRoute": 750,

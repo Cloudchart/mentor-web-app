@@ -6,40 +6,52 @@ import Relay, {
 import {
   AppBar,
   Divider,
+  IconButton,
   List,
   ListItem,
+  Paper,
 } from 'material-ui'
+
+import Edit from 'material-ui/svg-icons/editor/mode-edit'
 
 import NodeRoute from '../../routes/NodeRoute'
 import TopicApp from './TopicApp'
 
 
+const EditTopicButton = ({ onTouchTap }) =>
+  <IconButton
+    onTouchTap = { onTouchTap }
+    style={{ position: 'absolute', right: 20, top: 0 }}
+  >
+    <Edit />
+  </IconButton>
+
+
 class TopicsApp extends React.Component {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      topic: null
+    }
+  }
+
   render = () =>
-    <div>
+    <Paper style={{ margin: 20 }}>
       <List>
         { this.props.admin.topics.edges.map(this._renderTopic)}
       </List>
-    </div>
+    </Paper>
 
-
-  _renderTopics() {
-    return (
-      <ul>
-        { this.props.admin.topics.edges.map(edge => this._renderTopic(edge.node)) }
-      </ul>
-    )
-  }
 
   _renderTopic = (topicEdge) =>
-    [
-      <ListItem
-        primaryText = { topicEdge.node.name }
-        onTouchTap  = { () => this._handleTopicSelect(topicEdge.node) }
-      />,
-      <Divider />
-    ]
+    <ListItem
+      key             = { topicEdge.node.id }
+      primaryText     = { topicEdge.node.name }
+      onTouchTap      = { () => this._handleTopicSelect(topicEdge.node) }
+      rightIconButton = { <EditTopicButton onTouchTap={ () => this.setState({ topic: topicEdge.node }) } /> }
+    />
 
   _handleTopicSelect = (node) =>
     this.props.navigator.push({ Component: TopicApp, Route: NodeRoute, props: { id: node.id }, title: `Topics / ${node.name}` })

@@ -666,6 +666,7 @@ type Theme implements Node {
 type Topic implements Node {
   id: ID!
   name: String
+  description: String
   isDefault: Boolean!
   isPaid: Boolean!
   isSubscribedByViewer: Boolean!

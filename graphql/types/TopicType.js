@@ -36,6 +36,10 @@ export default new GraphQLObjectType({
       type: GraphQLString
     },
 
+    description: {
+      type: GraphQLString,
+    },
+
     isDefault: {
       type: new GraphQLNonNull(GraphQLBoolean),
       resolve: ({ is_default }) => !!is_default
