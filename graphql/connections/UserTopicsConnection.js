@@ -22,6 +22,9 @@ import TopicType from '../types/TopicType'
 import SynchronizeUserThemesJob from '../../workers/jobs/SynchronizeUserThemesJob'
 
 
+export const SubscribedTopcsCap = 3
+
+
 export const UserTopicsConnectionFilterEnum = new GraphQLEnumType({
   name: 'UserTopicsConnectionFilter',
 
@@ -40,6 +43,13 @@ const UserTopicsConnection = connectionDefinitions({
     count: {
       type: new GraphQLNonNull(GraphQLInt),
     },
+    availableSlotsCount: {
+      type: new GraphQLNonNull(GraphQLInt),
+      resolve: async ({ user }) => {
+        let subscribedTopicsCount = await TopicStorage.count('subscribed', { userID: user.id })
+        return SubscribedTopcsCap - subscribedTopicsCount
+      }
+    }
   },
 
   nodeType: TopicType
@@ -64,7 +74,8 @@ export default {
     let topics = await TopicStorage.loadAll(filter, { userID: viewer.id })
     return {
       ...connectionFromArray(topics, args),
-      count: topics.length
+      count: topics.length,
+      user,
     }
   }
 }
