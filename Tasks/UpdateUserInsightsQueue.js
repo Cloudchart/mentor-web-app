@@ -6,6 +6,7 @@ import {
   ThemeInsightStorage,
 } from '../storage'
 
+let locks = {}
 
 const Data = {
   user: {
@@ -30,6 +31,11 @@ let addInsight = async ({ user_id, topic_ids }) => {
 
 
 let perform = async ({ user_id }) => {
+
+  if (locks[user_id]) return console.log('SKIPPING FOR USER:', user_id)
+
+  locks[user_id] = true
+  console.log('LOCKING for user:', user_id)
 
   let slackChannel = await SlackChannelStorage.loadOne('forUser', { user_id }).catch(() => null)
   let subscribedTopicsIDs = await TopicStorage.loadAllIDs('subscribed', { userID: user_id })
@@ -66,6 +72,8 @@ let perform = async ({ user_id }) => {
     count--
   }
 
+  console.log('UNLOCKING for user:', user_id)
+  locks[user_id] = false
 }
 
 
