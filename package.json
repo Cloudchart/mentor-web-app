@@ -8,10 +8,11 @@
   "scripts": {
     "start": "node ./bin/www",
     "schema": "babel-node ./bin/graphql-schema-update.js",
-    "webpack:watch": "webpack --color --progress --watch",
-    "sql": "./node_modules/.bin/sequelize",
+    "sql": "sequelize",
     "test": "mocha $npm_package_options_mocha",
-    "seed": "babel-node ./seed/index.js"
+    "seed": "babel-node ./seed/index.js",
+    "worker": "babel-node ./bin/worker",
+    "webpack:watch": "webpack --color --progress --watch"
   },
   "dependencies": {
     "algoliasearch": "^3.8.1",
@@ -47,6 +48,7 @@
     "immutable": "^3.7.5",
     "ioredis": "^1.10.0",
     "jade": "^1.11.0",
+    "kue": "^0.10.5",
     "material-ui": "^0.15.0-beta",
     "mocha": "^2.3.3",
     "moment": "^2.10.6",

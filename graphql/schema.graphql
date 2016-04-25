@@ -30,6 +30,7 @@ type AddBotReactionToOwnerMutationPayload {
 
 input AddCollectionToUserMutationInput {
   name: String!
+  description: String
   clientMutationId: String!
 }
 
@@ -886,6 +887,7 @@ type User implements Node {
 type UserCollection implements Node {
   id: ID!
   name: String!
+  description: String
   insights(after: String, first: Int, before: String, last: Int, filter: UserCollectionInsightsFilter = useful): UserCollectionInsightsConnection
 }
 

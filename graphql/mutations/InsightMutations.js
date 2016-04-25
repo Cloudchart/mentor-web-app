@@ -116,6 +116,10 @@ let mutateAndGetPayloadForTopicMutation = (rate) =>
 
     if (shouldAddToUserCollectionWithTopicName) {
       let userCollection = await UserCollectionStorage.loadOrCreateBy({ name: topic.name, user_id: viewer.id })
+
+      if (!userCollection.description && topic.description)
+        userCollection = await UserCollectionStorage.update(userCollection.id, { description: topic.description })
+
       await UserCollectionInsightStorage.loadOrCreateByUserCollectionAndInsight({
         user_collection_id:   userCollection.id,
         insight_id:           insight.id

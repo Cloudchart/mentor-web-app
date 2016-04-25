@@ -31,7 +31,10 @@ export const AddCollectionToUserMutation = mutationWithClientMutationId({
   inputFields: {
     name: {
       type: new GraphQLNonNull(GraphQLString)
-    }
+    },
+    description: {
+      type: GraphQLString,
+    },
   },
 
   outputFields: {
@@ -50,11 +53,11 @@ export const AddCollectionToUserMutation = mutationWithClientMutationId({
     }
   },
 
-  mutateAndGetPayload: async({ name }, { rootValue: { viewer } }) => {
+  mutateAndGetPayload: async({ name, description }, { rootValue: { viewer } }) => {
     let collection = await UserCollectionStorage.loadOne('userAndName', { user_id: viewer.id, name }).catch(error => null)
 
     if (!collection)
-      collection = await UserCollectionStorage.create({ user_id: viewer.id, name })
+      collection = await UserCollectionStorage.create({ user_id: viewer.id, name, description })
 
     return { collection }
   }

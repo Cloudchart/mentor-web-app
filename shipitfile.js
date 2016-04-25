@@ -29,9 +29,17 @@ module.exports = function(shipit) {
 
     },
 
-    staging: {
+    production: {
       servers: 'app@mentor1.cochart.net',
       workspace: '/tmp/mentor-web-app-deploy',
+      deployTo: HOME_PATH,
+      repositoryUrl: 'git@github.com:Cloudchart/mentor-web-app.git',
+      shallowClone: false,
+    },
+
+    staging: {
+      servers: 'app@mentor-staging.cochart.net',
+      workspace: '/tmp/mentor-web-app-staging-deploy',
       deployTo: HOME_PATH,
       repositoryUrl: 'git@github.com:Cloudchart/mentor-web-app.git',
       shallowClone: false,
@@ -82,6 +90,6 @@ module.exports = function(shipit) {
   }
 
   function updateSharedNodeModules() {
-    return shipit.remote(`cd ${path.join(shipit.config.deployTo, 'shared')} && npm update && npm prune`)
+    return shipit.remote(`cd ${path.join(shipit.config.deployTo, 'shared')} && npm install && npm update && npm prune`)
   }
 }

@@ -60,7 +60,7 @@ export default mutationWithClientMutationId({
 
     let topic = await TopicStorage.load(topicLink.topic_id)
 
-    let userTopicLink = await UserTopicLinkStorage.loadOne('allForUserAndTopicLink', { user_id: viewer.id, topic_link_id: topicLink.id })
+    let userTopicLink = await UserTopicLinkStorage.loadOne('forUserAndTopicLink', { user_id: viewer.id, topic_link_id: topicLink.id })
     if (!userTopicLink)
       await UserTopicLinkStorage.create({ user_id: viewer.id, topic_link_id: topicLink.id })
 

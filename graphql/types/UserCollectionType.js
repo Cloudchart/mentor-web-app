@@ -30,6 +30,10 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
     },
 
+    description: {
+      type: GraphQLString,
+    },
+
     insights: UserCollectionInsightsConnection
 
   })

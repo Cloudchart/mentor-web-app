@@ -8,6 +8,18 @@ import {
 
 let locks = {}
 
+let lock = (key) => {
+  console.log('LOCKING:', key)
+  locks[key] = true
+}
+
+let unlock = (key) => {
+  console.log('UNLOCKING:', key)
+  locks[key] = false
+}
+
+let locked = (key) => locks[key] === true
+
 const Data = {
   user: {
     InitialQueueSize: 10,
@@ -24,7 +36,9 @@ const Data = {
 
 let addInsight = async ({ user_id, topic_ids }) => {
   let topic_id = topic_ids[Math.round(Math.random() * (topic_ids.length - 1))]
-  let record = await ThemeInsightStorage.loadAllIDs('newForUserTheme', { userID: user_id, themeID: topic_id, limit: 1 })
+  let record = await ThemeInsightStorage
+    .loadAllIDs('newForUserTheme', { userID: user_id, themeID: topic_id, limit: 1 })
+    .catch(error => console.log('ERROR:', error, user_id, topic_id))
   if (!record) return
   await UserTopicInsightStorage.create({ user_id, theme_id: topic_id, insight_id: record[0] })
 }
@@ -32,13 +46,14 @@ let addInsight = async ({ user_id, topic_ids }) => {
 
 let perform = async ({ user_id }) => {
 
-  if (locks[user_id]) return console.log('SKIPPING FOR USER:', user_id)
+  if (locked(user_id)) return console.log('SKIPPING:', user_id)
 
-  locks[user_id] = true
-  console.log('LOCKING for user:', user_id)
+  lock(user_id)
 
   let slackChannel = await SlackChannelStorage.loadOne('forUser', { user_id }).catch(() => null)
   let subscribedTopicsIDs = await TopicStorage.loadAllIDs('subscribed', { userID: user_id })
+
+  if (subscribedTopicsIDs.length === 0) return unlock(user_id)
 
   let unratedInsights = await UserTopicInsightStorage.loadAll('unratedForUser', { user_id })
   let unratedInsightsCount = unratedInsights.length
@@ -72,8 +87,7 @@ let perform = async ({ user_id }) => {
     count--
   }
 
-  console.log('UNLOCKING for user:', user_id)
-  locks[user_id] = false
+  unlock(user_id)
 }
 
 

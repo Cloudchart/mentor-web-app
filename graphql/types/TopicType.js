@@ -54,7 +54,7 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLBoolean),
       resolve: async ({ id }, args, { rootValue: { viewer } }) => {
         let link = await UserThemeStorage.loadOne('unique', { userID: viewer.id, themeID: id })
-        return link && link.status === 'subscribed'
+        return !!link && link.status === 'subscribed'
       }
     },
 
