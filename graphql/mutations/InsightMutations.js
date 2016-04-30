@@ -26,6 +26,7 @@ import {
 
 import InsightType from '../types/InsightsType'
 import TopicType from '../types/TopicType'
+import UserType from '../types/UserType'
 import UserCollectionType from '../types/UserCollectionType'
 
 import {
@@ -67,6 +68,9 @@ const TopicMutationsOutputFields = {
   insightEdge: {
     type: new GraphQLNonNull(TopicInsightsEdgeType),
     resolve: ({ insight }) => nodeToEdge(insight)
+  },
+  user: {
+    type: new GraphQLNonNull(UserType)
   }
 }
 
@@ -126,7 +130,7 @@ let mutateAndGetPayloadForTopicMutation = (rate) =>
       })
     }
 
-    return { topic, insight, insightID }
+    return { topic, insight, insightID, user: viewer }
   }
 
 

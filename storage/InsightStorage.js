@@ -63,11 +63,34 @@ let UserCollectionQueryBuilder = (options = {}) => `
     ${ options.order || 'ucit.updated_at desc' }
 `
 
+let NewForUserAndTopicQuery = () => `
+  select
+    insight_id as id
+  from
+    themes_insights
+  where
+    theme_id = :topicID
+    and
+    insight_id not in (
+      select
+        insight_id
+      from
+        users_themes_insights
+      where
+        user_id = :userID
+        and
+        theme_id = :topicID
+    )
+  limit :limit
+`
+
 
 export default BaseStorage('Insight', {
   idsQueries: {
     'admin': AllForAdminQuery(),
     'preview': AllForAdminQuery({ limit: 10 }),
+
+    'newForTopicAndUser': NewForUserAndTopicQuery(),
 
     'allForTopicAndUser': TopicQueryBuilder(),
     'ratedForTopicAndUser': TopicQueryBuilder({ where: `utit.rate is not null`, order: `utit.updated_at desc` }),

@@ -79,6 +79,9 @@ import {
 } from './BotReactionMutations'
 
 
+import IntroduceTelegramUserMutation from './IntroduceTelegramUser'
+
+
 export default new GraphQLObjectType({
   name: 'Mutation',
 
@@ -137,5 +140,7 @@ export default new GraphQLObjectType({
 
     setBotReactionToOwner:            SetBotReactionToOwnerMutation,
     addBotReactionToOwner:            AddBotReactionToOwnerMutation,
+
+    introduceTelegramUser:            IntroduceTelegramUserMutation,
   }
 })

@@ -210,6 +210,7 @@ type DislikeInsightInTopicMutationPayload {
   insightID: ID!
   topic: Topic!
   insightEdge: TopicInsightsEdge!
+  user: User!
   clientMutationId: String!
 }
 
@@ -279,6 +280,20 @@ type IntroduceLinkToTopicPayload {
   clientMutationId: String!
 }
 
+input IntroduceTelegramUserInput {
+  id: ID!
+  firstName: String!
+  lastName: String
+  username: String
+  authToken: String!
+  clientMutationId: String!
+}
+
+type IntroduceTelegramUserPayload {
+  user: User!
+  clientMutationId: String!
+}
+
 input LikeInsightInput {
   id: ID!
   clientMutationId: String!
@@ -296,6 +311,7 @@ type LikeInsightInTopicMutationPayload {
   insightID: ID!
   topic: Topic!
   insightEdge: TopicInsightsEdge!
+  user: User!
   clientMutationId: String!
 }
 
@@ -420,6 +436,7 @@ type Mutation {
   answerTheQuestion(input: AnswerTheQuestionInput!): AnswerTheQuestionPayload
   setBotReactionToOwner(input: SetBotReactionToOwnerMutationInput!): SetBotReactionToOwnerMutationPayload
   addBotReactionToOwner(input: AddBotReactionToOwnerMutationInput!): AddBotReactionToOwnerMutationPayload
+  introduceTelegramUser(input: IntroduceTelegramUserInput!): IntroduceTelegramUserPayload
 }
 
 interface Node {
@@ -444,6 +461,7 @@ type PostponeInsightInTopicMutationPayload {
   insightID: ID!
   topic: Topic!
   insightEdge: TopicInsightsEdge!
+  user: User!
   clientMutationId: String!
 }
 
@@ -697,6 +715,7 @@ enum TopicInsightsFilterEnum {
   DISLIKED
   ADMIN
   PREVIEW
+  NEW
 }
 
 type TopicLink implements Node {
@@ -871,7 +890,7 @@ type User implements Node {
   id: ID!
   name: String
   email: String
-  topics(after: String, first: Int, before: String, last: Int, filter: UserTopicsConnectionFilter = all): UserTopicsConnectionConnection
+  topics(after: String, first: Int, before: String, last: Int, filter: UserTopicsConnectionFilter = all, find: ID): UserTopicsConnectionConnection
   collections(after: String, first: Int, before: String, last: Int): UserCollectionsConnectionConnection
   roles(after: String, first: Int, before: String, last: Int): UserRolesConnection
   reactions(after: String, first: Int, before: String, last: Int, scope: String): UnchainedBotReactionsConnection

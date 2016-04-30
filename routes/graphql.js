@@ -7,6 +7,7 @@ import {
   DeviceStorage,
   RoleStorage,
   SlackChannelStorage,
+  TelegramUserStorage,
 } from '../storage'
 
 import path from 'path'
@@ -29,6 +30,18 @@ let router = Router()
 
 let checkCorsOrigins = (origin, callback) => {
   callback(null, process.env.CORS_ALLOW_ORIGINS.split(',').includes(origin))
+}
+
+let telegramAuthorizer = async (req, res, next) => {
+  let telegramUserId = req.get('X-Telegram-User-Id')
+  if (req.user || !telegramUserId) next()
+
+  let telegramUser = await TelegramUserStorage.load(telegramUserId).catch(error => null)
+
+  if (telegramUser)
+    req.user = await UserStorage.load(telegramUser.user_id)
+
+  next()
 }
 
 let channelAuthorizer = async (req, res, next) => {
@@ -87,6 +100,7 @@ router.use('/',
   deviceAuthorizer,
   deviceLogger,
   channelAuthorizer,
+  telegramAuthorizer,
   rolesInjector,
   cors({ origin: checkCorsOrigins, credentials: true },
 ), graphqlHTTP(req => ({

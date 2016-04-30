@@ -38,6 +38,7 @@ export const TopicInsightsConnectionFilterEnum = new GraphQLEnumType({
     DISLIKED:   { value: 'disliked'  },
     ADMIN:      { value: 'admin'     },
     PREVIEW:    { value: 'preview'   },
+    NEW:        { value: 'new'       }
   }
 })
 
@@ -93,7 +94,7 @@ export default {
 
     await SynchronizeThemeInsightsJob.perform({ themeID: topic.id })
 
-    let insights = await InsightStorage.loadAll(queryName, { userID: viewer.id, topicID: topic.id })
+    let insights = await InsightStorage.loadAll(queryName, { userID: viewer.id, topicID: topic.id, limit: args.first })
 
     return {
       ...connectionFromArray(insights, args),
