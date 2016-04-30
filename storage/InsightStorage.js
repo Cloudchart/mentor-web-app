@@ -81,6 +81,7 @@ let NewForUserAndTopicQuery = () => `
         and
         theme_id = :topicID
     )
+  order by rand()
   limit :limit
 `
 
