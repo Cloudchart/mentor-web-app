@@ -67,6 +67,21 @@ const UnratedForUserQuery = `
     created_at
 `
 
+const UnratedForUserAndTopicQuery = `
+  select
+    id
+  from
+    ${TableName}
+  where
+    user_id = :user_id
+    and
+    theme_id = :topic_id
+    and
+    rate is null
+  order by
+    created_at
+`
+
 const RatedForUserQuery = `
   select
     id
@@ -102,7 +117,9 @@ const Storage = BaseStorage('UserTopicInsight', {
     'unratedForUser':   UnratedForUserQuery,
     'postponedForUser': PostponedForUserQuery,
     'lastRatedForUser': RatedForUserQuery + ' limit 1',
-    'followUpsForUser': FollowUpsForUserQuery
+    'followUpsForUser': FollowUpsForUserQuery,
+
+    'unratedForUserAndTopic': UnratedForUserAndTopicQuery,
   }
 })
 

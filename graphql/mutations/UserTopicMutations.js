@@ -13,6 +13,7 @@ import {
 import {
   TopicStorage,
   UserThemeStorage,
+  UserTopicInsightStorage,
 } from '../../storage'
 
 import TopicType from '../types/TopicType'
@@ -108,6 +109,9 @@ export const UnsubscribeFromTopicMutation = mutationWithClientMutationId({
 
     if (link && link.status === 'subscribed')
       await UserThemeStorage.update(link.id, { status: 'available' })
+
+    let insightsReferences = await UserTopicInsightStorage.loadAll('unratedForUserAndTopic', { user_id: viewer.id, topic_id: topic.id })
+    insightsReferences.forEach(async insightReference => await UserTopicInsightStorage.destroy(insightReference.id))
 
     return { topic, user: viewer }
   }
