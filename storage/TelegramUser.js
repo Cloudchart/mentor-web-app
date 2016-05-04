@@ -10,8 +10,12 @@ const BaseQuery = squel.select()
   .from(TableName)
   .field('id')
 
+const UserQuery = BaseQuery.clone()
+  .where('user_id = :user_id')
+
 const Storage = BaseStorage('TelegramUser', {
   idsQueries: {
+    forUser: UserQuery.toString()
   }
 })
 

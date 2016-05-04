@@ -3,6 +3,7 @@ import {
   InsightStorage,
   UserTopicInsightStorage,
   SlackChannelStorage,
+  TelegramUserStorage,
   ThemeInsightStorage,
 } from '../storage'
 
@@ -30,6 +31,11 @@ const Data = {
     InitialQueueSize: 1,
     MaxQueueSize:     1,
     QueueFillRate:    1 / (2 * 60 * 60 * 1000)
+  },
+  telegramUser: {
+    InitialQueueSize: 6,
+    MaxQueueSize:     6,
+    QueueFillRate:    1 / (20 * 60 * 1000)
   }
 }
 
@@ -51,8 +57,9 @@ let perform = async ({ user_id }) => {
   lock(user_id)
 
   let slackChannel = await SlackChannelStorage.loadOne('forUser', { user_id }).catch(() => null)
-  let subscribedTopicsIDs = await TopicStorage.loadAllIDs('subscribed', { userID: user_id })
+  let telegramUser = await TelegramUserStorage.loadOne('forUser', { user_id }).catch(() => null)
 
+  let subscribedTopicsIDs = await TopicStorage.loadAllIDs('subscribed', { userID: user_id })
   if (subscribedTopicsIDs.length === 0) return unlock(user_id)
 
   let unratedInsights = await UserTopicInsightStorage.loadAll('unratedForUser', { user_id })
@@ -61,11 +68,15 @@ let perform = async ({ user_id }) => {
 
   let lastRatedInsight = await UserTopicInsightStorage.loadOne('lastRatedForUser', { user_id })
 
+  let data = Data['user']
+  if (slackChannel) data = Data['slackChannel']
+  if (telegramUser) data = Data['telegramUser']
+
   let {
     InitialQueueSize,
     MaxQueueSize,
     QueueFillRate
-  } = Data[slackChannel ? 'slackChannel' : 'user']
+  } = data
 
   let count = lastRatedInsight || lastUnratedInsight
     ? MaxQueueSize - Math.min(MaxQueueSize, unratedInsightsCount)

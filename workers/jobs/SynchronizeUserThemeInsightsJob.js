@@ -6,6 +6,11 @@ const Variables = {
     MaxSubscribedInsightsCount: 8,
     InsightsRate: 2 / (60 * 60 * 1000)
   },
+  telegramUser: {
+    InitialInsightsCount: 4,
+    MaxSubscribedInsightsCount: 8,
+    InsightsRate: 2 / (60 * 60 * 1000)
+  },
   slackChannel: {
     InitialInsightsCount: 1,
     MaxSubscribedInsightsCount: 1,
@@ -19,6 +24,7 @@ import {
   ThemeInsightStorage,
   UserThemeInsightStorage,
   SlackChannelStorage,
+  TelegramUserStorage,
 } from '../../storage'
 
 
@@ -27,8 +33,17 @@ let perform = async ({ userID, themeID }, callback) => {
   let ratedInsights   = await UserThemeInsightStorage.loadAll('ratedForTheme', { userID, themeID })
   let unratedInsights = await UserThemeInsightStorage.loadAll('unratedForTheme', { userID, themeID })
   let slackChannel    = await SlackChannelStorage.loadOne('forUser', { user_id: userID }).catch(() => null)
+  let telegramUser    = await TelegramUserStorage.loadOne('forUser', { user_id: userID }).catch(() => null)
 
-  let { InitialInsightsCount: count, MaxSubscribedInsightsCount, InsightsRate } = Variables[slackChannel ? 'slackChannel' : 'user']
+  let variables = Variables['user']
+
+  if (slackChannel)
+    variables = Variables['slackChannel']
+
+  if (telegramUser)
+    variables = Variables['telegramUser']
+
+  let { InitialInsightsCount: count, MaxSubscribedInsightsCount, InsightsRate } = variables
 
   if ((ratedInsights.length + unratedInsights.length) > 0) {
     count = 0
