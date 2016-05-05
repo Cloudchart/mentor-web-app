@@ -137,8 +137,8 @@ let mutateAndGetPayloadForTopicMutation = (rate) =>
 let mutateAndGetPayloadForUserCollectionMutation = (is_useless) =>
   async ({ insightID, collectionID }, { rootValue: { viewer } }) => {
 
-    let userCollection = await UserCollectionStorage.load(fromGlobalId(collectionID).id).catch(() => null)
-    if (!userCollection)
+    let collection = await UserCollectionStorage.load(fromGlobalId(collectionID).id).catch(() => null)
+    if (!collection)
       return new Error('User collection not found.')
 
     let insight = await InsightStorage.load(fromGlobalId(insightID).id).catch(() => null)
@@ -146,13 +146,13 @@ let mutateAndGetPayloadForUserCollectionMutation = (is_useless) =>
       return new Error('Insight not found.')
 
     let relation = await UserCollectionInsightStorage.loadOrCreateByUserCollectionAndInsight({
-      user_collection_id:   userCollection.id,
+      user_collection_id:   collection.id,
       insight_id:           insight.id
     })
 
     await UserCollectionInsightStorage.update(relation.id, { is_useless })
 
-    return { userCollection, insight, insightID }
+    return { collection, insight, insightID }
   }
 
 // Like Insight in Topic
