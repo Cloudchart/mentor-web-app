@@ -68,20 +68,13 @@ export default {
     filter: {
       type: UserTopicsConnectionFilterEnum,
       defaultValue: 'all',
-    },
-    find: {
-      type: GraphQLID,
     }
   },
 
-  resolve: async (user, { filter, find, ...args }, { rootValue: { viewer } }) => {
+  resolve: async (user, { filter, ...args }, { rootValue: { viewer } }) => {
     await SynchronizeUserThemesJob.perform({ userID: viewer.id })
 
-    let topics = find
-      ? await TopicStorage.load(fromGlobalId(find).id)
-      : await TopicStorage.loadAll(filter, { userID: viewer.id })
-
-    topics = [].concat(topics)
+    let topics = await TopicStorage.loadAll(filter, { userID: viewer.id })
 
     return {
       ...connectionFromArray(topics, args),

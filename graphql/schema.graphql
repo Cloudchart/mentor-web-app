@@ -890,7 +890,7 @@ type User implements Node {
   id: ID!
   name: String
   email: String
-  topics(after: String, first: Int, before: String, last: Int, filter: UserTopicsConnectionFilter = all, find: ID): UserTopicsConnectionConnection
+  topics(after: String, first: Int, before: String, last: Int, filter: UserTopicsConnectionFilter = all): UserTopicsConnectionConnection
   collections(after: String, first: Int, before: String, last: Int): UserCollectionsConnectionConnection
   roles(after: String, first: Int, before: String, last: Int): UserRolesConnection
   reactions(after: String, first: Int, before: String, last: Int, scope: String): UnchainedBotReactionsConnection
