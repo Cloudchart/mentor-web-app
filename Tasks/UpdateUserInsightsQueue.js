@@ -33,8 +33,8 @@ const Data = {
     QueueFillRate:    1 / (2 * 60 * 60 * 1000)
   },
   telegramUser: {
-    InitialQueueSize: 6,
-    MaxQueueSize:     6,
+    InitialQueueSize: 3,
+    MaxQueueSize:     3,
     QueueFillRate:    1 / (20 * 60 * 1000)
   }
 }
