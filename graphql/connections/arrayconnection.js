@@ -18,8 +18,6 @@ export function nodeToEdge(node) {
 }
 
 export function edgesToReturn(edges, { first, last }) {
-  // Already sliced edges
-  // edges = applyCursorToEdges(edges, { before, after })
   if (first)
     if (edges.length > first)
       edges = edges.slice(0, first)
@@ -46,14 +44,10 @@ export function applyCursorToEdges(edges, { before, after }) {
 }
 
 export function hasPreviousPage(edges, { last }) {
-  // Already sliced edges
-  // edges = applyCursorToEdges(edges, { before, after })
   return !!last && edges.length > last
 }
 
 export function hasNextPage(edges, { first }) {
-  // Already sliced edges
-  // edges = applyCursorToEdges(edges, { before, after })
   return !!first && edges.length > first
 }
 
@@ -61,11 +55,24 @@ export function connectionFromArray(nodes, { after, before, first, last }) {
   let edges = nodes.map(node => nodeToEdge(node))
   let slicedEdges = applyCursorToEdges(edges, { after, before })
 
+  let hasNextEdge = false
+  let hasPreviousEdge = false
+
+  if (before) {
+    let edge = edges.find(edge => edge.cursor === before)
+    hasNextEdge = edges.indexOf(edge) < edges.length
+  }
+
+  if (after) {
+    let edge = edges.find(edge => edge.cursor === after)
+    hasPreviousEdge = edges.indexOf(edge) > -1
+  }
+
   return {
     edges: edgesToReturn(slicedEdges, { first, last }),
     pageInfo: {
-      hasPreviousPage: hasPreviousPage(slicedEdges, { last }),
-      hasNextPage: hasNextPage(slicedEdges, { first })
+      hasPreviousPage: hasPreviousPage(slicedEdges, { last }) || hasPreviousEdge,
+      hasNextPage: hasNextPage(slicedEdges, { first }) || hasNextEdge,
     }
   }
 }
