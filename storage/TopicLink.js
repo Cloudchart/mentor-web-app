@@ -29,7 +29,7 @@ const Storage = BaseStorage('TopicLink', {
   idsQueries: {
     'allForTopic': GenericQuery({
       where: `topic_id = :topic_id`,
-      order: 'created_at'
+      order: 'created_at desc'
     }),
     'unreadByUserForTopic': GenericQuery({
       where: `topic_id = :topic_id and id not in (${TopicLinkIDsByUser})`,
