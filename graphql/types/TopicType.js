@@ -64,6 +64,12 @@ export default new GraphQLObjectType({
         await ThemeInsightStorage.count('newForUserTheme', { userID: viewer.id, themeID: id, limit: 1 }) == 0
     },
 
+    hasPositiveInsightsByViewer: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      resolve: async ({ id }, args, { rootValue: { viewer } }) =>
+        await ThemeInsightStorage.count('positiveForUserTheme', { userID: viewer.id, themeID: id }) > 0
+    },
+
     insights: TopicInsightsConnection,
 
     links: TopicLinksConnection,

@@ -19,6 +19,21 @@ const AllForThemeQuery = `
     ti.created_at
 `
 
+const PositiveForUserThemeQuery = `
+  select
+    theme_id as id
+  from
+    ${UserThemeInsightTableName}
+  where
+    theme_id = :themeID
+    and
+    user_id = :userID
+    and
+    rate = 1
+  order by
+    created_at desc
+`
+
 const NewForUserThemeQuery = `
   select
     ti.insight_id as id,
@@ -46,7 +61,8 @@ const NewForUserThemeQuery = `
 let storage = BaseStorage('ThemeInsight', {
   idsQueries: {
     'allForTheme':      AllForThemeQuery,
-    'newForUserTheme':  NewForUserThemeQuery
+    'newForUserTheme':  NewForUserThemeQuery,
+    'positiveForUserTheme': PositiveForUserThemeQuery
   }
 })
 
