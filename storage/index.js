@@ -15,6 +15,7 @@ import UserNotificationsSettingsStorage from './UserNotificationsSettingsStorage
 import RoleStorage from './RoleStorage'
 import SlackChannelStorage from './SlackChannelStorage'
 import TelegramUserStorage from './TelegramUser'
+import MessengerUserStorage from './MessengerUser'
 import TopicStorage from './TopicStorage'
 import TopicLinkStorage from './TopicLink'
 import TopicLinkInsightStorage from './TopicLinkInsight'
@@ -49,6 +50,7 @@ export default {
   RoleStorage,
   SlackChannelStorage,
   TelegramUserStorage,
+  MessengerUserStorage,
   AdminUserStorage,
   AdminStorage,
   AdminInsightStorage,

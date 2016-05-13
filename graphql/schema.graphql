@@ -280,6 +280,23 @@ type IntroduceLinkToTopicPayload {
   clientMutationId: String!
 }
 
+input IntroduceMessengerUserInput {
+  id: ID!
+  firstName: String!
+  lastName: String
+  gender: String
+  timezone: String
+  locale: String
+  profilePic: String
+  authToken: String!
+  clientMutationId: String!
+}
+
+type IntroduceMessengerUserPayload {
+  user: User!
+  clientMutationId: String!
+}
+
 input IntroduceTelegramUserInput {
   id: ID!
   firstName: String!
@@ -437,6 +454,7 @@ type Mutation {
   setBotReactionToOwner(input: SetBotReactionToOwnerMutationInput!): SetBotReactionToOwnerMutationPayload
   addBotReactionToOwner(input: AddBotReactionToOwnerMutationInput!): AddBotReactionToOwnerMutationPayload
   introduceTelegramUser(input: IntroduceTelegramUserInput!): IntroduceTelegramUserPayload
+  introduceMessengerUser(input: IntroduceMessengerUserInput!): IntroduceMessengerUserPayload
 }
 
 interface Node {
@@ -691,6 +709,7 @@ type Topic implements Node {
   isPaid: Boolean!
   isSubscribedByViewer: Boolean!
   isFinishedByViewer: Boolean!
+  hasPositiveInsightsByViewer: Boolean!
   insights(after: String, first: Int, before: String, last: Int, filter: TopicInsightsFilterEnum = unrated): TopicInsightsConnection
   links(after: String, first: Int, before: String, last: Int, filter: TopicLinkFilter = default): TopicLinksConnection
 }

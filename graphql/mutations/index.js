@@ -80,6 +80,7 @@ import {
 
 
 import IntroduceTelegramUserMutation from './IntroduceTelegramUser'
+import IntroduceMessengerUserMutation from './IntroduceMessengerUser'
 
 
 export default new GraphQLObjectType({
@@ -142,5 +143,6 @@ export default new GraphQLObjectType({
     addBotReactionToOwner:            AddBotReactionToOwnerMutation,
 
     introduceTelegramUser:            IntroduceTelegramUserMutation,
+    introduceMessengerUser:           IntroduceMessengerUserMutation,
   }
 })

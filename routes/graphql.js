@@ -8,6 +8,7 @@ import {
   RoleStorage,
   SlackChannelStorage,
   TelegramUserStorage,
+  MessengerUserStorage,
 } from '../storage'
 
 import path from 'path'
@@ -43,6 +44,19 @@ let telegramAuthorizer = async (req, res, next) => {
 
   next()
 }
+
+let messengerAuthorizer = async (req, res, next) => {
+  let messengerUserId = req.get('X-Messenger-User-Id')
+  if (req.user || !messengerUserId) next()
+
+  let messengerUser = await MessengerUserStorage.load(messengerUserId).catch(error => null)
+
+  if (messengerUser)
+    req.user = await UserStorage.load(messengerUser.user_id)
+
+  next()
+}
+
 
 let channelAuthorizer = async (req, res, next) => {
   let channelID = req.get('X-Slack-Channel-Id')
@@ -101,6 +115,7 @@ router.use('/',
   deviceLogger,
   channelAuthorizer,
   telegramAuthorizer,
+  messengerAuthorizer,
   rolesInjector,
   cors({ origin: checkCorsOrigins, credentials: true },
 ), graphqlHTTP(req => ({
