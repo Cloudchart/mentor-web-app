@@ -9,15 +9,15 @@ module.exports = function(sequelize, DataTypes) {
     },
     url: {
       type:           DataTypes.TEXT,
-      allowNull:      false,
+      allowNull:      true,
     },
     title: {
       type:           DataTypes.STRING,
-      allowNull:      false,
+      allowNull:      true,
     },
     duration: {
       type:           DataTypes.INTEGER,
-      allowNull:      false,
+      allowNull:      true,
     },
     author: {
       type:           DataTypes.STRING,

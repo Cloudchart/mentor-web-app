@@ -1,8 +1,28 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic);
+
 html,
 body {
+  height: 100%;
   margin: 0;
 }
 
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+input.white-placeholder::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, .75);
+}
+
+input.white-placeholder::-moz-input-placeholder {
+  color: rgba(255, 255, 255, .75);
 }

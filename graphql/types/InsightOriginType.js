@@ -20,11 +20,11 @@ export default new GraphQLObjectType({
     },
 
     title: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
 
     duration: {
-      type: new GraphQLNonNull(GraphQLInt),
+      type: GraphQLInt,
     },
 
   })

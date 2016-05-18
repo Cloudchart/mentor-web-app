@@ -25,6 +25,24 @@ const AllForAdminQuery = (options = {}) => `
   ${ options.limit ? 'limit ' + options.limit : '' }
 `
 
+const AllForAdmin = (options = {}) => `
+  select
+    t.id as id,
+    @row := @row + 1 as row
+  from
+    (select @row := 0) rt,
+    ${TableName} t
+  left join
+    insight_origins io
+  on
+    io.id = t.id
+  where
+    t.content like :query or io.author like :query or io.title like :query
+  order by
+    t.created_at desc
+  ${ options.limit ? 'limit ' + options.limit : '' }
+`
+
 let TopicQueryBuilder = (options = {}) => `
   select
     t.id as id,
@@ -88,6 +106,8 @@ let NewForUserAndTopicQuery = () => `
 
 export default BaseStorage('Insight', {
   idsQueries: {
+
+    'allForAdmin': AllForAdmin(),
     'admin': AllForAdminQuery(),
     'preview': AllForAdminQuery({ limit: 10 }),
 

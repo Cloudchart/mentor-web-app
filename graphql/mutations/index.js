@@ -82,6 +82,10 @@ import {
 import IntroduceTelegramUserMutation from './IntroduceTelegramUser'
 import IntroduceMessengerUserMutation from './IntroduceMessengerUser'
 
+import CreateInsightMutation from './insight/create'
+import UpdateInsightMutation from './insight/update'
+import DeleteInsightMutation from './insight/delete'
+
 
 export default new GraphQLObjectType({
   name: 'Mutation',
@@ -144,5 +148,9 @@ export default new GraphQLObjectType({
 
     introduceTelegramUser:            IntroduceTelegramUserMutation,
     introduceMessengerUser:           IntroduceMessengerUserMutation,
+
+    createInsight:                    CreateInsightMutation,
+    updateInsight:                    UpdateInsightMutation,
+    deleteInsight:                    DeleteInsightMutation,
   }
 })

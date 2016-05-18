@@ -72,28 +72,20 @@ type Admin implements Node {
   id: ID!
   name: String
   users(after: String, first: Int, before: String, last: Int): AdminUsersConnection
-  insights(after: String, first: Int, before: String, last: Int, query: String): AdminInsightsConnection
   themes(after: String, first: Int, before: String, last: Int, query: String, filter: String, order: String): AdminThemesConnection
   topics(after: String, first: Int, before: String, last: Int): AdminTopicsConnection
   questions(after: String, first: Int, before: String, last: Int, filter: QuestionFilter = unansweredForUser): QuestionsConnection
   reactions(after: String, first: Int, before: String, last: Int, scope: String): UnchainedBotReactionsConnection
-}
-
-type AdminInsight implements Node {
-  id: ID!
-  content: String!
-  themes(after: String, first: Int, before: String, last: Int, query: String, filter: String, order: String): AdminThemesConnection
-  createdAt: String
+  insights(after: String, first: Int, before: String, last: Int, find: String = ""): AdminInsightsConnection
 }
 
 type AdminInsightsConnection {
   pageInfo: PageInfo!
   edges: [AdminInsightsEdge]
-  count: Int!
 }
 
 type AdminInsightsEdge {
-  node: AdminInsight
+  node: Insight
   cursor: String!
 }
 
@@ -168,6 +160,19 @@ interface BotReactionOwner {
   reaction: BotReaction
 }
 
+input CreateInsightInput {
+  content: String!
+  author: String!
+  url: String
+  clientMutationId: String!
+}
+
+type CreateInsightPayload {
+  insightEdge: AdminInsightsEdge!
+  admin: Admin!
+  clientMutationId: String!
+}
+
 input CreateQuestionMutationInput {
   content: String!
   severity: Int!
@@ -191,6 +196,17 @@ input CreateThemeInput {
 type CreateThemePayload {
   admin: Admin
   themeEdge: AdminThemesEdge
+  clientMutationId: String!
+}
+
+input DeleteInsightInput {
+  insightID: ID!
+  clientMutationId: String!
+}
+
+type DeleteInsightPayload {
+  insightID: ID!
+  admin: Admin!
   clientMutationId: String!
 }
 
@@ -247,8 +263,8 @@ type Insight implements Node {
 type InsightOrigin {
   author: String!
   url: String!
-  title: String!
-  duration: Int!
+  title: String
+  duration: Int
 }
 
 input IntroduceAnswerInput {
@@ -455,6 +471,9 @@ type Mutation {
   addBotReactionToOwner(input: AddBotReactionToOwnerMutationInput!): AddBotReactionToOwnerMutationPayload
   introduceTelegramUser(input: IntroduceTelegramUserInput!): IntroduceTelegramUserPayload
   introduceMessengerUser(input: IntroduceMessengerUserInput!): IntroduceMessengerUserPayload
+  createInsight(input: CreateInsightInput!): CreateInsightPayload
+  updateInsight(input: UpdateInsightInput!): UpdateInsightPayload
+  deleteInsight(input: DeleteInsightInput!): DeleteInsightPayload
 }
 
 interface Node {
@@ -825,6 +844,19 @@ input UpdateAnswerInput {
 
 type UpdateAnswerPayload {
   answer: Answer!
+  clientMutationId: String!
+}
+
+input UpdateInsightInput {
+  insightID: ID!
+  content: String!
+  author: String!
+  url: String
+  clientMutationId: String!
+}
+
+type UpdateInsightPayload {
+  insight: Insight!
   clientMutationId: String!
 }
 

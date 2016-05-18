@@ -8,8 +8,10 @@ var webpack = require('webpack')
 module.exports = {
   context: path.resolve(__dirname, './frontend'),
   entry: {
+    admin: path.resolve(__dirname, './frontend/javascripts/index-admin.js'),
     javascript: path.resolve(__dirname, './frontend/javascripts/index.js'),
-    stylesheet: path.resolve(__dirname, './frontend/stylesheets/index.scss')
+    stylesheet: path.resolve(__dirname, './frontend/stylesheets/index.scss'),
+    vendor: ['babel-polyfill']
   },
   output: {
     filename: '[name].bundle.js',
@@ -17,6 +19,10 @@ module.exports = {
   },
   resolve: {
     alias: {
+      'admin': path.resolve(__dirname, './frontend/javascripts/admin'),
+      'admin-components': path.resolve(__dirname, './frontend/javascripts/admin/components'),
+      'admin-mutations': path.resolve(__dirname, './frontend/javascripts/admin/mutations'),
+      'admin-routes': path.resolve(__dirname, './frontend/javascripts/admin/routes'),
       'components': path.resolve(__dirname, './frontend/javascripts/components'),
       'mutations':  path.resolve(__dirname, './frontend/javascripts/mutations'),
       'routes':     path.resolve(__dirname, './frontend/javascripts/routes'),
