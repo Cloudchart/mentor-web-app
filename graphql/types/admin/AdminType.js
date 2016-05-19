@@ -13,10 +13,11 @@ import { nodeInterface } from '../Node'
 import AdminUsersConnection from '../../connections/admin/AdminUsers'
 
 import { Field as AdminThemesConnection } from '../../connections/admin/AdminThemesConnection'
-import AdminTopicsConnection from '../../connections/admin/AdminTopicsConnection'
 
 import QuestionsConnection from '../../connections/Questions'
 import UnchainedBotReactionsConnection from '../../connections/UnchainedBotReactions'
+
+import AdminTopicsConnection from '../../connections/AdminTopics'
 import AdminInsightsConnection from '../../connections/AdminInsights'
 
 
@@ -39,12 +40,12 @@ export default new GraphQLObjectType({
     users: AdminUsersConnection,
     themes: AdminThemesConnection,
 
-    topics: AdminTopicsConnection,
 
     questions: QuestionsConnection,
 
     reactions: UnchainedBotReactionsConnection,
 
     insights: AdminInsightsConnection,
+    topics: AdminTopicsConnection,
   })
 })

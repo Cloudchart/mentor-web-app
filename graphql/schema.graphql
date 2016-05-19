@@ -73,10 +73,10 @@ type Admin implements Node {
   name: String
   users(after: String, first: Int, before: String, last: Int): AdminUsersConnection
   themes(after: String, first: Int, before: String, last: Int, query: String, filter: String, order: String): AdminThemesConnection
-  topics(after: String, first: Int, before: String, last: Int): AdminTopicsConnection
   questions(after: String, first: Int, before: String, last: Int, filter: QuestionFilter = unansweredForUser): QuestionsConnection
   reactions(after: String, first: Int, before: String, last: Int, scope: String): UnchainedBotReactionsConnection
   insights(after: String, first: Int, before: String, last: Int, find: String = ""): AdminInsightsConnection
+  topics(after: String, first: Int, before: String, last: Int, find: String = ""): AdminTopicsConnection
 }
 
 type AdminInsightsConnection {
@@ -199,6 +199,18 @@ type CreateThemePayload {
   clientMutationId: String!
 }
 
+input CreateTopicInput {
+  name: String!
+  description: String
+  clientMutationId: String!
+}
+
+type CreateTopicPayload {
+  topicEdge: AdminTopicsEdge!
+  admin: Admin!
+  clientMutationId: String!
+}
+
 input DeleteInsightInput {
   insightID: ID!
   clientMutationId: String!
@@ -206,6 +218,17 @@ input DeleteInsightInput {
 
 type DeleteInsightPayload {
   insightID: ID!
+  admin: Admin!
+  clientMutationId: String!
+}
+
+input DeleteTopicInput {
+  insightID: ID!
+  clientMutationId: String!
+}
+
+type DeleteTopicPayload {
+  topicID: ID!
   admin: Admin!
   clientMutationId: String!
 }
@@ -430,8 +453,6 @@ type Mutation {
   setUserPushToken(input: SetUserPushTokenInput!): SetUserPushTokenPayload
   subscribeOnTheme(input: SubscribeOnThemeInput!): SubscribeOnThemePayload
   unsubscribeFromTheme(input: UnsubscribeFromThemeInput!): UnsubscribeFromThemePayload
-  updateTopic(input: UpdateTopicInput!): UpdateTopicPayload
-  refreshTopic(input: RefreshTopicInput!): RefreshTopicPayload
   rejectTheme(input: RejectThemeInput!): RejectThemePayload
   likeInsight(input: LikeInsightInput!): LikeInsightPayload
   markInsightUseful(input: MarkInsightUsefulInput!): MarkInsightUsefulPayload
@@ -474,6 +495,9 @@ type Mutation {
   createInsight(input: CreateInsightInput!): CreateInsightPayload
   updateInsight(input: UpdateInsightInput!): UpdateInsightPayload
   deleteInsight(input: DeleteInsightInput!): DeleteInsightPayload
+  createTopic(input: CreateTopicInput!): CreateTopicPayload
+  updateTopic(input: UpdateTopicInput!): UpdateTopicPayload
+  deleteTopic(input: DeleteTopicInput!): DeleteTopicPayload
 }
 
 interface Node {
@@ -552,16 +576,6 @@ type QuestionsConnection {
 type QuestionsEdge {
   node: Question
   cursor: String!
-}
-
-input RefreshTopicInput {
-  topicID: ID!
-  clientMutationId: String!
-}
-
-type RefreshTopicPayload {
-  topic: Topic!
-  clientMutationId: String!
 }
 
 input RejectThemeInput {

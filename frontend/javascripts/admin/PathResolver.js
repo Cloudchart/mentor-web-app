@@ -1,5 +1,6 @@
 import Dashboard from 'admin/components/Dashboard'
 import Insights from 'admin/components/Insights'
+import Topics from 'admin/components/Topics'
 
 import AdminRoute from 'admin-routes/Admin'
 
@@ -14,6 +15,7 @@ const DefaultItem = {
 const Data = [
   DefaultItem,
   { Component: Insights, title: 'Insights', path: 'insights', Route: AdminRoute },
+  { Component: Topics, title: 'Topics', path: 'topics', Route: AdminRoute },
 ]
 
 

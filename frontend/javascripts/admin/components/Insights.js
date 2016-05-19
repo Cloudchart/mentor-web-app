@@ -115,8 +115,6 @@ class Insights extends React.Component {
 
 const Styles = {
   container: {
-    display: 'flex',
-    justifyContent: 'center',
   },
 
   insightsList: {

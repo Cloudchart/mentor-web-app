@@ -20,9 +20,6 @@ import {
   UnsubscribeFromTopicMutation,
 } from './UserTopicMutations'
 
-import UpdateTopicMutation from './topic/update'
-import RefreshTopicMutation from './topic/refresh'
-
 import {
   LikeInsightInTopicMutation,
   DislikeInsightInTopicMutation,
@@ -82,9 +79,17 @@ import {
 import IntroduceTelegramUserMutation from './IntroduceTelegramUser'
 import IntroduceMessengerUserMutation from './IntroduceMessengerUser'
 
-import CreateInsightMutation from './insight/create'
-import UpdateInsightMutation from './insight/update'
-import DeleteInsightMutation from './insight/delete'
+import {
+  CreateInsightMutation,
+  UpdateInsightMutation,
+  DeleteInsightMutation,
+} from './insight'
+
+import {
+  CreateTopicMutation,
+  UpdateTopicMutation,
+  DeleteTopicMutation,
+} from './topic'
 
 
 export default new GraphQLObjectType({
@@ -97,9 +102,6 @@ export default new GraphQLObjectType({
     setUserPushToken:                 SetUserPushTokenMutation,
     subscribeOnTheme:                 SubscribeOnThemeMutation,
     unsubscribeFromTheme:             UnsubscribeFromThemeMutation,
-
-    updateTopic:                      UpdateTopicMutation,
-    refreshTopic:                     RefreshTopicMutation,
 
     rejectTheme:                      RejectThemeMutation,
     likeInsight:                      LikeInsightMutation,
@@ -152,5 +154,10 @@ export default new GraphQLObjectType({
     createInsight:                    CreateInsightMutation,
     updateInsight:                    UpdateInsightMutation,
     deleteInsight:                    DeleteInsightMutation,
+
+    createTopic:                      CreateTopicMutation,
+    updateTopic:                      UpdateTopicMutation,
+    deleteTopic:                      DeleteTopicMutation,
+
   }
 })

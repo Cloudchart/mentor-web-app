@@ -79,7 +79,6 @@ class Item extends React.Component {
 
   render = () =>
     <ListItem
-      key               = { this.props.insight.id }
       secondaryText     = { resolveOrigin({ ...this.props.insight.origin }) }
       rightIconButton   = { this.menu }
     >

@@ -24,9 +24,11 @@ export default mutationWithClientMutationId({
     topicID: {
       type: new GraphQLNonNull(GraphQLID)
     },
+
     name: {
       type: new GraphQLNonNull(GraphQLString)
     },
+
     description: {
       type: GraphQLString
     },
