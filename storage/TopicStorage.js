@@ -6,12 +6,21 @@ const TableName = Theme.tableName
 const UserThemeTableName = UserTheme.tableName
 
 
+const AllTopicsForAdminQuery = `
+  select
+    t.id
+  from
+    ${TableName} as t
+  where
+    t.name like :query or t.description like :query
+  order by
+    t.name
+`
+
 const AllTopicsQuery = `
   select
-    t.id,
-    @row := @row + 1 as row
+    t.id
   from
-    (select @row := 0) as rt,
     ${TableName} as t
   order by
     t.name
@@ -53,6 +62,7 @@ const SubscribedTopicsQuery = `
 const Storage = BaseStorage('Topic', {
   modelName: 'Theme',
   idsQueries: {
+    'allForAdmin': AllTopicsForAdminQuery,
     'all': AllTopicsQuery,
     'default': DefaultTopicsQuery,
     'subscribed': SubscribedTopicsQuery,

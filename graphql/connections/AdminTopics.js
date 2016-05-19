@@ -16,7 +16,7 @@ import {
 
 
 import {
-  InsightStorage
+  TopicStorage
 } from '../../storage'
 
 

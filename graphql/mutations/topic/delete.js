@@ -22,7 +22,7 @@ export default mutationWithClientMutationId({
 
   inputFields: () => ({
 
-    insightID: {
+    topicID: {
       type: new GraphQLNonNull(GraphQLID)
     },
 
@@ -44,12 +44,12 @@ export default mutationWithClientMutationId({
     if (!viewer.isAdmin)
       return new Error('Not authorized')
 
-    let topic = await InsightStorage.load(fromGlobalId(topicID).id).catch(() => null)
+    let topic = await TopicStorage.load(fromGlobalId(topicID).id).catch(() => null)
 
     if (!topic)
       return new Error('Not found.')
 
-    await TopicStorage.destroy(insight.id)
+    await TopicStorage.destroy(topic.id)
 
     let admin = await AdminStorage.load(viewer.id)
 

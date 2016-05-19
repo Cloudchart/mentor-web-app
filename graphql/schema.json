@@ -12387,6 +12387,38 @@
               "deprecationReason": null
             },
             {
+              "name": "topicEdge",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "AdminTopicsEdge",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "admin",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Admin",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "clientMutationId",
               "description": null,
               "args": [],
@@ -12415,7 +12447,7 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "insightID",
+              "name": "topicID",
               "description": null,
               "type": {
                 "kind": "NON_NULL",

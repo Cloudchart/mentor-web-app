@@ -10,9 +10,19 @@ import {
 } from 'graphql-relay'
 
 import {
-  TopicStorage
+  AdminStorage,
+  TopicStorage,
 } from '../../../storage'
 
+import {
+  nodeToEdge
+} from '../../connections/arrayconnection'
+
+import {
+  EdgeType
+} from '../../connections/AdminTopics'
+
+import AdminType from '../../types/admin/AdminType'
 import TopicType from '../../types/TopicType'
 
 
@@ -37,11 +47,22 @@ export default mutationWithClientMutationId({
   outputFields: {
     topic: {
       type: new GraphQLNonNull(TopicType)
+    },
+
+    topicEdge: {
+      type: new GraphQLNonNull(EdgeType),
+      resolve: ({ topic }) => nodeToEdge(topic)
+    },
+
+    admin: {
+      type: new GraphQLNonNull(AdminType)
     }
   },
 
   mutateAndGetPayload: async ({ topicID, name, description }, { rootValue: { viewer } }) => {
-    if (!viewer.isAdmin)
+    let admin = await AdminStorage.load(viewer.id).catch(() => null)
+
+    if (!admin)
       return new Error('Not authorized.')
 
     let topic = await TopicStorage.load(fromGlobalId(topicID).id).catch(() => null)
@@ -50,7 +71,7 @@ export default mutationWithClientMutationId({
 
     topic = await TopicStorage.update(topic.id, { name, description })
 
-    return { topic }
+    return { topic, admin }
   }
 
 })

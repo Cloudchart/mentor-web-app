@@ -223,7 +223,7 @@ type DeleteInsightPayload {
 }
 
 input DeleteTopicInput {
-  insightID: ID!
+  topicID: ID!
   clientMutationId: String!
 }
 
@@ -924,6 +924,8 @@ type UpdateTopicLinkPayload {
 
 type UpdateTopicPayload {
   topic: Topic!
+  topicEdge: AdminTopicsEdge!
+  admin: Admin!
   clientMutationId: String!
 }
 

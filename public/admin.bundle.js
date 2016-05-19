@@ -66,7 +66,7 @@
 
 	var _RootComponent2 = _interopRequireDefault(_RootComponent);
 
-	var _reactTapEventPlugin = __webpack_require__(706);
+	var _reactTapEventPlugin = __webpack_require__(714);
 
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 
@@ -60297,11 +60297,11 @@
 
 	var _Insights2 = _interopRequireDefault(_Insights);
 
-	var _Topics = __webpack_require__(700);
+	var _Topics = __webpack_require__(703);
 
 	var _Topics2 = _interopRequireDefault(_Topics);
 
-	var _Admin = __webpack_require__(705);
+	var _Admin = __webpack_require__(713);
 
 	var _Admin2 = _interopRequireDefault(_Admin);
 
@@ -60446,11 +60446,11 @@
 
 	var _Item2 = _interopRequireDefault(_Item);
 
-	var _Form = __webpack_require__(684);
+	var _Form = __webpack_require__(687);
 
 	var _Form2 = _interopRequireDefault(_Form);
 
-	var _List = __webpack_require__(697);
+	var _List = __webpack_require__(700);
 
 	var _List2 = _interopRequireDefault(_List);
 
@@ -61541,15 +61541,15 @@
 
 	var _mutations = __webpack_require__(676);
 
-	var _ItemMenu = __webpack_require__(680);
+	var _ItemMenu = __webpack_require__(683);
 
 	var _ItemMenu2 = _interopRequireDefault(_ItemMenu);
 
-	var _Form = __webpack_require__(684);
+	var _Form = __webpack_require__(687);
 
 	var _Form2 = _interopRequireDefault(_Form);
 
-	var _ConfirmationDialog = __webpack_require__(696);
+	var _ConfirmationDialog = __webpack_require__(699);
 
 	var _ConfirmationDialog2 = _interopRequireDefault(_ConfirmationDialog);
 
@@ -75759,7 +75759,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.DeleteInsightMutation = exports.UpdateInsightMutation = exports.CreateInsightMutation = undefined;
+	exports.DeleteTopicMutation = exports.UpdateTopicMutation = exports.CreateTopicMutation = exports.DeleteInsightMutation = exports.UpdateInsightMutation = exports.CreateInsightMutation = undefined;
 
 	var _createInsight = __webpack_require__(677);
 
@@ -75773,15 +75773,34 @@
 
 	var _deleteInsight2 = _interopRequireDefault(_deleteInsight);
 
+	var _createTopic = __webpack_require__(680);
+
+	var _createTopic2 = _interopRequireDefault(_createTopic);
+
+	var _updateTopic = __webpack_require__(681);
+
+	var _updateTopic2 = _interopRequireDefault(_updateTopic);
+
+	var _deleteTopic = __webpack_require__(682);
+
+	var _deleteTopic2 = _interopRequireDefault(_deleteTopic);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.CreateInsightMutation = _createInsight2.default;
 	exports.UpdateInsightMutation = _updateInsight2.default;
 	exports.DeleteInsightMutation = _deleteInsight2.default;
+	exports.CreateTopicMutation = _createTopic2.default;
+	exports.UpdateTopicMutation = _updateTopic2.default;
+	exports.DeleteTopicMutation = _deleteTopic2.default;
 	exports.default = {
 	  CreateInsightMutation: _createInsight2.default,
 	  UpdateInsightMutation: _updateInsight2.default,
-	  DeleteInsightMutation: _deleteInsight2.default
+	  DeleteInsightMutation: _deleteInsight2.default,
+
+	  CreateTopicMutation: _createTopic2.default,
+	  UpdateTopicMutation: _updateTopic2.default,
+	  DeleteTopicMutation: _deleteTopic2.default
 	};
 
 /***/ },
@@ -76290,6 +76309,589 @@
 	  value: true
 	});
 
+	var _reactRelay = __webpack_require__(261);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _class = function (_Relay$Mutation) {
+	  _inherits(_class, _Relay$Mutation);
+
+	  function _class() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, _class);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.getMutation = function () {
+	      return function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'createTopic',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'CreateTopicInput!'
+	          },
+	          name: 'CreateTopic',
+	          responseType: 'CreateTopicPayload'
+	        };
+	      }();
+	    }, _this.getVariables = function () {
+	      return {
+	        name: _this.props.name,
+	        description: _this.props.description
+	      };
+	    }, _this.getFatQuery = function () {
+	      return function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'cursor',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'String'
+	            }, {
+	              children: [{
+	                fieldName: 'id',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'ID'
+	              }],
+	              fieldName: 'node',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                inferredRootCallName: 'node',
+	                inferredPrimaryKey: 'id',
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'Topic'
+	            }],
+	            fieldName: 'topicEdge',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true
+	            },
+	            type: 'AdminTopicsEdge'
+	          }, {
+	            children: [{
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'admin',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Admin'
+	          }],
+	          id: _reactRelay2.default.QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'CreateTopicRelayQL',
+	          type: 'CreateTopicPayload'
+	        };
+	      }();
+	    }, _this.getConfigs = function () {
+	      return [{
+	        type: 'RANGE_ADD',
+	        parentName: 'admin',
+	        parentID: _this.props.admin.id,
+	        connectionName: 'topics',
+	        edgeName: 'topicEdge',
+	        rangeBehaviors: {
+	          '': 'refetch'
+	        }
+	      }];
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  return _class;
+	}(_reactRelay2.default.Mutation);
+
+	_class.fragments = {
+	  admin: function admin() {
+	    return function () {
+	      return {
+	        children: [{
+	          fieldName: 'id',
+	          kind: 'Field',
+	          metadata: {
+	            isRequisite: true
+	          },
+	          type: 'ID'
+	        }],
+	        id: _reactRelay2.default.QL.__id(),
+	        kind: 'Fragment',
+	        metadata: {},
+	        name: 'CreateTopic_AdminRelayQL',
+	        type: 'Admin'
+	      };
+	    }();
+	  }
+	};
+	exports.default = _class;
+	module.exports = exports['default'];
+
+/***/ },
+/* 681 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactRelay = __webpack_require__(261);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _class = function (_Relay$Mutation) {
+	  _inherits(_class, _Relay$Mutation);
+
+	  function _class() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, _class);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.getMutation = function () {
+	      return function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'updateTopic',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'UpdateTopicInput!'
+	          },
+	          name: 'UpdateTopic',
+	          responseType: 'UpdateTopicPayload'
+	        };
+	      }();
+	    }, _this.getVariables = function () {
+	      return {
+	        topicID: _this.props.topic.id,
+	        name: _this.props.name,
+	        description: _this.props.description
+	      };
+	    }, _this.getFatQuery = function () {
+	      return function () {
+	        return {
+	          children: [{
+	            children: [{
+	              fieldName: 'name',
+	              kind: 'Field',
+	              metadata: {},
+	              type: 'String'
+	            }, {
+	              fieldName: 'description',
+	              kind: 'Field',
+	              metadata: {},
+	              type: 'String'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'topic',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Topic'
+	          }, {
+	            children: [{
+	              fieldName: 'cursor',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'String'
+	            }, {
+	              children: [{
+	                fieldName: 'id',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'ID'
+	              }],
+	              fieldName: 'node',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                inferredRootCallName: 'node',
+	                inferredPrimaryKey: 'id',
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'Topic'
+	            }],
+	            fieldName: 'topicEdge',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true
+	            },
+	            type: 'AdminTopicsEdge'
+	          }, {
+	            children: [{
+	              fieldName: 'topics',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isConnection: true,
+	                isFindable: true
+	              },
+	              type: 'AdminTopicsConnection'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'admin',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Admin'
+	          }],
+	          id: _reactRelay2.default.QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'UpdateTopicRelayQL',
+	          type: 'UpdateTopicPayload'
+	        };
+	      }();
+	    }, _this.getConfigs = function () {
+	      return [{
+	        type: 'FIELDS_CHANGE',
+	        fieldIDs: {
+	          topic: _this.props.topic.id
+	        }
+	      }, {
+	        type: 'RANGE_ADD',
+	        parentName: 'admin',
+	        parentID: _this.props.admin.id,
+	        connectionName: 'topics',
+	        edgeName: 'topicEdge',
+	        rangeBehaviors: {
+	          '': 'refetch'
+	        }
+	      }];
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  return _class;
+	}(_reactRelay2.default.Mutation);
+
+	_class.fragments = {
+	  admin: function admin() {
+	    return function () {
+	      return {
+	        children: [{
+	          fieldName: 'id',
+	          kind: 'Field',
+	          metadata: {
+	            isRequisite: true
+	          },
+	          type: 'ID'
+	        }],
+	        id: _reactRelay2.default.QL.__id(),
+	        kind: 'Fragment',
+	        metadata: {},
+	        name: 'UpdateTopic_AdminRelayQL',
+	        type: 'Admin'
+	      };
+	    }();
+	  },
+	  topic: function topic() {
+	    return function () {
+	      return {
+	        children: [{
+	          fieldName: 'id',
+	          kind: 'Field',
+	          metadata: {
+	            isRequisite: true
+	          },
+	          type: 'ID'
+	        }],
+	        id: _reactRelay2.default.QL.__id(),
+	        kind: 'Fragment',
+	        metadata: {},
+	        name: 'UpdateTopic_TopicRelayQL',
+	        type: 'Topic'
+	      };
+	    }();
+	  }
+	};
+	exports.default = _class;
+	module.exports = exports['default'];
+
+/***/ },
+/* 682 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactRelay = __webpack_require__(261);
+
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _class = function (_Relay$Mutation) {
+	  _inherits(_class, _Relay$Mutation);
+
+	  function _class() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, _class);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.getMutation = function () {
+	      return function () {
+	        return {
+	          calls: [{
+	            kind: 'Call',
+	            metadata: {},
+	            name: 'deleteTopic',
+	            value: {
+	              kind: 'CallVariable',
+	              callVariableName: 'input'
+	            }
+	          }],
+	          children: [{
+	            fieldName: 'clientMutationId',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'String'
+	          }],
+	          kind: 'Mutation',
+	          metadata: {
+	            inputType: 'DeleteTopicInput!'
+	          },
+	          name: 'DeleteTopic',
+	          responseType: 'DeleteTopicPayload'
+	        };
+	      }();
+	    }, _this.getVariables = function () {
+	      return {
+	        topicID: _this.props.topic.id
+	      };
+	    }, _this.getFatQuery = function () {
+	      return function () {
+	        return {
+	          children: [{
+	            fieldName: 'topicID',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'ID'
+	          }, {
+	            children: [{
+	              fieldName: 'topics',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isConnection: true,
+	                isFindable: true
+	              },
+	              type: 'AdminTopicsConnection'
+	            }, {
+	              fieldName: 'id',
+	              kind: 'Field',
+	              metadata: {
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'ID'
+	            }],
+	            fieldName: 'admin',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true,
+	              inferredRootCallName: 'node',
+	              inferredPrimaryKey: 'id'
+	            },
+	            type: 'Admin'
+	          }],
+	          id: _reactRelay2.default.QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {},
+	          name: 'DeleteTopicRelayQL',
+	          type: 'DeleteTopicPayload'
+	        };
+	      }();
+	    }, _this.getConfigs = function () {
+	      return [{
+	        type: 'NODE_DELETE',
+	        parentName: 'admin',
+	        parentID: _this.props.admin.id,
+	        connectionName: 'topics',
+	        deletedIDFieldName: 'topicID'
+	      }];
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  return _class;
+	}(_reactRelay2.default.Mutation);
+
+	_class.fragments = {
+	  admin: function admin() {
+	    return function () {
+	      return {
+	        children: [{
+	          fieldName: 'id',
+	          kind: 'Field',
+	          metadata: {
+	            isRequisite: true
+	          },
+	          type: 'ID'
+	        }],
+	        id: _reactRelay2.default.QL.__id(),
+	        kind: 'Fragment',
+	        metadata: {},
+	        name: 'DeleteTopic_AdminRelayQL',
+	        type: 'Admin'
+	      };
+	    }();
+	  },
+	  topic: function topic() {
+	    return function () {
+	      return {
+	        children: [{
+	          fieldName: 'id',
+	          kind: 'Field',
+	          metadata: {
+	            isRequisite: true
+	          },
+	          type: 'ID'
+	        }],
+	        id: _reactRelay2.default.QL.__id(),
+	        kind: 'Fragment',
+	        metadata: {},
+	        name: 'DeleteTopic_TopicRelayQL',
+	        type: 'Topic'
+	      };
+	    }();
+	  }
+	};
+	exports.default = _class;
+	module.exports = exports['default'];
+
+/***/ },
+/* 683 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -76298,7 +76900,7 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _IconMenu = __webpack_require__(681);
+	var _IconMenu = __webpack_require__(684);
 
 	var _IconMenu2 = _interopRequireDefault(_IconMenu);
 
@@ -76306,7 +76908,7 @@
 
 	var _IconButton2 = _interopRequireDefault(_IconButton);
 
-	var _moreVert = __webpack_require__(683);
+	var _moreVert = __webpack_require__(686);
 
 	var _moreVert2 = _interopRequireDefault(_moreVert);
 
@@ -76347,7 +76949,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 681 */
+/* 684 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76357,7 +76959,7 @@
 	});
 	exports.default = exports.MenuItem = exports.IconMenu = undefined;
 
-	var _IconMenu2 = __webpack_require__(682);
+	var _IconMenu2 = __webpack_require__(685);
 
 	var _IconMenu3 = _interopRequireDefault(_IconMenu2);
 
@@ -76372,7 +76974,7 @@
 	exports.default = _IconMenu3.default;
 
 /***/ },
-/* 682 */
+/* 685 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76764,7 +77366,7 @@
 	exports.default = IconMenu;
 
 /***/ },
-/* 683 */
+/* 686 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76800,7 +77402,7 @@
 	exports.default = NavigationMoreVert;
 
 /***/ },
-/* 684 */
+/* 687 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76825,15 +77427,15 @@
 
 	var _Environment2 = _interopRequireDefault(_Environment);
 
-	var _Dialog = __webpack_require__(685);
+	var _Dialog = __webpack_require__(688);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
-	var _TextField = __webpack_require__(687);
+	var _TextField = __webpack_require__(690);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _FlatButton = __webpack_require__(693);
+	var _FlatButton = __webpack_require__(696);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
@@ -77119,7 +77721,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 685 */
+/* 688 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -77129,7 +77731,7 @@
 	});
 	exports.default = undefined;
 
-	var _Dialog = __webpack_require__(686);
+	var _Dialog = __webpack_require__(689);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
@@ -77138,7 +77740,7 @@
 	exports.default = _Dialog2.default;
 
 /***/ },
-/* 686 */
+/* 689 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -77719,7 +78321,7 @@
 	exports.default = Dialog;
 
 /***/ },
-/* 687 */
+/* 690 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -77729,7 +78331,7 @@
 	});
 	exports.default = undefined;
 
-	var _TextField = __webpack_require__(688);
+	var _TextField = __webpack_require__(691);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -77738,7 +78340,7 @@
 	exports.default = _TextField2.default;
 
 /***/ },
-/* 688 */
+/* 691 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -77781,19 +78383,19 @@
 
 	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
 
-	var _EnhancedTextarea = __webpack_require__(689);
+	var _EnhancedTextarea = __webpack_require__(692);
 
 	var _EnhancedTextarea2 = _interopRequireDefault(_EnhancedTextarea);
 
-	var _TextFieldHint = __webpack_require__(690);
+	var _TextFieldHint = __webpack_require__(693);
 
 	var _TextFieldHint2 = _interopRequireDefault(_TextFieldHint);
 
-	var _TextFieldLabel = __webpack_require__(691);
+	var _TextFieldLabel = __webpack_require__(694);
 
 	var _TextFieldLabel2 = _interopRequireDefault(_TextFieldLabel);
 
-	var _TextFieldUnderline = __webpack_require__(692);
+	var _TextFieldUnderline = __webpack_require__(695);
 
 	var _TextFieldUnderline2 = _interopRequireDefault(_TextFieldUnderline);
 
@@ -78307,7 +78909,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 689 */
+/* 692 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -78531,7 +79133,7 @@
 	exports.default = EnhancedTextarea;
 
 /***/ },
-/* 690 */
+/* 693 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -78612,7 +79214,7 @@
 	exports.default = TextFieldHint;
 
 /***/ },
-/* 691 */
+/* 694 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -78729,7 +79331,7 @@
 	exports.default = TextFieldLabel;
 
 /***/ },
-/* 692 */
+/* 695 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -78864,7 +79466,7 @@
 	exports.default = TextFieldUnderline;
 
 /***/ },
-/* 693 */
+/* 696 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -78874,7 +79476,7 @@
 	});
 	exports.default = undefined;
 
-	var _FlatButton = __webpack_require__(694);
+	var _FlatButton = __webpack_require__(697);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
@@ -78883,7 +79485,7 @@
 	exports.default = _FlatButton2.default;
 
 /***/ },
-/* 694 */
+/* 697 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -78916,7 +79518,7 @@
 
 	var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
-	var _FlatButtonLabel = __webpack_require__(695);
+	var _FlatButtonLabel = __webpack_require__(698);
 
 	var _FlatButtonLabel2 = _interopRequireDefault(_FlatButtonLabel);
 
@@ -79206,7 +79808,7 @@
 	exports.default = FlatButton;
 
 /***/ },
-/* 695 */
+/* 698 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79287,7 +79889,7 @@
 	exports.default = FlatButtonLabel;
 
 /***/ },
-/* 696 */
+/* 699 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79300,11 +79902,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Dialog = __webpack_require__(685);
+	var _Dialog = __webpack_require__(688);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
-	var _FlatButton = __webpack_require__(693);
+	var _FlatButton = __webpack_require__(696);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
@@ -79342,7 +79944,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 697 */
+/* 700 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79361,7 +79963,7 @@
 
 	var _Paper2 = _interopRequireDefault(_Paper);
 
-	var _Divider = __webpack_require__(698);
+	var _Divider = __webpack_require__(701);
 
 	var _Divider2 = _interopRequireDefault(_Divider);
 
@@ -79396,7 +79998,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 698 */
+/* 701 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79406,7 +80008,7 @@
 	});
 	exports.default = undefined;
 
-	var _Divider = __webpack_require__(699);
+	var _Divider = __webpack_require__(702);
 
 	var _Divider2 = _interopRequireDefault(_Divider);
 
@@ -79415,7 +80017,7 @@
 	exports.default = _Divider2.default;
 
 /***/ },
-/* 699 */
+/* 702 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79493,7 +80095,7 @@
 	exports.default = Divider;
 
 /***/ },
-/* 700 */
+/* 703 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79510,19 +80112,29 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
-	var _NodeList = __webpack_require__(701);
+	var _Environment = __webpack_require__(561);
+
+	var _Environment2 = _interopRequireDefault(_Environment);
+
+	var _mutations = __webpack_require__(676);
+
+	var _NodeList = __webpack_require__(704);
 
 	var _NodeList2 = _interopRequireDefault(_NodeList);
 
-	var _FloatingCreateButton = __webpack_require__(702);
+	var _ConfirmationDialog = __webpack_require__(699);
+
+	var _ConfirmationDialog2 = _interopRequireDefault(_ConfirmationDialog);
+
+	var _FloatingCreateButton = __webpack_require__(705);
 
 	var _FloatingCreateButton2 = _interopRequireDefault(_FloatingCreateButton);
 
-	var _Item = __webpack_require__(703);
+	var _Item = __webpack_require__(706);
 
 	var _Item2 = _interopRequireDefault(_Item);
 
-	var _Form = __webpack_require__(704);
+	var _Form = __webpack_require__(712);
 
 	var _Form2 = _interopRequireDefault(_Form);
 
@@ -79536,6 +80148,22 @@
 
 	var PageSize = 20;
 	var NoTopicForForm = 'NO TOPIC FOR FORM';
+	var SearchTimeout = 300;
+
+	var printTransactionErrors = function printTransactionErrors(errors) {
+	  return [].concat(errors).forEach(function (_ref) {
+	    var message = _ref.message;
+	    return console.error(message);
+	  });
+	};
+
+	var handleTransactionError = function handleTransactionError(transaction) {
+	  var errors = transaction.getError();
+	  typeof errors.json === 'function' ? errors.json().then(function (_ref2) {
+	    var errors = _ref2.errors;
+	    return printTransactionErrors(errors);
+	  }) : printTransactionErrors(errors);
+	};
 
 	var Topics = function (_React$Component) {
 	  _inherits(Topics, _React$Component);
@@ -79545,16 +80173,61 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Topics).call(this, props));
 
+	    _this.componentWillReceiveProps = function (nextProps) {
+	      if (nextProps.query !== _this.props.query) _this.performSearch(nextProps.query);
+	    };
+
+	    _this.performSearch = function (query) {
+	      clearTimeout(_this._performSearchTimeout);
+	      _this._performSearchTimeout = setTimeout(function () {
+	        _this.props.relay.setVariables({ q: query });
+	      }, SearchTimeout);
+	    };
+
+	    _this.deleteTopic = function () {
+	      var mutation = new _mutations.DeleteTopicMutation({
+	        topic: _this.state.topic,
+	        admin: _this.props.admin
+	      });
+
+	      _Environment2.default.commitUpdate(mutation, {
+	        onSuccess: function onSuccess(response) {
+	          _this.hideConfirmationDialog();
+	        },
+	        onFailure: handleTransactionError
+	      });
+	    };
+
+	    _this.findTopicById = function (id) {
+	      var topicEdge = _this.props.admin.topics.edges.find(function (_ref3) {
+	        var node = _ref3.node;
+	        return node.id === id;
+	      });
+	      return topicEdge && topicEdge.node || null;
+	    };
+
 	    _this.showTopicForm = function (id) {
-	      return _this.setState({ showTopicForm: id });
+	      return _this.setState({ showTopicForm: true, topic: _this.findTopicById(id) });
 	    };
 
 	    _this.hideTopicForm = function (id) {
-	      return _this.setState({ showTopicForm: null });
+	      return _this.setState({ showTopicForm: false, topic: null });
 	    };
 
-	    _this.handleTopicRequest = function (id) {
+	    _this.handleTopicUpdateRequest = function (id) {
 	      return _this.showTopicForm(id);
+	    };
+
+	    _this.showConfirmationDialog = function (id) {
+	      return _this.setState({ showConfirmationDialog: true, topic: _this.findTopicById(id) });
+	    };
+
+	    _this.hideConfirmationDialog = function () {
+	      return _this.setState({ showConfirmationDialog: false, topic: null });
+	    };
+
+	    _this.handleTopicDeleteRequest = function (id) {
+	      return _this.showConfirmationDialog(id);
 	    };
 
 	    _this.handleListBottom = function () {
@@ -79562,8 +80235,8 @@
 	    };
 
 	    _this.findTopicForForm = function () {
-	      var edge = _this.state.admin.topics.edges.find(function (_ref) {
-	        var node = _ref.node;
+	      var edge = _this.props.admin.topics.edges.find(function (_ref4) {
+	        var node = _ref4.node;
 	        return node.id === _this.state.showTopicForm;
 	      });
 	      return edge && edge.node || NoTopicForForm;
@@ -79571,22 +80244,20 @@
 
 	    _this.render = function () {
 
-	      var topicForForm = _this.state.showTopicForm ? _this.state.showTopicForm === 'new' ? null : _this.findTopicForForm() : NoTopicForForm;
-
 	      return _react2.default.createElement(
 	        'div',
 	        { style: Styles.container },
 	        _react2.default.createElement(_NodeList2.default, {
-	          nodes: _this.props.admin.topics.edges.map(function (_ref2) {
-	            var node = _ref2.node;
+	          nodes: _this.props.admin.topics.edges.map(function (_ref5) {
+	            var node = _ref5.node;
 	            return node;
 	          }),
 	          renderNode: _this.renderNode,
 	          onBottomReached: _this.handleListBottom
 	        }),
 	        _react2.default.createElement(_Form2.default, {
-	          open: !!_this.state.showTopicForm && topicForForm !== NoTopicForForm,
-	          topic: topicForForm === NoTopicForForm ? null : topicForForm,
+	          open: _this.state.showTopicForm,
+	          topic: _this.state.topic,
 	          admin: _this.props.admin,
 	          onDone: _this.hideTopicForm,
 	          onCancel: _this.hideTopicForm
@@ -79595,6 +80266,14 @@
 	          onRequest: function onRequest() {
 	            return _this.showTopicForm('new');
 	          }
+	        }),
+	        _react2.default.createElement(_ConfirmationDialog2.default, {
+	          open: _this.state.showConfirmationDialog,
+	          onCancel: _this.hideConfirmationDialog,
+	          onConfirm: _this.deleteTopic,
+	          title: 'Are you sure?',
+	          cancelLabel: 'Cancel',
+	          confirmLabel: 'Delete'
 	        })
 	      );
 	    };
@@ -79604,12 +80283,15 @@
 	        key: topic.id,
 	        topic: topic,
 	        admin: _this.props.admin,
-	        onRequest: _this.handleTopicRequest
+	        onUpdateRequest: _this.handleTopicUpdateRequest,
+	        onDeleteRequest: _this.handleTopicDeleteRequest
 	      });
 	    };
 
 	    _this.state = {
-	      showTopicForm: false
+	      topic: null,
+	      showTopicForm: false,
+	      showConfirmationDialog: false
 	    };
 	    return _this;
 	  }
@@ -79626,14 +80308,22 @@
 	exports.default = _reactRelay2.default.createContainer(Topics, {
 
 	  initialVariables: {
-	    first: PageSize
+	    first: PageSize,
+	    q: ''
 	  },
 
 	  fragments: {
 	    admin: function admin() {
-	      return function (RQL_0, RQL_1, RQL_2) {
+	      return function (RQL_0, RQL_1, RQL_2, RQL_3, RQL_4) {
 	        return {
 	          children: [].concat.apply([], [{
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }, {
 	            calls: [{
 	              kind: 'Call',
 	              metadata: {},
@@ -79641,6 +80331,14 @@
 	              value: {
 	                kind: 'CallVariable',
 	                callVariableName: 'first'
+	              }
+	            }, {
+	              kind: 'Call',
+	              metadata: {},
+	              name: 'find',
+	              value: {
+	                kind: 'CallVariable',
+	                callVariableName: 'q'
 	              }
 	            }],
 	            children: [{
@@ -79676,7 +80374,7 @@
 	                    isRequisite: true
 	                  },
 	                  type: 'ID'
-	                }, _reactRelay2.default.QL.__frag(RQL_1), _reactRelay2.default.QL.__frag(RQL_2)]),
+	                }, _reactRelay2.default.QL.__frag(RQL_2), _reactRelay2.default.QL.__frag(RQL_3), _reactRelay2.default.QL.__frag(RQL_4)]),
 	                fieldName: 'node',
 	                kind: 'Field',
 	                metadata: {
@@ -79707,25 +80405,18 @@
 	            kind: 'Field',
 	            metadata: {
 	              canHaveSubselections: true,
-	              isConnection: true
+	              isConnection: true,
+	              isFindable: true
 	            },
 	            type: 'AdminTopicsConnection'
-	          }, {
-	            fieldName: 'id',
-	            kind: 'Field',
-	            metadata: {
-	              isGenerated: true,
-	              isRequisite: true
-	            },
-	            type: 'ID'
-	          }, _reactRelay2.default.QL.__frag(RQL_0)]),
+	          }, _reactRelay2.default.QL.__frag(RQL_0), _reactRelay2.default.QL.__frag(RQL_1)]),
 	          id: _reactRelay2.default.QL.__id(),
 	          kind: 'Fragment',
 	          metadata: {},
 	          name: 'Topics_AdminRelayQL',
 	          type: 'Admin'
 	        };
-	      }(_Form2.default.getFragment('admin'), _Item2.default.getFragment('topic'), _Form2.default.getFragment('topic'));
+	      }(_Form2.default.getFragment('admin'), _mutations.DeleteTopicMutation.getFragment('admin'), _Item2.default.getFragment('topic'), _Form2.default.getFragment('topic'), _mutations.DeleteTopicMutation.getFragment('topic'));
 	    }
 	  }
 
@@ -79733,7 +80424,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 701 */
+/* 704 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79752,7 +80443,7 @@
 
 	var _Paper2 = _interopRequireDefault(_Paper);
 
-	var _Divider = __webpack_require__(698);
+	var _Divider = __webpack_require__(701);
 
 	var _Divider2 = _interopRequireDefault(_Divider);
 
@@ -79804,7 +80495,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 702 */
+/* 705 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79856,7 +80547,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 703 */
+/* 706 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79864,6 +80555,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _react = __webpack_require__(1);
 
@@ -79873,7 +80566,25 @@
 
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 
+	var _Toggle = __webpack_require__(707);
+
+	var _Toggle2 = _interopRequireDefault(_Toggle);
+
+	var _IconButton = __webpack_require__(512);
+
+	var _IconButton2 = _interopRequireDefault(_IconButton);
+
 	var _List = __webpack_require__(674);
+
+	var _clear = __webpack_require__(710);
+
+	var _clear2 = _interopRequireDefault(_clear);
+
+	var _ItemMenu = __webpack_require__(711);
+
+	var _ItemMenu2 = _interopRequireDefault(_ItemMenu);
+
+	var _colors = __webpack_require__(178);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -79897,18 +80608,26 @@
 	      args[_key] = arguments[_key];
 	    }
 
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(TopicItem)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.render = function () {
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(TopicItem)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.handleUpdateRequest = function () {
+	      return _this.props.onUpdateRequest && _this.props.onUpdateRequest(_this.props.topic.id);
+	    }, _this.handleDeleteRequest = function () {
+	      return _this.props.onDeleteRequest && _this.props.onDeleteRequest(_this.props.topic.id);
+	    }, _this.render = function () {
+	      var style = Styles.item;
+
+	      if (_this.props.topic.isDefault) style = _extends({}, style, Styles.defaultItem);
+
 	      return _react2.default.createElement(
 	        _List.ListItem,
 	        {
 	          secondaryText: _this.props.topic.description,
-	          onTouchTap: _this.props.onRequest
+	          style: style,
+	          rightIconButton: (0, _ItemMenu2.default)({
+	            onUpdateRequest: _this.handleUpdateRequest,
+	            onDeleteRequest: _this.handleDeleteRequest
+	          })
 	        },
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          _this.props.topic.name
-	        )
+	        _this.props.topic.name
 	      );
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
@@ -79921,6 +80640,21 @@
 	  onUpdateRequest: _react2.default.PropTypes.func,
 	  onDeleteRequest: _react2.default.PropTypes.func
 	};
+
+
+	var Styles = {
+	  item: {
+	    borderLeftColor: 'transparent',
+	    borderLeftStyle: 'solid',
+	    borderLeftWidth: 2
+	  },
+
+	  defaultItem: {
+	    borderLeftColor: _colors.indigo500
+	  }
+
+	};
+
 	exports.default = _reactRelay2.default.createContainer(TopicItem, {
 
 	  fragments: {
@@ -79944,6 +80678,11 @@
 	            kind: 'Field',
 	            metadata: {},
 	            type: 'String'
+	          }, {
+	            fieldName: 'isDefault',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'Boolean'
 	          }],
 	          id: _reactRelay2.default.QL.__id(),
 	          kind: 'Fragment',
@@ -79959,7 +80698,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 704 */
+/* 707 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79967,6 +80706,871 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.default = undefined;
+
+	var _Toggle = __webpack_require__(708);
+
+	var _Toggle2 = _interopRequireDefault(_Toggle);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _Toggle2.default;
+
+/***/ },
+/* 708 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _simpleAssign = __webpack_require__(497);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _transitions = __webpack_require__(499);
+
+	var _transitions2 = _interopRequireDefault(_transitions);
+
+	var _Paper = __webpack_require__(495);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
+	var _EnhancedSwitch = __webpack_require__(709);
+
+	var _EnhancedSwitch2 = _interopRequireDefault(_EnhancedSwitch);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function getStyles(props, context, state) {
+	  var disabled = props.disabled;
+	  var _context$muiTheme = context.muiTheme;
+	  var baseTheme = _context$muiTheme.baseTheme;
+	  var toggle = _context$muiTheme.toggle;
+
+
+	  var toggleSize = 20;
+	  var toggleTrackWidth = 36;
+	  var styles = {
+	    icon: {
+	      width: 36,
+	      padding: '4px 0px 6px 2px'
+	    },
+	    ripple: {
+	      top: -10,
+	      left: -10,
+	      color: state.switched ? toggle.thumbOnColor : baseTheme.palette.textColor
+	    },
+	    toggleElement: {
+	      width: toggleTrackWidth
+	    },
+	    track: {
+	      transition: _transitions2.default.easeOut(),
+	      width: '100%',
+	      height: 14,
+	      borderRadius: 30,
+	      backgroundColor: toggle.trackOffColor
+	    },
+	    thumb: {
+	      transition: _transitions2.default.easeOut(),
+	      position: 'absolute',
+	      top: 1,
+	      left: 0,
+	      width: toggleSize,
+	      height: toggleSize,
+	      lineHeight: '24px',
+	      borderRadius: '50%',
+	      backgroundColor: toggle.thumbOffColor
+	    },
+	    trackWhenSwitched: {
+	      backgroundColor: toggle.trackOnColor
+	    },
+	    thumbWhenSwitched: {
+	      backgroundColor: toggle.thumbOnColor,
+	      left: '100%'
+	    },
+	    trackWhenDisabled: {
+	      backgroundColor: toggle.trackDisabledColor
+	    },
+	    thumbWhenDisabled: {
+	      backgroundColor: toggle.thumbDisabledColor
+	    },
+	    label: {
+	      color: disabled ? toggle.labelDisabledColor : toggle.labelColor,
+	      width: 'calc(100% - ' + (toggleTrackWidth + 10) + 'px)'
+	    }
+	  };
+
+	  return styles;
+	}
+
+	var Toggle = function (_Component) {
+	  _inherits(Toggle, _Component);
+
+	  function Toggle() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, Toggle);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Toggle)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = { switched: false }, _this.handleToggle = function (event, isInputChecked) {
+	      if (_this.props.onToggle) _this.props.onToggle(event, isInputChecked);
+	    }, _this.handleStateChange = function (newSwitched) {
+	      _this.setState({ switched: newSwitched });
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  _createClass(Toggle, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _props = this.props;
+	      var toggled = _props.toggled;
+	      var defaultToggled = _props.defaultToggled;
+	      var valueLink = _props.valueLink;
+
+
+	      if (toggled || defaultToggled || valueLink && valueLink.value) {
+	        this.setState({ switched: true });
+	      }
+	    }
+	  }, {
+	    key: 'isToggled',
+	    value: function isToggled() {
+	      return this.refs.enhancedSwitch.isSwitched();
+	    }
+	  }, {
+	    key: 'setToggled',
+	    value: function setToggled(newToggledValue) {
+	      this.refs.enhancedSwitch.setSwitched(newToggledValue);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props2 = this.props;
+	      var defaultToggled = _props2.defaultToggled;
+	      var onToggle = _props2.onToggle;
+	      var // eslint-disable-line no-unused-vars
+	      toggled = _props2.toggled;
+
+	      var other = _objectWithoutProperties(_props2, ['defaultToggled', 'onToggle', 'toggled']);
+
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+	      var styles = getStyles(this.props, this.context, this.state);
+
+	      var trackStyles = (0, _simpleAssign2.default)({}, styles.track, this.props.trackStyle, this.state.switched && styles.trackWhenSwitched, this.props.disabled && styles.trackWhenDisabled);
+
+	      var thumbStyles = (0, _simpleAssign2.default)({}, styles.thumb, this.props.thumbStyle, this.state.switched && styles.thumbWhenSwitched, this.props.disabled && styles.thumbWhenDisabled);
+
+	      if (this.state.switched) {
+	        thumbStyles.marginLeft = 0 - thumbStyles.width;
+	      }
+
+	      var toggleElementStyles = (0, _simpleAssign2.default)({}, styles.toggleElement, this.props.elementStyle);
+
+	      var toggleElement = _react2.default.createElement(
+	        'div',
+	        { style: prepareStyles((0, _simpleAssign2.default)({}, toggleElementStyles)) },
+	        _react2.default.createElement('div', { style: prepareStyles((0, _simpleAssign2.default)({}, trackStyles)) }),
+	        _react2.default.createElement(_Paper2.default, { style: thumbStyles, circle: true, zDepth: 1 })
+	      );
+
+	      var rippleStyle = (0, _simpleAssign2.default)({}, styles.ripple, this.props.rippleStyle);
+
+	      var iconStyle = (0, _simpleAssign2.default)({}, styles.icon, this.props.iconStyle);
+
+	      var labelStyle = (0, _simpleAssign2.default)({}, styles.label, this.props.labelStyle);
+
+	      var enhancedSwitchProps = {
+	        ref: 'enhancedSwitch',
+	        inputType: 'checkbox',
+	        switchElement: toggleElement,
+	        rippleStyle: rippleStyle,
+	        rippleColor: rippleStyle.color,
+	        iconStyle: iconStyle,
+	        trackStyle: trackStyles,
+	        thumbStyle: thumbStyles,
+	        labelStyle: labelStyle,
+	        switched: this.state.switched,
+	        onSwitch: this.handleToggle,
+	        onParentShouldUpdate: this.handleStateChange,
+	        labelPosition: this.props.labelPosition
+	      };
+
+	      if (this.props.hasOwnProperty('toggled')) {
+	        enhancedSwitchProps.checked = toggled;
+	      } else if (this.props.hasOwnProperty('defaultToggled')) {
+	        enhancedSwitchProps.defaultChecked = defaultToggled;
+	      }
+
+	      return _react2.default.createElement(_EnhancedSwitch2.default, _extends({}, other, enhancedSwitchProps));
+	    }
+	  }]);
+
+	  return Toggle;
+	}(_react.Component);
+
+	Toggle.propTypes = {
+	  /**
+	   * Determines whether the Toggle is initially turned on.
+	   * **Warning:** This cannot be used in conjunction with `toggled`.
+	   * Decide between using a controlled or uncontrolled input element and remove one of these props.
+	   * More info: https://fb.me/react-controlled-components
+	   */
+	  defaultToggled: _react.PropTypes.bool,
+	  /**
+	   * Will disable the toggle if true.
+	   */
+	  disabled: _react.PropTypes.bool,
+	  /**
+	   * Overrides the inline-styles of the Toggle element.
+	   */
+	  elementStyle: _react.PropTypes.object,
+	  /**
+	   * Overrides the inline-styles of the Icon element.
+	   */
+	  iconStyle: _react.PropTypes.object,
+	  /**
+	   * Overrides the inline-styles of the input element.
+	   */
+	  inputStyle: _react.PropTypes.object,
+	  /**
+	   * Label for toggle.
+	   */
+	  label: _react.PropTypes.string,
+	  /**
+	   * Where the label will be placed next to the toggle.
+	   */
+	  labelPosition: _react.PropTypes.oneOf(['left', 'right']),
+	  /**
+	   * Overrides the inline-styles of the Toggle element label.
+	   */
+	  labelStyle: _react.PropTypes.object,
+	  /**
+	   * Callback function that is fired when the toggle switch is toggled.
+	   */
+	  onToggle: _react.PropTypes.func,
+	  /**
+	   * Override style of ripple.
+	   */
+	  rippleStyle: _react.PropTypes.object,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object,
+	  /**
+	   * Override style for thumb.
+	   */
+	  thumbStyle: _react.PropTypes.object,
+	  /**
+	   * Toggled if set to true.
+	   */
+	  toggled: _react.PropTypes.bool,
+	  /**
+	   * Override style for track.
+	   */
+	  trackStyle: _react.PropTypes.object,
+	  /**
+	   * ValueLink prop for when using controlled toggle.
+	   */
+	  valueLink: _react.PropTypes.object
+	};
+	Toggle.defaultProps = {
+	  defaultToggled: false,
+	  disabled: false,
+	  labelPosition: 'left'
+	};
+	Toggle.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	exports.default = Toggle;
+
+/***/ },
+/* 709 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _simpleAssign = __webpack_require__(497);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactEventListener = __webpack_require__(538);
+
+	var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
+
+	var _keycode = __webpack_require__(519);
+
+	var _keycode2 = _interopRequireDefault(_keycode);
+
+	var _transitions = __webpack_require__(499);
+
+	var _transitions2 = _interopRequireDefault(_transitions);
+
+	var _FocusRipple = __webpack_require__(520);
+
+	var _FocusRipple2 = _interopRequireDefault(_FocusRipple);
+
+	var _TouchRipple = __webpack_require__(527);
+
+	var _TouchRipple2 = _interopRequireDefault(_TouchRipple);
+
+	var _Paper = __webpack_require__(495);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
+	var _warning = __webpack_require__(214);
+
+	var _warning2 = _interopRequireDefault(_warning);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function getStyles(props, context) {
+	  var baseTheme = context.muiTheme.baseTheme;
+
+
+	  return {
+	    root: {
+	      position: 'relative',
+	      cursor: props.disabled ? 'default' : 'pointer',
+	      overflow: 'visible',
+	      display: 'table',
+	      height: 'auto',
+	      width: '100%'
+	    },
+	    input: {
+	      position: 'absolute',
+	      cursor: props.disabled ? 'default' : 'pointer',
+	      pointerEvents: 'all',
+	      opacity: 0,
+	      width: '100%',
+	      height: '100%',
+	      zIndex: 2,
+	      left: 0,
+	      boxSizing: 'border-box',
+	      padding: 0,
+	      margin: 0
+	    },
+	    controls: {
+	      display: 'flex',
+	      width: '100%',
+	      height: '100%'
+	    },
+	    label: {
+	      float: 'left',
+	      position: 'relative',
+	      display: 'block',
+	      width: 'calc(100% - 60px)',
+	      lineHeight: '24px',
+	      color: baseTheme.palette.textColor,
+	      fontFamily: baseTheme.fontFamily
+	    },
+	    wrap: {
+	      transition: _transitions2.default.easeOut(),
+	      float: 'left',
+	      position: 'relative',
+	      display: 'block',
+	      flexShrink: 0,
+	      width: 60 - baseTheme.spacing.desktopGutterLess,
+	      marginRight: props.labelPosition === 'right' ? baseTheme.spacing.desktopGutterLess : 0,
+	      marginLeft: props.labelPosition === 'left' ? baseTheme.spacing.desktopGutterLess : 0
+	    },
+	    ripple: {
+	      color: props.rippleColor || baseTheme.palette.primary1Color,
+	      height: '200%',
+	      width: '200%',
+	      top: -12,
+	      left: -12
+	    }
+	  };
+	}
+
+	var EnhancedSwitch = function (_Component) {
+	  _inherits(EnhancedSwitch, _Component);
+
+	  function EnhancedSwitch() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, EnhancedSwitch);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(EnhancedSwitch)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
+	      isKeyboardFocused: false
+	    }, _this.handleChange = function (event) {
+	      _this.tabPressed = false;
+	      _this.setState({
+	        isKeyboardFocused: false
+	      });
+
+	      var isInputChecked = _this.refs.checkbox.checked;
+
+	      if (!_this.props.hasOwnProperty('checked') && _this.props.onParentShouldUpdate) {
+	        _this.props.onParentShouldUpdate(isInputChecked);
+	      }
+	      if (_this.props.onSwitch) {
+	        _this.props.onSwitch(event, isInputChecked);
+	      }
+	    }, _this.handleKeyDown = function (event) {
+	      var code = (0, _keycode2.default)(event);
+
+	      if (code === 'tab') {
+	        _this.tabPressed = true;
+	      }
+	      if (_this.state.isKeyboardFocused && code === 'space') {
+	        _this.handleChange(event);
+	      }
+	    }, _this.handleKeyUp = function (event) {
+	      if (_this.state.isKeyboardFocused && (0, _keycode2.default)(event) === 'space') {
+	        _this.handleChange(event);
+	      }
+	    }, _this.handleMouseDown = function (event) {
+	      // only listen to left clicks
+	      if (event.button === 0) {
+	        _this.refs.touchRipple.start(event);
+	      }
+	    }, _this.handleMouseUp = function () {
+	      _this.refs.touchRipple.end();
+	    }, _this.handleMouseLeave = function () {
+	      _this.refs.touchRipple.end();
+	    }, _this.handleTouchStart = function (event) {
+	      _this.refs.touchRipple.start(event);
+	    }, _this.handleTouchEnd = function () {
+	      _this.refs.touchRipple.end();
+	    }, _this.handleBlur = function (event) {
+	      _this.setState({
+	        isKeyboardFocused: false
+	      });
+
+	      if (_this.props.onBlur) {
+	        _this.props.onBlur(event);
+	      }
+	    }, _this.handleFocus = function (event) {
+	      // setTimeout is needed becuase the focus event fires first
+	      // Wait so that we can capture if this was a keyboard focus
+	      // or touch focus
+	      setTimeout(function () {
+	        if (_this.tabPressed) {
+	          _this.setState({
+	            isKeyboardFocused: true
+	          });
+	        }
+	      }, 150);
+
+	      if (_this.props.onFocus) {
+	        _this.props.onFocus(event);
+	      }
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  _createClass(EnhancedSwitch, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var inputNode = this.refs.checkbox;
+	      if ((!this.props.switched || inputNode.checked !== this.props.switched) && this.props.onParentShouldUpdate) {
+	        this.props.onParentShouldUpdate(inputNode.checked);
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      var hasCheckedProp = nextProps.hasOwnProperty('checked');
+	      var hasToggledProp = nextProps.hasOwnProperty('toggled');
+	      var hasNewDefaultProp = nextProps.hasOwnProperty('defaultChecked') && nextProps.defaultChecked !== this.props.defaultChecked;
+
+	      if (hasCheckedProp || hasToggledProp || hasNewDefaultProp) {
+	        var switched = nextProps.checked || nextProps.toggled || nextProps.defaultChecked || false;
+
+	        this.setState({
+	          switched: switched
+	        });
+
+	        if (this.props.onParentShouldUpdate && switched !== this.props.switched) {
+	          this.props.onParentShouldUpdate(switched);
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'isSwitched',
+	    value: function isSwitched() {
+	      return this.refs.checkbox.checked;
+	    }
+
+	    // no callback here because there is no event
+
+	  }, {
+	    key: 'setSwitched',
+	    value: function setSwitched(newSwitchedValue) {
+	      if (!this.props.hasOwnProperty('checked') || this.props.checked === false) {
+	        if (this.props.onParentShouldUpdate) {
+	          this.props.onParentShouldUpdate(newSwitchedValue);
+	        }
+	        this.refs.checkbox.checked = newSwitchedValue;
+	      } else {
+	        process.env.NODE_ENV !== "production" ? (0, _warning2.default)(false, 'Cannot call set method while checked is defined as a property.') : void 0;
+	      }
+	    }
+	  }, {
+	    key: 'getValue',
+	    value: function getValue() {
+	      return this.refs.checkbox.value;
+	    }
+
+	    // Checkbox inputs only use SPACE to change their state. Using ENTER will
+	    // update the ui but not the input.
+
+
+	    /**
+	     * Because both the ripples and the checkbox input cannot share pointer
+	     * events, the checkbox input takes control of pointer events and calls
+	     * ripple animations manually.
+	     */
+
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var name = _props.name;
+	      var value = _props.value;
+	      var iconStyle = _props.iconStyle;
+	      var inputStyle = _props.inputStyle;
+	      var inputType = _props.inputType;
+	      var label = _props.label;
+	      var labelStyle = _props.labelStyle;
+	      var labelPosition = _props.labelPosition;
+	      var onSwitch = _props.onSwitch;
+	      var // eslint-disable-line no-unused-vars
+	      onBlur = _props.onBlur;
+	      var // eslint-disable-line no-unused-vars
+	      onFocus = _props.onFocus;
+	      var // eslint-disable-line no-unused-vars
+	      onMouseUp = _props.onMouseUp;
+	      var // eslint-disable-line no-unused-vars
+	      onMouseDown = _props.onMouseDown;
+	      var // eslint-disable-line no-unused-vars
+	      onMouseLeave = _props.onMouseLeave;
+	      var // eslint-disable-line no-unused-vars
+	      onTouchStart = _props.onTouchStart;
+	      var // eslint-disable-line no-unused-vars
+	      onTouchEnd = _props.onTouchEnd;
+	      var // eslint-disable-line no-unused-vars
+	      disabled = _props.disabled;
+	      var disableTouchRipple = _props.disableTouchRipple;
+	      var disableFocusRipple = _props.disableFocusRipple;
+	      var className = _props.className;
+	      var rippleStyle = _props.rippleStyle;
+	      var style = _props.style;
+	      var switched = _props.switched;
+	      var // eslint-disable-line no-unused-vars
+	      switchElement = _props.switchElement;
+	      var thumbStyle = _props.thumbStyle;
+	      var trackStyle = _props.trackStyle;
+
+	      var other = _objectWithoutProperties(_props, ['name', 'value', 'iconStyle', 'inputStyle', 'inputType', 'label', 'labelStyle', 'labelPosition', 'onSwitch', 'onBlur', 'onFocus', 'onMouseUp', 'onMouseDown', 'onMouseLeave', 'onTouchStart', 'onTouchEnd', 'disabled', 'disableTouchRipple', 'disableFocusRipple', 'className', 'rippleStyle', 'style', 'switched', 'switchElement', 'thumbStyle', 'trackStyle']);
+
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+	      var styles = getStyles(this.props, this.context);
+	      var wrapStyles = (0, _simpleAssign2.default)(styles.wrap, iconStyle);
+	      var mergedRippleStyle = (0, _simpleAssign2.default)(styles.ripple, rippleStyle);
+
+	      if (thumbStyle) {
+	        wrapStyles.marginLeft /= 2;
+	        wrapStyles.marginRight /= 2;
+	      }
+
+	      var labelElement = label && _react2.default.createElement(
+	        'label',
+	        { style: prepareStyles((0, _simpleAssign2.default)(styles.label, labelStyle)) },
+	        label
+	      );
+
+	      var showTouchRipple = !disabled && !disableTouchRipple;
+	      var showFocusRipple = !disabled && !disableFocusRipple;
+
+	      var touchRipple = _react2.default.createElement(_TouchRipple2.default, {
+	        ref: 'touchRipple',
+	        key: 'touchRipple',
+	        style: mergedRippleStyle,
+	        color: mergedRippleStyle.color,
+	        muiTheme: this.context.muiTheme,
+	        centerRipple: true
+	      });
+
+	      var focusRipple = _react2.default.createElement(_FocusRipple2.default, {
+	        key: 'focusRipple',
+	        innerStyle: mergedRippleStyle,
+	        color: mergedRippleStyle.color,
+	        muiTheme: this.context.muiTheme,
+	        show: this.state.isKeyboardFocused
+	      });
+
+	      var ripples = [showTouchRipple ? touchRipple : null, showFocusRipple ? focusRipple : null];
+
+	      var inputElement = _react2.default.createElement('input', _extends({}, other, {
+	        ref: 'checkbox',
+	        type: inputType,
+	        style: prepareStyles((0, _simpleAssign2.default)(styles.input, inputStyle)),
+	        name: name,
+	        value: value,
+	        disabled: disabled,
+	        onBlur: this.handleBlur,
+	        onFocus: this.handleFocus,
+	        onChange: this.handleChange,
+	        onMouseUp: showTouchRipple && this.handleMouseUp,
+	        onMouseDown: showTouchRipple && this.handleMouseDown,
+	        onMouseLeave: showTouchRipple && this.handleMouseLeave,
+	        onTouchStart: showTouchRipple && this.handleTouchStart,
+	        onTouchEnd: showTouchRipple && this.handleTouchEnd
+	      }));
+
+	      // If toggle component (indicated by whether the style includes thumb) manually lay out
+	      // elements in order to nest ripple elements
+	      var switchOrThumbElement = !thumbStyle ? _react2.default.createElement(
+	        'div',
+	        { style: prepareStyles(wrapStyles) },
+	        switchElement,
+	        ripples
+	      ) : _react2.default.createElement(
+	        'div',
+	        { style: prepareStyles(wrapStyles) },
+	        _react2.default.createElement('div', { style: prepareStyles((0, _simpleAssign2.default)({}, trackStyle)) }),
+	        _react2.default.createElement(
+	          _Paper2.default,
+	          { style: thumbStyle, zDepth: 1, circle: true },
+	          ' ',
+	          ripples,
+	          ' '
+	        )
+	      );
+
+	      var elementsInOrder = labelPosition === 'right' ? _react2.default.createElement(
+	        'div',
+	        { style: styles.controls },
+	        switchOrThumbElement,
+	        labelElement
+	      ) : _react2.default.createElement(
+	        'div',
+	        { style: styles.controls },
+	        labelElement,
+	        switchOrThumbElement
+	      );
+
+	      return _react2.default.createElement(
+	        'div',
+	        { ref: 'root', className: className, style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) },
+	        _react2.default.createElement(_reactEventListener2.default, {
+	          elementName: 'window',
+	          onKeyDown: this.handleKeyDown,
+	          onKeyUp: this.handleKeyUp
+	        }),
+	        inputElement,
+	        elementsInOrder
+	      );
+	    }
+	  }]);
+
+	  return EnhancedSwitch;
+	}(_react.Component);
+
+	EnhancedSwitch.propTypes = {
+	  checked: _react.PropTypes.bool,
+	  className: _react.PropTypes.string,
+	  defaultChecked: _react.PropTypes.bool,
+	  disableFocusRipple: _react.PropTypes.bool,
+	  disableTouchRipple: _react.PropTypes.bool,
+	  disabled: _react.PropTypes.bool,
+	  iconStyle: _react.PropTypes.object,
+	  inputStyle: _react.PropTypes.object,
+	  inputType: _react.PropTypes.string.isRequired,
+	  label: _react.PropTypes.node,
+	  labelPosition: _react.PropTypes.oneOf(['left', 'right']),
+	  labelStyle: _react.PropTypes.object,
+	  name: _react.PropTypes.string,
+	  onBlur: _react.PropTypes.func,
+	  onFocus: _react.PropTypes.func,
+	  onMouseDown: _react.PropTypes.func,
+	  onMouseLeave: _react.PropTypes.func,
+	  onMouseUp: _react.PropTypes.func,
+	  onParentShouldUpdate: _react.PropTypes.func,
+	  onSwitch: _react.PropTypes.func,
+	  onTouchEnd: _react.PropTypes.func,
+	  onTouchStart: _react.PropTypes.func,
+	  rippleColor: _react.PropTypes.string,
+	  rippleStyle: _react.PropTypes.object,
+	  style: _react.PropTypes.object,
+	  switchElement: _react.PropTypes.element.isRequired,
+	  switched: _react.PropTypes.bool.isRequired,
+	  thumbStyle: _react.PropTypes.object,
+	  trackStyle: _react.PropTypes.object,
+	  value: _react.PropTypes.string
+	};
+	EnhancedSwitch.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	exports.default = EnhancedSwitch;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 710 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(501);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(510);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ContentClear = function ContentClear(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z' })
+	  );
+	};
+	ContentClear = (0, _pure2.default)(ContentClear);
+	ContentClear.displayName = 'ContentClear';
+
+	exports.default = ContentClear;
+
+/***/ },
+/* 711 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _MenuItem = __webpack_require__(541);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+	var _IconMenu = __webpack_require__(684);
+
+	var _IconMenu2 = _interopRequireDefault(_IconMenu);
+
+	var _IconButton = __webpack_require__(512);
+
+	var _IconButton2 = _interopRequireDefault(_IconButton);
+
+	var _moreVert = __webpack_require__(686);
+
+	var _moreVert2 = _interopRequireDefault(_moreVert);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var MenuButton = _react2.default.createElement(
+	  _IconButton2.default,
+	  null,
+	  _react2.default.createElement(_moreVert2.default, null)
+	);
+
+	var ItemMenu = function ItemMenu(_ref) {
+	  var onUpdateRequest = _ref.onUpdateRequest;
+	  var onDeleteRequest = _ref.onDeleteRequest;
+
+
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      _IconMenu2.default,
+	      { iconButtonElement: MenuButton },
+	      _react2.default.createElement(
+	        _MenuItem2.default,
+	        { onTouchTap: onUpdateRequest },
+	        'Update'
+	      ),
+	      _react2.default.createElement(
+	        _MenuItem2.default,
+	        { onTouchTap: onDeleteRequest },
+	        'Delete'
+	      )
+	    )
+	  );
+	};
+
+	exports.default = ItemMenu;
+	module.exports = exports['default'];
+
+/***/ },
+/* 712 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _react = __webpack_require__(1);
 
@@ -79980,27 +81584,35 @@
 
 	var _Environment2 = _interopRequireDefault(_Environment);
 
-	var _Dialog = __webpack_require__(685);
+	var _Dialog = __webpack_require__(688);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
-	var _TextField = __webpack_require__(687);
+	var _TextField = __webpack_require__(690);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _FlatButton = __webpack_require__(693);
+	var _FlatButton = __webpack_require__(696);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
 	var _colors = __webpack_require__(178);
 
+	var _mutations = __webpack_require__(676);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { return step("next", value); }, function (err) { return step("throw", err); }); } } return step("next"); }); }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var KnownFields = ['name', 'description'];
 
 	var TopicForm = function (_React$Component) {
 	  _inherits(TopicForm, _React$Component);
@@ -80010,29 +81622,7 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TopicForm).call(this, props));
 
-	    _this.setStateFromProps = function (props) {};
-
-	    _this.render = function () {
-	      return _react2.default.createElement(_Dialog2.default, {
-	        title: _this.props.topic ? "Update topic" : "Create topic",
-	        actions: _this.renderActions(),
-	        open: _this.props.open,
-	        onRequestClose: _this.props.onCancel
-	      });
-	    };
-
-	    _this.renderActions = function () {
-	      return [_react2.default.createElement(_FlatButton2.default, {
-	        label: 'Cancel',
-	        onTouchTap: _this.props.onCancel,
-	        secondary: true
-	      }), _react2.default.createElement(_FlatButton2.default, {
-	        label: 'Save',
-	        onTouchTap: _this.handleCommit,
-	        disabled: true,
-	        primary: true
-	      })];
-	    };
+	    _initialiseProps.call(_this);
 
 	    _this.setStateFromProps(props);
 	    return _this;
@@ -80044,13 +81634,134 @@
 	TopicForm.propTypes = {
 	  open: _react2.default.PropTypes.bool.isRequired
 	};
+
+	var _initialiseProps = function _initialiseProps() {
+	  var _this2 = this;
+
+	  this.componentWillReceiveProps = function (nextProps) {
+	    return _this2.setStateFromProps(nextProps);
+	  };
+
+	  this.setStateFromProps = function (props) {
+	    var state = KnownFields.reduce(function (memo, name) {
+	      memo[name] = memo.initialFields[name] || (memo.initialFields[name] = '');
+	      return memo;
+	    }, { initialFields: _extends({}, props.topic) });
+
+	    _this2.state ? _this2.setState(state) : _this2.state = state;
+	  };
+
+	  this.changedFields = function () {
+	    return KnownFields.filter(function (name) {
+	      return _this2.state.initialFields[name] !== _this2.state[name];
+	    });
+	  };
+
+	  this.handleCommit = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
+	    var mutationProps, mutation;
+	    return regeneratorRuntime.wrap(function _callee$(_context) {
+	      while (1) {
+	        switch (_context.prev = _context.next) {
+	          case 0:
+	            mutationProps = _extends({}, _this2.state, {
+	              topic: _this2.props.topic,
+	              admin: _this2.props.admin
+	            });
+	            mutation = _this2.props.topic ? new _mutations.UpdateTopicMutation(mutationProps) : new _mutations.CreateTopicMutation(mutationProps);
+	            _context.prev = 2;
+	            _context.next = 5;
+	            return new Promise(function (done, fail) {
+	              _Environment2.default.commitUpdate(mutation, {
+	                onSuccess: done,
+	                onFailure: fail
+	              });
+	            });
+
+	          case 5:
+
+	            _this2.props.onDone && _this2.props.onDone();
+	            _context.next = 11;
+	            break;
+
+	          case 8:
+	            _context.prev = 8;
+	            _context.t0 = _context['catch'](2);
+
+	            console.error(_context.t0);
+
+	          case 11:
+	          case 'end':
+	            return _context.stop();
+	        }
+	      }
+	    }, _callee, _this2, [[2, 8]]);
+	  }));
+
+	  this.handleFieldChange = function (name) {
+	    return function (event, value) {
+	      return _this2.setState(_defineProperty({}, name, value));
+	    };
+	  };
+
+	  this.render = function () {
+	    var children = [_this2.renderNameField(), _this2.renderDescriptionField()];
+
+	    return _react2.default.createElement(
+	      _Dialog2.default,
+	      {
+	        title: _this2.props.topic ? "Update topic" : "Create topic",
+	        actions: _this2.renderActions(),
+	        open: _this2.props.open,
+	        onRequestClose: _this2.props.onCancel
+	      },
+	      children
+	    );
+	  };
+
+	  this.renderActions = function () {
+	    return [_react2.default.createElement(_FlatButton2.default, {
+	      label: 'Cancel',
+	      onTouchTap: _this2.props.onCancel,
+	      secondary: true
+	    }), _react2.default.createElement(_FlatButton2.default, {
+	      label: 'Save',
+	      onTouchTap: _this2.handleCommit,
+	      disabled: _this2.changedFields().length === 0,
+	      primary: true
+	    })];
+	  };
+
+	  this.renderNameField = function () {
+	    return _react2.default.createElement(_TextField2.default, {
+	      key: 'name',
+	      name: 'name',
+	      floatingLabelText: 'Name',
+	      onChange: _this2.handleFieldChange('name'),
+	      value: _this2.state.name,
+	      autoFocus: true
+	    });
+	  };
+
+	  this.renderDescriptionField = function () {
+	    return _react2.default.createElement(_TextField2.default, {
+	      key: 'description',
+	      name: 'description',
+	      floatingLabelText: 'Description',
+	      onChange: _this2.handleFieldChange('description'),
+	      value: _this2.state.description,
+	      fullWidth: true,
+	      multiLine: true
+	    });
+	  };
+	};
+
 	exports.default = _reactRelay2.default.createContainer(TopicForm, {
 
 	  fragments: {
 	    topic: function topic() {
-	      return function () {
+	      return function (RQL_0) {
 	        return {
-	          children: [{
+	          children: [].concat.apply([], [{
 	            fieldName: 'id',
 	            kind: 'Field',
 	            metadata: {
@@ -80067,34 +81778,34 @@
 	            kind: 'Field',
 	            metadata: {},
 	            type: 'String'
-	          }],
+	          }, _reactRelay2.default.QL.__frag(RQL_0)]),
 	          id: _reactRelay2.default.QL.__id(),
 	          kind: 'Fragment',
 	          metadata: {},
 	          name: 'Form_TopicRelayQL',
 	          type: 'Topic'
 	        };
-	      }();
+	      }(_mutations.UpdateTopicMutation.getFragment('topic'));
 	    },
 
 	    admin: function admin() {
-	      return function () {
+	      return function (RQL_0, RQL_1) {
 	        return {
-	          children: [{
+	          children: [].concat.apply([], [{
 	            fieldName: 'id',
 	            kind: 'Field',
 	            metadata: {
 	              isRequisite: true
 	            },
 	            type: 'ID'
-	          }],
+	          }, _reactRelay2.default.QL.__frag(RQL_0), _reactRelay2.default.QL.__frag(RQL_1)]),
 	          id: _reactRelay2.default.QL.__id(),
 	          kind: 'Fragment',
 	          metadata: {},
 	          name: 'Form_AdminRelayQL',
 	          type: 'Admin'
 	        };
-	      }();
+	      }(_mutations.CreateTopicMutation.getFragment('admin'), _mutations.UpdateTopicMutation.getFragment('admin'));
 	    }
 	  }
 
@@ -80102,7 +81813,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 705 */
+/* 713 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80162,11 +81873,11 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 706 */
+/* 714 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var invariant = __webpack_require__(707);
-	var defaultClickRejectionStrategy = __webpack_require__(708);
+	/* WEBPACK VAR INJECTION */(function(process) {var invariant = __webpack_require__(715);
+	var defaultClickRejectionStrategy = __webpack_require__(716);
 
 	var alreadyInjected = false;
 
@@ -80188,14 +81899,14 @@
 	  alreadyInjected = true;
 
 	  __webpack_require__(42).injection.injectEventPluginsByName({
-	    'TapEventPlugin':       __webpack_require__(709)(shouldRejectClick)
+	    'TapEventPlugin':       __webpack_require__(717)(shouldRejectClick)
 	  });
 	};
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 707 */
+/* 715 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -80250,7 +81961,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 708 */
+/* 716 */
 /***/ function(module, exports) {
 
 	module.exports = function(lastTouchEvent, clickTimestamp) {
@@ -80261,7 +81972,7 @@
 
 
 /***/ },
-/* 709 */
+/* 717 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80289,10 +82000,10 @@
 	var EventPluginUtils = __webpack_require__(44);
 	var EventPropagators = __webpack_require__(41);
 	var SyntheticUIEvent = __webpack_require__(69);
-	var TouchEventUtils = __webpack_require__(710);
+	var TouchEventUtils = __webpack_require__(718);
 	var ViewportMetrics = __webpack_require__(70);
 
-	var keyOf = __webpack_require__(711);
+	var keyOf = __webpack_require__(719);
 	var topLevelTypes = EventConstants.topLevelTypes;
 
 	var isStartish = EventPluginUtils.isStartish;
@@ -80437,7 +82148,7 @@
 
 
 /***/ },
-/* 710 */
+/* 718 */
 /***/ function(module, exports) {
 
 	/**
@@ -80485,7 +82196,7 @@
 
 
 /***/ },
-/* 711 */
+/* 719 */
 /***/ function(module, exports) {
 
 	/**
