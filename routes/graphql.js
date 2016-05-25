@@ -12,20 +12,10 @@ import {
 } from '../storage'
 
 import path from 'path'
-import bunyan from 'bunyan'
 
 import cors from 'cors'
 import graphqlHTTP from 'express-graphql'
 import GraphQLSchema from '../graphql/schema'
-
-let logger = bunyan.createLogger({
-  name: 'graphql',
-  streams: [
-    {
-      path: path.join(__dirname, '../logs/graphql.log')
-    }
-  ]
-})
 
 let router = Router()
 
@@ -96,7 +86,6 @@ let deviceAuthorizer = async (req, res, next) => {
 let deviceLogger = async (req, res, next) => {
   let deviceID = req.get('X-Device-Id')
   if (!deviceID) return next()
-  logger.info({ deviceID, query: req.body.query, variables: req.body.variables })
   next()
 }
 

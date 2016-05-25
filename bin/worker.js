@@ -1,17 +1,7 @@
 import kue from 'kue'
 import path from 'path'
-import bunyan from 'bunyan'
 import tasks from '../Tasks'
 
-
-let logger = bunyan.createLogger({
-  name: 'graphql',
-  streams: [
-    {
-      path: path.join(__dirname, '../logs/worker.log')
-    }
-  ]
-})
 
 const Queue = kue.createQueue({
   prefix: 'mentor-server-queue'
@@ -20,8 +10,6 @@ const Queue = kue.createQueue({
 
 let createJob = (name, payload, force) => {
   let task = tasks[name]
-
-  logger.info({ name, payload }, 'ENQUEUE')
 
   let job = Queue.create(name, payload || {}).removeOnComplete(true)
 
