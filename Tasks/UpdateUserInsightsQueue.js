@@ -34,7 +34,7 @@ const Data = {
   },
   telegramUser: {
     InitialQueueSize: 3,
-    MaxQueueSize:     3,
+    MaxQueueSize:     1,
     QueueFillRate:    1 / (20 * 60 * 1000)
   }
 }
